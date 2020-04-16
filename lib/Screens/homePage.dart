@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:company_task/Block/Block.dart';
+import 'package:company_task/Screens/items.dart';
 import 'package:company_task/models/eventModel.dart';
 import 'package:company_task/provider/taskData.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,6 +16,8 @@ import '../models/topDonatersmodel.dart';
 import '../models/charityModel.dart';
 
 class HomePage extends StatefulWidget {
+  static const String id = 'home_page';
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -30,7 +33,6 @@ class _HomePageState extends State<HomePage> {
     _bloc.fetchEvent();
     _bloc.fetchTopDonators();
     _bloc.fetchcharity();
-
   }
 
   @override
@@ -74,8 +76,7 @@ class _HomePageState extends State<HomePage> {
                                   width:
                                       MediaQuery.of(context).size.width / 1.5,
                                   height: 60,
-                                  child:
-                                  TextField(
+                                  child: TextField(
                                     decoration: InputDecoration(
                                       hintText: 'Find your needs',
                                       suffixIcon: IconButton(
@@ -148,8 +149,10 @@ class _HomePageState extends State<HomePage> {
                                 scrollDirection: Axis.horizontal,
                                 children: <Widget>[
                                   categoryWedgit(
-                                    onTap: (){
-                                      Provider.of<TaskData>(context).item(context);
+                                    onTap: () {
+//                                      Provider.of<TaskData>(context)
+//                                          .item(context);
+                                      Navigator.pushNamed(context, Items.id);
                                     },
                                     categoryName: "Medicen",
                                   ),
@@ -430,7 +433,9 @@ class TopDonaorsList extends StatelessWidget {
   final String name;
   final String image;
   final String field;
+
   TopDonaorsList({this.name, this.field, this.image});
+
   @override
   Widget build(BuildContext context) {
     var x = (MediaQuery.of(context).orientation == Orientation.portrait);
@@ -501,6 +506,7 @@ class TopDonaorsList extends StatelessWidget {
 
 class categoryWedgit extends StatelessWidget {
   categoryWedgit({this.categoryName, this.onTap});
+
   Function onTap;
   String categoryName;
 
@@ -668,8 +674,7 @@ class EventHeader extends StatelessWidget {
                               right: 10,
                               top: x ? 135 : 230,
                               child: FlatButton(
-
-                                    shape: CircleBorder(),
+                                shape: CircleBorder(),
                                 onPressed: () {
                                   showModalBottomSheet(
                                     context: context,
@@ -690,8 +695,7 @@ class EventHeader extends StatelessWidget {
                                               right: 30,
                                               child: RaisedButton(
                                                 shape: CircleBorder(),
-                                                color:
-                                                    Color(0xffF9A110),
+                                                color: Color(0xffF9A110),
                                                 child: Icon(
                                                   Icons.bookmark_border,
                                                   size: 30,
@@ -714,180 +718,277 @@ class EventHeader extends StatelessWidget {
                                                   )),
                                             ),
                                             Positioned(
-                                                top: 120,
-                                                left: 0,
-                                                child: Container(
-                                                  width: MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 0),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: <Widget>[
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                            left: 20,
-                                                          ),
-                                                          child: Container(
-                                                            width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width /
-                                                                1.1,
-                                                            child: Row(
-                                                              children: <
-                                                                  Widget>[
-                                                                Text(
-                                                                  "Organized by: ",
-                                                                  style:
-                                                                      HomelittleHeadreStyle,
-                                                                ),
-                                                                Text(
-                                                                  "Sona3 El hua",
-                                                                  style:
-                                                                      HomeHeadreStyle,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
+                                              top: 120,
+                                              left: 0,
+                                              child: Container(
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 0),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: <Widget>[
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                          left: 20,
                                                         ),
-                                                        SliderEvent(data: data),
-                                                        Container(
-                                                          width: MediaQuery.of(context).size.width,
-                                                          child: Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            mainAxisAlignment: MainAxisAlignment.start,
+                                                        child: Container(
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width /
+                                                              1.1,
+                                                          child: Row(
                                                             children: <Widget>[
-                                                              Row(
-                                                                children: <Widget>[
-                                                                  SizedBox(width: 50,),
-                                                                  Text("Raisd so far",style: litteleHeadLine,),
-                                                                  Spacer(),
-                                                                  Text("Target",style: litteleHeadLine,),
-                                                                  SizedBox(width: 50,),
-                                                                ],
+                                                              Text(
+                                                                "Organized by: ",
+                                                                style:
+                                                                    HomelittleHeadreStyle,
                                                               ),
-                                                              SizedBox(height: 5,),
-                                                              Row(
-                                                                children: <Widget>[
-                                                                  SizedBox(width: 65,),
-                                                                  Text(
-                                                                    "${data.amount}",
-                                                                    style: TextStyle(
-                                                                        fontWeight: FontWeight.bold),
-                                                                  ),
-
-                                                                  Spacer(),
-                                                                  Text(
-                                                                      "(%${((data.amount / data.need) * 100).round()})",
-                                                                      style: TextStyle(
-                                                                          fontWeight: FontWeight.w300)),
-                                                                  SizedBox(width: 50,),
-                                                                ],
+                                                              Text(
+                                                                "Sona3 El hua",
+                                                                style:
+                                                                    HomeHeadreStyle,
                                                               ),
                                                             ],
                                                           ),
                                                         ),
-                                                        Divider(),
-                                                        Center(
-                                                          child: Container(
-                                                            height: 260,
-                                                          color: Color(0xffe6e6ea),
-                                                                    width: MediaQuery.of(context).size.width*.9,
-//                                                              color: Colors.red,
-                                                            child: ListView(
-                                                              shrinkWrap: true,
-                                                              children: <Widget>[
-                                                                Padding(
-                                                                  padding: const EdgeInsets.only(bottom: 20),
-                                                                  child: Text("Recent donors",style: litteleHeadLine,),
+                                                      ),
+                                                      SliderEvent(data: data),
+                                                      Container(
+                                                        width: MediaQuery.of(
+                                                                context)
+                                                            .size
+                                                            .width,
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          children: <Widget>[
+                                                            Row(
+                                                              children: <
+                                                                  Widget>[
+                                                                SizedBox(
+                                                                  width: 50,
                                                                 ),
-
-                                                                Row(
-                                                                      children: <Widget>[
-                                                                        CircleAvatar(
-                                                                          radius: 35,
-                                                                          backgroundImage: AssetImage("assets/me.jpg"),
-                                                                        ),
-                                                                        Spacer(flex: 1,),
-                                                                        CircleAvatar(
-                                                                          radius: 32,
-                                                                          backgroundImage: AssetImage("assets/me.jpg"),
-                                                                        ),
-                                                                        Spacer(flex: 1,),
-                                                                        CircleAvatar(
-                                                                          radius: 30,
-                                                                          backgroundImage: AssetImage("assets/me.jpg"),
-                                                                        ),
-                                                                        Spacer(flex: 1,),
-                                                                        CircleAvatar(
-                                                                          radius: 27,
-                                                                          backgroundImage: AssetImage("assets/me.jpg"),
-                                                                        ),
-                                                                        Spacer(flex: 1,),
-                                                                        CircleAvatar(
-                                                                          radius: 24,
-                                                                          backgroundColor: Color(0xffF9A110),
-                                                                          child: Text("99+",style: TextStyle(color: Colors.white),),
-
-                                                                        ),
-                                                                        Spacer(flex: 2,),
-
-                                                                      ],
-                                                                    ),
-                                                                SizedBox(height: 20,),
-                                                                Padding(
-                                                                  padding: const EdgeInsets.only(right: 200),
-                                                                  child: Container(
-                                                                    height: 50,
-                                                                    decoration: BoxDecoration(
-                                                                      borderRadius: BorderRadius.circular(20),
-                                                                      color: Colors.white,
-                                                                    ),
-                                                                    child: Center(child: Text("Event Details",style: HomeHeadreStyle,)),
-                                                                  ),
+                                                                Text(
+                                                                  "Raisd so far",
+                                                                  style:
+                                                                      litteleHeadLine,
                                                                 ),
-                                                                SizedBox(height: 20,),
-
-                                                                Text("This event is about bulding a mosqueue in "),
-                                                                Text("quisna where there is no mosque to help people "),
-                                                                Text("to pray try to help us bulding god hous in earth"),
-                                                                Text("god build u house in heven "),
-
-                                                                SizedBox(height: 90,)
+                                                                Spacer(),
+                                                                Text(
+                                                                  "Target",
+                                                                  style:
+                                                                      litteleHeadLine,
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 50,
+                                                                ),
                                                               ],
                                                             ),
+                                                            SizedBox(
+                                                              height: 5,
+                                                            ),
+                                                            Row(
+                                                              children: <
+                                                                  Widget>[
+                                                                SizedBox(
+                                                                  width: 65,
+                                                                ),
+                                                                Text(
+                                                                  "${data.amount}",
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold),
+                                                                ),
+                                                                Spacer(),
+                                                                Text(
+                                                                    "(%${((data.amount / data.need) * 100).round()})",
+                                                                    style: TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight.w300)),
+                                                                SizedBox(
+                                                                  width: 50,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Divider(),
+                                                      Center(
+                                                        child: Container(
+                                                          height: 260,
+                                                          color:
+                                                              Color(0xffe6e6ea),
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width *
+                                                              .9,
+//                                                              color: Colors.red,
+                                                          child: ListView(
+                                                            shrinkWrap: true,
+                                                            children: <Widget>[
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
+                                                                        bottom:
+                                                                            20),
+                                                                child: Text(
+                                                                  "Recent donors",
+                                                                  style:
+                                                                      litteleHeadLine,
+                                                                ),
+                                                              ),
+                                                              Row(
+                                                                children: <
+                                                                    Widget>[
+                                                                  CircleAvatar(
+                                                                    radius: 35,
+                                                                    backgroundImage:
+                                                                        AssetImage(
+                                                                            "assets/me.jpg"),
+                                                                  ),
+                                                                  Spacer(
+                                                                    flex: 1,
+                                                                  ),
+                                                                  CircleAvatar(
+                                                                    radius: 32,
+                                                                    backgroundImage:
+                                                                        AssetImage(
+                                                                            "assets/me.jpg"),
+                                                                  ),
+                                                                  Spacer(
+                                                                    flex: 1,
+                                                                  ),
+                                                                  CircleAvatar(
+                                                                    radius: 30,
+                                                                    backgroundImage:
+                                                                        AssetImage(
+                                                                            "assets/me.jpg"),
+                                                                  ),
+                                                                  Spacer(
+                                                                    flex: 1,
+                                                                  ),
+                                                                  CircleAvatar(
+                                                                    radius: 27,
+                                                                    backgroundImage:
+                                                                        AssetImage(
+                                                                            "assets/me.jpg"),
+                                                                  ),
+                                                                  Spacer(
+                                                                    flex: 1,
+                                                                  ),
+                                                                  CircleAvatar(
+                                                                    radius: 24,
+                                                                    backgroundColor:
+                                                                        Color(
+                                                                            0xffF9A110),
+                                                                    child: Text(
+                                                                      "99+",
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              Colors.white),
+                                                                    ),
+                                                                  ),
+                                                                  Spacer(
+                                                                    flex: 2,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              SizedBox(
+                                                                height: 20,
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
+                                                                        right:
+                                                                            200),
+                                                                child:
+                                                                    Container(
+                                                                  height: 50,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            20),
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                  child: Center(
+                                                                      child:
+                                                                          Text(
+                                                                    "Event Details",
+                                                                    style:
+                                                                        HomeHeadreStyle,
+                                                                  )),
+                                                                ),
+                                                              ),
+                                                              SizedBox(
+                                                                height: 20,
+                                                              ),
+                                                              Text(
+                                                                  "This event is about bulding a mosqueue in "),
+                                                              Text(
+                                                                  "quisna where there is no mosque to help people "),
+                                                              Text(
+                                                                  "to pray try to help us bulding god hous in earth"),
+                                                              Text(
+                                                                  "god build u house in heven "),
+                                                              SizedBox(
+                                                                height: 90,
+                                                              )
+                                                            ],
                                                           ),
-                                                        )
-                                                      ],
-                                                    ),
+                                                        ),
+                                                      )
+                                                    ],
                                                   ),
                                                 ),
+                                              ),
                                             ),
                                             Positioned(
                                               bottom: 10,
                                               right: 10,
-                                              child:
-                                            MaterialButton(onPressed: (){},
-                                              shape: RoundedRectangleBorder(
-
-                                                side: BorderSide(width: 3,color: Colors.white ,style: BorderStyle.solid),
-                                              borderRadius: BorderRadius.all(Radius.circular(30),),),
-                                              height: 40,
-                                              minWidth: 100,
-                                              child: Text("Donate",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-                                                   elevation: 5,
-                                                 color: Colors.black,
-
-
-                                            ),
+                                              child: MaterialButton(
+                                                onPressed: () {},
+                                                shape: RoundedRectangleBorder(
+                                                  side: BorderSide(
+                                                      width: 3,
+                                                      color: Colors.white,
+                                                      style: BorderStyle.solid),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(30),
+                                                  ),
+                                                ),
+                                                height: 40,
+                                                minWidth: 100,
+                                                child: Text(
+                                                  "Donate",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                elevation: 5,
+                                                color: Colors.black,
+                                              ),
                                             )
                                           ],
                                         ),

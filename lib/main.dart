@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:company_task/Screens/homePage.dart';
+import 'package:company_task/Screens/items.dart';
 import 'package:company_task/provider/taskData.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +21,13 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => TaskData(),
       child: MaterialApp(
-          home:HomePage()
+          //home:HomePage(),
+         initialRoute: HomePage.id,
+          routes: {
+                HomePage.id:(context)=>HomePage(),
+                Items.id:(context)=>Items(),
+          },
+
       ),
     );  }
 }
