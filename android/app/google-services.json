@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "578972779596",
+    "firebase_url": "https://graduation-e4b90.firebaseio.com",
+    "project_id": "graduation-e4b90",
+    "storage_bucket": "graduation-e4b90.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:578972779596:android:d258423df7a1de4ddbe0e9",
+        "android_client_info": {
+          "package_name": "com.khira.company_task"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "578972779596-u6pum0q2evto58ev1m4hhj7lqri8lieq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARu_MpnKet95Wq5km7tHwRBMGNZjqh14w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "578972779596-u6pum0q2evto58ev1m4hhj7lqri8lieq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
