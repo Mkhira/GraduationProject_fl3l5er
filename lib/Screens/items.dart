@@ -9,13 +9,15 @@ import '../Block/Block.dart';
 import '../style/conist.dart';
 
 class Items extends StatefulWidget {
+  static const String id='items';
   @override
   _ItemsState createState() => _ItemsState();
 }
 
 class _ItemsState extends State<Items> {
   Bloc _bloc;
-  String x= '';
+  String x = '';
+
   @override
   void initState() {
     // TODO: implement initState
@@ -23,14 +25,13 @@ class _ItemsState extends State<Items> {
     Bloc();
     _bloc = Bloc();
     _bloc.fetchMedicine();
-
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          backgroundColor: maincolor,
+      backgroundColor: maincolor,
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -50,103 +51,120 @@ class _ItemsState extends State<Items> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      FloatingActionButton(onPressed: (){},heroTag: "vc",child: Icon(Icons.add,color: secodcolor,size: 40,),
-                      elevation: 3,
+                      FloatingActionButton(
+                        onPressed: () {},
+                        heroTag: "vc",
+                        child: Icon(
+                          Icons.add,
+                          color: secodcolor,
+                          size: 40,
+                        ),
+                        elevation: 3,
                         backgroundColor: Colors.white,
                       ),
                       Spacer(
                         flex: 2,
                       ),
                       Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.white,
-                          ),
-                          width:
-                          MediaQuery.of(context).size.width / 1.6,
-                          height: 60,
-                          child:
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              SizedBox(width: 5,),
-                              GestureDetector(
-                                key: Provider.of<TaskData>(context).actionKey,
-                                onTap: (){
-                                  if(Provider.of<TaskData>(context).isDropdownOpened){
-                                    Provider.of<TaskData>(context).floatingDropdown.remove();
-                                  }else{
-                                  Provider.of<TaskData>(context).floatingDropdown =Provider.of<TaskData>(context).createFloatingDropdown();
-                                  Overlay.of(context).insert(Provider.of<TaskData>(context).floatingDropdown);
-                                  Provider.of<TaskData>(context).findDropdownData();
-                                   }
-                                  Provider.of<TaskData>(context).changeDropdownOpenedState();
-
-                                },
-                                child: Container(
-                                  width: 20,
-                                  height: 60,
-                                  child: Icon(Icons.format_align_left,size: 30,color: Colors.grey,),
-                                ),
-                              ),
-                                 Spacer(),
-                              Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
+                        ),
+                        width: MediaQuery.of(context).size.width / 1.6,
+                        height: 60,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(
+                              width: 5,
+                            ),
+                            GestureDetector(
+                              key: Provider.of<TaskData>(context).actionKey,
+                              onTap: () {
+                                if (Provider.of<TaskData>(context)
+                                    .isDropdownOpened) {
+                                  Provider.of<TaskData>(context)
+                                      .floatingDropdown
+                                      .remove();
+                                } else {
+                                  Provider.of<TaskData>(context)
+                                          .floatingDropdown =
+                                      Provider.of<TaskData>(context)
+                                          .createFloatingDropdown();
+                                  Overlay.of(context).insert(
+                                      Provider.of<TaskData>(context)
+                                          .floatingDropdown);
+                                  Provider.of<TaskData>(context)
+                                      .findDropdownData();
+                                }
+                                Provider.of<TaskData>(context)
+                                    .changeDropdownOpenedState();
+                              },
+                              child: Container(
+                                width: 20,
                                 height: 60,
-                                width:    MediaQuery.of(context).size.width / 1.9,
-
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top:6.0),
-                                  child: StreamBuilder(
-                                      stream: _bloc.textStream,
-                                      builder: (context, snapshot){
-                                        return TextField(
-                                          onChanged:(String text){
-                                            setState(() {
-                                              _bloc.updateText(text);
-
-                                              print(_bloc.textController.value.length);
-
-                                              x =text;
-
-                                              if(_bloc.textController.value.length >=1){
-                                                _bloc.search();
-                                              }else if(_bloc.textController.value.length == 0 || _bloc.textController.value.trim()=="" || _bloc.textController.value == null){
-                                                _bloc.fetchMedicine();
-                                              }
-
-                                            });
-                                          },
-
-
-
-
-
-
-                                          decoration: InputDecoration(
-
-                                            hintText: 'Find your needs',
-                                            suffixIcon: IconButton(
-                                              icon: Icon(
-                                                Icons.search,
-                                                color: Colors.grey,
-                                              ),
-                                              onPressed: () {
-                                                setState(() {
-                                                });
-                                              },
-                                            ),
-                                            border: InputBorder.none,
-                                          ),
-                                        );
-                                      }),
+                                child: Icon(
+                                  Icons.format_align_left,
+                                  size: 30,
+                                  color: Colors.grey,
                                 ),
                               ),
-                            ],
-                          )
-                          ,
+                            ),
+                            Spacer(),
+                            Container(
+                              height: 60,
+                              width: MediaQuery.of(context).size.width / 1.9,
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 6.0),
+                                child: StreamBuilder(
+                                    stream: _bloc.textStream,
+                                    builder: (context, snapshot) {
+                                      return TextField(
+                                        onChanged: (String text) {
+                                          setState(() {
+                                            _bloc.updateText(text);
 
+                                            print(_bloc
+                                                .textController.value.length);
 
+                                            x = text;
+
+                                            if (_bloc.textController.value
+                                                    .length >=
+                                                1) {
+                                              _bloc.search();
+                                            } else if (_bloc.textController
+                                                        .value.length ==
+                                                    0 ||
+                                                _bloc.textController.value
+                                                        .trim() ==
+                                                    "" ||
+                                                _bloc.textController.value ==
+                                                    null) {
+                                              _bloc.fetchMedicine();
+                                            }
+                                          });
+                                        },
+                                        decoration: InputDecoration(
+                                          hintText: 'Find your needs',
+                                          suffixIcon: IconButton(
+                                            icon: Icon(
+                                              Icons.search,
+                                              color: Colors.grey,
+                                            ),
+                                            onPressed: () {
+                                              setState(() {});
+                                            },
+                                          ),
+                                          border: InputBorder.none,
+                                        ),
+                                      );
+                                    }),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       Spacer(
                         flex: 2,
@@ -168,251 +186,350 @@ class _ItemsState extends State<Items> {
                 ),
               ),
             ),
-
             Padding(
-              padding: const EdgeInsets.only(left:10.0,right: 10),
+              padding: const EdgeInsets.only(left: 10.0, right: 10),
               child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 650,
-                child: (_bloc.textController.value == null || _bloc.textController.value.trim()=="" ||_bloc.textController.value.length == 0 )?
-                StreamBuilder<List<MedicineModel>>(
-                  stream: _bloc.streamMedicine ,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return new StaggeredGridView.countBuilder(
-                        crossAxisCount: 4,
-                        itemCount: snapshot.data.length,
-                        shrinkWrap: true,
-                        addAutomaticKeepAlives:true ,
-                        itemBuilder: (BuildContext context, index) {
-                          var data = snapshot.data[index];
+                  width: MediaQuery.of(context).size.width,
+                  height: 650,
+                  child: (_bloc.textController.value == null ||
+                          _bloc.textController.value.trim() == "" ||
+                          _bloc.textController.value.length == 0)
+                      ? StreamBuilder<List<MedicineModel>>(
+                          stream: _bloc.streamMedicine,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return new StaggeredGridView.countBuilder(
+                                crossAxisCount: 4,
+                                itemCount: snapshot.data.length,
+                                shrinkWrap: true,
+                                addAutomaticKeepAlives: true,
+                                itemBuilder: (BuildContext context, index) {
+                                  var data = snapshot.data[index];
 
-                          return
-                            Material(
-                            borderRadius: BorderRadius.circular(20),
-                            elevation: 4,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: secodcolor,
-                              ),
-                              child: Stack(
-                                children: <Widget>[
-                                  Positioned(
-                                    top: 0,
-                                    left: 0,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(20),
-                                      child: CachedNetworkImage(
-                                        imageUrl: data.imageUrl,
-                                        width: MediaQuery.of(context)
-                                            .size
-                                            .width /2.18,
-                                        height:  180,
-                                        fit: BoxFit.cover,
-                                        placeholder: (context,
-                                            url) =>
-                                            CircularProgressIndicator(),
-                                        errorWidget:
-                                            (context, url, error) =>
-                                            Icon(Icons.error),
-                                        placeholderFadeInDuration:
-                                        Duration(days: 30),
-                                        useOldImageOnUrlChange:
-                                        true,
-                                        filterQuality:
-                                        FilterQuality.low,
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 195,
-                                    left: 15,
+                                  return Material(
+                                    borderRadius: BorderRadius.circular(20),
+                                    elevation: 4,
                                     child: Container(
-                                      width: MediaQuery.of(context).size.width/2.2,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Text("Name: ",style: TextStyle(color: Colors.white),),
-                                          Text("${data.name}",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 220,
-                                    left: 15,
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width/2.2,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Text("Owner: ",style: TextStyle(color: Colors.white),),
-                                          Text("${data.owner}",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 245,
-                                    left: 15,
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width/2.2,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Text("Phone: ",style: TextStyle(color: Colors.white),),
-                                          Text("${data.phone}",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 270,
-                                    left: 15,
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width/2.2,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Text("State: ",style: TextStyle(color: Colors.white),),
-                                          Text("${data.state}",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                        staggeredTileBuilder: (data) =>
-                            new StaggeredTile.count(2, data.isEven ? 3.25 : 3),
-                        mainAxisSpacing: 15.0,
-                        crossAxisSpacing: 15.0,
-                      );
-
-
-                    } else
-                      return Container();
-                  },
-                ) :
-                StreamBuilder<List<MedicineModel>>(
-                  stream: _bloc.streamMedicinesearch ,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return new StaggeredGridView.countBuilder(
-                        crossAxisCount: 4,
-                        itemCount: snapshot.data.length,
-                        shrinkWrap: true,
-                        addAutomaticKeepAlives:true ,
-                        itemBuilder: (BuildContext context, index) {
-                          var data = snapshot.data[index];
-
-                          return
-                            Material(
-                              borderRadius: BorderRadius.circular(20),
-                              elevation: 4,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: secodcolor,
-                                ),
-                                child: Stack(
-                                  children: <Widget>[
-                                    Positioned(
-                                      top: 0,
-                                      left: 0,
-                                      child: ClipRRect(
+                                      decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20),
-                                        child: CachedNetworkImage(
-                                          imageUrl: data.imageUrl,
-                                          width: MediaQuery.of(context)
-                                              .size
-                                              .width /2.18,
-                                          height:  180,
-                                          fit: BoxFit.cover,
-                                          placeholder: (context,
-                                              url) =>
-                                              CircularProgressIndicator(),
-                                          errorWidget:
-                                              (context, url, error) =>
-                                              Icon(Icons.error),
-                                          placeholderFadeInDuration:
-                                          Duration(days: 30),
-                                          useOldImageOnUrlChange:
-                                          true,
-                                          filterQuality:
-                                          FilterQuality.low,
-                                        ),
+                                        color: secodcolor,
+                                      ),
+                                      child: Stack(
+                                        children: <Widget>[
+                                          Positioned(
+                                            top: 0,
+                                            left: 0,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              child: CachedNetworkImage(
+                                                imageUrl: data.imageUrl,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    2.18,
+                                                height: 180,
+                                                fit: BoxFit.cover,
+                                                placeholder: (context, url) =>
+                                                    CircularProgressIndicator(),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Icon(Icons.error),
+                                                placeholderFadeInDuration:
+                                                    Duration(days: 30),
+                                                useOldImageOnUrlChange: true,
+                                                filterQuality:
+                                                    FilterQuality.low,
+                                              ),
+                                            ),
+                                          ),
+                                          Positioned(
+                                            top: 195,
+                                            left: 15,
+                                            child: Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  2.2,
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Text(
+                                                    "Name: ",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                  Text(
+                                                    "${data.name}",
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Positioned(
+                                            top: 220,
+                                            left: 15,
+                                            child: Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  2.2,
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Text(
+                                                    "Owner: ",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                  Text(
+                                                    "${data.owner}",
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Positioned(
+                                            top: 245,
+                                            left: 15,
+                                            child: Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  2.2,
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Text(
+                                                    "Phone: ",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                  Text(
+                                                    "${data.phone}",
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Positioned(
+                                            top: 270,
+                                            left: 15,
+                                            child: Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  2.2,
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Text(
+                                                    "State: ",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                  Text(
+                                                    "${data.state}",
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    Positioned(
-                                      top: 195,
-                                      left: 15,
-                                      child: Container(
-                                        width: MediaQuery.of(context).size.width/2.2,
-                                        child: Row(
-                                          children: <Widget>[
-                                            Text("Name: ",style: TextStyle(color: Colors.white),),
-                                            Text("${data.name}",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      top: 220,
-                                      left: 15,
-                                      child: Container(
-                                        width: MediaQuery.of(context).size.width/2.2,
-                                        child: Row(
-                                          children: <Widget>[
-                                            Text("Owner: ",style: TextStyle(color: Colors.white),),
-                                            Text("${data.owner}",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      top: 245,
-                                      left: 15,
-                                      child: Container(
-                                        width: MediaQuery.of(context).size.width/2.2,
-                                        child: Row(
-                                          children: <Widget>[
-                                            Text("Phone: ",style: TextStyle(color: Colors.white),),
-                                            Text("${data.phone}",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      top: 270,
-                                      left: 15,
-                                      child: Container(
-                                        width: MediaQuery.of(context).size.width/2.2,
-                                        child: Row(
-                                          children: <Widget>[
-                                            Text("State: ",style: TextStyle(color: Colors.white),),
-                                            Text("${data.state}",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                        },
-                        staggeredTileBuilder: (data) =>
-                        new StaggeredTile.count(2, data.isEven ? 3.25 : 3),
-                        mainAxisSpacing: 15.0,
-                        crossAxisSpacing: 15.0,
-                      );
+                                  );
+                                },
+                                staggeredTileBuilder: (data) =>
+                                    new StaggeredTile.count(
+                                        2, data.isEven ? 3.25 : 3),
+                                mainAxisSpacing: 15.0,
+                                crossAxisSpacing: 15.0,
+                              );
+                            } else
+                              return Container();
+                          },
+                        )
+                      : StreamBuilder<List<MedicineModel>>(
+                          stream: _bloc.streamMedicinesearch,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return new StaggeredGridView.countBuilder(
+                                crossAxisCount: 4,
+                                itemCount: snapshot.data.length,
+                                shrinkWrap: true,
+                                addAutomaticKeepAlives: true,
+                                itemBuilder: (BuildContext context, index) {
+                                  var data = snapshot.data[index];
 
-
-                    } else
-                      return Container();
-                  },
-                )
-              ),
-
+                                  return Material(
+                                    borderRadius: BorderRadius.circular(20),
+                                    elevation: 4,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: secodcolor,
+                                      ),
+                                      child: Stack(
+                                        children: <Widget>[
+                                          Positioned(
+                                            top: 0,
+                                            left: 0,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              child: CachedNetworkImage(
+                                                imageUrl: data.imageUrl,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    2.18,
+                                                height: 180,
+                                                fit: BoxFit.cover,
+                                                placeholder: (context, url) =>
+                                                    CircularProgressIndicator(),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Icon(Icons.error),
+                                                placeholderFadeInDuration:
+                                                    Duration(days: 30),
+                                                useOldImageOnUrlChange: true,
+                                                filterQuality:
+                                                    FilterQuality.low,
+                                              ),
+                                            ),
+                                          ),
+                                          Positioned(
+                                            top: 195,
+                                            left: 15,
+                                            child: Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  2.2,
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Text(
+                                                    "Name: ",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                  Text(
+                                                    "${data.name}",
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Positioned(
+                                            top: 220,
+                                            left: 15,
+                                            child: Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  2.2,
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Text(
+                                                    "Owner: ",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                  Text(
+                                                    "${data.owner}",
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Positioned(
+                                            top: 245,
+                                            left: 15,
+                                            child: Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  2.2,
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Text(
+                                                    "Phone: ",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                  Text(
+                                                    "${data.phone}",
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Positioned(
+                                            top: 270,
+                                            left: 15,
+                                            child: Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  2.2,
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Text(
+                                                    "State: ",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                  Text(
+                                                    "${data.state}",
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                                staggeredTileBuilder: (data) =>
+                                    new StaggeredTile.count(
+                                        2, data.isEven ? 3.25 : 3),
+                                mainAxisSpacing: 15.0,
+                                crossAxisSpacing: 15.0,
+                              );
+                            } else
+                              return Container();
+                          },
+                        )),
             ),
             Container(
               height: 100,
@@ -425,14 +542,11 @@ class _ItemsState extends State<Items> {
   }
 }
 
-
 class SearchDropdownMenu extends StatelessWidget {
   final itemHeight;
   Bloc _bloc;
 
   SearchDropdownMenu({this.itemHeight});
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -443,72 +557,84 @@ class SearchDropdownMenu extends StatelessWidget {
           child: ClipPath(
               clipper: ArrowClipper(),
               child: Material(
-
                 elevation: 5,
                 child: Container(
                   height: 20,
                   width: 30,
                   color: Colors.white,
-
                 ),
-              )
-
-          ),
+              )),
         ),
         Align(
           alignment: Alignment.topLeft,
           child: Material(
-            borderRadius: BorderRadius.only(bottomRight: Radius.circular(20),bottomLeft: Radius.circular(20),topRight: Radius.circular(20)),
+            borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(20),
+                bottomLeft: Radius.circular(20),
+                topRight: Radius.circular(20)),
             elevation: 0,
             child: Container(
-              height:2* itemHeight+40,
+              height: 2 * itemHeight + 40,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(bottomRight: Radius.circular(20),bottomLeft: Radius.circular(20),topRight: Radius.circular(20)),
-                  color: Colors.white
-              ),
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(20),
+                      bottomLeft: Radius.circular(20),
+                      topRight: Radius.circular(20)),
+                  color: Colors.white),
               child: Column(
                 children: <Widget>[
-                  DropdownItems(text: "Donate",onPressed: (){
-                    if(Provider.of<TaskData>(context).isDropdownOpened){
-                      Provider.of<TaskData>(context).floatingDropdown.remove();
-                    }
-                    Provider.of<TaskData>(context).changeDropdownOpenedState();
-
-
-                  },),
-                  DropdownItems(text: "Demond",onPressed: (){
-                    if(Provider.of<TaskData>(context).isDropdownOpened){
-                      Provider.of<TaskData>(context).floatingDropdown.remove();
-                    }
-                    Provider.of<TaskData>(context).changeDropdownOpenedState();
-
-
-                  },),
-                  DropdownItems(text: "Name",onPressed: (){
-                    if(Provider.of<TaskData>(context).isDropdownOpened){
-                      Provider.of<TaskData>(context).floatingDropdown.remove();
-                    }
-                    Provider.of<TaskData>(context).changeDropdownOpenedState();
-
-
-                  },),
+                  DropdownItems(
+                    text: "Donate",
+                    onPressed: () {
+                      if (Provider.of<TaskData>(context).isDropdownOpened) {
+                        Provider.of<TaskData>(context)
+                            .floatingDropdown
+                            .remove();
+                      }
+                      Provider.of<TaskData>(context)
+                          .changeDropdownOpenedState();
+                    },
+                  ),
+                  DropdownItems(
+                    text: "Demond",
+                    onPressed: () {
+                      if (Provider.of<TaskData>(context).isDropdownOpened) {
+                        Provider.of<TaskData>(context)
+                            .floatingDropdown
+                            .remove();
+                      }
+                      Provider.of<TaskData>(context)
+                          .changeDropdownOpenedState();
+                    },
+                  ),
+                  DropdownItems(
+                    text: "Name",
+                    onPressed: () {
+                      if (Provider.of<TaskData>(context).isDropdownOpened) {
+                        Provider.of<TaskData>(context)
+                            .floatingDropdown
+                            .remove();
+                      }
+                      Provider.of<TaskData>(context)
+                          .changeDropdownOpenedState();
+                    },
+                  ),
                 ],
               ),
             ),
           ),
         )
       ],
-
     );
   }
 }
 
-class ArrowClipper extends CustomClipper<Path>{
+class ArrowClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = Path();
     path.moveTo(0, size.height);
-    path.lineTo(size.width/2, 0);
+    path.lineTo(size.width / 2, 0);
     path.lineTo(size.width, size.height);
 
     return path;
@@ -521,23 +647,20 @@ class ArrowClipper extends CustomClipper<Path>{
   }
 }
 
-
 class DropdownItems extends StatelessWidget {
   final String text;
   final Function onPressed;
-  DropdownItems({this.text,this.onPressed});
+
+  DropdownItems({this.text, this.onPressed});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(onPressed: onPressed,
-    child: Text(text),
+    return MaterialButton(
+      onPressed: onPressed,
+      child: Text(text),
       height: 50,
       elevation: 3,
       shape: RoundedRectangleBorder(),
     );
   }
 }
-
-
-
-
-
