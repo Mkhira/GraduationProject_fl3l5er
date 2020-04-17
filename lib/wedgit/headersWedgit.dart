@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../style/conist.dart';
+import '../style/constent.dart';
 
 
 
@@ -21,7 +21,7 @@ class topHeader extends StatelessWidget {
             borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(20),
                 bottomLeft: Radius.circular(20)),
-            color: maincolor,
+            color: kMainColor,
           ),
           child: Padding(
             padding:
@@ -49,7 +49,7 @@ class topHeader extends StatelessWidget {
                           children: <Widget>[
                             Text(
                               "Blood Donation",
-                              style: litteleHeadLine,
+                              style: kTitleHeadLine,
                             ),
                             Text(
                               "Mohmed Khira",
@@ -100,12 +100,12 @@ class topHeader extends StatelessWidget {
                       children: <Widget>[
                         Text(
                           "People Need Donation",
-                          style: titelHeader,
+                          style: kTitleHeader,
                         ),
                         Spacer(),
                         Text(
                           "See All",
-                          style: litteleHeadLine,
+                          style: kTitleHeadLine,
                         ),
                       ],
                     ),
@@ -128,7 +128,7 @@ class headerCotainer extends StatelessWidget {
       height: 110,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: secodcolor,
+        color: kSecondColor,
       ),
       child: Padding(
         padding: const EdgeInsets.only(top: 10, left: 15),

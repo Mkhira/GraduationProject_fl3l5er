@@ -1,14 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:company_task/Block/Block.dart';
+import 'package:company_task/Screens/medicine_screen.dart';
+import 'package:company_task/Screens/profile_screen.dart';
 import 'package:company_task/Screens/items.dart';
 import 'package:company_task/models/eventModel.dart';
-import 'package:company_task/provider/taskData.dart';
+import 'package:company_task/provider/info_provider.dart';
+import 'package:company_task/wedgit/main_drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import '../wedgit/caruselWedgit.dart';
-import '../style/conist.dart';
+import '../style/constent.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -47,6 +50,7 @@ class _HomePageState extends State<HomePage> {
     var x = (MediaQuery.of(context).orientation == Orientation.portrait);
     return SafeArea(
         child: Scaffold(
+            drawer: MainDrawer(),
             backgroundColor: Color(0xffe6e6ea),
             body: SingleChildScrollView(
               child: Container(
@@ -99,12 +103,26 @@ class _HomePageState extends State<HomePage> {
                                 flex: 2,
                               ),
                               GestureDetector(
-                                onDoubleTap: () {
-                                  //////////////// open profile
+                                onTap: () {
+                                  Navigator.pushNamed(context,ProfileScreen.id);
                                 },
-                                child: CircleAvatar(
-                                  radius: 30,
-                                  backgroundImage: AssetImage("assets/me.jpg"),
+                                child:Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                  ),
+                                  width: 65.0,
+                                  height: 65.0,
+                                  child: Provider.of<InfoProvider>(context).updatedImage ==
+                                      null
+                                      ? Center()
+                                      : ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: Image.file(
+                                      Provider.of<InfoProvider>(context).updatedImage,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                 ),
                               ),
                               Spacer(
@@ -152,12 +170,14 @@ class _HomePageState extends State<HomePage> {
                                     onTap: () {
 //                                      Provider.of<TaskData>(context)
 //                                          .item(context);
-                                      Navigator.pushNamed(context, Items.id);
+                                     Navigator.pushNamed(context, Items.id);
                                     },
                                     categoryName: "Medicen",
                                   ),
                                   categoryWedgit(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.pushNamed(context,MedicineScreen.id);
+                                    },
                                     categoryName: "Cloth",
                                   ),
                                   categoryWedgit(
@@ -570,7 +590,7 @@ class EventHeader extends StatelessWidget {
                 ),
                 Text(
                   "MORE",
-                  style: HomelittleHeadreStyle,
+                  style: homeLittleHeaderStyle,
                 ),
               ],
             ),
@@ -750,7 +770,7 @@ class EventHeader extends StatelessWidget {
                                                               Text(
                                                                 "Organized by: ",
                                                                 style:
-                                                                    HomelittleHeadreStyle,
+                                                                    homeLittleHeaderStyle,
                                                               ),
                                                               Text(
                                                                 "Sona3 El hua",
@@ -784,13 +804,13 @@ class EventHeader extends StatelessWidget {
                                                                 Text(
                                                                   "Raisd so far",
                                                                   style:
-                                                                      litteleHeadLine,
+                                                                      kTitleHeadLine,
                                                                 ),
                                                                 Spacer(),
                                                                 Text(
                                                                   "Target",
                                                                   style:
-                                                                      litteleHeadLine,
+                                                                      kTitleHeadLine,
                                                                 ),
                                                                 SizedBox(
                                                                   width: 50,
@@ -851,7 +871,7 @@ class EventHeader extends StatelessWidget {
                                                                 child: Text(
                                                                   "Recent donors",
                                                                   style:
-                                                                      litteleHeadLine,
+                                                                      kTitleHeadLine,
                                                                 ),
                                                               ),
                                                               Row(

@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 import 'Validator.dart';
 import 'package:provider/provider.dart';
-import '../provider/taskData.dart';
+import '../provider/info_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import '../models/registerModel.dart';
@@ -135,7 +135,7 @@ class Bloc extends Object with Validator {
 //    final snapShot = await Firestore.instance;
     final snapShot = await Firestore.instance.collection('userData').document(_cardId.value).get();
 
-    if(!snapShot.exists&& _cardId.value != null &&_email.value !=null&& _fristName.value != null &&_lastName.value !=null&& _nickName.value != null &&_password.value !=null&& Provider.of<TaskData>(context).genderReturn() != null ) {
+    if(!snapShot.exists&& _cardId.value != null &&_email.value !=null&& _fristName.value != null &&_lastName.value !=null&& _nickName.value != null &&_password.value !=null&& Provider.of<InfoProvider>(context).genderReturn() != null ) {
       if(_password.value == _confirmPassword.value){
         firestore.collection("userData").document(_cardId.value).setData({
           "email": _email.value,
@@ -147,12 +147,12 @@ class Bloc extends Object with Validator {
               _city.value + "/" + _street.value}",
           "date": _date.value,
           "phone": _phone.value,
-          "jop": (Provider.of<TaskData>(context).jopReturn() == "") ? "" : "${Provider.of<TaskData>(context).jopReturn()}",
-          "gender": "${Provider.of<TaskData>(context).genderReturn()}",
+          "jop": (Provider.of<InfoProvider>(context).jopReturn() == "") ? "" : "${Provider.of<InfoProvider>(context).jopReturn()}",
+          "gender": "${Provider.of<InfoProvider>(context).genderReturn()}",
           "kidsNum": (_numKids.value == null) ?"":_numKids.value,
-          "maritalStatus": (Provider.of<TaskData>(context).stateReturn() == "") ? "" : "${Provider.of<TaskData>(context).stateReturn()}",
+          "maritalStatus": (Provider.of<InfoProvider>(context).stateReturn() == "") ? "" : "${Provider.of<InfoProvider>(context).stateReturn()}",
           "salary":(_salary.value == null) ? "" : _salary.value,
-        }).whenComplete(Provider.of<TaskData>(context).login(context));
+        }).whenComplete(Provider.of<InfoProvider>(context).login(context));
 
       }else{
            passwordNotMatch(context);
@@ -160,7 +160,7 @@ class Bloc extends Object with Validator {
     }if(snapShot.exists){
            idExsits(context);
     }
-    else if(_cardId.value == null ||_email.value ==null|| _fristName.value == null || _lastName.value ==null || _nickName.value == null ||_password.value ==null || Provider.of<TaskData>(context).genderReturn() == "" ){
+    else if(_cardId.value == null ||_email.value ==null|| _fristName.value == null || _lastName.value ==null || _nickName.value == null ||_password.value ==null || Provider.of<InfoProvider>(context).genderReturn() == "" ){
       missingData(context);
 
     }

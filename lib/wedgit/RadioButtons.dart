@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../provider/taskData.dart';
-import '../style/conist.dart';
+import '../provider/info_provider.dart';
+import '../style/constent.dart';
 
 class radioButtonMarital extends StatelessWidget {
   final int value;
@@ -17,13 +17,13 @@ class radioButtonMarital extends StatelessWidget {
         value: value,
         dense: true,
 
-        groupValue: Provider.of<TaskData>(context).selcetedStatus,
+        groupValue: Provider.of<InfoProvider>(context).selcetedStatus,
         title: Text(
           content,
-          style: kradioButton,
+          style: kRadioButton,
         ),
         onChanged: (val) {
-          Provider.of<TaskData>(context).selectedMaritalStatus(val);
+          Provider.of<InfoProvider>(context).selectedMaritalStatus(val);
         },
         activeColor: Colors.green,
       ),
@@ -42,13 +42,13 @@ class radioButtonJop extends StatelessWidget {
       width: 150,
       child: RadioListTile(
         value: value,
-        groupValue: Provider.of<TaskData>(context).selcetedJop,
+        groupValue: Provider.of<InfoProvider>(context).selcetedJop,
         title: Text(
           content,
-          style: kradioButton,
+          style: kRadioButton,
         ),
         onChanged: (vale) {
-          Provider.of<TaskData>(context).selectedJop(vale);
+          Provider.of<InfoProvider>(context).selectedJop(vale);
         },
         activeColor: Colors.green,
       ),
@@ -67,13 +67,13 @@ class radioButtonGender extends StatelessWidget {
       width: 150,
       child: RadioListTile(
         value: value,
-        groupValue: Provider.of<TaskData>(context).selcetedGender,
+        groupValue: Provider.of<InfoProvider>(context).selcetedGender,
         title: Text(
           content,
-          style: kradioButton,
+          style: kRadioButton,
         ),
         onChanged: (value) {
-          Provider.of<TaskData>(context).selectedGender(value);
+          Provider.of<InfoProvider>(context).selectedGender(value);
         },
         activeColor: Colors.green,
       ),

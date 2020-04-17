@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'rigisterWedgit.dart';
 import '../Block/Block.dart';
-import '../style/conist.dart';
+import '../style/constent.dart';
 import 'RadioButtons.dart';
 import 'DateButton.dart';
 

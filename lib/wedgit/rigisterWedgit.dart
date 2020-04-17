@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../Block/Block.dart';
 import 'package:provider/provider.dart';
-import '../provider/taskData.dart';
+import '../provider/info_provider.dart';
 
 
 class RowText extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import '../style/conist.dart';
+import '../style/constent.dart';
 import 'Login.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
         fit:StackFit.expand ,
         children: <Widget>[
           Container(
-            color: maincolor,
+            color: kMainColor,
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -45,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
                             child: Image(image: AssetImage("assets/splash.png"),fit: BoxFit.cover,)),
                       ),
                       SizedBox(height: 20,),
-                      Text("Blood Donation",style: TextStyle(color: secodcolor,fontWeight: FontWeight.bold,fontSize: 20),),
+                      Text("Blood Donation",style: TextStyle(color: kSecondColor,fontWeight: FontWeight.bold,fontSize: 20),),
                     ],
                   ),
                 ),
@@ -54,10 +54,10 @@ class _SplashScreenState extends State<SplashScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    CircularProgressIndicator(backgroundColor: secodcolor),
+                    CircularProgressIndicator(backgroundColor: kSecondColor),
 
                     SizedBox(height: 15,),
-                    Text("It will take less than minunt...",style: TextStyle(color: secodcolor,fontWeight: FontWeight.bold,fontSize: 15),)
+                    Text("It will take less than minunt...",style: TextStyle(color: kSecondColor,fontWeight: FontWeight.bold,fontSize: 15),)
                   ],
                 ),
               )

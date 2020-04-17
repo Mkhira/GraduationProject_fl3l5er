@@ -1,9 +1,9 @@
 
-import 'package:company_task/provider/taskData.dart';
+import 'package:company_task/provider/info_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../style/conist.dart';
+import '../style/constent.dart';
 
 
 
@@ -15,7 +15,7 @@ class BloodListBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TaskData>(
+    return Consumer<InfoProvider>(
       builder: (context, BloodList, chilid) {
         return ListView.builder(
           scrollDirection: Axis.vertical,
@@ -60,7 +60,7 @@ class donationList extends StatelessWidget {
         height: 80,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: maincolor,
+          color: kMainColor,
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -84,7 +84,7 @@ class donationList extends StatelessWidget {
                   ),
                   Text(
                     description,
-                    style: litteleHeadLine,
+                    style: kTitleHeadLine,
                   ),
                 ],
               ),
@@ -97,11 +97,11 @@ class donationList extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     blood,
-                    style: Blood,
+                    style: kBlood,
                   ),
                   Icon(
                     icon,
-                    color: secodcolor,
+                    color: kSecondColor,
                     size: 15,
                   )
                 ],

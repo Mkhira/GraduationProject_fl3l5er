@@ -1,15 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:company_task/Screens/profile_screen.dart';
 import 'package:company_task/models/medicenModel.dart';
-import 'package:company_task/provider/taskData.dart';
+import 'package:company_task/provider/info_provider.dart';
+import 'package:company_task/wedgit/main_drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import '../Block/Block.dart';
-import '../style/conist.dart';
+import '../style/constent.dart';
 
 class Items extends StatefulWidget {
-  static const String id='items';
+  static const String id = 'items';
+
   @override
   _ItemsState createState() => _ItemsState();
 }
@@ -31,7 +34,8 @@ class _ItemsState extends State<Items> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      backgroundColor: maincolor,
+      drawer: MainDrawer(),
+      backgroundColor: kMainColor,
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -56,7 +60,7 @@ class _ItemsState extends State<Items> {
                         heroTag: "vc",
                         child: Icon(
                           Icons.add,
-                          color: secodcolor,
+                          color: kSecondColor,
                           size: 40,
                         ),
                         elevation: 3,
@@ -80,25 +84,25 @@ class _ItemsState extends State<Items> {
                               width: 5,
                             ),
                             GestureDetector(
-                              key: Provider.of<TaskData>(context).actionKey,
+                              key: Provider.of<InfoProvider>(context).actionKey,
                               onTap: () {
-                                if (Provider.of<TaskData>(context)
+                                if (Provider.of<InfoProvider>(context)
                                     .isDropdownOpened) {
-                                  Provider.of<TaskData>(context)
+                                  Provider.of<InfoProvider>(context)
                                       .floatingDropdown
                                       .remove();
                                 } else {
-                                  Provider.of<TaskData>(context)
+                                  Provider.of<InfoProvider>(context)
                                           .floatingDropdown =
-                                      Provider.of<TaskData>(context)
+                                      Provider.of<InfoProvider>(context)
                                           .createFloatingDropdown();
                                   Overlay.of(context).insert(
-                                      Provider.of<TaskData>(context)
+                                      Provider.of<InfoProvider>(context)
                                           .floatingDropdown);
-                                  Provider.of<TaskData>(context)
+                                  Provider.of<InfoProvider>(context)
                                       .findDropdownData();
                                 }
-                                Provider.of<TaskData>(context)
+                                Provider.of<InfoProvider>(context)
                                     .changeDropdownOpenedState();
                               },
                               child: Container(
@@ -170,12 +174,26 @@ class _ItemsState extends State<Items> {
                         flex: 2,
                       ),
                       GestureDetector(
-                        onDoubleTap: () {
-                          //////////////// open profile
+                        onTap: () {
+                          Navigator.pushNamed(context,ProfileScreen.id);
                         },
-                        child: CircleAvatar(
-                          radius: 30,
-                          backgroundImage: AssetImage("assets/me.jpg"),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          ),
+                          width: 65.0,
+                          height: 65.0,
+                          child: Provider.of<InfoProvider>(context).updatedImage ==
+                              null
+                              ? Center()
+                              : ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: Image.file(
+                              Provider.of<InfoProvider>(context).updatedImage,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         ),
                       ),
                       Spacer(
@@ -212,7 +230,7 @@ class _ItemsState extends State<Items> {
                                     child: Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20),
-                                        color: secodcolor,
+                                        color: kSecondColor,
                                       ),
                                       child: Stack(
                                         children: <Widget>[
@@ -380,7 +398,7 @@ class _ItemsState extends State<Items> {
                                     child: Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20),
-                                        color: secodcolor,
+                                        color: kSecondColor,
                                       ),
                                       child: Stack(
                                         children: <Widget>[
@@ -586,36 +604,36 @@ class SearchDropdownMenu extends StatelessWidget {
                   DropdownItems(
                     text: "Donate",
                     onPressed: () {
-                      if (Provider.of<TaskData>(context).isDropdownOpened) {
-                        Provider.of<TaskData>(context)
+                      if (Provider.of<InfoProvider>(context).isDropdownOpened) {
+                        Provider.of<InfoProvider>(context)
                             .floatingDropdown
                             .remove();
                       }
-                      Provider.of<TaskData>(context)
+                      Provider.of<InfoProvider>(context)
                           .changeDropdownOpenedState();
                     },
                   ),
                   DropdownItems(
                     text: "Demond",
                     onPressed: () {
-                      if (Provider.of<TaskData>(context).isDropdownOpened) {
-                        Provider.of<TaskData>(context)
+                      if (Provider.of<InfoProvider>(context).isDropdownOpened) {
+                        Provider.of<InfoProvider>(context)
                             .floatingDropdown
                             .remove();
                       }
-                      Provider.of<TaskData>(context)
+                      Provider.of<InfoProvider>(context)
                           .changeDropdownOpenedState();
                     },
                   ),
                   DropdownItems(
                     text: "Name",
                     onPressed: () {
-                      if (Provider.of<TaskData>(context).isDropdownOpened) {
-                        Provider.of<TaskData>(context)
+                      if (Provider.of<InfoProvider>(context).isDropdownOpened) {
+                        Provider.of<InfoProvider>(context)
                             .floatingDropdown
                             .remove();
                       }
-                      Provider.of<TaskData>(context)
+                      Provider.of<InfoProvider>(context)
                           .changeDropdownOpenedState();
                     },
                   ),

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../provider/taskData.dart';
-import '../style/conist.dart';
+import '../provider/info_provider.dart';
+import '../style/constent.dart';
 import '../Block/Block.dart';
 class textField extends StatelessWidget {
   final TextInputType textInputType;

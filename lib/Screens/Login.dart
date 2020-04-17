@@ -1,10 +1,10 @@
 import 'package:company_task/Block/Block.dart';
 import 'package:company_task/wedgit/rigisterWedgit.dart';
 import 'package:flutter/material.dart';
-import '../style/conist.dart';
+import '../style/constent.dart';
 import '../wedgit/textFeild.dart';
 import 'package:provider/provider.dart';
-import '../provider/taskData.dart';
+import '../provider/info_provider.dart';
 import '../wedgit/rigisterWedgit.dart';
 class Login extends StatelessWidget {
   @override
@@ -21,7 +21,7 @@ class Login extends StatelessWidget {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     stops: [0.1, 0.4, 0.7, 1],
-                    colors: [secodcolor, Colors.blue, Colors.orange, maincolor
+                    colors: [kSecondColor, Colors.blue, Colors.orange, kMainColor
             ], tileMode: TileMode.mirror)),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -66,7 +66,7 @@ class Login extends StatelessWidget {
 //                      Spacer(),
                       MaterialButton(
                         onPressed: (){
-                          Provider.of<TaskData>(context).login(context);
+                          Provider.of<InfoProvider>(context).login(context);
                         },
                         height: 50,
                         minWidth: 80,
@@ -88,7 +88,7 @@ class Login extends StatelessWidget {
                 GestureDetector(
 
                   onTap: (){
-                    Provider.of<TaskData>(context).rgister(context);
+                    Provider.of<InfoProvider>(context).rgister(context);
                   },
                     child: Container(
                       height: 60,
