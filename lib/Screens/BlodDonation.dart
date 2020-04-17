@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../style/conist.dart';
+import '../style/constent.dart';
 import '../wedgit/headersWedgit.dart';
 import '../wedgit/caruselWedgit.dart';
 import '../wedgit/bloodWedgit.dart';
@@ -10,7 +10,7 @@ class BloodDonation extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      backgroundColor: maincolor,
+      backgroundColor: kMainColor,
       body: SingleChildScrollView(
         child: Container(
           height: 1000,
@@ -43,7 +43,7 @@ class BloodDonation extends StatelessWidget {
                 left: 20,
                 child: Text(
                   "Blood Donation Events",
-                  style: titelHeader,
+                  style: kTitleHeader,
                 ),
               ),
               Positioned(

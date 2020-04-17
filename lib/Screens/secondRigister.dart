@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../style/conist.dart';
+import '../style/constent.dart';
 import '../Block/Block.dart';
-import '../provider/taskData.dart';
+import '../provider/info_provider.dart';
 import 'package:provider/provider.dart';
 import '../wedgit/rigisterContainers.dart';
 
@@ -13,7 +13,7 @@ class secondRegister extends StatelessWidget {
 
     return SafeArea(
         child: Scaffold(
-      backgroundColor: maincolor,
+      backgroundColor: kMainColor,
       body: SingleChildScrollView(
         child: Container(
           height: 2300,
@@ -38,7 +38,7 @@ class secondRegister extends StatelessWidget {
                 Text(
                   "Blood Donation",
                   style: TextStyle(
-                      color: secodcolor,
+                      color: kSecondColor,
                       fontWeight: FontWeight.bold,
                       fontSize: 20),
                 ),

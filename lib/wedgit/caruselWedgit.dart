@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:company_task/models/carouseModel.dart';
-import 'package:company_task/provider/taskData.dart';
+import 'package:company_task/provider/info_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import '../style/conist.dart';
+import '../style/constent.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 
@@ -17,7 +17,7 @@ class caruselBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TaskData>(builder: (context,carsour,child){
+    return Consumer<InfoProvider>(builder: (context,carsour,child){
       return
         CarouselSlider.builder(
           autoPlay: true,
@@ -94,7 +94,7 @@ class carouselList extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(list.head,style: carousHeader,)
+                Text(list.head,style: kCarousHeader,)
                 , Text(list.time,style: carouslittle,)
               ],
             ),
