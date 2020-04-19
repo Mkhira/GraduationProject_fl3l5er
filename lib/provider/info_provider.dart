@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:collection';
 import 'dart:io';
+import 'package:company_task/Screens/ItemsContent.dart';
 import 'package:flutter/foundation.dart';
 import 'package:company_task/models/eventModel.dart';
 import 'package:company_task/models/medicenModel.dart';
@@ -306,7 +307,7 @@ double height ,width ,xPosition,yPosition;
   }
 
 
-//profile,edit,medicine post work
+//profile,edit,medicine post work/////////////////////////////////////////////////////
 
   String name = 'Ahmed Sakr',
       jop = 'Student',
@@ -503,7 +504,17 @@ double height ,width ,xPosition,yPosition;
 
 
 
+///////////////////////////////////////////////
+  itemContent(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (BuildContext context) => ItemContent()));
+  }
 
+
+  Blood(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (BuildContext context) => BloodDonation()));
+  }
 
 
 

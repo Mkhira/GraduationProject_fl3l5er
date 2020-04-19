@@ -80,7 +80,7 @@ class donationList extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     name,
-                    style: bigHeadLine,
+                    style: HomeHeadreStyle,
                   ),
                   Text(
                     description,

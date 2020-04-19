@@ -17,6 +17,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import '../models/topDonatersmodel.dart';
 import '../models/charityModel.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class HomePage extends StatefulWidget {
   static const String id = 'home_page';
@@ -181,11 +182,16 @@ class _HomePageState extends State<HomePage> {
                                     categoryName: "Cloth",
                                   ),
                                   categoryWedgit(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Provider.of<InfoProvider>(context).itemContent(context);
+                                    },
                                     categoryName: "Furinture",
                                   ),
                                   categoryWedgit(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Provider.of<InfoProvider>(context).Blood(context);
+
+                                    },
                                     categoryName: "Blood",
                                   ),
                                 ],
@@ -250,9 +256,9 @@ class _HomePageState extends State<HomePage> {
                                 builder: (context, snapshot) {
                                   if (snapshot.hasData) {
                                     return CarouselSlider.builder(
-                                      autoPlay: true,
+                                      autoPlay: false,
                                       autoPlayAnimationDuration:
-                                          Duration(milliseconds: 800),
+                                          Duration(milliseconds: 0),
                                       height: x ? 220 : 370,
                                       itemCount: snapshot.data.length,
                                       scrollPhysics: BouncingScrollPhysics(),
@@ -384,12 +390,18 @@ class _HomePageState extends State<HomePage> {
                                                       .size
                                                       .width /
                                                   3,
-                                          child: Text(
-                                            "يَسْأَلُونَكَ مَاذَا يُنْفِقُونَ قُلْ مَا أَنْفَقْتُمْ مِنْ خَيْرٍ فَلِلْوَالِدَيْنِ وَالْأَقْرَبِينَ وَالْيَتَامَى وَالْمَسَاكِينِ وَابْنِ السَّبِيلِ وَمَا تَفْعَلُوا مِنْ خَيْرٍ فَإِنَّ اللَّهَ بِهِ عَلِيمٌ",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16),
+                                          child:
+                                          Center(
+                                            child: AutoSizeText(
+                                              "يَسْأَلُونَكَ مَاذَا يُنْفِقُونَ قُلْ مَا أَنْفَقْتُمْ مِنْ خَيْرٍ فَلِلْوَالِدَيْنِ وَالْأَقْرَبِينَ وَالْيَتَامَى وَالْمَسَاكِينِ وَابْنِ السَّبِيلِ وَمَا تَفْعَلُوا مِنْ خَيْرٍ فَإِنَّ اللَّهَ بِهِ عَلِيمٌ",
+                                              style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold,),
+                                              minFontSize: 15,
+                                              stepGranularity: 15,
+                                              maxLines: 4,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
                                           ),
+
                                         ),
                                       ),
                                       Positioned(
