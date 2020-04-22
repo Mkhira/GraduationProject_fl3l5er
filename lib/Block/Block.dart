@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:company_task/models/BloodNeedyModel.dart';
 import 'package:company_task/models/charityModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
@@ -304,6 +305,22 @@ List<MedicineModel> _medicenmodelsearch = await _medicineRepostrySearch.getMedic
    return _medicineList.sink.add(_medicineModel);
   }
 
+  BloodRepostry _bloodRepostry = BloodRepostry();
+
+  final _bloodNeedyList = PublishSubject<List<BloodNeedyModel>>();
+  Observable<List<BloodNeedyModel>> get streamNeedy => _bloodNeedyList.stream;
+
+  fetchBloodNeedy() async{
+    List<BloodNeedyModel> _bloodModel = await _bloodRepostry.getNeedy();
+    return _bloodNeedyList.sink.add(_bloodModel);
+  }
+
+
+
+
+
+
+
   void dispose() async {
     await _evntList.drain();
     _evntList.close();
@@ -322,6 +339,9 @@ List<MedicineModel> _medicenmodelsearch = await _medicineRepostrySearch.getMedic
     _medicineListSearch.close();
     demond.close();
     donate.close();
+
+
+    _bloodNeedyList.close();
 
   }
 
