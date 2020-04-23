@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:collection';
 import 'dart:io';
+import 'package:company_task/Screens/ItemsContent.dart';
 import 'package:flutter/foundation.dart';
 import 'package:company_task/models/eventModel.dart';
 import 'package:company_task/models/medicenModel.dart';
@@ -11,7 +12,7 @@ import '../models/carouseModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../Screens/BlodDonation.dart';
-import '../models/bloodlist.dart';
+import '../models/BloodNeedyModel.dart';
 import '../Block/Block.dart';
 import '../Screens/secondRigister.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -118,47 +119,6 @@ class InfoProvider extends ChangeNotifier {
   }
 
   ///////////////////////////////////////
-
-  List<bloodListModel> _bloodList = [
-    bloodListModel(
-        description: "Donated 5 times in the last 2 years",
-        imageUrl: "assets/jack.jpg",
-        name: "Jack Willam",
-        icon: Icons.minimize,
-        blood: "O"),
-    bloodListModel(
-        description: "Donated 3 times in the last 1 years",
-        imageUrl: "assets/sara.jpg",
-        name: "Sara Ahmed",
-        icon: Icons.add,
-        blood: "AB"),
-    bloodListModel(
-        description: "Donated 2 times in the last 1 years",
-        imageUrl: "assets/me.jpg",
-        name: "Mohamed Khira",
-        icon: Icons.minimize,
-        blood: "AB"),
-    bloodListModel(
-        description: "Donated 4 times in the last 2 years",
-        imageUrl: "assets/angel.jpg",
-        name: "Angeline Pieter",
-        icon: Icons.add,
-        blood: "B"),
-    bloodListModel(
-        description: "Donated 2 times in the last 1 years",
-        imageUrl: "assets/me.jpg",
-        name: "Mohamed Khira",
-        icon: Icons.minimize,
-        blood: "AB"),
-  ];
-
-  UnmodifiableListView<bloodListModel> get bloodList {
-    return UnmodifiableListView(_bloodList);
-  }
-
-  int get bloodListCount {
-    return _bloodList.length;
-  }
 
   List<carousModel> _test = [
     carousModel(
@@ -306,7 +266,7 @@ double height ,width ,xPosition,yPosition;
   }
 
 
-//profile,edit,medicine post work
+//profile,edit,medicine post work/////////////////////////////////////////////////////
 
   String name = 'Ahmed Sakr',
       jop = 'Student',
@@ -503,7 +463,17 @@ double height ,width ,xPosition,yPosition;
 
 
 
+///////////////////////////////////////////////
+  itemContent(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (BuildContext context) => ItemContent()));
+  }
 
+
+  Blood(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (BuildContext context) => BloodDonation()));
+  }
 
 
 

@@ -148,7 +148,7 @@ class headerCotainer extends StatelessWidget {
                 ),
                 Text(
                   "28",
-                  style: bigHeadLine,
+                  style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),
                 )
               ],
             ),

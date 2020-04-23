@@ -1,4 +1,7 @@
+import 'package:company_task/models/BloodNeedyModel.dart';
+
 import '../models/eventModel.dart';
+import 'BloodNeedyService.dart';
 import 'eventSirves.dart';
 import '../models/topDonatersmodel.dart';
 import 'topDontorsService.dart';
@@ -40,5 +43,13 @@ class MedicineRepostry{
 class MedicineRepostrySearch{
   final _medicineServiceSearch = MedicineServiceSearch();
   Future<List<MedicineModel>> getMedicineSearch(String query) => _medicineServiceSearch.getMedicineSearch(query);
+
+}
+
+
+
+class BloodRepostry{
+  final _bloodService = BloodNeedyService();
+  Future<List<BloodNeedyModel>> getNeedy() => _bloodService.getNeedy();
 
 }

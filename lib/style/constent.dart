@@ -11,12 +11,12 @@ Color kSecondColor = Color(0xffF9A110);
 TextStyle kTitleHeadLine = TextStyle(
     color: Color(0xffAAA59F), fontSize: 12, fontWeight: FontWeight.w400);
 TextStyle bigHeadLine =
-    TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold);
+    TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold);
 TextStyle kBlood =
-    TextStyle(color: kSecondColor, fontSize: 25, fontWeight: FontWeight.bold);
+    TextStyle(color: Color(0xFFEB1555), fontSize: 20, fontWeight: FontWeight.bold);
 
 TextStyle kTitleHeader =
-    TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15);
+    TextStyle(color: Colors.black54, fontWeight: FontWeight.bold, fontSize: 15);
 TextStyle kCarousHeader =
     TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold);
 TextStyle carouslittle =

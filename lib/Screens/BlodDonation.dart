@@ -1,66 +1,112 @@
+import 'package:company_task/Block/Block.dart';
+import 'package:company_task/models/BloodNeedyModel.dart';
+import 'package:company_task/provider/info_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../style/constent.dart';
-import '../wedgit/headersWedgit.dart';
+import '../wedgit/BloodHeaderWidget.dart';
 import '../wedgit/caruselWedgit.dart';
 import '../wedgit/bloodWedgit.dart';
 
-class BloodDonation extends StatelessWidget {
+class BloodDonation extends StatefulWidget {
+  @override
+  _BloodDonationState createState() => _BloodDonationState();
+}
+
+class _BloodDonationState extends State<BloodDonation> {
+  Bloc _bloc;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Bloc();
+    _bloc = Bloc();
+    _bloc.fetchBloodNeedy();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
       backgroundColor: kMainColor,
-      body: SingleChildScrollView(
-        child: Container(
-          height: 1000,
-          child: Stack(
-            children: <Widget>[
-              Positioned(
-                top: 280,
-                left: 0,
-                child: Container(
-                  height: 400,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20)),
-                    color: Colors.white,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 10,
-                      right: 10,
-                    ),
-                    child: BloodListBuilder(),
-                  ),
-                ),
-              ),
-              topHeader(),
-              Positioned(
-                bottom: 280,
-                left: 20,
-                child: Text(
-                  "Blood Donation Events",
-                  style: kTitleHeader,
-                ),
-              ),
-              Positioned(
-                bottom: -20,
-                left: 0,
-                child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 300,
-                    child:
-                       caruselBuilder()
-                ),
-              ),
-            ],
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20)),
+            ),
+            forceElevated: true,
+            elevation: 5,
+            backgroundColor: kMainColor,
+            expandedHeight: 300,
+            leading: Text(""),
+            flexibleSpace: Stack(
+              children: <Widget>[topHeader()],
+            ),
           ),
-        ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              <Widget>[
+                StreamBuilder<List<BloodNeedyModel>>(
+                    stream: _bloc.streamNeedy,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (context, index) {
+                            final list = snapshot.data[index];
+
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 15, top: 15),
+                              child: donationList(
+                                name: list.name,
+                                description: list.description,
+                                imageUrl: list.imageUrl,
+                                blood: list.blood,
+                              ),
+                            );
+                          },
+                          itemCount: snapshot.data.length,
+                        );
+                      } else
+                        return Container();
+                    }),
+                StreamBuilder<List<BloodNeedyModel>>(
+                    stream: _bloc.streamNeedy,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (context, index) {
+                            final list = snapshot.data[index];
+
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 15, top: 15),
+                              child: donationList(
+                                name: list.name,
+                                description: list.description,
+                                imageUrl: list.imageUrl,
+                                blood: list.blood,
+                              ),
+                            );
+                          },
+                          itemCount: snapshot.data.length,
+                        );
+                      } else
+                        return Container();
+                    }),
+              ],
+            ),
+          ),
+        ],
       ),
     ));
   }
 }
-

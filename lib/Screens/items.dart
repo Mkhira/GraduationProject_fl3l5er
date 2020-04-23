@@ -237,7 +237,8 @@ class _ItemsState extends State<Items> {
                                           Positioned(
                                             top: 0,
                                             left: 0,
-                                            child: ClipRRect(
+                                            child:
+                                            ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(20),
                                               child: CachedNetworkImage(
