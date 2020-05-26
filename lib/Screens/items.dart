@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:company_task/Screens/Add%20Medicen%20Post.dart';
 import 'package:company_task/Screens/profile_screen.dart';
 import 'package:company_task/models/medicenModel.dart';
 import 'package:company_task/provider/info_provider.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import '../Block/Block.dart';
 import '../style/constent.dart';
+import 'ItemsContent.dart';
 
 class Items extends StatefulWidget {
   static const String id = 'items';
@@ -56,7 +58,11 @@ class _ItemsState extends State<Items> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       FloatingActionButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context){
+                            return AddMedicinePost();
+                          }));
+                        },
                         heroTag: "vc",
                         child: Icon(
                           Icons.add,
@@ -175,25 +181,28 @@ class _ItemsState extends State<Items> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context,ProfileScreen.id);
+                          Navigator.pushNamed(context, ProfileScreen.id);
                         },
                         child: Container(
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
                           ),
                           width: 65.0,
                           height: 65.0,
-                          child: Provider.of<InfoProvider>(context).updatedImage ==
-                              null
-                              ? Center()
-                              : ClipRRect(
-                            borderRadius: BorderRadius.circular(10.0),
-                            child: Image.file(
-                              Provider.of<InfoProvider>(context).updatedImage,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
+                          child:
+                              Provider.of<InfoProvider>(context).updatedImage ==
+                                      null
+                                  ? Center()
+                                  : ClipRRect(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      child: Image.file(
+                                        Provider.of<InfoProvider>(context)
+                                            .updatedImage,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                         ),
                       ),
                       Spacer(
@@ -212,7 +221,8 @@ class _ItemsState extends State<Items> {
                   child: (_bloc.textController.value == null ||
                           _bloc.textController.value.trim() == "" ||
                           _bloc.textController.value.length == 0)
-                      ? StreamBuilder<List<MedicineModel>>(
+                      ?
+                  StreamBuilder<List<MedicineModel>>(
                           stream: _bloc.streamMedicine,
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
@@ -224,152 +234,9 @@ class _ItemsState extends State<Items> {
                                 itemBuilder: (BuildContext context, index) {
                                   var data = snapshot.data[index];
 
-                                  return Material(
-                                    borderRadius: BorderRadius.circular(20),
-                                    elevation: 4,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: kSecondColor,
-                                      ),
-                                      child: Stack(
-                                        children: <Widget>[
-                                          Positioned(
-                                            top: 0,
-                                            left: 0,
-                                            child:
-                                            ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              child: CachedNetworkImage(
-                                                imageUrl: data.imageUrl,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    2.18,
-                                                height: 180,
-                                                fit: BoxFit.cover,
-                                                placeholder: (context, url) =>
-                                                    CircularProgressIndicator(),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        Icon(Icons.error),
-                                                placeholderFadeInDuration:
-                                                    Duration(days: 30),
-                                                useOldImageOnUrlChange: true,
-                                                filterQuality:
-                                                    FilterQuality.low,
-                                              ),
-                                            ),
-                                          ),
-                                          Positioned(
-                                            top: 195,
-                                            left: 15,
-                                            child: Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  2.2,
-                                              child: Row(
-                                                children: <Widget>[
-                                                  Text(
-                                                    "Name: ",
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  ),
-                                                  Text(
-                                                    "${data.name}",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Positioned(
-                                            top: 220,
-                                            left: 15,
-                                            child: Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  2.2,
-                                              child: Row(
-                                                children: <Widget>[
-                                                  Text(
-                                                    "Owner: ",
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  ),
-                                                  Text(
-                                                    "${data.owner}",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Positioned(
-                                            top: 245,
-                                            left: 15,
-                                            child: Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  2.2,
-                                              child: Row(
-                                                children: <Widget>[
-                                                  Text(
-                                                    "Phone: ",
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  ),
-                                                  Text(
-                                                    "${data.phone}",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Positioned(
-                                            top: 270,
-                                            left: 15,
-                                            child: Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  2.2,
-                                              child: Row(
-                                                children: <Widget>[
-                                                  Text(
-                                                    "State: ",
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  ),
-                                                  Text(
-                                                    "${data.state}",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
+                                  return
+
+                                    ContentWidget(medicineModel: data,);
                                 },
                                 staggeredTileBuilder: (data) =>
                                     new StaggeredTile.count(
@@ -381,7 +248,8 @@ class _ItemsState extends State<Items> {
                               return Container();
                           },
                         )
-                      : StreamBuilder<List<MedicineModel>>(
+                      :
+                  StreamBuilder<List<MedicineModel>>(
                           stream: _bloc.streamMedicinesearch,
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
@@ -393,151 +261,8 @@ class _ItemsState extends State<Items> {
                                 itemBuilder: (BuildContext context, index) {
                                   var data = snapshot.data[index];
 
-                                  return Material(
-                                    borderRadius: BorderRadius.circular(20),
-                                    elevation: 4,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: kSecondColor,
-                                      ),
-                                      child: Stack(
-                                        children: <Widget>[
-                                          Positioned(
-                                            top: 0,
-                                            left: 0,
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              child: CachedNetworkImage(
-                                                imageUrl: data.imageUrl,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    2.18,
-                                                height: 180,
-                                                fit: BoxFit.cover,
-                                                placeholder: (context, url) =>
-                                                    CircularProgressIndicator(),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        Icon(Icons.error),
-                                                placeholderFadeInDuration:
-                                                    Duration(days: 30),
-                                                useOldImageOnUrlChange: true,
-                                                filterQuality:
-                                                    FilterQuality.low,
-                                              ),
-                                            ),
-                                          ),
-                                          Positioned(
-                                            top: 195,
-                                            left: 15,
-                                            child: Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  2.2,
-                                              child: Row(
-                                                children: <Widget>[
-                                                  Text(
-                                                    "Name: ",
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  ),
-                                                  Text(
-                                                    "${data.name}",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Positioned(
-                                            top: 220,
-                                            left: 15,
-                                            child: Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  2.2,
-                                              child: Row(
-                                                children: <Widget>[
-                                                  Text(
-                                                    "Owner: ",
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  ),
-                                                  Text(
-                                                    "${data.owner}",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Positioned(
-                                            top: 245,
-                                            left: 15,
-                                            child: Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  2.2,
-                                              child: Row(
-                                                children: <Widget>[
-                                                  Text(
-                                                    "Phone: ",
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  ),
-                                                  Text(
-                                                    "${data.phone}",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Positioned(
-                                            top: 270,
-                                            left: 15,
-                                            child: Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  2.2,
-                                              child: Row(
-                                                children: <Widget>[
-                                                  Text(
-                                                    "State: ",
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  ),
-                                                  Text(
-                                                    "${data.state}",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
+                                  return
+                                    ContentWidget(medicineModel: data,);
                                 },
                                 staggeredTileBuilder: (data) =>
                                     new StaggeredTile.count(
@@ -550,10 +275,7 @@ class _ItemsState extends State<Items> {
                           },
                         )),
             ),
-            Container(
-              height: 100,
-              width: MediaQuery.of(context).size.width,
-            )
+
           ],
         ),
       ),
@@ -680,6 +402,171 @@ class DropdownItems extends StatelessWidget {
       height: 50,
       elevation: 3,
       shape: RoundedRectangleBorder(),
+    );
+  }
+}
+
+
+
+class ContentWidget extends StatelessWidget {
+  final MedicineModel medicineModel;
+  ContentWidget({this.medicineModel});
+  @override
+  Widget build(BuildContext context) {
+
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context){
+          return ItemContent(phone: medicineModel.phone,name: medicineModel.name,location: medicineModel.location,imageUrl: medicineModel.imageUrl,amount: medicineModel.amount,
+          dayLeft: medicineModel.dayLeft,owner: medicineModel.owner,state: medicineModel.state,
+          );
+        }));
+      },
+      child: Material(
+        borderRadius: BorderRadius.circular(20),
+        elevation: 4,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: kSecondColor,
+          ),
+          child: Stack(
+            children: <Widget>[
+              Positioned(
+                top: 0,
+                left: 0,
+                child: ClipRRect(
+                  borderRadius:
+                  BorderRadius.circular(20),
+                  child: CachedNetworkImage(
+                    imageUrl: medicineModel.imageUrl,
+                    width: MediaQuery.of(context)
+                        .size
+                        .width /
+                        2.18,
+                    height: 180,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) =>
+                        CircularProgressIndicator(),
+                    errorWidget:
+                        (context, url, error) =>
+                        Icon(Icons.error),
+                    placeholderFadeInDuration:
+                    Duration(days: 30),
+                    useOldImageOnUrlChange: true,
+                    filterQuality:
+                    FilterQuality.low,
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 195,
+                left: 15,
+                child: Container(
+                  width: MediaQuery.of(context)
+                      .size
+                      .width /
+                      2.2,
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        "Name: ",
+                        style: TextStyle(
+                            color: Colors.white),
+                      ),
+                      Text(
+                        "${medicineModel.name}",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight:
+                            FontWeight.bold),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 220,
+                left: 15,
+                child: Container(
+                  width: MediaQuery.of(context)
+                      .size
+                      .width /
+                      2.2,
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        "Owner: ",
+                        style: TextStyle(
+                            color: Colors.white),
+                      ),
+                      Text(
+                        "${medicineModel.owner}",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight:
+                            FontWeight.bold),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 245,
+                left: 15,
+                child: Container(
+                  width: MediaQuery.of(context)
+                      .size
+                      .width /
+                      2.2,
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        "Phone: ",
+                        style: TextStyle(
+                            color: Colors.white),
+                      ),
+                      Text(
+                        "0${medicineModel.phone}",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight:
+                            FontWeight.bold,fontSize: 13),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 270,
+                left: 15,
+                child: Container(
+                  width: MediaQuery.of(context)
+                      .size
+                      .width /
+                      2.2,
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        "State: ",
+                        style: TextStyle(
+                            color: Colors.white),
+                      ),
+                      Text(
+                        "${medicineModel.state}",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight:
+                            FontWeight.bold),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

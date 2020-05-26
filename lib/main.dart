@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import 'package:company_task/Screens/Add%20Medicen%20Post.dart';
 import 'package:company_task/Screens/edit_screen.dart';
 import 'package:company_task/Screens/homePage.dart';
 import 'package:company_task/Screens/medicine_screen.dart';
 import 'package:company_task/Screens/profile_screen.dart';
 import 'package:company_task/Screens/items.dart';
 import 'package:company_task/Screens/profile_image_screen.dart';
+import 'package:company_task/provider/AddPostProvider.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,8 +24,18 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => InfoProvider(),
+    return   MultiProvider(
+        providers: [
+
+        ChangeNotifierProvider(
+        create: (context)=>InfoProvider(),
+
+    ),  ChangeNotifierProvider(
+        create: (context)=>AddPostProvider(),
+
+    ),
+
+        ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         //home:HomePage(),
@@ -35,6 +47,7 @@ class MyApp extends StatelessWidget {
           EditScreen.id:(context)=>EditScreen(),
           ProfileImageScreen.id:(context)=>ProfileImageScreen(),
           MedicineScreen.id:(context)=>MedicineScreen(),
+          AddMedicinePost.id:(context)=>AddMedicinePost(),
         },
       ),
     );

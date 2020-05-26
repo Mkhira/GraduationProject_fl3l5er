@@ -10,8 +10,9 @@ class MedicineModel{
   String owner;
   String imageUrl;
   String state;
+  int dayLeft;
 
-  MedicineModel({this.name,this.amount,this.imageUrl,this.location,this.owner,this.phone,this.state});
+  MedicineModel({this.name,this.amount,this.imageUrl,this.location,this.owner,this.phone,this.state,this.dayLeft});
 
   factory MedicineModel.fromJison(DocumentSnapshot snapshot){
     var data = snapshot.data;
@@ -22,7 +23,9 @@ class MedicineModel{
       imageUrl: data['image'],
       owner: data['owner'],
       phone: data['phone'],
-      state: data['state']
+      state: data['state'],
+        dayLeft: data['dayleft']
+
     );
 
 
@@ -40,8 +43,9 @@ class MedicineModelSearch{
   String imageUrl;
   String state;
   List<String> searchKey;
+  int dayLeft;
 
-  MedicineModelSearch({this.name,this.amount,this.imageUrl,this.location,this.owner,this.phone,this.state,this.searchKey});
+  MedicineModelSearch({this.name,this.amount,this.imageUrl,this.location,this.owner,this.phone,this.state,this.searchKey,this.dayLeft});
 
   factory MedicineModelSearch.fromJison(DocumentSnapshot snapshot){
     var data = snapshot.data;
@@ -53,7 +57,9 @@ class MedicineModelSearch{
         owner: data['owner'],
         phone: data['phone'],
         state: data['state'],
-        searchKey: data['sarchkey']
+        searchKey: data['sarchkey'],
+      dayLeft: data['dayleft']
+
     );
 
 

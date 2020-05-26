@@ -1,14 +1,24 @@
+
 import 'package:company_task/Screens/profile_screen.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/style/constent.dart';
 import 'package:company_task/wedgit/ItemContentHeader.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 
 class ItemContent extends StatelessWidget {
-
+ final String name;
+ final int amount;
+ final int phone;
+ final String location;
+ final String owner;
+ final int dayLeft;
+ final String imageUrl;
+ final String state;
+ ItemContent({this.name,this.imageUrl,this.phone,this.location,this.amount,this.owner,this.state,this.dayLeft});
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -23,7 +33,7 @@ class ItemContent extends StatelessWidget {
 
                  pinned: true,
                  floating: false,
-                 delegate: Bar(expandedHeight: 300, collapsedHeight: 200)),
+                 delegate: Bar(expandedHeight: 300, collapsedHeight: 200,image: '$imageUrl',itemAmount: amount,itemName: name)),
              SliverList(
                  delegate: SliverChildListDelegate(<Widget>[
                    Container(
@@ -88,8 +98,7 @@ class ItemContent extends StatelessWidget {
                                                ),
                                                Text(
                                                  //todo make name to postMaker
-                                                 Provider.of<InfoProvider>(context)
-                                                     .name,
+                                                           "$owner"    ,
                                                  style: TextStyle(
                                                      fontSize: 18.0,
                                                      fontWeight: FontWeight.w800),
@@ -112,7 +121,7 @@ class ItemContent extends StatelessWidget {
                                            Icons.timer,
                                          ),
                                          Text(
-                                           '${Provider.of<InfoProvider>(context).daysLeft} ',
+                                           '$dayLeft ',
                                            style: TextStyle(
                                                fontSize: 20.0,
                                                fontWeight: FontWeight.w900),
@@ -129,73 +138,7 @@ class ItemContent extends StatelessWidget {
                                  ],
                                ),
                              ),
-                             Padding(
-                               padding: EdgeInsets.only(right: 10.0, left: 10.0),
-                               child: Divider(
-                                 thickness: 5.0,
-                                 color: Colors.white,
-                               ),
-                             ),
-                             Padding(
-                               padding: const EdgeInsets.only(
-                                   bottom: 10.0, left: 15.0, top: 8.0),
-                               child: Text(
-                                 'Last Appliers',
-                                 style: HomeHeadreStyle,
-                               ),
-                             ),
-                             Container(
-                               width: MediaQuery.of(context).size.width,
-                               height: 60,
-                               decoration: BoxDecoration(
-                                 borderRadius: BorderRadius.circular(15.0),
-                               ),
-                               child: ListView.builder(
-                                 itemBuilder: (context, index) {
-                                   return Padding(
-                                     padding: const EdgeInsets.only(
-                                       left: 6.0,
-                                       right: 5.0,
-                                     ),
-                                     child: Container(
-                                       width: 60,
-                                       height: 50,
-                                       decoration: BoxDecoration(
-                                           color: Colors.white,
-                                           borderRadius: BorderRadius.all(
-                                               Radius.circular(15.0)),
-                                           shape: BoxShape.rectangle),
-                                       //todo different user's images that apply to medicine
-                                       child: Provider.of<InfoProvider>(context)
-                                           .updatedImage ==
-                                           null
-                                           ? null
-                                           : ClipRRect(
-                                         borderRadius:
-                                         BorderRadius.circular(15),
-                                         child: Image.file(
-                                           Provider.of<InfoProvider>(context)
-                                               .updatedImage,
-                                           fit: BoxFit.cover,
-                                         ),
-                                       ),
-                                     ),
-                                   );
-                                 },
-                                 scrollDirection: Axis.horizontal,
-                                 itemCount: 7, //todo num of appliers
-                               ),
-                             ),
-                             SizedBox(
-                               height: 10,
-                             ),
-                             Padding(
-                               padding: EdgeInsets.only(right: 10.0, left: 10.0),
-                               child: Divider(
-                                 thickness: 5.0,
-                                 color: Colors.grey.shade100,
-                               ),
-                             ),
+
                              Padding(
                                padding: const EdgeInsets.all(15.0),
                                child: Container(
@@ -231,10 +174,10 @@ class ItemContent extends StatelessWidget {
                                              ),
                                              MedicinePostText(
                                                title: 'Name : ',
-                                               value: Provider.of<InfoProvider>(context).medicineName,
+                                               value: '$name',
                                              ),
 
-                                             MedicinePostText(
+                                           state.contains("demond")==true? Container(height: 0,width: 0,):  MedicinePostText(
                                                title: 'Expire : ',
                                                value: '${Provider.of<InfoProvider>(context).expireDay}'
                                                    '/${Provider.of<InfoProvider>(context).expireMonth}'
@@ -245,6 +188,10 @@ class ItemContent extends StatelessWidget {
                                                title: 'Uses : ',
                                                value:Provider.of<InfoProvider>(context).uses,
                                              ),
+                                             MedicinePostText(
+                                               title: 'State : ',
+                                               value:'$state',
+                                             ),
                                            ],
                                          ),
                                        ),
@@ -253,6 +200,39 @@ class ItemContent extends StatelessWidget {
                                  ),
                                ),
                              ),
+
+                             Padding(
+                               padding: EdgeInsets.only(right: 10.0, left: 10.0),
+                               child: Divider(
+                                 thickness: 5.0,
+                                 color: Colors.white,
+                               ),
+                             ),
+                             Container(
+                               width: MediaQuery.of(context).size.width,
+                               child: Row(
+                                 crossAxisAlignment: CrossAxisAlignment.center,
+                                 mainAxisAlignment: MainAxisAlignment.center,
+                                 children: <Widget>[
+                                   SizedBox(width: 20,),
+
+                                   Text("Phone: ",style: TextStyle(fontWeight: FontWeight.bold),),
+                                   Text("0$phone"),
+                                   Spacer(),
+                                   SizedBox(width: 20,)
+
+                                 ],
+                               ),
+                             ),
+
+                             Padding(
+                               padding: EdgeInsets.only(right: 10.0, left: 10.0),
+                               child: Divider(
+                                 thickness: 5.0,
+                                 color: Colors.grey.shade100,
+                               ),
+                             ),
+
                              SizedBox(
                                height: 10,
                              ),
