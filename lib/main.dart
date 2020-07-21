@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
           EditScreen.id:(context)=>EditScreen(),
           ProfileImageScreen.id:(context)=>ProfileImageScreen(),
           MedicineScreen.id:(context)=>MedicineScreen(),
-          AddMedicinePostScreen.id:(context)=>AddMedicinePostScreen(),
+          AddMedicinePostData.id:(context)=>AddMedicinePostData(),
         },
       ),
     );
