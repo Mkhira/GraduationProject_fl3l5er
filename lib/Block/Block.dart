@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:company_task/models/BloodNeedyModel.dart';
 import 'package:company_task/models/charityModel.dart';
+import 'package:company_task/wedgit/FriebaseErrorDailog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 import 'Validator.dart';
@@ -176,7 +177,7 @@ class Bloc extends Object with Validator {
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return dailogerror(titleText: "Id error",text: "this Id aulreadr exist",);
+          return DailogError(titleText: "Id error",text: "this Id aulreadr exist",);
         });
   }
   void missingData(BuildContext context) {
@@ -184,7 +185,7 @@ class Bloc extends Object with Validator {
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return dailogerror(titleText: "Missing data",text: "Please enter important data",);
+          return DailogError(titleText: "Missing data",text: "Please enter important data",);
         });
   }
   void passwordNotMatch(BuildContext context) {
@@ -192,7 +193,7 @@ class Bloc extends Object with Validator {
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return dailogerror(titleText: "Pasword Not match",text: "Please be in sure write the same password",);
+          return DailogError(titleText: "Pasword Not match",text: "Please be in sure write the same password",);
         });
   }
 

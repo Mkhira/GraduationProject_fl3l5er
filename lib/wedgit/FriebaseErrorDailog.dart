@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 
 
-class dailogerror extends StatelessWidget {
-  dailogerror({this.text,this.titleText});
+class DailogError extends StatelessWidget {
+  DailogError({this.text,this.titleText});
   final String text;
   final String titleText;
   @override
