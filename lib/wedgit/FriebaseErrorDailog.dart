@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
-
-
 class DailogError extends StatelessWidget {
   DailogError({this.text,this.titleText});
   final String text;
