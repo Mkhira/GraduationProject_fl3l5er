@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:company_task/style/constent.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,10 +10,18 @@ import 'package:flutter/rendering.dart';
 class Bar extends SliverPersistentHeaderDelegate {
   final double collapsedHeight;
   final double expandedHeight;
+  final String image;
+
+  final String itemName;
+  final int itemAmount;
 
   Bar({
     this.collapsedHeight,
     this.expandedHeight,
+    this.image,
+    this.itemName,
+    this.itemAmount
+
   });
 
   @override
@@ -24,16 +33,31 @@ class Bar extends SliverPersistentHeaderDelegate {
         Positioned(
           top: 0,
           left: 0,
-          child: Container(
-            height: 300,
-            width: MediaQuery.of(context).size.width,
-            child: Image(
-              image: AssetImage("assets/me.jpg"),
+          child:          ClipRRect(
+            borderRadius:
+            BorderRadius.circular(20),
+            child: CachedNetworkImage(
+              imageUrl: image,
+              width: MediaQuery.of(context)
+                  .size
+                  .width ,
+              height: 300,
               fit: BoxFit.cover,
+              placeholder: (context, url) =>
+                  CircularProgressIndicator(),
+              errorWidget:
+                  (context, url, error) =>
+                  Icon(Icons.error),
+              placeholderFadeInDuration:
+              Duration(days: 30),
+              useOldImageOnUrlChange: true,
+              filterQuality:
+              FilterQuality.low,
             ),
           ),
+
         ),
-        Positioned(bottom: 0, left: 0, child: appBar()),
+        Positioned(bottom: 0, left: 0, child: appBar(itemAmount: itemAmount,itemName: itemName,)),
         Positioned(
             bottom: 0,
             left: 0,
@@ -61,9 +85,15 @@ class Bar extends SliverPersistentHeaderDelegate {
 }
 
 class appBar extends StatelessWidget {
+
+  final String itemName;
+  final int itemAmount;
+
   const appBar({
-    Key key,
-  }) : super(key: key);
+
+    this.itemAmount,
+    this.itemName,
+  }) ;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +110,7 @@ class appBar extends StatelessWidget {
           ),
           Text("Name:", style: HomeHeadreStyle),
           Text(
-            " Insulin",
+            " $itemName",
             style: TextStyle(color: Colors.black),
           ),
           Spacer(
@@ -91,7 +121,7 @@ class appBar extends StatelessWidget {
             style: HomeHeadreStyle,
           ),
           Text(
-            " 10",
+            " $itemAmount",
             style: TextStyle(color: Colors.black),
           ),
           SizedBox(

@@ -41,6 +41,12 @@ dependencies:
   image_picker: ^0.6.3+4
   image_cropper: ^1.2.1
   auto_size_text: ^2.1.0
+  intl: ^0.16.1
+  firebase_storage: ^3.1.6
+
+  outline_material_icons: ^0.1.1
+  community_material_icon: ^3.5.95
+  font_awesome_flutter: ^8.8.1
 
 dev_dependencies:
   flutter_test:
