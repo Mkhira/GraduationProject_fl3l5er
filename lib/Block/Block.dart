@@ -14,7 +14,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import '../wedgit/fireBaseError wedgit.dart';
 import '../models/eventModel.dart';
 import '../service/repostry.dart';
 import 'package:rxdart/futures.dart';
