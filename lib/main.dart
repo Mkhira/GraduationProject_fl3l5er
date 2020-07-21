@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:company_task/Screens/Add%20Medicen%20Post.dart';
+import 'package:company_task/Screens/Add Medicen Post.dart';
 import 'package:company_task/Screens/edit_screen.dart';
 import 'package:company_task/Screens/homePage.dart';
 import 'package:company_task/Screens/medicine_screen.dart';
