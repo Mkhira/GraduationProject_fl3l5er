@@ -250,14 +250,14 @@ class _AddMedicinePostState extends State<AddMedicinePost> {
                       ],
                     ),
                   ),
-
+///vvv
 
 
 
                   SizedBox(height: 20,),
                    FlatButton(onPressed: (){
                      provider.createRecord();
-                   }, child: Text("ggggggggggg")),
+                   }, child: Text("Post")),
                 ],
               ),
             )

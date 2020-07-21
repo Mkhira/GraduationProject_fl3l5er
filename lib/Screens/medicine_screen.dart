@@ -202,13 +202,13 @@ class _MedicineScreenState extends State<MedicineScreen>
                                   Text(
                                     '${Provider.of<InfoProvider>(context).daysLeft} ',
                                     style: TextStyle(
-                                        fontSize: 20.0,
+                                        fontSize: 10.0,
                                         fontWeight: FontWeight.w900),
                                   ),
                                   Text(
                                     'day left',
                                     style: TextStyle(
-                                        fontSize: 17.0,
+                                        fontSize: 12.0,
                                         fontWeight: FontWeight.w500),
                                   ),
                                 ],
