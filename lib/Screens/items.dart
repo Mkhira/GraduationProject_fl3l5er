@@ -60,7 +60,7 @@ class _ItemsState extends State<Items> {
                       FloatingActionButton(
                         onPressed: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context){
-                            return AddMedicinePost();
+                            return AddMedicinePostScreen();
                           }));
                         },
                         heroTag: "vc",

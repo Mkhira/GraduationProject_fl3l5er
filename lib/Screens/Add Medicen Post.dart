@@ -11,13 +11,13 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
-class AddMedicinePost extends StatefulWidget {
+class AddMedicinePostScreen extends StatefulWidget {
   static const String id = 'AddPostScreen';
   @override
-  _AddMedicinePostState createState() => _AddMedicinePostState();
+  _AddMedicinePostScreenState createState() => _AddMedicinePostScreenState();
 }
 
-class _AddMedicinePostState extends State<AddMedicinePost> {
+class _AddMedicinePostScreenState extends State<AddMedicinePostScreen> {
     @override
   Widget build(BuildContext context) {
       var provider = Provider.of<AddPostProvider>(context);
