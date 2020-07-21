@@ -1,6 +1,4 @@
 
-
-
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:company_task/provider/AddPostProvider.dart';
 import 'package:company_task/style/constent.dart';
@@ -11,18 +9,18 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
-class AddMedicinePostData extends StatefulWidget {
+class AddMedicinePostDataScreen extends StatefulWidget {
   static const String id = 'AddPostScreen';
   @override
-  _AddMedicinePostDataState createState() => _AddMedicinePostDataState();
+  _AddMedicinePostDataScreenState createState() => _AddMedicinePostDataScreenState();
 }
 
-class _AddMedicinePostDataState extends State<AddMedicinePostData> {
-    @override
+class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
+  @override
   Widget build(BuildContext context) {
-      var provider = Provider.of<AddPostProvider>(context);
+    var provider = Provider.of<AddPostProvider>(context);
 
-      return SafeArea(child: Scaffold(
+    return SafeArea(child: Scaffold(
       backgroundColor: kMainColor,
       appBar: AppBar(
         leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: (){}),
@@ -175,20 +173,20 @@ class _AddMedicinePostDataState extends State<AddMedicinePostData> {
                     child: Row(
                       children: <Widget>[
                         SizedBox(width: 15,),
-                          MainTextField(width: MediaQuery.of(context).size.width/2.3,widget: Container(width: 0,height: 0,),
+                        MainTextField(width: MediaQuery.of(context).size.width/2.3,widget: Container(width: 0,height: 0,),
                           textChange:  provider.medicineNameChange,
-                            obscure: false,
-                            textStream: provider.medicineNameStream,
-                            inputType: TextInputType.text,
-                            hintText: "Medicine name",
+                          obscure: false,
+                          textStream: provider.medicineNameStream,
+                          inputType: TextInputType.text,
+                          hintText: "Medicine name",
                         ),
-                          Spacer(flex: 2,),
-                          MainTextField(width: MediaQuery.of(context).size.width/4,widget: Container(width: 0,height: 0,),
+                        Spacer(flex: 2,),
+                        MainTextField(width: MediaQuery.of(context).size.width/4,widget: Container(width: 0,height: 0,),
                           textChange:  provider.medicineAmountChange,
-                            obscure: false,
-                            textStream: provider.medicineAmountStream,
-                            inputType: TextInputType.number,
-                            hintText: "  Amount",
+                          obscure: false,
+                          textStream: provider.medicineAmountStream,
+                          inputType: TextInputType.number,
+                          hintText: "  Amount",
                         ),
                         Spacer(flex: 1,)
 
@@ -201,21 +199,21 @@ class _AddMedicinePostDataState extends State<AddMedicinePostData> {
                     child: Row(
                       children: <Widget>[
                         SizedBox(width: 15,),
-                          MainTextField(width: MediaQuery.of(context).size.width/2.7,widget: Container(width: 0,height: 0,),
+                        MainTextField(width: MediaQuery.of(context).size.width/2.7,widget: Container(width: 0,height: 0,),
                           textChange:  provider.phoneChange,
-                            obscure: false,
-                            textStream: provider.phoneStream,
-                            inputType: TextInputType.phone,
-                            hintText: "Phone ",
+                          obscure: false,
+                          textStream: provider.phoneStream,
+                          inputType: TextInputType.phone,
+                          hintText: "Phone ",
                         ),
-                          Spacer(flex: 2,),
-                          SizedBox(width: 15,),
-                          MainTextField(width: MediaQuery.of(context).size.width/4,widget: Container(width: 0,height: 0,),
+                        Spacer(flex: 2,),
+                        SizedBox(width: 15,),
+                        MainTextField(width: MediaQuery.of(context).size.width/4,widget: Container(width: 0,height: 0,),
                           textChange:  provider.durationChange,
-                            obscure: false,
-                            textStream: provider.dateStream,
-                            inputType: TextInputType.number,
-                            hintText: '  Duration',
+                          obscure: false,
+                          textStream: provider.dateStream,
+                          inputType: TextInputType.number,
+                          hintText: '  Duration',
                         ),
                         Spacer(flex: 1,)
 
@@ -235,16 +233,16 @@ class _AddMedicinePostDataState extends State<AddMedicinePostData> {
                         Spacer(flex: 3,),
                         SizedBox(width: 10,),
                         MainTextField(width: MediaQuery.of(context).size.width/3,widget: Container(width: 0,height: 0,),
-                            textChange:  provider.dateChange,
-                            obscure: false,
-                            enable: false,
-                            textStream: provider.dateStream,
-                            inputType: TextInputType.phone,
-                            hintText: provider.dateTime == null?"       Date" :
-                            DateFormat('dd/MM/yyyy ')
-                                .format(DateTime.parse(provider.dateTime.toString()))
-                                .toString(),
-                          ),
+                          textChange:  provider.dateChange,
+                          obscure: false,
+                          enable: false,
+                          textStream: provider.dateStream,
+                          inputType: TextInputType.phone,
+                          hintText: provider.dateTime == null?"       Date" :
+                          DateFormat('dd/MM/yyyy ')
+                              .format(DateTime.parse(provider.dateTime.toString()))
+                              .toString(),
+                        ),
                         Spacer(flex: 1,),
 
                       ],
@@ -255,9 +253,9 @@ class _AddMedicinePostDataState extends State<AddMedicinePostData> {
 
 
                   SizedBox(height: 20,),
-                   FlatButton(onPressed: (){
-                     provider.createRecord();
-                   }, child: Text("Post")),
+                  FlatButton(onPressed: (){
+                    provider.createRecord();
+                  }, child: Text("Post")),
                 ],
               ),
             )

@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:company_task/Screens/Add%20Medicen%20Post.dart';
+import 'package:company_task/Screens/AdingMedicienPost.dart';
 import 'package:company_task/Screens/profile_screen.dart';
 import 'package:company_task/models/medicenModel.dart';
 import 'package:company_task/provider/info_provider.dart';
@@ -60,7 +60,7 @@ class _ItemsState extends State<Items> {
                       FloatingActionButton(
                         onPressed: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context){
-                            return AddMedicinePostData();
+                            return AddMedicinePostDataScreen();
                           }));
                         },
                         heroTag: "vc",
