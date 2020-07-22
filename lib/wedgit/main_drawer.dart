@@ -1,6 +1,6 @@
 import 'package:company_task/Screens/homePage.dart';
 import 'package:company_task/Screens/profile_screen.dart';
-//import 'package:company_task/Screens/items.dart';
+//import 'package:company_task/Screens/MedicinePosts.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 //import 'package:profile_screen/models/info_provider.dart';
 //import 'package:profile_screen/screens/edit_screen.dart';
 //import 'package:profile_screen/screens/profile_screen.dart';
-//import 'package:profile_screen/screens/medicine_screen.dart';
+//import 'package:profile_screen/screens/ClothesPost.dart';
 //import 'package:provider/provider.dart';
 
 class MainDrawer extends StatelessWidget {

@@ -7,6 +7,7 @@ TextStyle kRadioButton = TextStyle(color: Colors.blueAccent, fontSize: 10);
 Color kMainColor = Color(0xffe6e6ea);
 
 Color kSecondColor = Color(0xffF9A110);
+Color KBackGroundColor =  Color(0xffe6e6ea);
 
 TextStyle kTitleHeadLine = TextStyle(
     color: Color(0xffAAA59F), fontSize: 12, fontWeight: FontWeight.w400);

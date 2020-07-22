@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:io';
 import 'package:company_task/Screens/ItemsContent.dart';
+import 'package:company_task/Screens/MedicinePosts.dart';
 import 'package:flutter/foundation.dart';
 import 'package:company_task/models/eventModel.dart';
 import 'package:company_task/models/medicenModel.dart';
@@ -19,7 +20,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../Screens/items.dart';
 class InfoProvider extends ChangeNotifier {
   static TextEditingController _emial = TextEditingController();
   static TextEditingController _fristName = TextEditingController();
@@ -158,7 +158,7 @@ class InfoProvider extends ChangeNotifier {
   }
   void item(BuildContext context) {
     Navigator.push(context,
-        MaterialPageRoute(builder: (BuildContext context) => Items()));
+        MaterialPageRoute(builder: (BuildContext context) => MedicinePosts()));
   }
 
 

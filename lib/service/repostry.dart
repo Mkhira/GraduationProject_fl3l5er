@@ -1,4 +1,6 @@
 import 'package:company_task/models/BloodNeedyModel.dart';
+import 'package:company_task/models/ClothesModel.dart';
+import 'package:company_task/service/ClothService.dart';
 
 import '../models/eventModel.dart';
 import 'BloodNeedyService.dart';
@@ -48,8 +50,33 @@ class MedicineRepostrySearch{
 
 
 
+class ClothRepostry{
+  final _clothService = ClothService();
+  Future<List<ClothModel>> getCloth() => _clothService.getCloth();
+
+}
+
+
+
+
+class ClothRepostrySearch{
+  final _clothServiceSearch = ClothServiceSearch();
+  Future<List<ClothModel>> getClothSearch(String query) => _clothServiceSearch.getClothSearch(query);
+
+}
+
+
+
+class ClothRepostryFinish{
+  final _clothService = ClothServicefinsh();
+  Future<List<ClothModel>> getCloth() => _clothService.getClothFinish();
+
+}
+
+
 class BloodRepostry{
   final _bloodService = BloodNeedyService();
   Future<List<BloodNeedyModel>> getNeedy() => _bloodService.getNeedy();
 
 }
+

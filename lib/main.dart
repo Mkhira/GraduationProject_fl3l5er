@@ -3,15 +3,15 @@ import 'dart:async';
 import 'package:company_task/Screens/AdingMedicienPost.dart';
 import 'package:company_task/Screens/edit_screen.dart';
 import 'package:company_task/Screens/homePage.dart';
-import 'package:company_task/Screens/medicine_screen.dart';
+import 'package:company_task/Screens/ClothesPost.dart';
 import 'package:company_task/Screens/profile_screen.dart';
-import 'package:company_task/Screens/items.dart';
 import 'package:company_task/Screens/profile_image_screen.dart';
 import 'package:company_task/provider/AddPostProvider.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'Screens/MedicinePosts.dart';
 import 'Screens/splashScreen.dart';
 import 'Screens/Login.dart';
 import 'Screens/secondRigister.dart';
@@ -42,11 +42,11 @@ class MyApp extends StatelessWidget {
         initialRoute: HomePage.id,
         routes: {
           HomePage.id: (context) => HomePage(),
-          Items.id: (context) => Items(),
+          MedicinePosts.id: (context) => MedicinePosts(),
           ProfileScreen.id:(context)=>ProfileScreen(),
           EditScreen.id:(context)=>EditScreen(),
           ProfileImageScreen.id:(context)=>ProfileImageScreen(),
-          MedicineScreen.id:(context)=>MedicineScreen(),
+          ClothesPost.id:(context)=>ClothesPost(),
           AddMedicinePostDataScreen.id:(context)=>AddMedicinePostDataScreen(),
         },
       ),

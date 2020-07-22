@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:company_task/models/BloodNeedyModel.dart';
+import 'package:company_task/models/ClothesModel.dart';
 import 'package:company_task/models/charityModel.dart';
 import 'package:company_task/wedgit/FriebaseErrorDailog.dart';
 import 'package:flutter/cupertino.dart';
@@ -261,19 +262,25 @@ final _evntList = PublishSubject<List<EventModel>>();
 
 
 
-  final textController = BehaviorSubject<String>();
+  final MedicenTextController = BehaviorSubject<String>();
+  final ClothTextController = BehaviorSubject<String>();
   final demond = BehaviorSubject<String>();
   final donate = BehaviorSubject<String>();
-  Stream<String> get textStream => textController.stream;
+  Stream<String> get MedicineTextStream => MedicenTextController.stream;
+  Stream<String> get ClothTextStream => ClothTextController.stream;
   Stream<String> get demondStream => demond.stream;
   Stream<String> get donateStream => donate.stream;
 
   Function(String) get demondChange => demond.sink.add;
   Function(String) get donateChange => donate.sink.add;
-  Function(String) get textChange => textController.sink.add;
+  Function(String) get MedicineTextChange => MedicenTextController.sink.add;
+  Function(String) get ClothTextChange => ClothTextController.sink.add;
 
-  updateText(String text) {
-         textController.sink.add(text);
+  updateMedicineText(String text) {
+         MedicenTextController.sink.add(text);
+  }
+  updateClothText(String text) {
+    ClothTextController.sink.add(text);
   }
   updateDemond(String text) {
          demond.sink.add(text);
@@ -285,9 +292,9 @@ final _evntList = PublishSubject<List<EventModel>>();
   MedicineRepostrySearch _medicineRepostrySearch = MedicineRepostrySearch();
 
 
-  search()async{
+  MedicineSearch()async{
 
-List<MedicineModel> _medicenmodelsearch = await _medicineRepostrySearch.getMedicineSearch(textController.value);
+List<MedicineModel> _medicenmodelsearch = await _medicineRepostrySearch.getMedicineSearch(MedicenTextController.value);
 
   return _medicineListSearch.sink.add(_medicenmodelsearch);
 
@@ -304,6 +311,53 @@ List<MedicineModel> _medicenmodelsearch = await _medicineRepostrySearch.getMedic
     List<MedicineModel> _medicineModel = await _medicineRepostry.getMedicine();
    return _medicineList.sink.add(_medicineModel);
   }
+
+
+  /////// Cloth ///
+  final _clothListSearch = PublishSubject<List<ClothModel>>();
+  Observable<List<ClothModel>> get streamClothsearch => _clothListSearch.stream;
+  ClothRepostrySearch _clothRepostrySearch = ClothRepostrySearch();
+
+
+  ClothSearch()async{
+
+    List<ClothModel> _clothmodelsearch = await _clothRepostrySearch.getClothSearch(ClothTextController.value);
+
+    return _clothListSearch.sink.add(_clothmodelsearch);
+
+
+  }
+
+
+  ClothRepostry _clothRepostry = ClothRepostry();
+
+  final _clothList = PublishSubject<List<ClothModel>>();
+  Observable<List<ClothModel>> get streamCloth => _clothList.stream;
+
+  fetchCloth() async{
+    List<ClothModel> _clothModel = await _clothRepostry.getCloth();
+    return _clothList.sink.add(_clothModel);
+  }
+
+  ClothRepostryFinish _clothRepostryFinish = ClothRepostryFinish();
+
+  final _clothListFinish = PublishSubject<List<ClothModel>>();
+  Observable<List<ClothModel>> get streamClothFinish => _clothListFinish.stream;
+
+  fetchClothFinish() async{
+    List<ClothModel> _clothModelfinish = await _clothRepostryFinish.getCloth();
+    return _clothListFinish.sink.add(_clothModelfinish);
+  }
+
+  ////// Cloth ////
+
+
+
+
+
+
+
+
 
   BloodRepostry _bloodRepostry = BloodRepostry();
 //gffghnhgf
@@ -335,14 +389,15 @@ List<MedicineModel> _medicenmodelsearch = await _medicineRepostrySearch.getMedic
 
     await _medicineList.drain();
     _medicineList.close();
-    textController.close();
+    MedicenTextController.close();
     _medicineListSearch.close();
     demond.close();
     donate.close();
+//    _clothListSearch.close();
 
-
+    _clothList.close();
     _bloodNeedyList.close();
-
+    _clothListFinish.close();
   }
 
 

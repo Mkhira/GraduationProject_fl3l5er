@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:company_task/Block/Block.dart';
-import 'package:company_task/Screens/medicine_screen.dart';
+import 'package:company_task/Screens/ClothesPost.dart';
 import 'package:company_task/Screens/profile_screen.dart';
-import 'package:company_task/Screens/items.dart';
 import 'package:company_task/models/eventModel.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/wedgit/main_drawer.dart';
@@ -18,6 +17,8 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import '../models/topDonatersmodel.dart';
 import '../models/charityModel.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+
+import 'MedicinePosts.dart';
 
 class HomePage extends StatefulWidget {
   static const String id = 'home_page';
@@ -171,13 +172,13 @@ class _HomePageState extends State<HomePage> {
                                     onTap: () {
 //                                      Provider.of<TaskData>(context)
 //                                          .item(context);
-                                     Navigator.pushNamed(context, Items.id);
+                                     Navigator.pushNamed(context, MedicinePosts.id);
                                     },
                                     categoryName: "Medicen",
                                   ),
                                   categoryWedgit(
                                     onTap: () {
-                                      Navigator.pushNamed(context,MedicineScreen.id);
+                                      Navigator.pushNamed(context,ClothesPost.id);
                                     },
                                     categoryName: "Cloth",
                                   ),

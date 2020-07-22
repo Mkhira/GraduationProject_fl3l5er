@@ -12,14 +12,14 @@ import '../Block/Block.dart';
 import '../style/constent.dart';
 import 'ItemsContent.dart';
 
-class Items extends StatefulWidget {
+class MedicinePosts extends StatefulWidget {
   static const String id = 'items';
 
   @override
-  _ItemsState createState() => _ItemsState();
+  _MedicinePostsState createState() => _MedicinePostsState();
 }
 
-class _ItemsState extends State<Items> {
+class _MedicinePostsState extends State<MedicinePosts> {
   Bloc _bloc;
   String x = '';
 
@@ -128,29 +128,29 @@ class _ItemsState extends State<Items> {
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 6.0),
                                 child: StreamBuilder(
-                                    stream: _bloc.textStream,
+                                    stream: _bloc.MedicineTextStream,
                                     builder: (context, snapshot) {
                                       return TextField(
                                         onChanged: (String text) {
                                           setState(() {
-                                            _bloc.updateText(text);
+                                            _bloc.updateMedicineText(text);
 
                                             print(_bloc
-                                                .textController.value.length);
+                                                .MedicenTextController.value.length);
 
                                             x = text;
 
-                                            if (_bloc.textController.value
+                                            if (_bloc.MedicenTextController.value
                                                     .length >=
                                                 1) {
-                                              _bloc.search();
-                                            } else if (_bloc.textController
+                                              _bloc.MedicineSearch();
+                                            } else if (_bloc.MedicenTextController
                                                         .value.length ==
                                                     0 ||
-                                                _bloc.textController.value
+                                                _bloc.MedicenTextController.value
                                                         .trim() ==
                                                     "" ||
-                                                _bloc.textController.value ==
+                                                _bloc.MedicenTextController.value ==
                                                     null) {
                                               _bloc.fetchMedicine();
                                             }
@@ -218,9 +218,9 @@ class _ItemsState extends State<Items> {
               child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: 650,
-                  child: (_bloc.textController.value == null ||
-                          _bloc.textController.value.trim() == "" ||
-                          _bloc.textController.value.length == 0)
+                  child: (_bloc.MedicenTextController.value == null ||
+                          _bloc.MedicenTextController.value.trim() == "" ||
+                          _bloc.MedicenTextController.value.length == 0)
                       ?
                   StreamBuilder<List<MedicineModel>>(
                           stream: _bloc.streamMedicine,
