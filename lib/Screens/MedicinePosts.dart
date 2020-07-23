@@ -3,9 +3,13 @@ import 'package:company_task/Screens/AdingMedicienPost.dart';
 import 'package:company_task/Screens/profile_screen.dart';
 import 'package:company_task/models/medicenModel.dart';
 import 'package:company_task/provider/info_provider.dart';
+import 'package:company_task/wedgit/PostsWidget/PostMaterialWedgit.dart';
+import 'package:company_task/wedgit/PostsWidget/PostPersistantHeader.dart';
+import 'package:company_task/wedgit/PostsWidget/PostsAppBarAddAndSearch.dart';
 import 'package:company_task/wedgit/main_drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import '../Block/Block.dart';
@@ -22,7 +26,6 @@ class MedicinePosts extends StatefulWidget {
 class _MedicinePostsState extends State<MedicinePosts> {
   Bloc _bloc;
   String x = '';
-
   @override
   void initState() {
     // TODO: implement initState
@@ -30,6 +33,7 @@ class _MedicinePostsState extends State<MedicinePosts> {
     Bloc();
     _bloc = Bloc();
     _bloc.fetchMedicine();
+    _bloc.fetchMedicineFinish();
   }
 
   @override
@@ -37,247 +41,116 @@ class _MedicinePostsState extends State<MedicinePosts> {
     return SafeArea(
         child: Scaffold(
       drawer: MainDrawer(),
+      appBar: PreferredSize(
+          child: PostsAppBarrHeader(
+            add: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return AddMedicinePostDataScreen();
+              }));
+            },
+            blocStream: _bloc.MedicineTextStream,
+            state: (String text) {
+              setState(() {
+                _bloc.updateMedicineText(text);
+
+                print(_bloc.MedicenTextController.value.length);
+
+                x = text;
+
+                if (_bloc.MedicenTextController.value.length >= 1) {
+                  _bloc.MedicineSearch();
+                } else if (_bloc.MedicenTextController.value.length == 0 ||
+                    _bloc.MedicenTextController.value.trim() == "" ||
+                    _bloc.MedicenTextController.value == null) {
+                  _bloc.fetchMedicine();
+                }
+              });
+            },
+          ),
+          preferredSize: Size.fromHeight(80)),
       backgroundColor: kMainColor,
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            SizedBox(height: 15),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 100,
-              decoration: BoxDecoration(
-                  color: Color(0xffe6e6ea),
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20))),
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      FloatingActionButton(
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context){
-                            return AddMedicinePostDataScreen();
-                          }));
-                        },
-                        heroTag: "vc",
-                        child: Icon(
-                          Icons.add,
-                          color: kSecondColor,
-                          size: 40,
-                        ),
-                        elevation: 3,
-                        backgroundColor: Colors.white,
-                      ),
-                      Spacer(
-                        flex: 2,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white,
-                        ),
-                        width: MediaQuery.of(context).size.width / 1.6,
-                        height: 60,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            SizedBox(
-                              width: 5,
-                            ),
-                            GestureDetector(
-                              key: Provider.of<InfoProvider>(context).actionKey,
-                              onTap: () {
-                                if (Provider.of<InfoProvider>(context)
-                                    .isDropdownOpened) {
-                                  Provider.of<InfoProvider>(context)
-                                      .floatingDropdown
-                                      .remove();
-                                } else {
-                                  Provider.of<InfoProvider>(context)
-                                          .floatingDropdown =
-                                      Provider.of<InfoProvider>(context)
-                                          .createFloatingDropdown();
-                                  Overlay.of(context).insert(
-                                      Provider.of<InfoProvider>(context)
-                                          .floatingDropdown);
-                                  Provider.of<InfoProvider>(context)
-                                      .findDropdownData();
-                                }
-                                Provider.of<InfoProvider>(context)
-                                    .changeDropdownOpenedState();
-                              },
-                              child: Container(
-                                width: 20,
-                                height: 60,
-                                child: Icon(
-                                  Icons.format_align_left,
-                                  size: 30,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ),
-                            Spacer(),
-                            Container(
-                              height: 60,
-                              width: MediaQuery.of(context).size.width / 1.9,
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 6.0),
-                                child: StreamBuilder(
-                                    stream: _bloc.MedicineTextStream,
-                                    builder: (context, snapshot) {
-                                      return TextField(
-                                        onChanged: (String text) {
-                                          setState(() {
-                                            _bloc.updateMedicineText(text);
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverPersistentHeader(
+            delegate: TopMedicinePostHeader(stream: _bloc.streamMedicineFinish,minnExtent: 100,maxxExtent: 300),
+          ),
 
-                                            print(_bloc
-                                                .MedicenTextController.value.length);
+          SliverList(
+            delegate: SliverChildListDelegate(
+              <Widget>[
 
-                                            x = text;
 
-                                            if (_bloc.MedicenTextController.value
-                                                    .length >=
-                                                1) {
-                                              _bloc.MedicineSearch();
-                                            } else if (_bloc.MedicenTextController
-                                                        .value.length ==
-                                                    0 ||
-                                                _bloc.MedicenTextController.value
-                                                        .trim() ==
-                                                    "" ||
-                                                _bloc.MedicenTextController.value ==
-                                                    null) {
-                                              _bloc.fetchMedicine();
-                                            }
-                                          });
-                                        },
-                                        decoration: InputDecoration(
-                                          hintText: 'Find your needs',
-                                          suffixIcon: IconButton(
-                                            icon: Icon(
-                                              Icons.search,
-                                              color: Colors.grey,
-                                            ),
-                                            onPressed: () {
-                                              setState(() {});
-                                            },
-                                          ),
-                                          border: InputBorder.none,
-                                        ),
-                                      );
-                                    }),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Spacer(
-                        flex: 2,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, ProfileScreen.id);
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0)),
-                          ),
-                          width: 65.0,
-                          height: 65.0,
-                          child:
-                              Provider.of<InfoProvider>(context).updatedImage ==
-                                      null
-                                  ? Center()
-                                  : ClipRRect(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      child: Image.file(
-                                        Provider.of<InfoProvider>(context)
-                                            .updatedImage,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                        ),
-                      ),
-                      Spacer(
-                        flex: 1,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10.0, right: 10),
-              child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 650,
-                  child: (_bloc.MedicenTextController.value == null ||
+
+
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0, right: 10),
+                  child: Container(
+                      width: MediaQuery.of(context).size.width,
+
+                      child: (_bloc.MedicenTextController.value == null ||
                           _bloc.MedicenTextController.value.trim() == "" ||
                           _bloc.MedicenTextController.value.length == 0)
-                      ?
-                  StreamBuilder<List<MedicineModel>>(
-                          stream: _bloc.streamMedicine,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return new StaggeredGridView.countBuilder(
-                                crossAxisCount: 4,
-                                itemCount: snapshot.data.length,
-                                shrinkWrap: true,
-                                addAutomaticKeepAlives: true,
-                                itemBuilder: (BuildContext context, index) {
-                                  var data = snapshot.data[index];
+                          ?
+                      StreamBuilder<List<MedicineModel>>(
+                        stream: _bloc.streamMedicine,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return new StaggeredGridView.countBuilder(
+                              physics: NeverScrollableScrollPhysics(),
+                              crossAxisCount: 4,
+                              itemCount: snapshot.data.length,
+                              shrinkWrap: true,
+                              addAutomaticKeepAlives: true,
+                              itemBuilder: (BuildContext context, index) {
+                                var data = snapshot.data[index];
 
-                                  return
+                                return
 
-                                    ContentWidget(medicineModel: data,);
-                                },
-                                staggeredTileBuilder: (data) =>
-                                    new StaggeredTile.count(
-                                        2, data.isEven ? 3.25 : 3),
-                                mainAxisSpacing: 15.0,
-                                crossAxisSpacing: 15.0,
-                              );
-                            } else
-                              return Container();
-                          },
-                        )
-                      :
-                  StreamBuilder<List<MedicineModel>>(
-                          stream: _bloc.streamMedicinesearch,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return new StaggeredGridView.countBuilder(
-                                crossAxisCount: 4,
-                                itemCount: snapshot.data.length,
-                                shrinkWrap: true,
-                                addAutomaticKeepAlives: true,
-                                itemBuilder: (BuildContext context, index) {
-                                  var data = snapshot.data[index];
+                                  ContentWidget(medicineModel: data,);
+                              },
+                              staggeredTileBuilder: (data) =>
+                              new StaggeredTile.count(
+                                  2, data.isEven ? 3.25 : 3),
+                              mainAxisSpacing: 15.0,
+                              crossAxisSpacing: 15.0,
+                            );
+                          } else
+                            return Container();
+                        },
+                      )
+                          :
+                      StreamBuilder<List<MedicineModel>>(
+                        stream: _bloc.streamMedicinesearch,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return new StaggeredGridView.countBuilder(
+                              physics: NeverScrollableScrollPhysics(),
+                              crossAxisCount: 4,
+                              itemCount: snapshot.data.length,
+                              shrinkWrap: true,
+                              addAutomaticKeepAlives: true,
+                              itemBuilder: (BuildContext context, index) {
+                                var data = snapshot.data[index];
 
-                                  return
-                                    ContentWidget(medicineModel: data,);
-                                },
-                                staggeredTileBuilder: (data) =>
-                                    new StaggeredTile.count(
-                                        2, data.isEven ? 3.25 : 3),
-                                mainAxisSpacing: 15.0,
-                                crossAxisSpacing: 15.0,
-                              );
-                            } else
-                              return Container();
-                          },
-                        )),
+                                return
+                                  ContentWidget(medicineModel: data,);
+                              },
+                              staggeredTileBuilder: (data) =>
+                              new StaggeredTile.count(
+                                  2, data.isEven ? 3.25 : 3),
+                              mainAxisSpacing: 15.0,
+                              crossAxisSpacing: 15.0,
+                            );
+                          } else
+                            return Container();
+                        },
+                      )),
+                ),
+
+              ],
             ),
-
-          ],
-        ),
+          ),
+        ],
       ),
     ));
   }
@@ -406,167 +279,80 @@ class DropdownItems extends StatelessWidget {
   }
 }
 
-
-
 class ContentWidget extends StatelessWidget {
   final MedicineModel medicineModel;
   ContentWidget({this.medicineModel});
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context){
-          return ItemContent(phone: medicineModel.phone,name: medicineModel.name,location: medicineModel.location,imageUrl: medicineModel.imageUrl,amount: medicineModel.amount,
-          dayLeft: medicineModel.dayLeft,owner: medicineModel.owner,state: medicineModel.state,
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return ItemContent(
+            phone: medicineModel.phone,
+            name: medicineModel.name,
+            location: medicineModel.location,
+            imageUrl: medicineModel.imageUrl,
+            amount: medicineModel.amount,
+            dayLeft: medicineModel.dayLeft,
+            owner: medicineModel.owner,
+            state: medicineModel.state,
           );
         }));
       },
-      child: Material(
-        borderRadius: BorderRadius.circular(20),
-        elevation: 4,
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: kSecondColor,
-          ),
-          child: Stack(
-            children: <Widget>[
-              Positioned(
-                top: 0,
-                left: 0,
-                child: ClipRRect(
-                  borderRadius:
-                  BorderRadius.circular(20),
-                  child: CachedNetworkImage(
-                    imageUrl: medicineModel.imageUrl,
-                    width: MediaQuery.of(context)
-                        .size
-                        .width /
-                        2.18,
-                    height: 180,
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) =>
-                        CircularProgressIndicator(),
-                    errorWidget:
-                        (context, url, error) =>
-                        Icon(Icons.error),
-                    placeholderFadeInDuration:
-                    Duration(days: 30),
-                    useOldImageOnUrlChange: true,
-                    filterQuality:
-                    FilterQuality.low,
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 195,
-                left: 15,
-                child: Container(
-                  width: MediaQuery.of(context)
-                      .size
-                      .width /
-                      2.2,
-                  child: Row(
-                    children: <Widget>[
-                      Text(
-                        "Name: ",
-                        style: TextStyle(
-                            color: Colors.white),
-                      ),
-                      Text(
-                        "${medicineModel.name}",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight:
-                            FontWeight.bold),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 220,
-                left: 15,
-                child: Container(
-                  width: MediaQuery.of(context)
-                      .size
-                      .width /
-                      2.2,
-                  child: Row(
-                    children: <Widget>[
-                      Text(
-                        "Owner: ",
-                        style: TextStyle(
-                            color: Colors.white),
-                      ),
-                      Text(
-                        "${medicineModel.owner}",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight:
-                            FontWeight.bold),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 245,
-                left: 15,
-                child: Container(
-                  width: MediaQuery.of(context)
-                      .size
-                      .width /
-                      2.2,
-                  child: Row(
-                    children: <Widget>[
-                      Text(
-                        "Phone: ",
-                        style: TextStyle(
-                            color: Colors.white),
-                      ),
-                      Text(
-                        "0${medicineModel.phone}",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight:
-                            FontWeight.bold,fontSize: 13),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 270,
-                left: 15,
-                child: Container(
-                  width: MediaQuery.of(context)
-                      .size
-                      .width /
-                      2.2,
-                  child: Row(
-                    children: <Widget>[
-                      Text(
-                        "State: ",
-                        style: TextStyle(
-                            color: Colors.white),
-                      ),
-                      Text(
-                        "${medicineModel.state}",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight:
-                            FontWeight.bold),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      child:
+      PostsMaterial(state: medicineModel.state,phone: medicineModel.phone,name: medicineModel.name,imageUrl: medicineModel.imageUrl,owner: medicineModel.owner,)
     );
   }
 }
+
+
+
+
+
+
+class TopMedicinePostHeader implements SliverPersistentHeaderDelegate {
+  TopMedicinePostHeader({this.maxxExtent, this.minnExtent, this.stream});
+  final double minnExtent;
+  final double maxxExtent;
+  final Stream stream;
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    // TODO: implement build
+    return PostMedicinePersistantHeader(stream: stream);
+  }
+
+  @override
+  // TODO: implement maxExtent
+  double get maxExtent => minExtent;
+
+  @override
+  // TODO: implement minExtent
+  double get minExtent => maxxExtent;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
+    // TODO: implement shouldRebuild
+    return true;
+  }
+
+  @override
+  // TODO: implement snapConfiguration
+  FloatingHeaderSnapConfiguration get snapConfiguration => null;
+
+  @override
+  // TODO: implement stretchConfiguration
+  OverScrollHeaderStretchConfiguration get stretchConfiguration => null;
+}
+
+
+
+
+
+
+
+
+
+
+
+

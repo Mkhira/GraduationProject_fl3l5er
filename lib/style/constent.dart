@@ -1,4 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts_arabic/fonts.dart';
+
+
+
+
+
+
+
+
+
+
+
+
+
+     TextStyle kPostStyleArabicBase=  TextStyle(fontWeight: FontWeight.bold,color: Colors.black87,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic');
+     TextStyle kPostStyleArabicChange=  TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic');
+
+
+
+
+
+
 
 TextStyle stepStyleTitle =
     TextStyle(color: Colors.blue, fontSize: 15, fontWeight: FontWeight.bold);

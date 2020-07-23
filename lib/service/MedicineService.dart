@@ -58,3 +58,33 @@ class MedicineServiceSearch{
 
 
 }
+
+
+class MedicineServiceFinish{
+
+  Future<List<MedicineModel>> getMedicineFinish(  ) async {
+    final QuerySnapshot querySnapshot =
+    await Firestore.instance.collection("medicen")
+        .where("dayleft", isLessThanOrEqualTo: 2)
+        .getDocuments();
+
+
+    if (querySnapshot.documents.length == 0) {
+      return null;
+    } else {
+      List<MedicineModel> medicineModelSearch = [];
+      for( var snapshot in querySnapshot.documents){
+        medicineModelSearch.add(MedicineModel.fromJison(snapshot));
+      }
+      return medicineModelSearch;
+    }
+  }
+
+
+
+
+
+
+
+
+}

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:company_task/Block/Block.dart';
 import 'package:company_task/Screens/ClothesPost.dart';
+import 'package:company_task/Screens/FurintureScreen.dart';
 import 'package:company_task/Screens/profile_screen.dart';
 import 'package:company_task/models/eventModel.dart';
 import 'package:company_task/provider/info_provider.dart';
@@ -184,9 +185,9 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   categoryWedgit(
                                     onTap: () {
-                                      Provider.of<InfoProvider>(context).itemContent(context);
+                                     Navigator.pushNamed(context, FurnitureScreen.id);
                                     },
-                                    categoryName: "Furinture",
+                                    categoryName: "Furniture",
                                   ),
                                   categoryWedgit(
                                     onTap: () {

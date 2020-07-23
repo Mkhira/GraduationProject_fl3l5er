@@ -1,9 +1,11 @@
 import 'package:company_task/models/BloodNeedyModel.dart';
 import 'package:company_task/models/ClothesModel.dart';
+import 'package:company_task/models/FurintureModel.dart';
 import 'package:company_task/service/ClothService.dart';
 
 import '../models/eventModel.dart';
 import 'BloodNeedyService.dart';
+import 'FurnitureService.dart';
 import 'eventSirves.dart';
 import '../models/topDonatersmodel.dart';
 import 'topDontorsService.dart';
@@ -48,8 +50,12 @@ class MedicineRepostrySearch{
 
 }
 
+class MedicineRepostryFinish{
+  final _medicineService = MedicineServiceFinish();
+  Future<List<MedicineModel>> getMedicineFinish() => _medicineService.getMedicineFinish();
 
-
+}
+////////////////////////////// Cloth start /////////////////
 class ClothRepostry{
   final _clothService = ClothService();
   Future<List<ClothModel>> getCloth() => _clothService.getCloth();
@@ -70,6 +76,31 @@ class ClothRepostrySearch{
 class ClothRepostryFinish{
   final _clothService = ClothServicefinsh();
   Future<List<ClothModel>> getCloth() => _clothService.getClothFinish();
+
+}
+/////////////////////////// Cloth Finish ///////////////////
+////////////////////////// Furniture start ///////////
+
+class FurnitureRepostry{
+  final _furnitureService = FurnitureService();
+  Future<List<FurnitureModel>> getFurniture() => _furnitureService.getFurniture();
+
+}
+
+
+
+
+class FurnitureRepostrySearch{
+  final _furnitureServiceSearch = FurnitureServiceSearch();
+  Future<List<FurnitureModel>> getFurnitureSearch(String query) => _furnitureServiceSearch.getFurnitureSearch(query);
+
+}
+
+
+
+class FurnitureRepostryFinish{
+  final _furnitureService = FurnitureServiceFinish();
+  Future<List<FurnitureModel>> getFurnitureFinish() => _furnitureService.getFurnitureFinish();
 
 }
 

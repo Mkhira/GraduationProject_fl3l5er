@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:company_task/Screens/AdingMedicienPost.dart';
+import 'package:company_task/Screens/FurintureScreen.dart';
 import 'package:company_task/Screens/edit_screen.dart';
 import 'package:company_task/Screens/homePage.dart';
 import 'package:company_task/Screens/ClothesPost.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
           ProfileImageScreen.id:(context)=>ProfileImageScreen(),
           ClothesPost.id:(context)=>ClothesPost(),
           AddMedicinePostDataScreen.id:(context)=>AddMedicinePostDataScreen(),
+          FurnitureScreen.id:(context)=>FurnitureScreen(),
         },
       ),
     );

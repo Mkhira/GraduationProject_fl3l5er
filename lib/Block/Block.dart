@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:company_task/models/BloodNeedyModel.dart';
 import 'package:company_task/models/ClothesModel.dart';
+import 'package:company_task/models/FurintureModel.dart';
 import 'package:company_task/models/charityModel.dart';
 import 'package:company_task/wedgit/FriebaseErrorDailog.dart';
 import 'package:flutter/cupertino.dart';
@@ -264,10 +265,12 @@ final _evntList = PublishSubject<List<EventModel>>();
 
   final MedicenTextController = BehaviorSubject<String>();
   final ClothTextController = BehaviorSubject<String>();
+  final FurnitureTextController = BehaviorSubject<String>();
   final demond = BehaviorSubject<String>();
   final donate = BehaviorSubject<String>();
   Stream<String> get MedicineTextStream => MedicenTextController.stream;
   Stream<String> get ClothTextStream => ClothTextController.stream;
+  Stream<String> get furnitureTextStream => FurnitureTextController.stream;
   Stream<String> get demondStream => demond.stream;
   Stream<String> get donateStream => donate.stream;
 
@@ -275,12 +278,16 @@ final _evntList = PublishSubject<List<EventModel>>();
   Function(String) get donateChange => donate.sink.add;
   Function(String) get MedicineTextChange => MedicenTextController.sink.add;
   Function(String) get ClothTextChange => ClothTextController.sink.add;
+  Function(String) get furnitureTextChange => FurnitureTextController.sink.add;
 
   updateMedicineText(String text) {
          MedicenTextController.sink.add(text);
   }
   updateClothText(String text) {
     ClothTextController.sink.add(text);
+  }
+  updateFurnitureText(String text) {
+    FurnitureTextController.sink.add(text);
   }
   updateDemond(String text) {
          demond.sink.add(text);
@@ -312,6 +319,17 @@ List<MedicineModel> _medicenmodelsearch = await _medicineRepostrySearch.getMedic
    return _medicineList.sink.add(_medicineModel);
   }
 
+
+
+  MedicineRepostryFinish _medivcineRepostryFinish = MedicineRepostryFinish();
+
+  final _MedicineListFinish = PublishSubject<List<MedicineModel>>();
+  Observable<List<MedicineModel>> get streamMedicineFinish => _MedicineListFinish.stream;
+
+  fetchMedicineFinish() async{
+    List<MedicineModel> _medicineModelfinish = await _medivcineRepostryFinish.getMedicineFinish();
+    return _MedicineListFinish.sink.add(_medicineModelfinish);
+  }
 
   /////// Cloth ///
   final _clothListSearch = PublishSubject<List<ClothModel>>();
@@ -349,13 +367,49 @@ List<MedicineModel> _medicenmodelsearch = await _medicineRepostrySearch.getMedic
     return _clothListFinish.sink.add(_clothModelfinish);
   }
 
-  ////// Cloth ////
+  ////// Cloth Finish////
+
+
+
+  final _furnitureListSearch = PublishSubject<List<FurnitureModel>>();
+  Observable<List<FurnitureModel>> get streamFurnituresearch => _furnitureListSearch.stream;
+  FurnitureRepostrySearch _furnitureRepostrySearch = FurnitureRepostrySearch();
+
+
+  FurnitureSearch()async{
+
+    List<FurnitureModel> _furnituremodelsearch = await _furnitureRepostrySearch.getFurnitureSearch(FurnitureTextController.value);
+
+    return _furnitureListSearch.sink.add(_furnituremodelsearch);
+
+
+  }
+
+
+  FurnitureRepostry _furnitureRepostry = FurnitureRepostry();
+
+  final _furnitureList = PublishSubject<List<FurnitureModel>>();
+  Observable<List<FurnitureModel>> get streamFurniture => _furnitureList.stream;
+  fetchFurniture() async{
+    List<FurnitureModel> _furnitureModel = await _furnitureRepostry.getFurniture();
+    return _furnitureList.sink.add(_furnitureModel);
+  }
+
+  FurnitureRepostryFinish _furnitureRepostryFinish = FurnitureRepostryFinish();
+
+  final _furnitureListFinish = PublishSubject<List<FurnitureModel>>();
+  Observable<List<FurnitureModel>> get streamFurnitureFinish => _furnitureListFinish.stream;
+
+  fetchFurnitureFinish() async{
+    List<FurnitureModel> _furnitureModelfinish = await _furnitureRepostryFinish.getFurnitureFinish();
+    return _furnitureListFinish.sink.add(_furnitureModelfinish);
+  }
 
 
 
 
 
-
+/////////////////////////////////////////////////////////
 
 
 
@@ -398,6 +452,11 @@ List<MedicineModel> _medicenmodelsearch = await _medicineRepostrySearch.getMedic
     _clothList.close();
     _bloodNeedyList.close();
     _clothListFinish.close();
+    _MedicineListFinish.close();
+    _clothListSearch.close();
+    _furnitureListSearch.close();
+    _furnitureList.close();
+    _furnitureListFinish.close();
   }
 
 
