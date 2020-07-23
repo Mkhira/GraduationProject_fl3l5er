@@ -6,7 +6,7 @@ class MedicineModel{
   String name;
   int amount;
   int phone;
-  String location;
+  List<dynamic> location;
   String owner;
   String imageUrl;
   String state;
@@ -38,7 +38,7 @@ class MedicineModelSearch{
   String name;
   int amount;
   int phone;
-  String location;
+  List<dynamic> location;
   String owner;
   String imageUrl;
   String state;

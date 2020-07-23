@@ -27,44 +27,53 @@ class Bar extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Stack(
-      fit: StackFit.expand,
-      children: <Widget>[
-        Positioned(
-          top: 0,
-          left: 0,
-          child:          ClipRRect(
-            borderRadius:
-            BorderRadius.circular(20),
-            child: CachedNetworkImage(
-              imageUrl: image,
-              width: MediaQuery.of(context)
-                  .size
-                  .width ,
-              height: 300,
-              fit: BoxFit.cover,
-              placeholder: (context, url) =>
-                  CircularProgressIndicator(),
-              errorWidget:
-                  (context, url, error) =>
-                  Icon(Icons.error),
-              placeholderFadeInDuration:
-              Duration(days: 30),
-              useOldImageOnUrlChange: true,
-              filterQuality:
-              FilterQuality.low,
-            ),
-          ),
-
-        ),
-        Positioned(bottom: 0, left: 0, child: appBar(itemAmount: itemAmount,itemName: itemName,)),
-        Positioned(
-            bottom: 0,
+    return Container(
+      color: Colors.amber,
+      child: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          Positioned(
+            top: 0,
             left: 0,
-            child: SizedBox(
-              height: 10,
-            )),
-      ],
+            child:          Container(
+              color: Colors.white,
+              child: ClipRRect(
+
+                borderRadius:
+                BorderRadius.circular(20),
+                child: CachedNetworkImage(
+                  imageUrl: image,
+                  width: MediaQuery.of(context)
+                      .size
+                      .width ,
+                  height: 300,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) =>
+                      CircularProgressIndicator(),
+                  errorWidget:
+                      (context, url, error) =>
+                      Icon(Icons.error),
+
+                  color: Colors.white,
+                  placeholderFadeInDuration:
+                  Duration(days: 30),
+                  useOldImageOnUrlChange: true,
+                  filterQuality:
+                  FilterQuality.low,
+                ),
+              ),
+            ),
+
+          ),
+          Positioned(bottom: 0, left: 0, child: appBar(itemAmount: itemAmount,itemName: itemName,)),
+          Positioned(
+              bottom: 0,
+              left: 0,
+              child: SizedBox(
+                height: 10,
+              )),
+        ],
+      ),
     );
   }
 

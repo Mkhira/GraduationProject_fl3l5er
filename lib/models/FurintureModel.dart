@@ -4,7 +4,7 @@ class FurnitureModel{
   String name;
   int amount;
   int phone;
-  String location;
+  List<dynamic> location;
   String owner;
   String imageUrl;
   String state;
@@ -36,7 +36,7 @@ class FurnitureModelSearch{
   String name;
   int amount;
   int phone;
-  String location;
+  List<dynamic> location;
   String owner;
   String imageUrl;
   String state;

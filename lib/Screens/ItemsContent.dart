@@ -8,12 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
+import 'Maps/StaticMap.dart';
+
 
 class ItemContent extends StatelessWidget {
  final String name;
  final int amount;
  final int phone;
- final String location;
+ final List location;
  final String owner;
  final int dayLeft;
  final String imageUrl;
@@ -232,7 +234,31 @@ class ItemContent extends StatelessWidget {
                                  color: Colors.grey.shade100,
                                ),
                              ),
-
+                             SizedBox(
+                               height: 10,
+                             ),
+                              Center(
+                                child: GestureDetector(
+                                  onTap: (){
+                                    print(location[0]);
+                                    print(location[1]);
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (BuildContext context) => GoogleMaps(lat: location[0],lan: location[1],)));
+                                  },
+                                  child: Material(
+                                    elevation: 4,
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Container(
+                                      height: 200,
+                                      width: MediaQuery.of(context).size.width/1.2,
+                                      child: ClipRRect(
+                                        borderRadius:  BorderRadius.circular(20),
+                                        child: Image(image: AssetImage('assets/map.jpg'),fit: BoxFit.cover,),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
                              SizedBox(
                                height: 10,
                              ),
