@@ -72,6 +72,9 @@ const List<String> kStatusList = ['Single', 'Married'];
 const kTextFieldDecoration = InputDecoration(
     hintText: 'Enter value',
     contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+    hintStyle: TextStyle(
+        color: Colors.white,
+    ),
     border: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
     ),

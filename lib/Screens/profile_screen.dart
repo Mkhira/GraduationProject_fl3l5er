@@ -14,7 +14,6 @@ import 'package:flutter/material.dart';
 //import 'package:profile_screen/widgets/main_drawer.dart';
 import 'package:provider/provider.dart';
 
-
 //import 'package:profile_screen/widgets/list_item.dart';
 //import 'package:profile_screen/widgets/progress_bar.dart';
 //import 'package:profile_screen/screens/edit_screen.dart';
@@ -57,11 +56,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
       backgroundColor: Color(0xff0041C4), //Color(0xFF04022B),
       drawer: MainDrawer(),
       appBar: AppBar(
-        leading: Container(
-          margin: EdgeInsets.only(left: 25.0),
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: Colors.white,
+        leading: GestureDetector(
+          onTap:(){
+            Navigator.pop(context);
+          },
+          child: Container(
+            margin: EdgeInsets.only(left: 25.0),
+            child: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+            ),
           ),
         ),
         backgroundColor: Colors.transparent,
@@ -305,27 +309,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: <Widget>[
                       Container(
                         decoration: BoxDecoration(
-                          color: Color(0xff0041C4),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.8),
+                              blurRadius: 7,
+                            ),
+                          ],
                           borderRadius: BorderRadius.circular(15),
                         ),
-                        child: ExpansionTile(
-                          title: Text('Bio'),
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 15.0),
-                              child: Text(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 12.0,
+                            horizontal: 15.0,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 5.0),
+                                child: Text(
+                                  'BIO',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              Text(
                                 Provider.of<InfoProvider>(context).bio,
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 4,
                                 style: TextStyle(
-                                  fontSize: 20.0,
+                                  fontSize: 21.0,
                                   wordSpacing: 3.0,
-                                  color: Color(0xffB4B6B6),
+                                  color: Colors.black87, //Color(0xffB4B6B6),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -367,35 +390,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         value: 500,
                       ),
                     ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20.0),
-                  child: Text(
-                    'Last Donations',
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return ListItem(
-                          image: image[index],
-                          title: title[index],
-                          subtitle: subtitle[index],
-                          category: category[index],
-                        );
-                      },
-                      itemCount: 4,
-                    ),
-                    width: MediaQuery.of(context).size.width,
-                    height: 420,
                   ),
                 ),
               ],

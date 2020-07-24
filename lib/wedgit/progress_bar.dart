@@ -38,8 +38,7 @@ class ProgressBar extends StatelessWidget {
               ),
               SizedBox(height: 10.0,),
               RadialProgress(
-                value: progressValue,
-                width: 200.0,
+                value: value,
                 height: 15.0,
               ),
             ],

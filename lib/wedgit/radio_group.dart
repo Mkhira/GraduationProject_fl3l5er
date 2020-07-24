@@ -2,9 +2,7 @@ import 'package:company_task/provider/info_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-//import 'package:profile_screen/constants.dart';
 import 'package:provider/provider.dart';
-
 
 class RadioGroup extends StatelessWidget {
   final String groupName, firstText, secondText;
@@ -25,43 +23,41 @@ class RadioGroup extends StatelessWidget {
             unselectedWidgetColor: Colors.white,
             accentColor: Colors.white,
           ),
-          child: ExpansionTile(
-            initiallyExpanded: true,
-            title: Text(groupName,style: TextStyle(color: Colors.white)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10.0,12.0,0.0,5.0),
+                child: Text(
+                  groupName,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.0
+                  ),
+                ),
+              ),
               ListTile(
-                title: Text(firstText,style: TextStyle(color: Colors.white),),
+                title: Text(
+                  firstText,
+                  style: TextStyle(color: Colors.white),
+                ),
                 leading: Radio(
-                  value:groupName == 'Gender' ?'Male':'Single',
-                  groupValue: groupName == 'Gender' ? Provider
-                      .of<InfoProvider>(context)
-                      .gender : Provider
-                      .of<InfoProvider>(context)
-                      .status, //
+                  value: 'Single',
+                  groupValue: Provider.of<InfoProvider>(context).status,
                   onChanged: (String value) {
-                    groupName == 'Gender' ? Provider
-                        .of<InfoProvider>(context, listen: false)
-                        .modifyGender = value : Provider
-                        .of<InfoProvider>(context,listen: false)
+                    Provider.of<InfoProvider>(context, listen: false)
                         .modifyStatus = value;
                   },
                 ),
               ),
               ListTile(
-                title: Text(secondText,style: TextStyle(color: Colors.white)),
+                title: Text(secondText, style: TextStyle(color: Colors.white)),
                 leading: Radio(
-                  value: groupName == 'Gender' ?'Female':'Married',
-                  groupValue: groupName == 'Gender' ? Provider
-                      .of<InfoProvider>(context)
-                      .gender : Provider
-                      .of<InfoProvider>(context)
-                      .status,
+                  value: 'Married',
+                  groupValue: Provider.of<InfoProvider>(context).status,
                   onChanged: (String value) {
-                    groupName == 'Gender' ? Provider
-                        .of<InfoProvider>(context, listen: false)
-                        .modifyGender = value : Provider
-                        .of<InfoProvider>(context,listen: false)
-                        .modifyStatus=value;
+                    Provider.of<InfoProvider>(context, listen: false)
+                        .modifyStatus = value;
                   },
                 ),
               ),

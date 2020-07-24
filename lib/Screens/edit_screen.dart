@@ -68,20 +68,20 @@ class EditScreen extends StatelessWidget {
                     width: 200.0,
                     height: 200.0,
                     child: Provider.of<InfoProvider>(context).pickedImage ==
-                        null
+                            null
                         ? Center(
-                      child: Icon(
-                        Icons.add,
-                        size: 32.0,
-                      ),
-                    )
+                            child: Icon(
+                              Icons.add,
+                              size: 32.0,
+                            ),
+                          )
                         : ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
-                      child: Image.file(
-                        Provider.of<InfoProvider>(context).pickedImage,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                            borderRadius: BorderRadius.circular(15),
+                            child: Image.file(
+                              Provider.of<InfoProvider>(context).pickedImage,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                   ),
                   onTap: () {
                     Alert(context: context).onTapped();
@@ -135,74 +135,98 @@ class EditScreen extends StatelessWidget {
                     newLocation = newText;
                   },
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      'Phone Number',
-                      style: KTitleTextStyle,
-                    ),
-                    SizedBox(
-                      height: 8.0,
-                    ),
-                    TextField(
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        WhitelistingTextInputFormatter.digitsOnly
-                      ],
-                      style: TextStyle(
-                        fontSize: 18.0,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
                         color: Colors.black,
-                      ),
-                      decoration: kTextFieldDecoration.copyWith(
-                        hintText: Provider.of<InfoProvider>(context).phone,
-                      ),
-                      onChanged: (newText) {
-                        newPhone = newText;
-                      },
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(1.0),
+                          )
+                        ],
+                        borderRadius: BorderRadius.circular(10.0)
                     ),
-                    SizedBox(
-                      height: 10.0,
-                    )
-                  ],
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'Phone Number',
+                            style: KTitleTextStyle,
+                          ),
+                          SizedBox(
+                            height: 8.0,
+                          ),
+                          TextField(
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              WhitelistingTextInputFormatter.digitsOnly
+                            ],
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              color: Colors.black,
+                            ),
+                            decoration: kTextFieldDecoration.copyWith(
+                              hintText: Provider.of<InfoProvider>(context).phone,
+                            ),
+                            onChanged: (newText) {
+                              newPhone = newText;
+                            },
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      'ID',
-                      style: KTitleTextStyle,
-                    ),
-                    SizedBox(
-                      height: 8.0,
-                    ),
-                    TextField(
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        WhitelistingTextInputFormatter.digitsOnly
-                      ],
-                      style: TextStyle(
-                        fontSize: 18.0,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
                         color: Colors.black,
-                      ),
-                      decoration: kTextFieldDecoration.copyWith(
-                        hintText: Provider.of<InfoProvider>(context).id,
-                      ),
-                      onChanged: (newText) {
-                        newID = newText;
-                      },
+                        borderRadius: BorderRadius.circular(10.0)
                     ),
-                    SizedBox(
-                      height: 10.0,
-                    )
-                  ],
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'ID',
+                            style: KTitleTextStyle,
+                          ),
+                          SizedBox(
+                            height: 8.0,
+                          ),
+                          TextField(
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              WhitelistingTextInputFormatter.digitsOnly
+                            ],
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              color: Colors.black,
+                            ),
+                            decoration: kTextFieldDecoration.copyWith(
+                              hintText: Provider.of<InfoProvider>(context).id,
+                            ),
+                            onChanged: (newText) {
+                              newID = newText;
+                            },
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
                 DropDownButton(),
-                RadioGroup(
-                  groupName: 'Gender',
-                  firstText: 'Male',
-                  secondText: 'Female',
-                ),
                 RadioGroup(
                   groupName: 'Marital Status',
                   firstText: 'Single',
@@ -260,31 +284,31 @@ class EditScreen extends StatelessWidget {
 
                       //update gender
                       Provider.of<InfoProvider>(context, listen: false)
-                          .modifyUpdatedGender =
+                              .modifyUpdatedGender =
                           Provider.of<InfoProvider>(context, listen: false)
                               .gender;
                       //update status
                       Provider.of<InfoProvider>(context, listen: false)
-                          .modifyUpdatedStatus =
+                              .modifyUpdatedStatus =
                           Provider.of<InfoProvider>(context, listen: false)
                               .status;
 
                       //update Date of birth
                       Provider.of<InfoProvider>(context, listen: false)
-                          .modifyUpdatedDay =
+                              .modifyUpdatedDay =
                           Provider.of<InfoProvider>(context, listen: false).day;
                       Provider.of<InfoProvider>(context, listen: false)
-                          .modifyUpdatedMonth =
+                              .modifyUpdatedMonth =
                           Provider.of<InfoProvider>(context, listen: false)
                               .month;
                       Provider.of<InfoProvider>(context, listen: false)
-                          .modifyUpdatedYear =
+                              .modifyUpdatedYear =
                           Provider.of<InfoProvider>(context, listen: false)
                               .year;
 
                       //update Image
                       Provider.of<InfoProvider>(context, listen: false)
-                          .modifyUpdatedImage =
+                              .modifyUpdatedImage =
                           Provider.of<InfoProvider>(context, listen: false)
                               .pickedImage;
 
@@ -318,14 +342,14 @@ class EditScreen extends StatelessWidget {
   }
 }
 
-class Alert{
+class Alert {
   BuildContext context;
-  File file,cropped;
+  File file, cropped;
+
   Alert({@required this.context});
 
-  flatButtonPressed(ImageSource source)async{
-    file = await ImagePicker.pickImage(
-        source: source);
+  flatButtonPressed(ImageSource source) async {
+    file = await ImagePicker.pickImage(source: source);
 
     if (file != null) {
       cropped = await ImageCropper.cropImage(
@@ -335,11 +359,12 @@ class Alert{
           ratioY: 1,
         ),
         androidUiSettings: AndroidUiSettings(
-            toolbarTitle: 'Cropper',
-            toolbarColor: Colors.deepOrange,
-            toolbarWidgetColor: Colors.white,
-            initAspectRatio: CropAspectRatioPreset.original,
-            lockAspectRatio: false,),
+          toolbarTitle: 'Cropper',
+          toolbarColor: Colors.deepOrange,
+          toolbarWidgetColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false,
+        ),
         compressQuality: 100,
         maxHeight: 700,
         maxWidth: 700,
@@ -347,27 +372,24 @@ class Alert{
       );
     }
 
-    Provider.of<InfoProvider>(context, listen: false)
-        .modifyImage = (cropped ==
-        null)
-        ? Provider.of<InfoProvider>(context,listen: false).pickedImage
-        : cropped;
-
+    Provider.of<InfoProvider>(context, listen: false).modifyImage =
+        (cropped == null)
+            ? Provider.of<InfoProvider>(context, listen: false).pickedImage
+            : cropped;
 
     Navigator.pop(context);
   }
-  onTapped(){
+
+  onTapped() {
     AlertDialog alert = AlertDialog(
       title: Text('Choose Image from'),
       actions: <Widget>[
         FlatButton(
             child: Text('Gallery'),
-            onPressed: () =>flatButtonPressed(ImageSource.gallery)
-        ),
+            onPressed: () => flatButtonPressed(ImageSource.gallery)),
         FlatButton(
             child: Text('Camera'),
-            onPressed: () =>flatButtonPressed(ImageSource.camera)
-        ),
+            onPressed: () => flatButtonPressed(ImageSource.camera)),
       ],
       elevation: 24.0,
     );
@@ -382,44 +404,66 @@ class Alert{
 
 class EditTextField extends StatelessWidget {
   final Function onPressed;
-  final String title,hint;
+  final String title, hint;
   final int lines;
-  const EditTextField({this.onPressed, this.title, this.hint,this.lines});
+
+  const EditTextField({this.onPressed, this.title, this.hint, this.lines});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          title,
-          style: KTitleTextStyle,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(10.0),
+          boxShadow:[
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.9),
+              blurRadius: 7,
+            ),
+          ]
         ),
-        SizedBox(height: 8.0,),
-        TextField(
-          //maxLength: 4,
-          style: TextStyle(
-            fontSize: 18.0,
-            color: Colors.black,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                title,
+                style: KTitleTextStyle,
+              ),
+              SizedBox(
+                height: 8.0,
+              ),
+              TextField(
+                //maxLength: 4,
+                style: TextStyle(
+                  fontSize: 18.0,
+                  color: Colors.white,
+                ),
+                decoration: kTextFieldDecoration.copyWith(
+                  hintText: hint,
+                ),
+                maxLines: lines,
+                onChanged: onPressed,
+              ),
+              SizedBox(
+                height: 10.0,
+              )
+            ],
           ),
-          decoration: kTextFieldDecoration.copyWith(hintText:hint,),
-          maxLines: lines,
-          onChanged: onPressed,
         ),
-        SizedBox(
-          height: 10.0,
-        )
-      ],
+      ),
     );
   }
 }
-
 
 class DropDownButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(8.0),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.black,
@@ -427,130 +471,132 @@ class DropDownButton extends StatelessWidget {
         ),
         child: Theme(
           data: ThemeData(
-              unselectedWidgetColor: Colors.white,
-              accentColor: Colors.white
-          ),
-          child: ExpansionTile(
-            title: Text(
-              'BirthDate',
-              style: TextStyle(
-                color: Colors.white,
-                //fontSize: 22.0,
-              ),
-            ),
-            initiallyExpanded: true,
-            children: <Widget>[
-              Padding(
-                padding:EdgeInsets.only(right: 15.0, left: 15.0),
-                child: SafeArea(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Text(
-                            'day :',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 15.0,
-                          ),
-                          DropdownButton<String>(
-                            value: Provider.of<InfoProvider>(context).day,
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              color: Colors.deepPurple,
-                            ),
-                            underline: Container(
-                              height: 2,
-                              color: Colors.deepPurpleAccent,
-                            ),
-                            onChanged: (String newValue) {
-                              Provider.of<InfoProvider>(context,listen: false).modifyDay=newValue;
-                            },
-                            items: kDay.map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Text(
-                            'month : ',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 15.0,
-                          ),
-                          DropdownButton<String>(
-                            value: Provider.of<InfoProvider>(context).month,
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              color: Colors.deepPurple,
-                            ),
-                            underline: Container(
-                              height: 2,
-                              color: Colors.deepPurpleAccent,
-                            ),
-                            onChanged: (String newValue) {
-                              Provider.of<InfoProvider>(context,listen: false).modifyMonth=newValue;
-                            },
-                            items: kMonth.map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              ListTile(
-                title: Text(
-                  'year :',
+              unselectedWidgetColor: Colors.white, accentColor: Colors.white),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'BirthDate',
                   style: TextStyle(
-                    fontSize: 22.0,
-                    fontWeight: FontWeight.w700,
                     color: Colors.white,
-                  ),
-                ),
-                trailing: DropdownButton<String>(
-                  value:Provider.of<InfoProvider>(context).year,
-                  style: TextStyle(
                     fontSize: 18.0,
-                    color: Colors.deepPurple,
                   ),
-                  underline: Container(
-                    height: 2,
-                    color: Colors.deepPurpleAccent,
-                  ),
-                  onChanged: (String newValue) {
-                    Provider.of<InfoProvider>(context,listen: false).modifyYear=newValue;
-                  },
-                  items: kYear.map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
                 ),
-              ),
-            ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          'day :',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 15.0,
+                        ),
+                        DropdownButton<String>(
+                          value: Provider.of<InfoProvider>(context).day,
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            color: Colors.deepPurple,
+                          ),
+                          underline: Container(
+                            height: 2,
+                            color: Colors.deepPurpleAccent,
+                          ),
+                          onChanged: (String newValue) {
+                            Provider.of<InfoProvider>(context, listen: false)
+                                .modifyDay = newValue;
+                          },
+                          items: kDay.map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          'month : ',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 15.0,
+                        ),
+                        DropdownButton<String>(
+                          value: Provider.of<InfoProvider>(context).month,
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            color: Colors.deepPurple,
+                          ),
+                          underline: Container(
+                            height: 2,
+                            color: Colors.deepPurpleAccent,
+                          ),
+                          onChanged: (String newValue) {
+                            Provider.of<InfoProvider>(context, listen: false)
+                                .modifyMonth = newValue;
+                          },
+                          items: kMonth.map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'year :',
+                      style: TextStyle(
+                        fontSize: 22.0,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
+                    DropdownButton<String>(
+                      value: Provider.of<InfoProvider>(context).year,
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        color: Colors.deepPurple,
+                      ),
+                      underline: Container(
+                        height: 2,
+                        color: Colors.deepPurpleAccent,
+                      ),
+                      onChanged: (String newValue) {
+                        Provider.of<InfoProvider>(context, listen: false)
+                            .modifyYear = newValue;
+                      },
+                      items: kYear.map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
