@@ -48,6 +48,7 @@ dependencies:
   community_material_icon: ^3.5.95
   font_awesome_flutter: ^8.8.1
   google_fonts_arabic: ^1.1.7
+  geolocator: ^5.3.2+2
 
 
 dev_dependencies:

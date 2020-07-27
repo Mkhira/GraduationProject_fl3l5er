@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:company_task/Screens/AdingMedicienPost.dart';
 import 'package:company_task/Screens/FurintureScreen.dart';
 import 'package:company_task/Screens/Maps/StaticMap.dart';
+import 'package:company_task/Screens/Maps/user_location.dart';
 import 'package:company_task/Screens/edit_screen.dart';
 import 'package:company_task/Screens/homePage.dart';
 import 'package:company_task/Screens/ClothesPost.dart';
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
           AddMedicinePostDataScreen.id:(context)=>AddMedicinePostDataScreen(),
           FurnitureScreen.id:(context)=>FurnitureScreen(),
           GoogleMaps.id:(context)=>GoogleMaps(),
+          UserLocation.id:(context)=>UserLocation(),
         },
       ),
     );
