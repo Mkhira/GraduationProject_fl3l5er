@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -15,7 +16,13 @@ import 'package:path/path.dart' as p;
 
 class AddPostProvider extends ChangeNotifier{
 
+  var location = Location();
 
+  Future checkGps() async {
+    if (!await location.serviceEnabled()) {
+      location.requestService();
+    }
+  }
   List<String> dropState = ['Donate','Demond'];
   String selectedsState = 'Donate';
 

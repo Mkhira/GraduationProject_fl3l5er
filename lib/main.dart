@@ -10,6 +10,7 @@ import 'package:company_task/Screens/ClothesPost.dart';
 import 'package:company_task/Screens/profile_screen.dart';
 import 'package:company_task/Screens/profile_image_screen.dart';
 import 'package:company_task/provider/AddPostProvider.dart';
+import 'package:company_task/provider/MapProvider.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +36,9 @@ class MyApp extends StatelessWidget {
 
     ),  ChangeNotifierProvider(
         create: (context)=>AddPostProvider(),
+
+    ),  ChangeNotifierProvider(
+    create: (context)=>MapProvider(),
 
     ),
 
