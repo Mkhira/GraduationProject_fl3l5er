@@ -1,3 +1,4 @@
+import 'package:android_intent/android_intent.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:company_task/Screens/Maps/user_location.dart';
 import 'package:company_task/provider/AddPostProvider.dart';
@@ -9,9 +10,12 @@ import 'package:flutter/rendering.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class AddMedicinePostDataScreen extends StatefulWidget {
   static const String id = 'AddPostScreen';
+  PermissionStatus status;
+
 
   @override
   _AddMedicinePostDataScreenState createState() =>
@@ -19,6 +23,43 @@ class AddMedicinePostDataScreen extends StatefulWidget {
 }
 
 class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
+
+  Future _checkGps() async {
+    if (!(await Geolocator().isLocationServiceEnabled())) {
+      if (Theme.of(context).platform == TargetPlatform.android) {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text("Can't get gurrent location"),
+                content:const Text('Please make sure you enable GPS and try again'),
+                actions: <Widget>[
+                  FlatButton(child: Text('Ok'),
+                      onPressed: () {
+                        final AndroidIntent intent = AndroidIntent(
+                            action: 'android.settings.LOCATION_SOURCE_SETTINGS');
+                        intent.launch();
+                        Navigator.of(context, rootNavigator: true).pop();
+                      })],
+              );
+            });
+      }
+    }
+  }
+
+  Future _gpsService() async {
+    if (!(await Geolocator().isLocationServiceEnabled())) {
+      _checkGps();
+      return null;
+    } else
+      return true;
+  }
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<AddPostProvider>(context);
@@ -332,23 +373,36 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
                           text: "Get Current Location",
                           onPressed: () async {
                             //get current position using geolocator package
-                            Position position = await Geolocator()
-                                .getCurrentPosition(
-                                    desiredAccuracy: LocationAccuracy.high);
+                            if(await Permission.locationWhenInUse.serviceStatus.isEnabled){
+                              Position position = await Geolocator()
+                                  .getCurrentPosition(
+                                  desiredAccuracy: LocationAccuracy.high);
 
-                            //get the address from the coordinates
-                            List<Placemark> placemark = await Geolocator()
-                                .placemarkFromCoordinates(
-                                    position.latitude, position.longitude);
+                              //get the address from the coordinates
+                              List<Placemark> placemark = await Geolocator()
+                                  .placemarkFromCoordinates(
+                                  position.latitude, position.longitude);
 
-                            Placemark place = placemark[0];
-                            String administrativeArea =
-                                place.subAdministrativeArea;
-                            String locality = place.locality;
+                              Placemark place = placemark[0];
+                              String administrativeArea =
+                                  place.subAdministrativeArea;
+                              String locality = place.locality;
 
-                            print('$administrativeArea  $locality');
-                            print(
-                                '${position.latitude}  ${position.longitude}');
+                              print('$administrativeArea  $locality');
+                              print(
+                                  '${position.latitude}  ${position.longitude}');
+                            }else if( await Permission.locationWhenInUse.isPermanentlyDenied ){
+                              openAppSettings();
+                            }else if( await Permission.locationWhenInUse.isDenied || await Permission.location.isDenied || await Permission.location.isGranted != true||
+                            await Permission.location.serviceStatus.isDisabled){
+                              print("hhhhhhhhhhhhhhhh");
+//                              _checkGps();
+                                await Permission.location.request();
+
+                                            }
+
+
+
                           },
                         ),
                       ],
@@ -365,32 +419,39 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
                           borderColor: kSecondColor,
                           text: "Get Another Location",
                           onPressed: () async {
+
+                            if (await Permission.locationWhenInUse.serviceStatus.isEnabled) {
+                              Position position = await Geolocator()
+                                  .getCurrentPosition(
+                                  desiredAccuracy: LocationAccuracy.high);
+
+                              //get the address from the coordinates
+                              List<Placemark> placemark = await Geolocator()
+                                  .placemarkFromCoordinates(
+                                  position.latitude, position.longitude);
+
+                              Placemark place = placemark[0];
+                              String administrativeArea =
+                                  place.subAdministrativeArea;
+                              String locality = place.locality;
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return UserLocation(
+                                      latitude: position.latitude,
+                                      longitude: position.longitude,
+                                      locality: administrativeArea,
+                                    );
+                                  },
+                                ),
+                              );
+                            }else if ( await Permission.locationWhenInUse.isPermanentlyDenied || await Permission.location.isPermanentlyDenied) {
+                                print("ffffffffffffffffffffffffffffffffffffffffff");
+                              openAppSettings();
+                            }
                             //get current position using geolocator package
-                            Position position = await Geolocator()
-                                .getCurrentPosition(
-                                    desiredAccuracy: LocationAccuracy.high);
 
-                            //get the address from the coordinates
-                            List<Placemark> placemark = await Geolocator()
-                                .placemarkFromCoordinates(
-                                position.latitude, position.longitude);
-
-                            Placemark place = placemark[0];
-                            String administrativeArea =
-                                place.subAdministrativeArea;
-                            String locality = place.locality;
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return UserLocation(
-                                    latitude: position.latitude,
-                                    longitude: position.longitude,
-                                    locality: administrativeArea,
-                                  );
-                                },
-                              ),
-                            );
                           },
                         ),
                       ],

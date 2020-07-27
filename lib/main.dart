@@ -54,6 +54,7 @@ class MyApp extends StatelessWidget {
           FurnitureScreen.id:(context)=>FurnitureScreen(),
           GoogleMaps.id:(context)=>GoogleMaps(),
           UserLocation.id:(context)=>UserLocation(),
+          secondRegister.id:(context)=>secondRegister(),
         },
       ),
     );

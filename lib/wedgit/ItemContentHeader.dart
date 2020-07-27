@@ -36,8 +36,7 @@ class Bar extends SliverPersistentHeaderDelegate {
             top: 0,
             left: 0,
             child:          ClipRRect(
-              borderRadius:
-              BorderRadius.circular(20),
+
               child: CachedNetworkImage(
                 imageUrl: image,
                 width: MediaQuery.of(context)
