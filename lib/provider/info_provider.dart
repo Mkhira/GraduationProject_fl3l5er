@@ -475,7 +475,12 @@ double height ,width ,xPosition,yPosition;
         MaterialPageRoute(builder: (BuildContext context) => BloodDonation()));
   }
 
+bool medicineClick = true;
 
+  choseMedicine(){
+    medicineClick = true;
+    notifyListeners();
+  }
 
 }
 

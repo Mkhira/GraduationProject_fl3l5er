@@ -1,4 +1,7 @@
+import 'package:company_task/style/constent.dart';
+import 'package:company_task/wedgit/ButtonWidget.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts_arabic/fonts.dart';
 
 class DailogError extends StatelessWidget {
   DailogError({this.text,this.titleText});
@@ -7,10 +10,11 @@ class DailogError extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return           AlertDialog(
+      backgroundColor: kMainColor,
       title: Text(
         titleText,
         style:
-        TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic'),
       ),
       content: Row(
         children: <Widget>[
@@ -18,19 +22,19 @@ class DailogError extends StatelessWidget {
           Text(
             text,
             style: TextStyle(
-                color: Colors.blue, fontWeight: FontWeight.bold),
+                color: kSecondColor, fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic'),
           ),
         ],
       ),
       shape:
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       actions: <Widget>[
-        FloatingActionButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text(
-            "ok",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
+        ButtonWidget(text: "ok",color: kSecondColor,height: 30,onPressed: (){
+          Navigator.pop(context);
+
+        },
+        borderColor: kSecondColor,
+          textColor: Colors.white,
         )
       ],
     );

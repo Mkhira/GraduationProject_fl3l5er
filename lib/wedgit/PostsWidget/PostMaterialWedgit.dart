@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 
 class PostsMaterial extends StatelessWidget {
   const PostsMaterial({
-    this.state,this.name,this.phone,this.owner,this.imageUrl
+    this.state,this.name,this.phone,this.owner,this.imageUrl,this.type
 
   });
 
@@ -17,6 +17,7 @@ class PostsMaterial extends StatelessWidget {
   final String imageUrl;
   final String owner;
   final String state;
+  final String type;
   final int phone;
 
 
@@ -75,7 +76,7 @@ class PostsMaterial extends StatelessWidget {
                         style: kPostStyleArabicChange
                     ),
                     Text(
-                        " : الملبس",
+                        " : $type",
                         style: kPostStyleArabicBase
                     ),
 
@@ -84,7 +85,7 @@ class PostsMaterial extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 217,
+              top: 215,
               right: 12.5,
               child: Container(
                 width: MediaQuery.of(context)
@@ -109,7 +110,7 @@ class PostsMaterial extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 238,
+              top: 237,
               right: 23,
               child: Container(
                 width: MediaQuery.of(context)

@@ -10,7 +10,10 @@ import 'package:company_task/Screens/ClothesPost.dart';
 import 'package:company_task/Screens/log%20In/main_screen.dart';
 import 'package:company_task/Screens/profile_screen.dart';
 import 'package:company_task/Screens/profile_image_screen.dart';
-import 'package:company_task/provider/AddPostProvider.dart';
+import 'package:company_task/provider/AddPostClothProvider.dart';
+import 'package:company_task/provider/AddPostMedicineProvider.dart';
+import 'package:company_task/provider/AddPostfurnitureProvider.dart';
+import 'package:company_task/provider/MapProvider.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -35,9 +38,20 @@ class MyApp extends StatelessWidget {
         create: (context)=>InfoProvider(),
 
     ),  ChangeNotifierProvider(
-        create: (context)=>AddPostProvider(),
+        create: (context)=>AddPostMedicineProvider(),
+
+    ),  ChangeNotifierProvider(
+    create: (context)=>MapProvider(),
 
     ),
+          ChangeNotifierProvider(
+            create: (context)=>AddPostClothProvider(),
+
+          ),
+          ChangeNotifierProvider(
+            create: (context)=>AddPostFurnitureProvider(),
+
+          ),
 
         ],
       child: MaterialApp(
@@ -56,6 +70,7 @@ class MyApp extends StatelessWidget {
           FurnitureScreen.id:(context)=>FurnitureScreen(),
           GoogleMaps.id:(context)=>GoogleMaps(),
           UserLocation.id:(context)=>UserLocation(),
+          secondRegister.id:(context)=>secondRegister(),
         },
       ),
     );

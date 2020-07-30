@@ -8,7 +8,7 @@ class MedicineService{
 
   Future<List<MedicineModel>> getMedicine( ) async {
     final QuerySnapshot querySnapshot =
-     await _firestore.collection("medicen").getDocuments() ;
+     await _firestore.collection("medicine").getDocuments() ;
 
 
     if (querySnapshot.documents.length == 0) {
@@ -34,7 +34,7 @@ class MedicineServiceSearch{
 
   Future<List<MedicineModel>> getMedicineSearch( String query) async {
     final QuerySnapshot querySnapshot =
-    await Firestore.instance.collection("medicen")
+    await Firestore.instance.collection("medicine")
         .where("searchkey", arrayContains: query)
         .getDocuments();
 
@@ -64,7 +64,7 @@ class MedicineServiceFinish{
 
   Future<List<MedicineModel>> getMedicineFinish(  ) async {
     final QuerySnapshot querySnapshot =
-    await Firestore.instance.collection("medicen")
+    await Firestore.instance.collection("medicine")
         .where("dayleft", isLessThanOrEqualTo: 2)
         .getDocuments();
 

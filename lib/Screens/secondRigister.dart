@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../wedgit/rigisterContainers.dart';
 
 class secondRegister extends StatelessWidget {
+  static const String id = "register";
   @override
   Widget build(BuildContext context) {
     final bloc = Bloc();

@@ -1,41 +1,28 @@
-import 'package:android_intent/android_intent.dart';
+
+
+
 import 'package:community_material_icon/community_material_icon.dart';
-import 'package:company_task/Screens/Maps/user_location.dart';
 import 'package:company_task/provider/AddPostMedicineProvider.dart';
+import 'package:company_task/provider/AddPostfurnitureProvider.dart';
 import 'package:company_task/provider/MapProvider.dart';
 import 'package:company_task/style/constent.dart';
 import 'package:company_task/wedgit/ButtonWidget.dart';
 import 'package:company_task/wedgit/MainTextFeild.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts_arabic/fonts.dart';
-import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 
-class AddMedicinePostDataScreen extends StatefulWidget {
-  static const String id = 'AddPostScreen';
-  PermissionStatus status;
-
+class AddFurniturePostScreen extends StatefulWidget {
   @override
-  _AddMedicinePostDataScreenState createState() =>
-      _AddMedicinePostDataScreenState();
+  _AddFurniturePostScreenState createState() => _AddFurniturePostScreenState();
 }
 
-class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-  }
-
-
+class _AddFurniturePostScreenState extends State<AddFurniturePostScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<AddPostMedicineProvider>(context);
+    var provider = Provider.of<AddPostFurnitureProvider>(context);
 
     return SafeArea(
         child: Scaffold(
@@ -43,7 +30,7 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
           appBar: AppBar(
             leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () {}),
             backgroundColor: kSecondColor,
-            title: Text('إضافه دواء ',style: KBaseHeaders,),
+            title: Text('إضافه الأثاث ',style: KBaseHeaders,),
           ),
           body: SingleChildScrollView(
             child: Column(
@@ -158,13 +145,13 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
                                   child: ClipRRect(
                                     borderRadius:
                                     BorderRadius.all(Radius.circular(120)),
-                                    child: provider.imagefile == null
+                                    child: provider.imageFileFurniture == null
                                         ? Container(
                                       height: 0,
                                       width: 0,
                                     )
                                         : Image.file(
-                                      provider.imagefile,
+                                      provider.imageFileFurniture,
                                       height: 120,
                                       width: 120,
                                     ),
@@ -190,10 +177,10 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
                         margin: EdgeInsets.all(15),
                         width: MediaQuery.of(context).size.width,
                         child: StreamBuilder(
-                          stream: provider.medicineDescriptionStream,
+                          stream: provider.furnitureDescriptionStream,
                           builder: (context, snapshot) {
                             return TextField(
-                              onChanged: provider.medicineDescriptionChange,
+                              onChanged: provider.furnitureDescriptionChange,
                               textInputAction: TextInputAction.newline,
                               keyboardType: TextInputType.multiline,
                               maxLines: null,
@@ -218,11 +205,11 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
                                 width: 0,
                                 height: 0,
                               ),
-                              textChange: provider.medicineNameChange,
+                              textChange: provider.furnitureChange,
                               obscure: false,
-                              textStream: provider.medicineNameStream,
+                              textStream: provider.furnitureStream,
                               inputType: TextInputType.text,
-                              hintText: "اسم الدواء",
+                              hintText: "اسم الأثاث",
                             ),
                             Spacer(
                               flex: 2,
@@ -233,9 +220,9 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
                                 width: 0,
                                 height: 0,
                               ),
-                              textChange: provider.medicineAmountChange,
+                              textChange: provider.furnitureAmountChange,
                               obscure: false,
-                              textStream: provider.medicineAmountStream,
+                              textStream: provider.furnitureAmountStream,
                               inputType: TextInputType.number,
                               hintText: "  الكميه",
                             ),
@@ -281,7 +268,7 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
                               ),
                               textChange: provider.durationChange,
                               obscure: false,
-                              textStream: provider.dateStream,
+                              textStream: provider.durationStream,
                               inputType: TextInputType.number,
                               hintText: '  المده',
                             ),
@@ -294,53 +281,57 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
                       SizedBox(
                         height: 20,
                       ),
+
                       Container(
                         width: MediaQuery.of(context).size.width,
+                        height: 80,
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
                             SizedBox(
-                              width: 15,
+                              width: 10,
                             ),
-                            ButtonWidget(
-                              height: 40,
-                              color: kSecondColor,
-                              textColor: Colors.white,
-                              borderColor: kSecondColor,
-                              text: "إختر التاريخ",
-                              onPressed: () {
-                                provider.datePicker(context);
-                              },
-                            ),
-                            Spacer(
-                              flex: 3,
+                            Container(
+                              width: MediaQuery.of(context).size.width / 3.5,
+                              child: DropdownButton(
+                                hint: Text('إختر الحاله ',style: TextStyle( fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic'),),
+                                // Not necessary for Option 1
+                                value: provider.selectedsStateType,
+                                onChanged: (newValue) {
+                                  provider.ChosseStateType(newValue);
+                                },
+                                items: provider.dropStateType.map((state) {
+                                  return DropdownMenuItem(
+                                    child: new Text(state,style: TextStyle( fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic'),),
+                                    value: state,
+                                  );
+                                }).toList(),
+                              ),
                             ),
                             SizedBox(
                               width: 10,
                             ),
-                            MainTextField(
-                              width: MediaQuery.of(context).size.width / 3,
-                              widget: Container(
-                                width: 0,
-                                height: 0,
-                              ),
-                              textChange: provider.dateChange,
-                              obscure: false,
-                              enable: false,
-                              textStream: provider.dateStream,
-                              inputType: TextInputType.phone,
-                              hintText: provider.dateTime == null
-                                  ? "       التاريخ"
-                                  : DateFormat('dd/MM/yyyy ')
-                                  .format(DateTime.parse(
-                                  provider.dateTime.toString()))
-                                  .toString(),
+                            Column(
+
+                              children: <Widget>[
+                                SizedBox(height: 35,),
+                                Text(
+                                  " : إختر حاله الملبس",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic'),
+                                ),
+
+                              ],
                             ),
-                            Spacer(
-                              flex: 1,
+                            SizedBox(
+                              width: 20,
                             ),
                           ],
                         ),
                       ),
+
+
 //                  SizedBox(
 //                    height: 8.0,
 //                  ),
@@ -426,15 +417,15 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
                       Container(
                         width: MediaQuery.of(context).size.width/2,
                         child: ButtonWidget(
-                          height: 40,
-                          color: kSecondColor,
-                          textColor: Colors.white,
-                          borderColor: kSecondColor,
-                          text: "إضافه",
-                          onPressed: (){
-                            Provider.of<AddPostMedicineProvider>(context).createRecord(context);
+                            height: 40,
+                            color: kSecondColor,
+                            textColor: Colors.white,
+                            borderColor: kSecondColor,
+                            text: "إضافه",
+                            onPressed: (){
+                              Provider.of<AddPostFurnitureProvider>(context).createRecordFurniture(context);
 
-                          }
+                            }
                         ),
                       ),
                       SizedBox(
@@ -449,4 +440,3 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
         ));
   }
 }
-

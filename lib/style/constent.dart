@@ -15,7 +15,9 @@ import 'package:google_fonts_arabic/fonts.dart';
 
      TextStyle kPostStyleArabicBase=  TextStyle(fontWeight: FontWeight.bold,color: Colors.black87,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic');
      TextStyle kPostStyleArabicChange=  TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic');
-
+     TextStyle kPostStyleArabicTextLable=  TextStyle(fontWeight: FontWeight.bold,color:  kSecondColor,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic');
+     TextStyle kPostStyleArabicTextHint=  TextStyle(fontWeight: FontWeight.bold,color:Colors.black54 ,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic');
+       TextStyle KBaseHeaders =TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold);
 
 
 

@@ -1,8 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:company_task/Block/Block.dart';
+import 'package:company_task/Screens/AddingPosts/AddClothPost.dart';
+import 'package:company_task/Screens/AddingPosts/AddFurniturePost.dart';
+import 'package:company_task/Screens/AdingMedicienPost.dart';
 import 'package:company_task/Screens/profile_screen.dart';
 import 'package:company_task/models/ClothesModel.dart';
+import 'package:company_task/provider/AddPostClothProvider.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/style/constent.dart';
 import 'package:company_task/wedgit/PostsWidget/PostMaterialWedgit.dart';
@@ -45,7 +49,11 @@ class _ClothesPostState extends State<ClothesPost> {
       child: Scaffold(
         drawer: MainDrawer(),
         appBar: PreferredSize(
-            child: PostsAppBarrHeader(add: (){},blocStream: _bloc.ClothTextStream,state: (String text) {
+            child: PostsAppBarrHeader(add:  () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return AddFurniturePostScreen();
+              }));
+            },blocStream: _bloc.ClothTextStream,state: (String text) {
               setState(() {
                 _bloc.updateClothText(text);
 
@@ -222,7 +230,7 @@ class ContentWidget extends StatelessWidget {
           );
         }));
       },
-      child: PostsMaterial(
+      child: PostsMaterial(type: "الملبس",
         state: clothModel.state,
         owner: clothModel.owner,
         imageUrl: clothModel.imageUrl,
