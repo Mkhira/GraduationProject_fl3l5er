@@ -7,7 +7,7 @@ import 'package:company_task/Screens/Maps/user_location.dart';
 import 'package:company_task/Screens/edit_screen.dart';
 import 'package:company_task/Screens/homePage.dart';
 import 'package:company_task/Screens/ClothesPost.dart';
-import 'package:company_task/Screens/log%20In/main_screen.dart';
+import 'package:company_task/Screens/logIn/main_screen.dart';
 import 'package:company_task/Screens/profile_screen.dart';
 import 'package:company_task/Screens/profile_image_screen.dart';
 import 'package:company_task/provider/AddPostClothProvider.dart';
@@ -20,7 +20,6 @@ import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'Screens/MedicinePosts.dart';
 import 'Screens/splashScreen.dart';
-import 'Screens/Login.dart';
 import 'Screens/secondRigister.dart';
 import 'Screens/homePage.dart';
 

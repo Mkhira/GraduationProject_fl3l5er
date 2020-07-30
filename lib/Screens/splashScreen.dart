@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import '../style/constent.dart';
-import 'Login.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -10,14 +9,14 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    Timer(Duration(seconds: 7),()=> Navigator.pushReplacement(context,
-        MaterialPageRoute(
-            builder: (BuildContext context) => Login())) );
-  }
+//  @override
+//  void initState() {
+//    // TODO: implement initState
+//    super.initState();
+//    Timer(Duration(seconds: 7),()=> Navigator.pushReplacement(context,
+//        MaterialPageRoute(
+//            builder: (BuildContext context) => Login())) );
+//  }
   @override
 
   Widget build(BuildContext context) {
