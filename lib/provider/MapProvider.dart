@@ -1,11 +1,15 @@
 import 'package:company_task/Screens/Maps/user_location.dart';
+import 'package:company_task/provider/AddPostClothProvider.dart';
+import 'package:company_task/provider/AddPostMedicineProvider.dart';
+import 'package:company_task/provider/AddPostfurnitureProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:provider/provider.dart';
 
 class MapProvider extends ChangeNotifier{
 
 
-   getCurrentLocation() async{
+   getCurrentLocation(BuildContext context) async{
      //get current position using geolocator package
      Position position = await Geolocator()
          .getCurrentPosition(
@@ -24,6 +28,12 @@ class MapProvider extends ChangeNotifier{
      print('$administrativeArea  $locality');
      print(
          '${position.latitude}  ${position.longitude}');
+     Provider.of<AddPostMedicineProvider>(context).chosenLong =position.longitude;
+     Provider.of<AddPostMedicineProvider>(context).chosenLat =position.latitude;
+     Provider.of<AddPostClothProvider>(context).chosenLong =position.longitude;
+     Provider.of<AddPostClothProvider>(context).chosenLat =position.latitude;
+     Provider.of<AddPostFurnitureProvider>(context).chosenLong =position.longitude;
+     Provider.of<AddPostFurnitureProvider>(context).chosenLat =position.latitude;
      notifyListeners();
    }
 

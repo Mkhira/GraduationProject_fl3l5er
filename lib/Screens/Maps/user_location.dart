@@ -1,7 +1,12 @@
 import 'dart:async';
 
+import 'package:company_task/provider/AddPostClothProvider.dart';
+import 'package:company_task/provider/AddPostMedicineProvider.dart';
+import 'package:company_task/provider/AddPostfurnitureProvider.dart';
+import 'package:company_task/provider/MapProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 
 class UserLocation extends StatefulWidget {
   double latitude, longitude;
@@ -19,6 +24,7 @@ class _UserLocationState extends State<UserLocation> {
 
   //double currentLatitude , currentLongitude ;
   Set<Marker> markers = {};
+  Set<Marker> clickMark = {};
 
   Future<void> _showMyDialog() async {
     return showDialog<void>(
@@ -56,7 +62,14 @@ class _UserLocationState extends State<UserLocation> {
         target: LatLng(widget.latitude, widget.longitude),
         zoom: 11.0,
       ),
+
     ));
+    Provider.of<AddPostMedicineProvider>(context).chosenLat = widget.latitude;
+    Provider.of<AddPostMedicineProvider>(context).chosenLong = widget.longitude;
+    Provider.of<AddPostClothProvider>(context).chosenLat = widget.latitude;
+    Provider.of<AddPostClothProvider>(context).chosenLong = widget.longitude;
+    Provider.of<AddPostFurnitureProvider>(context).chosenLat = widget.latitude;
+    Provider.of<AddPostFurnitureProvider>(context).chosenLong = widget.longitude;
     Future.delayed(
 
       Duration(
@@ -79,6 +92,17 @@ class _UserLocationState extends State<UserLocation> {
       body: Stack(
         children: [
           GoogleMap(
+            onTap: (latlang){
+                  setState(() {
+                    Provider.of<AddPostMedicineProvider>(context).chosenLat = latlang.latitude;
+                    Provider.of<AddPostMedicineProvider>(context).chosenLong = latlang.longitude;
+                    Provider.of<AddPostClothProvider>(context).chosenLat = latlang.latitude;
+                    Provider.of<AddPostClothProvider>(context).chosenLong = latlang.longitude;
+                    Provider.of<AddPostFurnitureProvider>(context).chosenLat = latlang.latitude;
+                    Provider.of<AddPostFurnitureProvider>(context).chosenLong = latlang.longitude;
+
+                  });
+            },
             onMapCreated: (GoogleMapController controller) {
               mapController.complete(controller);
               setState(() {
@@ -97,7 +121,7 @@ class _UserLocationState extends State<UserLocation> {
             ),
           ),
           Positioned(
-            bottom: 8.0,
+            bottom: 30.0,
             left: 8.0,
             child: FloatingActionButton(
               child: Icon(Icons.location_on),

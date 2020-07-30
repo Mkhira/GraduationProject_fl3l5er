@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts_arabic/fonts.dart';
 
 class ButtonWidget extends StatelessWidget {
   final Color color;
@@ -26,7 +27,7 @@ class ButtonWidget extends StatelessWidget {
 
       minWidth: 80,
       height: height,
-      child: Center( child: Text("$text",style: TextStyle(fontSize: 15,color: textColor,fontWeight: FontWeight.bold),),),
+      child: Center( child: Text("$text",style: TextStyle(fontSize: 15,color: textColor,fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic'),),),
     );
   }
 }

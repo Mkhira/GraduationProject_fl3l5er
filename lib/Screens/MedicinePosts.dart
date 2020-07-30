@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:company_task/Screens/AdingMedicienPost.dart';
 import 'package:company_task/Screens/profile_screen.dart';
 import 'package:company_task/models/medicenModel.dart';
+import 'package:company_task/provider/AddPostMedicineProvider.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/wedgit/PostsWidget/PostMaterialWedgit.dart';
 import 'package:company_task/wedgit/PostsWidget/PostPersistantHeader.dart';
@@ -300,7 +301,7 @@ class ContentWidget extends StatelessWidget {
         }));
       },
       child:
-      PostsMaterial(state: medicineModel.state,phone: medicineModel.phone,name: medicineModel.name,imageUrl: medicineModel.imageUrl,owner: medicineModel.owner,)
+      PostsMaterial(type: "الدواء",state: medicineModel.state,phone: medicineModel.phone,name: medicineModel.name,imageUrl: medicineModel.imageUrl,owner: medicineModel.owner,)
     );
   }
 }

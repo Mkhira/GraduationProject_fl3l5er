@@ -1,7 +1,12 @@
 
 import 'package:company_task/Block/Block.dart';
+import 'package:company_task/Screens/AddingPosts/AddClothPost.dart';
+import 'package:company_task/Screens/AddingPosts/AddFurniturePost.dart';
+import 'package:company_task/Screens/AdingMedicienPost.dart';
 import 'package:company_task/models/ClothesModel.dart';
 import 'package:company_task/models/FurintureModel.dart';
+import 'package:company_task/provider/AddPostMedicineProvider.dart';
+import 'package:company_task/provider/AddPostfurnitureProvider.dart';
 import 'package:company_task/style/constent.dart';
 import 'package:company_task/wedgit/PostsWidget/PostMaterialWedgit.dart';
 import 'package:company_task/wedgit/PostsWidget/PostPersistantHeader.dart';
@@ -11,6 +16,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:provider/provider.dart';
 
 import 'ItemsContent.dart';
 
@@ -39,7 +45,11 @@ class _FurnitureScreenState extends State<FurnitureScreen> {
       child: Scaffold(
         drawer: MainDrawer(),
         appBar: PreferredSize(
-            child: PostsAppBarrHeader(add: (){},blocStream: _bloc.furnitureTextStream,state: (String text) {
+            child: PostsAppBarrHeader(add:  () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return AddFurniturePostScreen();
+              }));
+            },blocStream: _bloc.furnitureTextStream,state: (String text) {
               setState(() {
                 _bloc.updateFurnitureText(text);
 
@@ -217,6 +227,7 @@ class ContentWidget extends StatelessWidget {
         }));
       },
       child: PostsMaterial(
+        type: "الأثاث",
         state: furnitureModel.state,
         owner: furnitureModel.owner,
         imageUrl: furnitureModel.imageUrl,

@@ -174,18 +174,30 @@ class _HomePageState extends State<HomePage> {
 //                                      Provider.of<TaskData>(context)
 //                                          .item(context);
                                      Navigator.pushNamed(context, MedicinePosts.id);
+                                     setState(() {
+                                       Provider.of<InfoProvider>(context).medicineClick = true;
+
+                                     });
                                     },
                                     categoryName: "Medicen",
                                   ),
                                   categoryWedgit(
                                     onTap: () {
                                       Navigator.pushNamed(context,ClothesPost.id);
+                                      setState(() {
+                                        Provider.of<InfoProvider>(context).medicineClick = false;
+
+                                      });
                                     },
                                     categoryName: "Cloth",
                                   ),
                                   categoryWedgit(
                                     onTap: () {
                                      Navigator.pushNamed(context, FurnitureScreen.id);
+                                     setState(() {
+                                       Provider.of<InfoProvider>(context).medicineClick = false;
+
+                                     });
                                     },
                                     categoryName: "Furniture",
                                   ),

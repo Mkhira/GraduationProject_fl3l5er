@@ -55,9 +55,11 @@ class MainTextField extends StatelessWidget {
               borderSide: BorderSide(color: Colors.white,width: 5),
             ),
             labelText: "$hintText",
+
             hintText: " $hintText",
             hintStyle:
-            TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            kPostStyleArabicTextLable,
+            labelStyle: kPostStyleArabicTextHint,
           ),
         );
       },
