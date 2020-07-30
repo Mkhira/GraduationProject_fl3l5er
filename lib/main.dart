@@ -55,6 +55,13 @@ class MyApp extends StatelessWidget {
 
         ],
       child: MaterialApp(
+        builder: (context, child){
+          //to remove scroll glow
+          return ScrollConfiguration(
+            behavior: ScrollBehavior()..buildViewportChrome(context, child, AxisDirection.down),
+            child: child,
+          );
+        },
         debugShowCheckedModeBanner: false,
         //home:Main_screen(),
         initialRoute: Main_screen.id,
