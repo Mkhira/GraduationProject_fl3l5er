@@ -487,77 +487,83 @@ class DropDownButton extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Text(
-                          'day :',
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
+                    Flexible(
+                      flex: 1,
+                      child: Row(
+                        children: <Widget>[
+                          Text(
+                            'day :',
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
-                        DropdownButton<String>(
-                          value: Provider.of<InfoProvider>(context).day,
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            color: Colors.deepPurple,
+                          SizedBox(
+                            width: 15.0,
                           ),
-                          underline: Container(
-                            height: 2,
-                            color: Colors.deepPurpleAccent,
+                          DropdownButton<String>(
+                            value: Provider.of<InfoProvider>(context).day,
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              color: Colors.deepPurple,
+                            ),
+                            underline: Container(
+                              height: 2,
+                              color: Colors.deepPurpleAccent,
+                            ),
+                            onChanged: (String newValue) {
+                              Provider.of<InfoProvider>(context, listen: false)
+                                  .modifyDay = newValue;
+                            },
+                            items: kDay.map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
                           ),
-                          onChanged: (String newValue) {
-                            Provider.of<InfoProvider>(context, listen: false)
-                                .modifyDay = newValue;
-                          },
-                          items: kDay.map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                    Row(
-                      children: <Widget>[
-                        Text(
-                          'month : ',
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
+                    Flexible(
+                      flex: 2,
+                      child: Row(
+                        children: <Widget>[
+                          Text(
+                            'month : ',
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
-                        DropdownButton<String>(
-                          value: Provider.of<InfoProvider>(context).month,
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            color: Colors.deepPurple,
+                          SizedBox(
+                            width: 15.0,
                           ),
-                          underline: Container(
-                            height: 2,
-                            color: Colors.deepPurpleAccent,
+                          DropdownButton<String>(
+                            value: Provider.of<InfoProvider>(context).month,
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              color: Colors.deepPurple,
+                            ),
+                            underline: Container(
+                              height: 2,
+                              color: Colors.deepPurpleAccent,
+                            ),
+                            onChanged: (String newValue) {
+                              Provider.of<InfoProvider>(context, listen: false)
+                                  .modifyMonth = newValue;
+                            },
+                            items: kMonth.map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
                           ),
-                          onChanged: (String newValue) {
-                            Provider.of<InfoProvider>(context, listen: false)
-                                .modifyMonth = newValue;
-                          },
-                          items: kMonth.map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),

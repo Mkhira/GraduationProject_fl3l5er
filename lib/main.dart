@@ -7,6 +7,7 @@ import 'package:company_task/Screens/Maps/user_location.dart';
 import 'package:company_task/Screens/edit_screen.dart';
 import 'package:company_task/Screens/homePage.dart';
 import 'package:company_task/Screens/ClothesPost.dart';
+import 'package:company_task/Screens/log%20In/main_screen.dart';
 import 'package:company_task/Screens/profile_screen.dart';
 import 'package:company_task/Screens/profile_image_screen.dart';
 import 'package:company_task/provider/AddPostProvider.dart';
@@ -41,9 +42,10 @@ class MyApp extends StatelessWidget {
         ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        //home:HomePage(),
-        initialRoute: HomePage.id,
+        //home:Main_screen(),
+        initialRoute: Main_screen.id,
         routes: {
+          Main_screen.id:(context)=>Main_screen(),
           HomePage.id: (context) => HomePage(),
           MedicinePosts.id: (context) => MedicinePosts(),
           ProfileScreen.id:(context)=>ProfileScreen(),
