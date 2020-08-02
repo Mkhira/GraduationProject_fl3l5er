@@ -599,7 +599,7 @@ class EventHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: x ? 380 : 500,
+      height: x ? 395 : 500,
       color: Color(0xffe6e6ea),
       child: Column(
         children: <Widget>[

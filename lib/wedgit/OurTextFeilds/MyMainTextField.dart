@@ -1,5 +1,7 @@
+import 'package:company_task/style/constent.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts_arabic/fonts.dart';
 
 class MyMainTextField extends StatelessWidget {
   final Stream textStream;
@@ -74,11 +76,12 @@ class MyMainTextField extends StatelessWidget {
               labelText: "$labelText",
               hintText: " $hintText",
               hintStyle: TextStyle(
-                color: Colors.grey,
+                fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                color: kSecondColor,
                 fontWeight: FontWeight.bold,
               ),
               labelStyle:
-              TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
+              TextStyle(color: Colors.grey, fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',),
               //isDense: true,
             ),
           ),

@@ -6,7 +6,7 @@ import 'package:company_task/provider/AddPostMedicineProvider.dart';
 import 'package:company_task/provider/MapProvider.dart';
 import 'package:company_task/style/constent.dart';
 import 'package:company_task/wedgit/ButtonWidget.dart';
-import 'package:company_task/wedgit/MainTextFeild.dart';
+import 'file:///E:/flater_projects/company_task/lib/wedgit/OurTextFeilds/MainTextFeild.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:geolocator/geolocator.dart';

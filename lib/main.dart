@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:company_task/Screens/AdingMedicienPost.dart';
 import 'package:company_task/Screens/FurintureScreen.dart';
+import 'package:company_task/Screens/LoginScreen/LoginMainScreen.dart';
 import 'package:company_task/Screens/Maps/StaticMap.dart';
 import 'package:company_task/Screens/Maps/user_location.dart';
 import 'package:company_task/Screens/edit_screen.dart';
 import 'package:company_task/Screens/homePage.dart';
 import 'package:company_task/Screens/ClothesPost.dart';
-import 'package:company_task/Screens/logIn/main_screen.dart';
 import 'package:company_task/Screens/profile_screen.dart';
 import 'package:company_task/Screens/profile_image_screen.dart';
 import 'package:company_task/provider/AddPostClothProvider.dart';
@@ -20,7 +20,6 @@ import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'Screens/MedicinePosts.dart';
 import 'Screens/splashScreen.dart';
-import 'Screens/secondRigister.dart';
 import 'Screens/homePage.dart';
 
 void main() {
@@ -63,10 +62,10 @@ class MyApp extends StatelessWidget {
         },
         debugShowCheckedModeBanner: false,
         //home:Main_screen(),
-        initialRoute: Main_screen.id,
+        initialRoute: LoginMainScreen.id,
         routes: {
-          Main_screen.id:(context)=>Main_screen(),
           HomePage.id: (context) => HomePage(),
+          LoginMainScreen.id: (context) => LoginMainScreen(),
           MedicinePosts.id: (context) => MedicinePosts(),
           ProfileScreen.id:(context)=>ProfileScreen(),
           EditScreen.id:(context)=>EditScreen(),
@@ -76,7 +75,6 @@ class MyApp extends StatelessWidget {
           FurnitureScreen.id:(context)=>FurnitureScreen(),
           GoogleMaps.id:(context)=>GoogleMaps(),
           UserLocation.id:(context)=>UserLocation(),
-          secondRegister.id:(context)=>secondRegister(),
         },
       ),
     );

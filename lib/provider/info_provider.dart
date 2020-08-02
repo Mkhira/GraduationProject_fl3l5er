@@ -15,7 +15,6 @@ import 'package:flutter/material.dart';
 import '../Screens/BlodDonation.dart';
 import '../models/BloodNeedyModel.dart';
 import '../Block/Block.dart';
-import '../Screens/secondRigister.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:provider/provider.dart';
@@ -152,10 +151,7 @@ class InfoProvider extends ChangeNotifier {
         MaterialPageRoute(builder: (BuildContext context) => BloodDonation()));
   }
 
-  void rgister(BuildContext context) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (BuildContext context) => secondRegister()));
-  }
+
   void item(BuildContext context) {
     Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) => MedicinePosts()));

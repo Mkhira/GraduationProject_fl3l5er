@@ -34,35 +34,35 @@ Color kSecondColor = Color(0xffF9A110);
 Color KBackGroundColor =  Color(0xffe6e6ea);
 
 TextStyle kTitleHeadLine = TextStyle(
-    color: Color(0xffAAA59F), fontSize: 12, fontWeight: FontWeight.w400);
+    color: Color(0xffAAA59F), fontSize: 12, fontWeight: FontWeight.w400,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',);
 TextStyle bigHeadLine =
-    TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold);
+    TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',);
 TextStyle kBlood =
-    TextStyle(color: Color(0xFFEB1555), fontSize: 20, fontWeight: FontWeight.bold);
+    TextStyle(color: Color(0xFFEB1555), fontSize: 20, fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',);
 
 TextStyle kTitleHeader =
-    TextStyle(color: Colors.black54, fontWeight: FontWeight.bold, fontSize: 15);
+    TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',color: Colors.black54, fontWeight: FontWeight.bold, fontSize: 15);
 TextStyle kCarousHeader =
-    TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold);
+    TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold);
 TextStyle carouslittle =
-    TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w300);
-TextStyle Data = TextStyle(
+    TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',color: Colors.white, fontSize: 15, fontWeight: FontWeight.w300);
+TextStyle Data = TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
     color: Colors.blueAccent, fontSize: 17, fontWeight: FontWeight.bold);
 TextStyle HomeHeadreStyle =
-    TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18);
-TextStyle homeLittleHeaderStyle = TextStyle(color: Color(0xff616161));
+    TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18);
+TextStyle homeLittleHeaderStyle = TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',color: Color(0xff616161));
 
-const KTitleTextStyle = TextStyle(
+const KTitleTextStyle = TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
     fontSize: 20.0,
     color: Color(0xffE3E5E8),
 );
 
-TextStyle kHeadingTextStyle = TextStyle(
+TextStyle kHeadingTextStyle = TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
     fontSize: 18,
     color: Color(0xffB8B8B8),
 );
 
-TextStyle kBodyTextStyle = TextStyle(
+TextStyle kBodyTextStyle = TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
     fontSize: 20,
     color: Colors.black,
     fontWeight: FontWeight.bold,

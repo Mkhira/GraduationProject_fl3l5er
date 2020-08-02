@@ -1,10 +1,12 @@
 import 'package:company_task/Screens/homePage.dart';
+import 'package:company_task/style/constent.dart';
+import 'package:company_task/wedgit/OurTextFeilds/MyMainTextField.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_fonts_arabic/fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
-import 'MyMainTextField.dart';
 
 class StepperScreen extends StatefulWidget {
   @override
@@ -53,7 +55,7 @@ class _StepperScreenState extends State<StepperScreen> {
             Stack(
               children: [
                 Container(
-                  height: 109.0,
+                  height: 70.0,
                 ),
                 Positioned(
                   top: 20,
@@ -76,7 +78,7 @@ class _StepperScreenState extends State<StepperScreen> {
             ),
             Container(
               width: MediaQuery.of(context).size.width - 60,
-              height: 600,
+              height: 650,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
                   color: Colors.white,
@@ -100,8 +102,8 @@ class _StepperScreenState extends State<StepperScreen> {
 
   Container indexContainer(int index) {
     return Container(
-      width: 60.0,
-      height: 60.0,
+      width: 50.0,
+      height: 50.0,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: Colors.white,
@@ -110,8 +112,9 @@ class _StepperScreenState extends State<StepperScreen> {
         child: Text(
           '$index',
           style: TextStyle(
+            fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
             color: Colors.orange,
-            fontSize: 26.0,
+            fontSize: 22.0,
             fontWeight: FontWeight.w400,
           ),
         ),
@@ -121,8 +124,8 @@ class _StepperScreenState extends State<StepperScreen> {
 
   Container completeContainer() {
     return Container(
-      width: 60.0,
-      height: 60.0,
+      width: 50.0,
+      height: 50.0,
       decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: Colors.orange,
@@ -136,7 +139,7 @@ class _StepperScreenState extends State<StepperScreen> {
         child: Icon(
           Icons.check,
           color: Colors.white,
-          size: 35.0,
+          size: 20.0,
         ),
       ),
     );
@@ -208,8 +211,9 @@ class _StepperScreenState extends State<StepperScreen> {
             'هل لديك حساب بالفعل؟',
             style: TextStyle(
               fontSize: 18.0,
-              color: Colors.orange,
+              color: kSecondColor,
               fontWeight: FontWeight.bold,
+              fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
             ),
           ),
           onPressed: () => Navigator.pop(context),
@@ -217,7 +221,7 @@ class _StepperScreenState extends State<StepperScreen> {
         Padding(
           padding: const EdgeInsets.only(top: 20.0),
           child: SizedBox(
-            width: 180.0,
+            width: 150.0,
             child: RaisedButton(
               padding: EdgeInsets.all(5),
               onPressed: next,
@@ -226,7 +230,8 @@ class _StepperScreenState extends State<StepperScreen> {
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 22.0,
+                  fontSize: 17.0,
+                  fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
                 ),
               ),
               color: Colors.orange,
@@ -298,6 +303,7 @@ class _StepperScreenState extends State<StepperScreen> {
               child: Text(
                 'الحالة الاجتماعية',
                 style: TextStyle(
+                  fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
                   color: Colors.grey[500],
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
@@ -334,8 +340,9 @@ class _StepperScreenState extends State<StepperScreen> {
                   child: Text(
                     'السابق',
                     style: TextStyle(
+                      fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
                       color: Colors.white,
-                      fontSize: 22.0,
+                      fontSize: 17.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -353,8 +360,9 @@ class _StepperScreenState extends State<StepperScreen> {
                     'التالي',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 22.0,
+                      fontSize: 17.0,
                       fontWeight: FontWeight.bold,
+                      fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
                     ),
                   ),
                 ),
@@ -433,6 +441,7 @@ class _StepperScreenState extends State<StepperScreen> {
             Text(
               'النوع',
               style: TextStyle(
+                fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
                 color: Colors.grey[500],
                 fontWeight: FontWeight.bold,
                 fontSize: 20.0,
@@ -465,8 +474,9 @@ class _StepperScreenState extends State<StepperScreen> {
                   child: Text(
                     'السابق',
                     style: TextStyle(
+                      fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
                       color: Colors.white,
-                      fontSize: 22.0,
+                      fontSize: 17.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -484,8 +494,9 @@ class _StepperScreenState extends State<StepperScreen> {
                   child: Text(
                     'انشاء',
                     style: TextStyle(
+                      fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
                       color: Colors.white,
-                      fontSize: 22.0,
+                      fontSize: 17.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -581,12 +592,13 @@ class _Step3RadioState extends State<Step3Radio> {
             Text(
               'ذكر',
               style: TextStyle(
+                fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
                 fontSize: 18.0,
                 color: Colors.grey,
               ),
             ),
             Radio(
-              activeColor: Colors.orange,
+              activeColor: kSecondColor,
               value: 'male',
               groupValue: _gender,
               onChanged: (String value) {
@@ -602,12 +614,13 @@ class _Step3RadioState extends State<Step3Radio> {
             Text(
               'انثي',
               style: TextStyle(
+                fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
                 fontSize: 18.0,
                 color: Colors.grey,
               ),
             ),
             Radio(
-              activeColor: Colors.orange,
+              activeColor: kSecondColor,
               value: 'female',
               groupValue: _gender,
               onChanged: (String value) {
@@ -643,12 +656,13 @@ class _Step2RadioState extends State<Step2Radio> {
             Text(
               'مطلق',
               style: TextStyle(
+                fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
                 fontSize: 18.0,
                 color: Colors.grey,
               ),
             ),
             Radio(
-              activeColor: Colors.orange,
+              activeColor: kSecondColor,
               value: 'divorced',
               groupValue: _status,
               onChanged: (String value) {
@@ -664,12 +678,13 @@ class _Step2RadioState extends State<Step2Radio> {
             Text(
               'متزوج',
               style: TextStyle(
+                fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
                 fontSize: 18.0,
                 color: Colors.grey,
               ),
             ),
             Radio(
-              activeColor: Colors.orange,
+              activeColor: kSecondColor,
               value: 'married',
               groupValue: _status,
               onChanged: (String value) {
@@ -685,14 +700,15 @@ class _Step2RadioState extends State<Step2Radio> {
         Row(
           children: [
             Text(
-              'اعزب',
+              'اعزب  ',
               style: TextStyle(
+                fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
                 fontSize: 18.0,
                 color: Colors.grey,
               ),
             ),
             Radio(
-              activeColor: Colors.orange,
+              activeColor: kSecondColor,
               value: 'single',
               groupValue: _status,
               onChanged: (String value) {
