@@ -6,6 +6,7 @@ import 'package:company_task/provider/AddPostMedicineProvider.dart';
 import 'package:company_task/provider/MapProvider.dart';
 import 'package:company_task/style/constent.dart';
 import 'package:company_task/wedgit/ButtonWidget.dart';
+import 'package:company_task/wedgit/OurTextFeilds/MyMainTextField.dart';
 import 'file:///E:/flater_projects/company_task/lib/wedgit/OurTextFeilds/MainTextFeild.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -192,7 +193,11 @@ class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
                         child: StreamBuilder(
                           stream: provider.clothDescriptionStream,
                           builder: (context, snapshot) {
-                            return TextField(
+                            return TextField
+                              (
+                              enabled: true,
+                              textAlign: TextAlign.right,
+
                               onChanged: provider.clothDescriptionChange,
                               textInputAction: TextInputAction.newline,
                               keyboardType: TextInputType.multiline,
@@ -205,6 +210,8 @@ class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
                           },
                         ),
                       ),
+                       Container(width: MediaQuery.of(context).size.width,height: 2,color: Colors.white,),
+                       SizedBox(height: 30,),
                       Container(
                         width: MediaQuery.of(context).size.width,
                         child: Row(
@@ -212,7 +219,8 @@ class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
                             SizedBox(
                               width: 15,
                             ),
-                            MainTextField(
+                            MyMainTextField(
+                              labelText: 'اسم الملبس',
                               width: MediaQuery.of(context).size.width / 2.3,
                               widget: Container(
                                 width: 0,
@@ -227,8 +235,9 @@ class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
                             Spacer(
                               flex: 2,
                             ),
-                            MainTextField(
-                              width: MediaQuery.of(context).size.width / 4,
+                            MyMainTextField(
+                              labelText: 'الكميه',
+                              width: MediaQuery.of(context).size.width / 3.5,
                               widget: Container(
                                 width: 0,
                                 height: 0,
@@ -255,8 +264,9 @@ class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
                             SizedBox(
                               width: 15,
                             ),
-                            MainTextField(
-                              width: MediaQuery.of(context).size.width / 2.7,
+                            MyMainTextField(
+                              labelText: 'الهاتف',
+                              width: MediaQuery.of(context).size.width / 2.3,
                               widget: Container(
                                 width: 0,
                                 height: 0,
@@ -273,8 +283,9 @@ class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
                             SizedBox(
                               width: 15,
                             ),
-                            MainTextField(
-                              width: MediaQuery.of(context).size.width / 4,
+                           MyMainTextField(
+                             labelText: 'المده',
+                              width: MediaQuery.of(context).size.width / 3.5,
                               widget: Container(
                                 width: 0,
                                 height: 0,

@@ -5,6 +5,7 @@ import 'package:company_task/provider/AddPostMedicineProvider.dart';
 import 'package:company_task/provider/MapProvider.dart';
 import 'package:company_task/style/constent.dart';
 import 'package:company_task/wedgit/ButtonWidget.dart';
+import 'package:company_task/wedgit/OurTextFeilds/MyMainTextField.dart';
 import 'file:///E:/flater_projects/company_task/lib/wedgit/OurTextFeilds/MainTextFeild.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -193,6 +194,7 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
                           stream: provider.medicineDescriptionStream,
                           builder: (context, snapshot) {
                             return TextField(
+                              textAlign: TextAlign.right,
                               onChanged: provider.medicineDescriptionChange,
                               textInputAction: TextInputAction.newline,
                               keyboardType: TextInputType.multiline,
@@ -205,6 +207,8 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
                           },
                         ),
                       ),
+                      Container(width: MediaQuery.of(context).size.width,height: 2,color: Colors.white,),
+                      SizedBox(height: 30,),
                       Container(
                         width: MediaQuery.of(context).size.width,
                         child: Row(
@@ -212,7 +216,8 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
                             SizedBox(
                               width: 15,
                             ),
-                            MainTextField(
+                            MyMainTextField(
+                              labelText: 'اسم الدواء',
                               width: MediaQuery.of(context).size.width / 2.3,
                               widget: Container(
                                 width: 0,
@@ -227,8 +232,9 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
                             Spacer(
                               flex: 2,
                             ),
-                            MainTextField(
-                              width: MediaQuery.of(context).size.width / 4,
+                            MyMainTextField(
+                              labelText: 'الكميه',
+                              width: MediaQuery.of(context).size.width / 3.5,
                               widget: Container(
                                 width: 0,
                                 height: 0,
@@ -255,8 +261,9 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
                             SizedBox(
                               width: 15,
                             ),
-                            MainTextField(
-                              width: MediaQuery.of(context).size.width / 2.7,
+                            MyMainTextField(
+                              labelText: 'الهاتف',
+                              width: MediaQuery.of(context).size.width / 2.35,
                               widget: Container(
                                 width: 0,
                                 height: 0,
@@ -273,8 +280,9 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
                             SizedBox(
                               width: 15,
                             ),
-                            MainTextField(
-                              width: MediaQuery.of(context).size.width / 4,
+                            MyMainTextField(
+                              labelText: 'المده',
+                              width: MediaQuery.of(context).size.width / 3.5,
                               widget: Container(
                                 width: 0,
                                 height: 0,

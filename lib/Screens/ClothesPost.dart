@@ -51,7 +51,7 @@ class _ClothesPostState extends State<ClothesPost> {
         appBar: PreferredSize(
             child: PostsAppBarrHeader(add:  () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return AddFurniturePostScreen();
+                return AddClothPostDataScreen();
               }));
             },blocStream: _bloc.ClothTextStream,state: (String text) {
               setState(() {

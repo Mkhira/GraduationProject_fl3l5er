@@ -7,6 +7,7 @@ import 'package:company_task/provider/AddPostfurnitureProvider.dart';
 import 'package:company_task/provider/MapProvider.dart';
 import 'package:company_task/style/constent.dart';
 import 'package:company_task/wedgit/ButtonWidget.dart';
+import 'package:company_task/wedgit/OurTextFeilds/MyMainTextField.dart';
 import 'file:///E:/flater_projects/company_task/lib/wedgit/OurTextFeilds/MainTextFeild.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
@@ -180,6 +181,8 @@ class _AddFurniturePostScreenState extends State<AddFurniturePostScreen> {
                           stream: provider.furnitureDescriptionStream,
                           builder: (context, snapshot) {
                             return TextField(
+                              textAlign: TextAlign.right,
+
                               onChanged: provider.furnitureDescriptionChange,
                               textInputAction: TextInputAction.newline,
                               keyboardType: TextInputType.multiline,
@@ -192,6 +195,8 @@ class _AddFurniturePostScreenState extends State<AddFurniturePostScreen> {
                           },
                         ),
                       ),
+                      Container(width: MediaQuery.of(context).size.width,height: 2,color: Colors.white,),
+                      SizedBox(height: 30,),
                       Container(
                         width: MediaQuery.of(context).size.width,
                         child: Row(
@@ -199,7 +204,8 @@ class _AddFurniturePostScreenState extends State<AddFurniturePostScreen> {
                             SizedBox(
                               width: 15,
                             ),
-                            MainTextField(
+                            MyMainTextField(
+                              labelText: 'اسم الأثاث',
                               width: MediaQuery.of(context).size.width / 2.3,
                               widget: Container(
                                 width: 0,
@@ -214,8 +220,9 @@ class _AddFurniturePostScreenState extends State<AddFurniturePostScreen> {
                             Spacer(
                               flex: 2,
                             ),
-                            MainTextField(
-                              width: MediaQuery.of(context).size.width / 4,
+                            MyMainTextField(
+                              labelText: 'الكميه',
+                              width: MediaQuery.of(context).size.width / 3.5,
                               widget: Container(
                                 width: 0,
                                 height: 0,
@@ -242,8 +249,9 @@ class _AddFurniturePostScreenState extends State<AddFurniturePostScreen> {
                             SizedBox(
                               width: 15,
                             ),
-                            MainTextField(
-                              width: MediaQuery.of(context).size.width / 2.7,
+                            MyMainTextField(
+                              labelText: 'الهاتف',
+                              width: MediaQuery.of(context).size.width / 2.3,
                               widget: Container(
                                 width: 0,
                                 height: 0,
@@ -260,8 +268,10 @@ class _AddFurniturePostScreenState extends State<AddFurniturePostScreen> {
                             SizedBox(
                               width: 15,
                             ),
-                            MainTextField(
-                              width: MediaQuery.of(context).size.width / 4,
+                            MyMainTextField(
+
+                              labelText: 'المده',
+                              width: MediaQuery.of(context).size.width / 3.5,
                               widget: Container(
                                 width: 0,
                                 height: 0,
@@ -316,7 +326,7 @@ class _AddFurniturePostScreenState extends State<AddFurniturePostScreen> {
                               children: <Widget>[
                                 SizedBox(height: 35,),
                                 Text(
-                                  " : إختر حاله الملبس",
+                                  " : إختر حاله الأثاث",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic'),

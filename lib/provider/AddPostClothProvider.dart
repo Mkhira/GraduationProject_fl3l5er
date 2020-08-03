@@ -153,7 +153,8 @@ class AddPostClothProvider extends ChangeNotifier{
       locationList.insert(0, chosenLat);
       locationList.insert(1, chosenLong);
     }
-
+    print(locationList[0]);
+    print(locationList[1]);
     if(imageFileCloth != null) {
       StorageReference _storageReference =
       FirebaseStorage.instance.ref().child(
