@@ -6,19 +6,24 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:company_task/Screens/homePage.dart';
+import 'package:company_task/Utli/Common.dart';
 import 'package:company_task/models/User.dart';
 import 'package:company_task/provider/SignUpLoginProvider/FireBaseAuth.dart';
 import 'package:company_task/service/LoginService.dart';
 import 'package:company_task/wedgit/ChosseImage.dart';
 import 'package:company_task/wedgit/FriebaseErrorDailog.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:path/path.dart' as p;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpProvider extends ChangeNotifier{
 
@@ -93,68 +98,47 @@ class SignUpProvider extends ChangeNotifier{
  signUpRecord(BuildContext context) async {
 
 
+     _user.email = emailController.text;
+     _user.password = passwordController.text;
+     _user.gander= gander;
+     _user.location = addressController.text;
+     _user.phone= phoneController.text;
+     _user.jop = phoneController.text;
+     _user.maritalState =state;
+     _user.nationalId = idController.text;
 
 
 
 
+      AuthResult authResult =  await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _user.email, password: _user.password,).catchError((signUpError)=>catchError(signUpError,context));
+
+
+      if(authResult != null){
+        UserUpdateInfo updateInfo = UserUpdateInfo();
+
+
+        updateInfo.displayName = _user.name;
+        updateInfo.photoUrl = _user.imageUrl;
+         FirebaseAuth.instance.currentUser().then((user) async {
+           _user.id = user.uid;
+           print(_user.id);
+
+
+           SharedPreferences sharedPreferences =
+               await SharedPreferences.getInstance();
+           sharedPreferences.setString(Common.userId, user.uid);
+
+
+         });
+
+        String Token = await Common.userId;
+        print('Token : $Token');
+            userDocment(context);
+
+      }
 
 
 
-
-
-
-    String urx;
-    if (imageFile != null) {
-      StorageReference _storageReference =
-      FirebaseStorage.instance.ref().child(
-          "Profile/${p.basename(imageFile.path)}");
-      StorageUploadTask storageUploadTask = _storageReference.putFile(
-          imageFile);
-      StorageTaskSnapshot snapshot = await storageUploadTask.onComplete;
-
-      urx = await snapshot.ref.getDownloadURL();
-
-      _user.email = emailController.text;
-      _user.password = passwordController.text;
-      _user.imageUrl =urx;
-      _user.gander= gander;
-      _user.location = addressController.text;
-      _user.phone= phoneController.text;
-      _user.jop = phoneController.text;
-      _user.maritalState =state;
-      _user.nationalId = idController.text;
-
-    } else if (imageFile == null) {
-      print(imageFile.path);
-      print(urx);
-      showDialog(context: context,
-          builder: (BuildContext context) {
-            return DailogError(
-              text: "من فضلك إختر صوره", titleText: "هنالك خطأ فى البيانات",);
-          });
-    }
-    if (emailController.text !=null ||fatherNameController.text !=null ||passwordController.text !=null ||firstNameController.text !=null ||lastNameController.text !=null ||
-        jopController.text !=null ||addressController.text !=null  ||urx !=null || idController.text !=null) {
-      DocumentReference ref = await databaseReference.collection("Users")
-          .add({
-        'id': int.parse(idController.text.toString()),
-        'name': "${firstNameController.text + " " + fatherNameController.text + " " + lastNameController.text}",
-        'email': emailController.text,
-        'image': urx,
-        'location': addressController.text,
-        'phone': int.parse(phoneController.text.toString()),
-        'maritalstate': state,
-        'gander': gander,
-        'password': passwordController.text,
-        'jop': jopController.text,
-
-
-      }).whenComplete(signUp(_user,context));
-//
-      print(ref.documentID);
-    }else{
-      print("gggggggggggggggggggggggg");
-    }
     print(emailController.text);
     print(firstNameController.text);
     print(fatherNameController.text);
@@ -172,10 +156,66 @@ class SignUpProvider extends ChangeNotifier{
 
   }
 
+catchError(signUpError,BuildContext context){
+
+  if(signUpError is PlatformException) {
+    if(signUpError.code == 'ERROR_EMAIL_ALREADY_IN_USE') {
+      /// `foo@bar.com` has alread been registered.
+      showDialog(context: context ,
+          builder: (BuildContext context) {
+            return
+              DailogError(text: "هذا الأميل مستخدم من قبل ",titleText: "هنالك خطأ فى البيانات",);
+          } );
+    }
+  }
+}
 
 
+userDocment(BuildContext context)async{
+  String urx;
+  if (imageFile != null) {
+    StorageReference _storageReference =
+    FirebaseStorage.instance.ref().child(
+        "Profile/${p.basename(imageFile.path)}");
+    StorageUploadTask storageUploadTask = _storageReference.putFile(
+        imageFile);
+    StorageTaskSnapshot snapshot = await storageUploadTask.onComplete;
+
+    urx = await snapshot.ref.getDownloadURL();
+
+} else if (imageFile == null) {
+   print(imageFile.path);
+   print(urx);
+   showDialog(context: context,
+   builder: (BuildContext context) {
+   return DailogError(
+   text: "من فضلك إختر صوره", titleText: "هنالك خطأ فى البيانات",);
+   });
+   }
+
+   _user.imageUrl =urx;
+
+  DocumentReference ref = await databaseReference.collection("Users")
+      .add({
+    'id': int.parse(idController.text.toString()),
+    'name': "${firstNameController.text + " " + fatherNameController.text + " " + lastNameController.text}",
+    'email': emailController.text,
+    'image': urx,
+    'location': addressController.text,
+    'phone': int.parse(phoneController.text.toString()),
+    'maritalstate': state,
+    'gander': gander,
+    'password': passwordController.text,
+    'jop': jopController.text,
+    'userId':_user.id
 
 
+  }).whenComplete(() =>  Navigator.push(context, MaterialPageRoute(builder: (context){
+    return HomePage();
+  }))  );
+//
+  print(ref.documentID);
+}
 
 
 

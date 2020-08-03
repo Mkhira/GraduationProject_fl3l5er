@@ -1,5 +1,6 @@
 import 'package:company_task/Block/Block.dart';
 import 'package:company_task/Screens/Blood/NeedyData.dart';
+import 'package:company_task/Utli/Common.dart';
 import 'package:company_task/models/BloodNeedyModel.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -68,7 +69,11 @@ class _BloodDonationState extends State<BloodDonation> {
                                 description: list.description,
                                 imageUrl: list.imageUrl,
                                 blood: list.blood,
-                                onPressed: (){
+                                onPressed: () async{
+
+                                  String tokne = await Common.getToken();
+
+                                  print(tokne);
                                   Navigator.push(context, MaterialPageRoute(builder: (context){
                                     return BloodNeedyData();
                                   }));

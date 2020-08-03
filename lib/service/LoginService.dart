@@ -27,29 +27,11 @@ import 'package:provider/provider.dart';
    }
   }
 
-  signUp(User user, BuildContext context)async{
-
-    AuthResult authResult =  await FirebaseAuth.instance.createUserWithEmailAndPassword(email: user.email, password: user.password,).
-    catchError((error)=> print('ffffffffffffffffffffffffffffffffffffffff'));
-
-
-    if(authResult != null){
-         UserUpdateInfo updateInfo = UserUpdateInfo();
-
-
-         updateInfo.displayName = user.name;
-         updateInfo.photoUrl = user.imageUrl;
-//         FirebaseAuth.instance.currentUser().then((user) {
-//           _userId = user.uid;
-//         });
-
-
-      Navigator.push(context, MaterialPageRoute(builder: (context){
-        return HomePage();
-      }))  ;
-    }
-
-  }
+//  signUp(User user, BuildContext context)async{
+//
+//
+//
+//  }
 
 
 
@@ -59,7 +41,7 @@ import 'package:provider/provider.dart';
   }
 
 
-
+User _user =User();
   initializeCurrentUser(AuthNotifier authNotifier)async{
 
     FirebaseUser firebaseUser = await FirebaseAuth.instance.currentUser();
@@ -67,6 +49,12 @@ import 'package:provider/provider.dart';
     if(firebaseUser != null){
       print(firebaseUser.photoUrl);
       authNotifier.setUser(firebaseUser);
+
+               FirebaseAuth.instance.currentUser().then((user) {
+          _user.id  = user.uid;
+          print(_user.id);
+         });
+
     }
 
   }
