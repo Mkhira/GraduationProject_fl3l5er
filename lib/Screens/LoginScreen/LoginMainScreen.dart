@@ -3,13 +3,21 @@
 
 
 import 'package:company_task/Screens/homePage.dart';
+import 'package:company_task/models/User.dart';
+import 'package:company_task/provider/SignUpLoginProvider/LoginProvider.dart';
+import 'file:///E:/flater_projects/company_task/lib/provider/SignUpLoginProvider/FireBaseAuth.dart';
+import 'package:company_task/service/LoginService.dart';
 import 'package:company_task/style/constent.dart';
 import 'package:company_task/wedgit/OurTextFeilds/MyMainTextField.dart';
 import 'package:company_task/wedgit/Steppers/stepper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
+import 'package:provider/provider.dart';
 
+
+enum AuthMode{signUp,Login}
 class LoginMainScreen extends StatefulWidget {
   static const String id = 'LogInMainScreen';
 
@@ -22,8 +30,9 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
   bool _obscure = true;
   IconData _icon = Icons.visibility_off;
   final _focusNode = FocusNode();
-  final _passwordController = TextEditingController();
-
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  AuthMode _authMode = AuthMode.Login;
+   User _user = User();
   String email = 'admin';
   String pass = 'admin';
 
@@ -37,6 +46,12 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
 
   @override
   void initState() {
+
+    AuthNotifier authNotifier = Provider.of<AuthNotifier>(context,listen: false);
+    initializeCurrentUser(authNotifier);
+
+
+
     _focusNode.addListener(() {
       if (_focusNode.hasFocus) {
         setState(() {
@@ -51,8 +66,19 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
     super.initState();
   }
 
+
+  void _submitForm(BuildContext context){
+
+
+    AuthNotifier authNotifier = Provider.of<AuthNotifier>(context,listen: false);
+       login(Provider.of<LoginProvider>(context).emailController.text,Provider.of<LoginProvider>(context).passwordController.text,authNotifier );
+
+
+  }
   @override
   Widget build(BuildContext context) {
+    var loginProviderObj = Provider.of<LoginProvider>(context);
+
     return SafeArea(
       child: Scaffold(
         body: GestureDetector(
@@ -96,6 +122,7 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
                       height: 20.0,
                     ),
                     MyMainTextField(
+                      inputController: loginProviderObj.emailController ,
                       height: 13.0,
                       hintText: 'الايميل',
                       labelText: 'الايميل',
@@ -105,11 +132,12 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
                       height: 25.0,
                     ),
                     MyMainTextField(
+
                       height: 13.0,
                       hintText: 'كلمة المرور',
                       labelText: 'كلمة المرور',
                       obscure: _obscure,
-                      inputController: _passwordController,
+                      inputController: loginProviderObj.passwordController,
                       focusNode: _focusNode,
                       widget: IconButton(
                         icon: Icon(
@@ -139,7 +167,12 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
 //                              _animationType = 'fail';
 //                            });
 //                          }
-                        Navigator.pushNamed(context, HomePage.id);
+//                        Navigator.push(context, MaterialPageRoute(builder: (context){
+//                          return HomePage();
+//                        }));
+
+                         loginProviderObj.loginn();
+                         _submitForm(context);
                         },
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),

@@ -156,7 +156,8 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
                                   ),
                                   height: 120,
                                   width: 120,
-                                  child: ClipRRect(
+                                  child:
+                                  ClipRRect(
                                     borderRadius:
                                     BorderRadius.all(Radius.circular(120)),
                                     child: provider.imagefile == null

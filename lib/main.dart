@@ -13,7 +13,10 @@ import 'package:company_task/Screens/profile_image_screen.dart';
 import 'package:company_task/provider/AddPostClothProvider.dart';
 import 'package:company_task/provider/AddPostMedicineProvider.dart';
 import 'package:company_task/provider/AddPostfurnitureProvider.dart';
+import 'file:///E:/flater_projects/company_task/lib/provider/SignUpLoginProvider/FireBaseAuth.dart';
 import 'package:company_task/provider/MapProvider.dart';
+import 'package:company_task/provider/SignUpLoginProvider/LoginProvider.dart';
+import 'package:company_task/provider/SignUpLoginProvider/SignUpProvider.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -50,7 +53,18 @@ class MyApp extends StatelessWidget {
             create: (context)=>AddPostFurnitureProvider(),
 
           ),
+          ChangeNotifierProvider(
+            create: (context)=>AuthNotifier(),
 
+          ),
+          ChangeNotifierProvider(
+            create: (context)=>SignUpProvider(),
+
+          ),
+          ChangeNotifierProvider(
+            create: (context)=>LoginProvider(),
+
+          ),
         ],
       child: MaterialApp(
         builder: (context, child){
@@ -61,8 +75,9 @@ class MyApp extends StatelessWidget {
           );
         },
         debugShowCheckedModeBanner: false,
-        //home:Main_screen(),
-        initialRoute: LoginMainScreen.id,
+        home:Consumer<AuthNotifier>(builder: (context ,notifire ,child){
+          return notifire.user != null ? HomePage() : LoginMainScreen();
+        },),
         routes: {
           HomePage.id: (context) => HomePage(),
           LoginMainScreen.id: (context) => LoginMainScreen(),

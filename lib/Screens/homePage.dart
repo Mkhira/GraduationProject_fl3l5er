@@ -179,7 +179,7 @@ class _HomePageState extends State<HomePage> {
 
                                      });
                                     },
-                                    categoryName: "Medicen",
+                                    categoryName: "الدواء",
                                   ),
                                   categoryWedgit(
                                     onTap: () {

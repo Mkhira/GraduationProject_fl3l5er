@@ -48,104 +48,108 @@ class donationList extends StatelessWidget {
   final String name;
   final String description;
   final String blood;
+  final Function onPressed;
   donationList(
-      {this.imageUrl,  this.name, this.description, this.blood});
+      {this.imageUrl,  this.name, this.description, this.blood,this.onPressed});
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 4,
-      borderRadius: BorderRadius.circular(20),
+    return GestureDetector(
+      onTap: onPressed,
+      child: Material(
+        elevation: 4,
+        borderRadius: BorderRadius.circular(20),
 
-      child: Container(
+        child: Container(
 
-        width: MediaQuery.of(context).size.width,
-        height: 80,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: Colors.white,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(width: 5,),
-              Container(
-                height: 60,
-                width: 60,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle
-                ),
-                child: ClipRRect(
-                  borderRadius:
-                  BorderRadius.circular(50),
-                  child: CachedNetworkImage(
-                    imageUrl: imageUrl,
-                    width: MediaQuery.of(context)
-                        .size
-                        .width /
-                        2.18,
-                    height: 180,
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) =>
-                        CircularProgressIndicator(),
-                    errorWidget:
-                        (context, url, error) =>
-                        Icon(Icons.error),
-                    placeholderFadeInDuration:
-                    Duration(days: 30),
-                    useOldImageOnUrlChange: true,
-                    filterQuality:
-                    FilterQuality.low,
+          width: MediaQuery.of(context).size.width,
+          height: 90,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.white,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(width: 5,),
+                Container(
+                  height: 60,
+                  width: 60,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle
+                  ),
+                  child: ClipRRect(
+                    borderRadius:
+                    BorderRadius.circular(50),
+                    child: CachedNetworkImage(
+                      imageUrl: imageUrl,
+                      width: MediaQuery.of(context)
+                          .size
+                          .width /
+                          2.18,
+                      height: 180,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) =>
+                          CircularProgressIndicator(),
+                      errorWidget:
+                          (context, url, error) =>
+                          Icon(Icons.error),
+                      placeholderFadeInDuration:
+                      Duration(days: 30),
+                      useOldImageOnUrlChange: true,
+                      filterQuality:
+                      FilterQuality.low,
+                    ),
                   ),
                 ),
-              ),
 
-              Spacer(
-                flex: 1,
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width/1.6,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Spacer(
+                  flex: 1,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width/1.6,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        name,
+                        style: HomeHeadreStyle,
+                      ),
+                      SizedBox(height: 10,),
+                      AutoSizeText(
+                        "$description",
+                        style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: kSecondColor),
+                        minFontSize: 10,
+                        stepGranularity: 10,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+
+                    ],
+                  ),
+                ),
+                Spacer(
+                  flex: 2,
+                ),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      name,
-                      style: HomeHeadreStyle,
+                      blood,
+                      style: kBlood,
                     ),
-                    SizedBox(height: 10,),
-                    AutoSizeText(
-                      "$description",
-                      style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: kSecondColor),
-                      minFontSize: 10,
-                      stepGranularity: 10,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-
                   ],
                 ),
-              ),
-              Spacer(
-                flex: 2,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    blood,
-                    style: kBlood,
-                  ),
-                ],
-              ),
-              Spacer(
-                flex: 1,
-              ),
-            ],
+                Spacer(
+                  flex: 1,
+                ),
+              ],
+            ),
           ),
         ),
       ),

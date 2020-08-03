@@ -1,4 +1,7 @@
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:company_task/Screens/homePage.dart';
+import 'package:company_task/provider/AddPostClothProvider.dart';
+import 'package:company_task/provider/SignUpLoginProvider/SignUpProvider.dart';
 import 'package:company_task/style/constent.dart';
 import 'package:company_task/wedgit/OurTextFeilds/MyMainTextField.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:provider/provider.dart';
 
 
 class StepperScreen extends StatefulWidget {
@@ -146,6 +150,8 @@ class _StepperScreenState extends State<StepperScreen> {
   }
 
   Widget step1() {
+    var signUpProviderObj = Provider.of<SignUpProvider>(context);
+
     return Column(
       children: [
         SizedBox(
@@ -154,37 +160,40 @@ class _StepperScreenState extends State<StepperScreen> {
         Stack(
           children: [
             Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: kSecondColor,
+              ),
               width: 155.0,
               height: 155.0,
-            ),
-            Container(
-              width: 150.0,
-              height: 150.0,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-                border: Border.all(color: Colors.orangeAccent, width: 3.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(.5),
-                    blurRadius: 5,
-                  ),
-                ],
-              ),
-              child: Icon(
-                Icons.person,
-                size: 100.0,
-                color: Colors.grey[200],
+              child:     ClipRRect(
+                borderRadius:
+                BorderRadius.all(Radius.circular(120)),
+                child: signUpProviderObj.imageFile == null
+                    ? Container(
+                  height: 0,
+                  width: 0,
+                )
+                    : Image.file(
+                  signUpProviderObj.imageFile,
+                  height: 120,
+                  width: 120,
+                ),
               ),
             ),
+
             Positioned(
-              bottom: 12.0,
-              right: 0.0,
-              child: Image.asset(
-                'assets/camera.png',
-                height: 35.0,
-                color: Colors.grey[600],
-              ),
+              bottom: 10.0,
+              right: -5.0,
+              child: IconButton(
+                  icon: Icon(
+                    CommunityMaterialIcons.camera_outline,
+                    size: 35,
+                    color: Colors.grey,
+                  ),
+                  onPressed: () {
+                    signUpProviderObj.onChoseImage(context);
+                  }),
             ),
           ],
         ),
@@ -192,6 +201,7 @@ class _StepperScreenState extends State<StepperScreen> {
           height: 40.0,
         ),
         MyMainTextField(
+          inputController: signUpProviderObj.emailController,
           width: MediaQuery.of(context).size.width,
           hintText: 'الايميل',
           labelText: 'الايميل',
@@ -245,6 +255,8 @@ class _StepperScreenState extends State<StepperScreen> {
   }
 
   Widget step2() {
+    var signUpProviderObj = Provider.of<SignUpProvider>(context);
+
     return Column(
       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -252,6 +264,9 @@ class _StepperScreenState extends State<StepperScreen> {
           height: 15,
         ),
         MyMainTextField(
+
+          inputController: signUpProviderObj.firstNameController,
+
           width: MediaQuery.of(context).size.width,
           hintText: 'الاسم الاول',
           labelText: 'الاسم الاول',
@@ -260,6 +275,7 @@ class _StepperScreenState extends State<StepperScreen> {
           height: 25,
         ),
         MyMainTextField(
+          inputController: signUpProviderObj.fatherNameController,
           width: MediaQuery.of(context).size.width,
           hintText: 'اسم الاب',
           labelText: 'اسم الاب',
@@ -268,6 +284,7 @@ class _StepperScreenState extends State<StepperScreen> {
           height: 25,
         ),
         MyMainTextField(
+          inputController: signUpProviderObj.lastNameController,
           width: MediaQuery.of(context).size.width,
           hintText: 'اسم العائلة',
           labelText: 'اسم العائلة',
@@ -276,10 +293,11 @@ class _StepperScreenState extends State<StepperScreen> {
           height: 25,
         ),
         MyMainTextField(
+          inputController: signUpProviderObj.idController,
           width: MediaQuery.of(context).size.width,
           hintText: 'الرقم القومي',
           labelText: 'الرقم القومي',
-          inputType: TextInputType.phone,
+          inputType: TextInputType.number,
         ),
         SizedBox(
           height: 25,
@@ -375,12 +393,15 @@ class _StepperScreenState extends State<StepperScreen> {
   }
 
   Widget step3() {
+    var signUpProviderObj = Provider.of<SignUpProvider>(context);
+
     return Column(
       children: [
         SizedBox(
           height: 80.0,
         ),
         MyMainTextField(
+          inputController: signUpProviderObj.jopController,
           width: MediaQuery.of(context).size.width,
           hintText: 'الوظيفة',
           labelText: 'الوظيفة',
@@ -389,6 +410,7 @@ class _StepperScreenState extends State<StepperScreen> {
           height: 25,
         ),
         MyMainTextField(
+          inputController: signUpProviderObj.phoneController,
           width: MediaQuery.of(context).size.width,
           hintText: 'التلفون',
           labelText: 'التلفون',
@@ -398,6 +420,7 @@ class _StepperScreenState extends State<StepperScreen> {
           height: 25,
         ),
         MyMainTextField(
+          inputController: signUpProviderObj.addressController,
           hintText: _locality,
           labelText: 'العنوان',
           widget: IconButton(
@@ -419,6 +442,7 @@ class _StepperScreenState extends State<StepperScreen> {
 //                  _administrativeArea =
 //                      place.locality;
                 _locality = place.locality;
+                signUpProviderObj.addressController.text = place.locality;
                 _loading=false;
               });
             },
@@ -487,7 +511,15 @@ class _StepperScreenState extends State<StepperScreen> {
                 child: RaisedButton(
                   padding: EdgeInsets.all(4.0),
                   //todo goto main page && making condition to go to home page.
-                  onPressed: ()=>Navigator.pushNamed(context,HomePage.id),
+                  onPressed:
+                  (){
+                    setState(() {
+                      signUpProviderObj.signUpRecord(context);
+                    });
+                  },
+//                      ()=>Navigator.push(context, MaterialPageRoute(builder: (context){
+//                    return HomePage();
+//                  })),
                   color: Colors.orange,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(6.0)),
@@ -538,9 +570,12 @@ class _Step1TextFieldState extends State<Step1TextField> {
 
   @override
   Widget build(BuildContext context) {
+    var signUpProviderObj = Provider.of<SignUpProvider>(context);
+
     return Column(
       children: [
         MyMainTextField(
+          inputController: signUpProviderObj.passwordController,
           width: MediaQuery.of(context).size.width,
           hintText: 'كلمة المرور',
           labelText: 'كلمة المرور',
@@ -557,6 +592,7 @@ class _Step1TextFieldState extends State<Step1TextField> {
           height: 25.0,
         ),
         MyMainTextField(
+           inputController: signUpProviderObj.passwordConfirmController,
           width: MediaQuery.of(context).size.width,
           hintText: 'تأكيد كلمة المرور',
           labelText: 'تأكيد كلمة المرور',
@@ -584,6 +620,8 @@ class _Step3RadioState extends State<Step3Radio> {
 
   @override
   Widget build(BuildContext context) {
+    var signUpProviderObj = Provider.of<SignUpProvider>(context);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -604,6 +642,7 @@ class _Step3RadioState extends State<Step3Radio> {
               onChanged: (String value) {
                 setState(() {
                   _gender = value;
+                  signUpProviderObj.gander = value;
                 });
               },
             ),
@@ -627,6 +666,7 @@ class _Step3RadioState extends State<Step3Radio> {
                 setState(
                       () {
                     _gender = value;
+                    signUpProviderObj.gander = value;
                   },
                 );
               },
@@ -648,6 +688,8 @@ class _Step2RadioState extends State<Step2Radio> {
 
   @override
   Widget build(BuildContext context) {
+    var signUpProviderObj = Provider.of<SignUpProvider>(context);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -668,6 +710,8 @@ class _Step2RadioState extends State<Step2Radio> {
               onChanged: (String value) {
                 setState(() {
                   _status = value;
+                  signUpProviderObj.state = value;
+
                 });
               },
             ),
@@ -691,7 +735,9 @@ class _Step2RadioState extends State<Step2Radio> {
                 setState(
                       () {
                     _status = value;
-                  },
+                    signUpProviderObj.state = value;
+
+                      },
                 );
               },
             ),
@@ -715,7 +761,9 @@ class _Step2RadioState extends State<Step2Radio> {
                 setState(
                       () {
                     _status = value;
-                  },
+                    signUpProviderObj.state = value;
+
+                      },
                 );
               },
             ),
