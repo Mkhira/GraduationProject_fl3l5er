@@ -76,7 +76,7 @@ class MyApp extends StatelessWidget {
         },
         debugShowCheckedModeBanner: false,
         home:Consumer<AuthNotifier>(builder: (context ,notifire ,child){
-          return notifire.user != null ? HomePage() : LoginMainScreen();
+          return notifire.user != null ? SplashScreen() : LoginMainScreen();
         },),
         routes: {
           HomePage.id: (context) => HomePage(),

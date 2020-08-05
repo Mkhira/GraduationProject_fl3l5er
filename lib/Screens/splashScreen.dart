@@ -1,4 +1,7 @@
+import 'package:company_task/Screens/homePage.dart';
+import 'package:company_task/provider/info_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'dart:async';
 import '../style/constent.dart';
 
@@ -8,15 +11,18 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
-//  @override
-//  void initState() {
-//    // TODO: implement initState
-//    super.initState();
-//    Timer(Duration(seconds: 7),()=> Navigator.pushReplacement(context,
-//        MaterialPageRoute(
-//            builder: (BuildContext context) => Login())) );
-//  }
+  open(){
+      Provider.of<InfoProvider>(context).fetch();
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(
+            builder: (BuildContext context) => HomePage()) );
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Timer(Duration(seconds: 7),()=> open());
+  }
   @override
 
   Widget build(BuildContext context) {

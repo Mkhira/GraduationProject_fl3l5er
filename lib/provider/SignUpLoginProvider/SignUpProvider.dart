@@ -108,7 +108,7 @@ class SignUpProvider extends ChangeNotifier{
      _user.nationalId = idController.text;
 
 
-
+     _user.name= '${firstNameController.text+" "+fatherNameController.text+" "+lastNameController.text}';
 
       AuthResult authResult =  await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _user.email, password: _user.password,).catchError((signUpError)=>catchError(signUpError,context));
 
@@ -124,9 +124,9 @@ class SignUpProvider extends ChangeNotifier{
            print(_user.id);
 
 
-           SharedPreferences sharedPreferences =
+           SharedPreferences sharedPreferencesGetUserId =
                await SharedPreferences.getInstance();
-           sharedPreferences.setString(Common.userId, user.uid);
+           sharedPreferencesGetUserId.setString(Common.userId, user.uid);
 
 
          });
@@ -194,6 +194,63 @@ userDocment(BuildContext context)async{
    }
 
    _user.imageUrl =urx;
+
+
+
+
+  SharedPreferences sharedPreferencesGetUserEmail =
+  await SharedPreferences.getInstance();
+  sharedPreferencesGetUserEmail.setString(Common.email, _user.email);
+
+
+  SharedPreferences sharedPreferencesGetUserGander =
+  await SharedPreferences.getInstance();
+  sharedPreferencesGetUserGander.setString(Common.gander, _user.gander);
+
+
+  SharedPreferences sharedPreferencesGetUserNationalId =
+  await SharedPreferences.getInstance();
+  sharedPreferencesGetUserNationalId.setString(Common.nationalId, _user.nationalId);
+
+
+  SharedPreferences sharedPreferencesGetUserImage =
+  await SharedPreferences.getInstance();
+  sharedPreferencesGetUserImage.setString(Common.image, _user.imageUrl);
+
+
+  SharedPreferences sharedPreferencesGetUserJop =
+  await SharedPreferences.getInstance();
+  sharedPreferencesGetUserJop.setString(Common.jop, _user.jop);
+
+
+  SharedPreferences sharedPreferencesGetUserLocation =
+  await SharedPreferences.getInstance();
+  sharedPreferencesGetUserLocation.setString(Common.location, _user.location);
+
+
+  SharedPreferences sharedPreferencesGetUserState =
+  await SharedPreferences.getInstance();
+  sharedPreferencesGetUserState.setString(Common.state, _user.maritalState);
+
+
+  SharedPreferences sharedPreferencesGetUserName =
+  await SharedPreferences.getInstance();
+  sharedPreferencesGetUserName.setString(Common.name, _user.name);
+
+
+  SharedPreferences sharedPreferencesGetUserPassword =
+  await SharedPreferences.getInstance();
+  sharedPreferencesGetUserPassword.setString(Common.userId, _user.password);
+
+
+  SharedPreferences sharedPreferencesGetUserPhone =
+  await SharedPreferences.getInstance();
+  sharedPreferencesGetUserPhone.setString(Common.phone, _user.phone);
+
+
+
+
+
 
   DocumentReference ref = await databaseReference.collection("Users")
       .add({

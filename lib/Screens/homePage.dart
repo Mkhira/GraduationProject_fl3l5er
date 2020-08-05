@@ -3,6 +3,7 @@ import 'package:company_task/Block/Block.dart';
 import 'package:company_task/Screens/ClothesPost.dart';
 import 'package:company_task/Screens/FurintureScreen.dart';
 import 'package:company_task/Screens/profile_screen.dart';
+import 'package:company_task/Utli/Common.dart';
 import 'package:company_task/models/eventModel.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/wedgit/main_drawer.dart';
@@ -31,14 +32,20 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   Bloc _bloc;
 
-  @override
-  void initState() {
-    super.initState();
-    Bloc();
-    _bloc = Bloc();
-    _bloc.fetchEvent();
-    _bloc.fetchTopDonators();
-    _bloc.fetchcharity();
+ @override
+  void initState()  {
+    // TODO: implement initState
+
+
+   Bloc();
+   _bloc = Bloc();
+   _bloc.fetchEvent();
+   _bloc.fetchTopDonators();
+   _bloc.fetchcharity();
+
+
+
+
   }
 
   @override
@@ -1114,7 +1121,12 @@ class EventHeader extends StatelessWidget {
 }
 
 class SliderEvent extends StatelessWidget {
-  const SliderEvent({
+  const
+
+
+
+
+  SliderEvent({
     Key key,
     @required this.data,
   }) : super(key: key);

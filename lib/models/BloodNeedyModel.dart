@@ -6,14 +6,18 @@ class BloodNeedyModel{
    String imageUrl;
    String name;
    String description;
-   String blood;
+   String bloodType;
    int neededAmount;
    int collectedAmount;
-   int duration;
+   int age;
    String bloodBankId;
    String hospitalName;
+   String userId;
+   String postOwnerName;
+   String gander;
+   List<dynamic> location;
 
-   BloodNeedyModel({this.imageUrl,this.name,this.description,this.blood,this.collectedAmount,this.neededAmount,this.duration,this.bloodBankId,this.hospitalName});
+   BloodNeedyModel({this.gander,this.location,this.postOwnerName,this.userId,this.imageUrl,this.name,this.description,this.bloodType,this.collectedAmount,this.neededAmount,this.age,this.bloodBankId,this.hospitalName});
 
    factory BloodNeedyModel.formJison(DocumentSnapshot snapshot){
      var data = snapshot;
@@ -21,12 +25,16 @@ class BloodNeedyModel{
        imageUrl: data['image'],
        name: data['name'],
        description: data["descroption"],
-       blood: data["blood"],
+       bloodType: data["blood"],
        neededAmount: data["neededAmount"],
        collectedAmount: data["collectedAmount"],
-       duration: data["duration"],
        bloodBankId: data["bloodBankId"],
        hospitalName: data["hospitalName"],
+       location: data['location'],
+       postOwnerName: data['postownername'],
+       userId: data['userid'],
+       gander: data['gander'],
+       age: data['age'],
      );
    }
 

@@ -1,4 +1,5 @@
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:company_task/Block/Block.dart';
 import 'package:company_task/Screens/homePage.dart';
 import 'package:company_task/provider/AddPostClothProvider.dart';
 import 'package:company_task/provider/SignUpLoginProvider/SignUpProvider.dart';
@@ -394,7 +395,7 @@ class _StepperScreenState extends State<StepperScreen> {
 
   Widget step3() {
     var signUpProviderObj = Provider.of<SignUpProvider>(context);
-
+     Bloc _bloc= Bloc();
     return Column(
       children: [
         SizedBox(
@@ -515,6 +516,8 @@ class _StepperScreenState extends State<StepperScreen> {
                   (){
                     setState(() {
                       signUpProviderObj.signUpRecord(context);
+                      _bloc.fetch();
+
                     });
                   },
 //                      ()=>Navigator.push(context, MaterialPageRoute(builder: (context){

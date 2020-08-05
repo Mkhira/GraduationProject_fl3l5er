@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:company_task/Block/Block.dart';
 import 'package:company_task/Screens/edit_screen.dart';
 import 'package:company_task/Screens/more_info.dart';
 import 'package:company_task/Screens/profile_image_screen.dart';
+import 'package:company_task/Utli/Common.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/style/constent.dart';
 import 'package:company_task/wedgit/list_item.dart';
@@ -48,10 +51,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
     'Donate to build a school.',
   ];
 
-  List<String> category = ['Medicine', 'Food', 'Clothes', 'Education'];
 
+
+  List<String> category = ['Medicine', 'Food', 'Clothes', 'Education'];
+  Bloc _bloc;
+
+@override
+  void initState()  {
+
+
+    // TODO: implement initState
+
+  var prov = Provider.of<InfoProvider>(context,listen: false);
+  prov.fetch();
+  Bloc();
+  _bloc = Bloc();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
+    var profileProvider = Provider.of<InfoProvider>(context);
+
     return Scaffold(
       backgroundColor: Color(0xff0041C4), //Color(0xFF04022B),
       drawer: MainDrawer(),
@@ -113,7 +133,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           width: 150.0,
                           height: 150.0,
                           child:
-                              Provider.of<InfoProvider>(context).updatedImage ==
+                              profileProvider.imageUrlProfile ==
                                       null
                                   ? Center(
                                       child: Text(
@@ -122,10 +142,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     ))
                                   : ClipRRect(
                                       borderRadius: BorderRadius.circular(15),
-                                      child: Image.file(
-                                        Provider.of<InfoProvider>(context)
-                                            .updatedImage,
+                                      child:CachedNetworkImage(
+                                        imageUrl: profileProvider.imageUrlProfile,
+                                        height: 98,
+                                        width: 200,
                                         fit: BoxFit.cover,
+                                        placeholder: (context, url) =>
+                                            CircularProgressIndicator(),
+                                        errorWidget:
+                                            (context, url, error) =>
+                                            Icon(Icons.error),
+                                        placeholderFadeInDuration:
+                                        Duration(days: 30),
+                                        useOldImageOnUrlChange: true,
+                                        filterQuality:
+                                        FilterQuality.low,
                                       ),
                                     ),
                         ),

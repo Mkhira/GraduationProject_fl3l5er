@@ -26,9 +26,11 @@ class _BloodDonationState extends State<BloodDonation> {
     _bloc = Bloc();
     _bloc.fetchBloodNeedy();
   }
+  String tokne;
 
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
         child: Scaffold(
       backgroundColor: kMainColor,
@@ -68,14 +70,16 @@ class _BloodDonationState extends State<BloodDonation> {
                                 name: list.name,
                                 description: list.description,
                                 imageUrl: list.imageUrl,
-                                blood: list.blood,
+                                blood: list.bloodType,
                                 onPressed: () async{
 
-                                  String tokne = await Common.getToken();
+                                   tokne = await Common.getUserImageToken();
+                                   Provider.of<InfoProvider>(context).imageUrlProfile = await Common.getUserImageToken();
 
-                                  print(tokne);
+                                  print(Provider.of<InfoProvider>(context).imageUrlProfile);
                                   Navigator.push(context, MaterialPageRoute(builder: (context){
-                                    return BloodNeedyData();
+                                    return BloodNeedyData(name: list.name,location: list.location,gander: list.gander,age: list.age,
+                                    bankAccount: list.bloodBankId,bloodCollected: list.collectedAmount,bloodNeed: list.neededAmount,bloodType: list.bloodType,description: list.description,hospitalName: list.hospitalName,postOwnerName: list.postOwnerName,imageUrl: list.imageUrl,);
                                   }));
                                 },
                               ),

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:company_task/Utli/Common.dart';
 import 'package:company_task/models/BloodNeedyModel.dart';
 import 'package:company_task/models/ClothesModel.dart';
 import 'package:company_task/models/FurintureModel.dart';
@@ -425,7 +426,32 @@ List<MedicineModel> _medicenmodelsearch = await _medicineRepostrySearch.getMedic
 
 
 
+//////////////////////////// profilee ////////////////////////
+  String imageUrlProfile;
+  String nameProfile;
+  String passwordProfile;
+  String nationalIdProfile;
+  String jopProfile;
+  String phoneProfile;
+  String ganderProfile;
+  String emailProfile;
+  String stateProfile;
+  String locationProfile;
 
+  fetch()async{
+
+    imageUrlProfile = await Common.getUserImageToken();
+emailProfile = await Common.getUserEmailToken();
+    passwordProfile = await Common.getUserPasswordToken();
+    phoneProfile = await Common.getUserPhoneToken();
+ jopProfile = await Common.getUserJopToken();
+  ganderProfile = await Common.getUserGanderToken();
+    nationalIdProfile= await Common.getUserNationalIdToken();
+    stateProfile = await Common.getUserStateToken();
+    locationProfile = await Common.getUserLocationToken();
+
+    print(imageUrlProfile);
+  }
 
 
 
