@@ -504,7 +504,7 @@ bool medicineClick = true;
     nationalIdProfile= await Common.getUserNationalIdToken();
     stateProfile = await Common.getUserStateToken();
     locationProfile = await Common.getUserLocationToken();
-
+    nameProfile = await Common.getUserNameToken();
 
     print(imageUrlProfile);
     notifyListeners();

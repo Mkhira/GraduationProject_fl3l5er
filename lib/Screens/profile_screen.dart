@@ -10,6 +10,7 @@ import 'package:company_task/wedgit/list_item.dart';
 import 'package:company_task/wedgit/main_drawer.dart';
 import 'package:company_task/wedgit/progress_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts_arabic/fonts.dart';
 
 //import 'package:profile_screen/constants.dart';
 //import 'package:profile_screen/models/info_provider.dart';
@@ -183,11 +184,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             children: <Widget>[
                               Flexible(
                                 child: Text(
-                                  Provider.of<InfoProvider>(context).name,
+                                  '${profileProvider.nameProfile}',
                                   style: TextStyle(
-                                    fontSize: 22.0,
+                                    fontSize: 20.0,
                                     fontWeight: FontWeight.w700,
-                                    color: Colors.white, //Color(0xff2CC696),
+                                    color: Colors.white,
+                                    fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',//Color(0xff2CC696),
                                   ),
                                 ),
                               ),
@@ -274,11 +276,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 width: 12.0,
                               ),
                               Text(
-                                Provider.of<InfoProvider>(context).jop,
+                                '${profileProvider.jop}',
                                 style: TextStyle(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.white,
+                                  fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
                                 ),
                               ),
                             ],
@@ -290,11 +293,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 width: 12.0,
                               ),
                               Text(
-                                Provider.of<InfoProvider>(context).location,
+                               '${profileProvider.location}',
                                 style: TextStyle(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.white,
+                                  fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
                                 ),
                               ),
                             ],

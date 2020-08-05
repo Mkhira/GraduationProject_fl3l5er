@@ -58,6 +58,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     var x = (MediaQuery.of(context).orientation == Orientation.portrait);
+    var profileProvider = Provider.of<InfoProvider>(context);
+
     return SafeArea(
         child: Scaffold(
             drawer: MainDrawer(),
@@ -123,14 +125,30 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   width: 65.0,
                                   height: 65.0,
-                                  child: Provider.of<InfoProvider>(context).updatedImage ==
+                                  child:  profileProvider.imageUrlProfile ==
                                       null
-                                      ? Center()
+                                      ? Center(
+                                      child: Text(
+                                        'No image selected.',
+                                        style: TextStyle(color: Colors.white),
+                                      ))
                                       : ClipRRect(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    child: Image.file(
-                                      Provider.of<InfoProvider>(context).updatedImage,
+                                    borderRadius: BorderRadius.circular(15),
+                                    child:CachedNetworkImage(
+                                      imageUrl: profileProvider.imageUrlProfile,
+                                      height: 98,
+                                      width: 200,
                                       fit: BoxFit.cover,
+                                      placeholder: (context, url) =>
+                                          CircularProgressIndicator(),
+                                      errorWidget:
+                                          (context, url, error) =>
+                                          Icon(Icons.error),
+                                      placeholderFadeInDuration:
+                                      Duration(days: 30),
+                                      useOldImageOnUrlChange: true,
+                                      filterQuality:
+                                      FilterQuality.low,
                                     ),
                                   ),
                                 ),

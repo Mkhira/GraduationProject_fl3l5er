@@ -74,7 +74,7 @@ class _BloodDonationState extends State<BloodDonation> {
                                 onPressed: () async{
 
                                    tokne = await Common.getUserImageToken();
-                                   Provider.of<InfoProvider>(context).imageUrlProfile = await Common.getUserImageToken();
+                                   Provider.of<InfoProvider>(context).imageUrlProfile = await Common.getUserNameToken();
 
                                   print(Provider.of<InfoProvider>(context).imageUrlProfile);
                                   Navigator.push(context, MaterialPageRoute(builder: (context){
