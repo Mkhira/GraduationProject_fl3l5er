@@ -42,7 +42,8 @@ class _HomePageState extends State<HomePage> {
    _bloc.fetchEvent();
    _bloc.fetchTopDonators();
    _bloc.fetchcharity();
-
+   _bloc.fetchcharity();
+  super.initState();
 
 
 

@@ -276,7 +276,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 width: 12.0,
                               ),
                               Text(
-                                '${profileProvider.jop}',
+                                '${profileProvider.jopProfile}',
                                 style: TextStyle(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.w600,
@@ -293,9 +293,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 width: 12.0,
                               ),
                               Text(
-                               '${profileProvider.location}',
+                               '${profileProvider.locationProfile}',
                                 style: TextStyle(
-                                  fontSize: 16.0,
+                                  fontSize: 11.0,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.white,
                                   fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',

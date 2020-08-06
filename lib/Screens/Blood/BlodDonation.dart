@@ -2,6 +2,7 @@ import 'package:company_task/Block/Block.dart';
 import 'package:company_task/Screens/Blood/NeedyData.dart';
 import 'package:company_task/Utli/Common.dart';
 import 'package:company_task/models/BloodNeedyModel.dart';
+import 'package:company_task/models/User.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class BloodDonation extends StatefulWidget {
 
 class _BloodDonationState extends State<BloodDonation> {
   Bloc _bloc;
+  User _user;
   @override
   void initState() {
     // TODO: implement initState

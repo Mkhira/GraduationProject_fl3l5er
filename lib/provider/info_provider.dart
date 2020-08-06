@@ -478,6 +478,12 @@ bool medicineClick = true;
     medicineClick = true;
     notifyListeners();
   }
+
+  /////////////////////////////
+
+  String UserLoginId='';
+  List newsListUser = [];
+
 ////////////////////////////////////////////////////////////////////  Profile Data //////////////////////////
 
 

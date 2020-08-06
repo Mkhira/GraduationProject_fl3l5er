@@ -1,7 +1,11 @@
+import 'package:company_task/Screens/LoginScreen/LoginMainScreen.dart';
 import 'package:company_task/Screens/homePage.dart';
 import 'package:company_task/Screens/profile_screen.dart';
+import 'package:company_task/provider/SignUpLoginProvider/FireBaseAuth.dart';
 //import 'package:company_task/Screens/MedicinePosts.dart';
 import 'package:company_task/provider/info_provider.dart';
+import 'package:company_task/service/LoginService.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +18,8 @@ import 'package:provider/provider.dart';
 class MainDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+//    AuthNotifier authNotifier = Provider.of<AuthNotifier>(context,listen: false);
+
     return SafeArea(
       child: Drawer(
         elevation: MediaQuery.of(context).size.width,
@@ -128,20 +134,31 @@ class MainDrawer extends StatelessWidget {
               ),
               onTap: () {},
             ),
-            ListTile(
-              enabled: false,
-              leading: Icon(
-                Icons.exit_to_app,
-                color: Colors.red,
+            GestureDetector(
+              onTap: ()async{
+
+                await FirebaseAuth.instance.signOut().catchError((error)=> print(error.code));
+//                Provider.of<AuthNotifier>(context).setUser(null);
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                return LoginMainScreen();
+              }));
+              },
+              child: ListTile(
+                enabled: false,
+
+                leading: Icon(
+                  Icons.exit_to_app,
+                  color: Colors.red,
+                ),
+                title: Text(
+                  'Sign Out',
+                  style: TextStyle(
+                      fontSize: 22.0,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.red),
+                ),
+                onTap: () {},
               ),
-              title: Text(
-                'Sign Out',
-                style: TextStyle(
-                    fontSize: 22.0,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.red),
-              ),
-              onTap: () {},
             ),
           ],
         ),

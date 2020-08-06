@@ -2,6 +2,7 @@
 
 import 'package:company_task/Screens/homePage.dart';
 import 'package:company_task/models/User.dart';
+import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/wedgit/ButtonWidget.dart';
 import 'file:///E:/flater_projects/company_task/lib/provider/SignUpLoginProvider/FireBaseAuth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,7 +12,7 @@ import 'package:provider/provider.dart';
 
 
 
-  login(String email,String password, AuthNotifier authNotifier ,)async{
+  login(String email,String password, AuthNotifier authNotifier ,BuildContext context)async{
 
   AuthResult authResult =  await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password).
     catchError((error)=> print(error.code));
@@ -21,8 +22,12 @@ import 'package:provider/provider.dart';
      FirebaseUser firebaseUser = authResult.user;
 
      if(FirebaseUser != null){
-       print('Login : $firebaseUser');
-       authNotifier.setUser(firebaseUser);
+       Provider.of<InfoProvider>(context).UserLoginId = firebaseUser.uid;
+       print('Login : ${Provider.of<InfoProvider>(context).UserLoginId}');
+//       print('Login : ${firebaseUser.uid}');
+//       print('Login : ${firebaseUser.uid}');
+//       print('Login : ${firebaseUser.uid}');
+           authNotifier.setUser(firebaseUser);
      }
    }
   }

@@ -51,7 +51,6 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
     initializeCurrentUser(authNotifier);
 
 
-
     _focusNode.addListener(() {
       if (_focusNode.hasFocus) {
         setState(() {
@@ -67,11 +66,34 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
   }
 
 
-  void _submitForm(BuildContext context){
+  void _submitForm(BuildContext context)async {
+    AuthNotifier authNotifier = Provider.of<AuthNotifier>(
+        context, listen: false);
+    login(Provider
+        .of<LoginProvider>(context)
+        .emailController
+        .text, Provider
+        .of<LoginProvider>(context)
+        .passwordController
+        .text, authNotifier,context);
+
+    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
 
-    AuthNotifier authNotifier = Provider.of<AuthNotifier>(context,listen: false);
-       login(Provider.of<LoginProvider>(context).emailController.text,Provider.of<LoginProvider>(context).passwordController.text,authNotifier );
+//
+//    firebaseAuth.onAuthStateChanged
+//        .firstWhere((user) => user != null)
+//        .then((user) {
+//      String user_Name = user.displayName;
+//      String image_Url = user.photoUrl;
+//      String email_Id = user.email;
+//      String user_Uuid = user.uid; // etc
+//
+//      print(user_Name);
+//      print(user_Uuid);
+//      print(email_Id);
+//    });
+
 
 
   }
@@ -171,7 +193,7 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
 //                          return HomePage();
 //                        }));
 
-                         loginProviderObj.loginn();
+                         loginProviderObj.loginn(context);
                          _submitForm(context);
                         },
                         shape: RoundedRectangleBorder(

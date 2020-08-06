@@ -3,10 +3,12 @@ import 'package:company_task/Utli/Common.dart';
 import 'package:company_task/models/BloodNeedyModel.dart';
 import 'package:company_task/models/ClothesModel.dart';
 import 'package:company_task/models/FurintureModel.dart';
+import 'package:company_task/models/User.dart';
 import 'package:company_task/models/charityModel.dart';
 import 'package:company_task/wedgit/FriebaseErrorDailog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'Validator.dart';
 import 'package:provider/provider.dart';
 import '../provider/info_provider.dart';
@@ -415,7 +417,6 @@ List<MedicineModel> _medicenmodelsearch = await _medicineRepostrySearch.getMedic
 
 
   BloodRepostry _bloodRepostry = BloodRepostry();
-//gffghnhgf
   final _bloodNeedyList = PublishSubject<List<BloodNeedyModel>>();
   Observable<List<BloodNeedyModel>> get streamNeedy => _bloodNeedyList.stream;
 
@@ -424,6 +425,117 @@ List<MedicineModel> _medicenmodelsearch = await _medicineRepostrySearch.getMedic
     return _bloodNeedyList.sink.add(_bloodModel);
   }
 
+
+//////////////////////////////////////////////////////////
+
+//
+//  UserRopestryLogin _userRopestryLogin = UserRopestryLogin();
+//  final _userList = PublishSubject<List<User>>();
+//  Observable<List<User>> get streamUser => _userList.stream;
+//
+//  fetchUser(BuildContext context) async{
+//    List<User> _userModel = await _userRopestryLogin.getUserData( context);
+//    print("hjhjhjhjhjhjhjhjhjhhjhjh");
+//    return _userList.sink.add(_userModel);
+//
+//
+//  }
+
+
+  Future<List> getNewsOnSearchBar(BuildContext context) async {
+    var prov =Provider.of<InfoProvider>(context);
+    final String _collection = 'Users';
+    final Firestore _fireStore = Firestore.instance;
+
+    print("1");
+
+    Future<QuerySnapshot> getData() async {
+      print("2");
+      print('ffffffffffffffffffff:${Provider.of<InfoProvider>(context).UserLoginId}');
+
+      return await _fireStore.collection(_collection).where('userId',isEqualTo: "${Provider.of<InfoProvider>(context).UserLoginId}").getDocuments();
+    }
+
+    QuerySnapshot val = await getData();
+    if (val.documents.length > 0) {
+      print("3");
+      for (int i = 0; i < val.documents.length; i++) {
+        prov.newsListUser.insert(0,val.documents[0].data["email"]);
+        prov.newsListUser.insert(1,val.documents[0].data["gander"]);
+        prov.newsListUser.insert(2,val.documents[0].data["id"]);
+        prov.newsListUser.insert(3,val.documents[0].data["image"]);
+        prov.newsListUser.insert(4,val.documents[0].data["jop"]);
+        prov.newsListUser.insert(5,val.documents[0].data["location"]);
+        prov.newsListUser.insert(6,val.documents[0].data["maritalstate"]);
+        prov.newsListUser.insert(7,val.documents[0].data["name"]);
+        prov.newsListUser.insert(8,val.documents[0].data["password"]);
+        prov.newsListUser.insert(9,val.documents[0].data["phone"]);
+        prov.newsListUser.insert(10,val.documents[0].data["userId"]);
+      }
+  
+    } else {
+      print("Not Found");
+    }
+    print("4");
+    SharedPreferences sharedPreferencesGetUserEmail =
+    await SharedPreferences.getInstance();
+    sharedPreferencesGetUserEmail.setString(Common.email, prov.newsListUser[0]);
+
+
+    SharedPreferences sharedPreferencesGetUserGander =
+    await SharedPreferences.getInstance();
+    sharedPreferencesGetUserGander.setString(Common.gander, prov.newsListUser[1]);
+
+
+    SharedPreferences sharedPreferencesGetUserNationalId =
+    await SharedPreferences.getInstance();
+    sharedPreferencesGetUserNationalId.setString(Common.nationalId, prov.newsListUser[2]);
+
+
+    SharedPreferences sharedPreferencesGetUserImage =
+    await SharedPreferences.getInstance();
+    sharedPreferencesGetUserImage.setString(Common.image, prov.newsListUser[3]);
+
+
+    SharedPreferences sharedPreferencesGetUserJop =
+    await SharedPreferences.getInstance();
+    sharedPreferencesGetUserJop.setString(Common.jop, prov.newsListUser[4]);
+
+
+    SharedPreferences sharedPreferencesGetUserLocation =
+    await SharedPreferences.getInstance();
+    sharedPreferencesGetUserLocation.setString(Common.location, prov.newsListUser[5]);
+
+
+    SharedPreferences sharedPreferencesGetUserState =
+    await SharedPreferences.getInstance();
+    sharedPreferencesGetUserState.setString(Common.state, prov.newsListUser[6]);
+
+
+    SharedPreferences sharedPreferencesGetUserName =
+    await SharedPreferences.getInstance();
+    sharedPreferencesGetUserName.setString(Common.name, prov.newsListUser[7]);
+
+
+    SharedPreferences sharedPreferencesGetUserPassword =
+    await SharedPreferences.getInstance();
+    sharedPreferencesGetUserPassword.setString(Common.userId,prov.newsListUser[8]);
+
+
+    SharedPreferences sharedPreferencesGetUserPhone =
+    await SharedPreferences.getInstance();
+    sharedPreferencesGetUserPhone.setString(Common.phone, prov.newsListUser[9]);
+
+    SharedPreferences sharedPreferencesGetUserId =
+    await SharedPreferences.getInstance();
+    sharedPreferencesGetUserId.setString(Common.userId, prov.newsListUser[10]);
+
+    print('userId:${prov.newsListUser[0]}');
+    print('userId:${prov.newsListUser[5]}');
+    print('userId:${prov.newsListUser[9]}');
+    print('userId:${prov.newsListUser[10]}');
+    return prov.newsListUser;
+  }
 
 
 //////////////////////////// profilee ////////////////////////
@@ -456,6 +568,7 @@ emailProfile = await Common.getUserEmailToken();
 
 
   void dispose() async {
+//    _userList.close();
     await _evntList.drain();
     _evntList.close();
 

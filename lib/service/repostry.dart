@@ -1,7 +1,10 @@
 import 'package:company_task/models/BloodNeedyModel.dart';
 import 'package:company_task/models/ClothesModel.dart';
 import 'package:company_task/models/FurintureModel.dart';
+import 'package:company_task/models/User.dart';
 import 'package:company_task/service/ClothService.dart';
+import 'package:company_task/service/GetUser.dart';
+import 'package:flutter/material.dart';
 
 import '../models/eventModel.dart';
 import 'BloodNeedyService.dart';
@@ -111,3 +114,12 @@ class BloodRepostry{
 
 }
 
+
+
+
+
+class UserRopestryLogin{
+  final _userService = UserServiceLogin();
+  Future<List<User>> getUserData( BuildContext context) => _userService.getUserData( context);
+
+}

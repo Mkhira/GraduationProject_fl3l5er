@@ -1,3 +1,4 @@
+import 'package:company_task/Block/Block.dart';
 import 'package:company_task/Screens/homePage.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,9 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  Bloc bloc = Bloc();
   open(){
+             bloc.getNewsOnSearchBar(context);
       Provider.of<InfoProvider>(context).fetch();
     Navigator.pushReplacement(context,
         MaterialPageRoute(
@@ -20,6 +23,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     // TODO: implement initState
+    bloc.getNewsOnSearchBar(context);
+
     super.initState();
     Timer(Duration(seconds: 7),()=> open());
   }
