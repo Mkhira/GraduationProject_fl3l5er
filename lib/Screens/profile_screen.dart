@@ -4,12 +4,18 @@ import 'package:company_task/Screens/edit_screen.dart';
 import 'package:company_task/Screens/more_info.dart';
 import 'package:company_task/Screens/profile_image_screen.dart';
 import 'package:company_task/Utli/Common.dart';
+import 'package:company_task/models/ClothesModel.dart';
+import 'package:company_task/models/medicenModel.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/style/constent.dart';
 import 'package:company_task/wedgit/list_item.dart';
 import 'package:company_task/wedgit/main_drawer.dart';
 import 'package:company_task/wedgit/progress_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 
 //import 'package:profile_screen/constants.dart';
@@ -60,21 +66,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
 @override
   void initState()  {
 
-
     // TODO: implement initState
 
   var prov = Provider.of<InfoProvider>(context,listen: false);
   prov.fetch();
   Bloc();
   _bloc = Bloc();
-    super.initState();
+  _bloc.fetchMedicineProfileData(context);
+  _bloc.fetchClothProfileData(context);
+
+  super.initState();
   }
+
+  final List<MenuItem> menuitems =[
+    MenuItem(menuValue: 'Edit'),
+    MenuItem(menuValue: 'Delete'),
+  ];
   @override
   Widget build(BuildContext context) {
     var profileProvider = Provider.of<InfoProvider>(context);
 
     return Scaffold(
-      backgroundColor: Color(0xff0041C4), //Color(0xFF04022B),
+      backgroundColor: kMainColor, //Color(0xFF04022B),
       drawer: MainDrawer(),
       appBar: AppBar(
         leading: GestureDetector(
@@ -92,347 +105,673 @@ class _ProfileScreenState extends State<ProfileScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),
-      body: ListView(
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              Container(
-                height: 240,
-                width: MediaQuery.of(context).size.width,
-                color: Colors.transparent,
-              ),
-              Positioned(
-                top: 205.0,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(35.0),
-                      topRight: Radius.circular(35.0),
-                    ),
-                    color: Colors.white,
-                  ),
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
-                ),
-              ),
-              Positioned(
-                top: 25.0,
-                left: 15.0,
-                right: 0.0,
-                child: Row(
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverPersistentHeader(
+            pinned: true,
+            floating: false,
+            delegate: TopProfileHeader(
+                maxxExtent: 200,
+                minnExtent: 100,
+               ),
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              <Widget>[
+                SizedBox(height: 15),
+                Row(
+                  textDirection: TextDirection.rtl,
                   children: <Widget>[
-                    Expanded(
-                      flex: 2,
-                      child: InkWell(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white10,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(30.0),
-                            ),
-                          ),
-                          width: 150.0,
-                          height: 150.0,
-                          child:
-                              profileProvider.imageUrlProfile ==
-                                      null
-                                  ? Center(
-                                      child: Text(
-                                      'No image selected.',
-                                      style: TextStyle(color: Colors.white),
-                                    ))
-                                  : ClipRRect(
-                                      borderRadius: BorderRadius.circular(15),
-                                      child:CachedNetworkImage(
-                                        imageUrl: profileProvider.imageUrlProfile,
-                                        height: 98,
-                                        width: 200,
-                                        fit: BoxFit.cover,
-                                        placeholder: (context, url) =>
-                                            CircularProgressIndicator(),
-                                        errorWidget:
-                                            (context, url, error) =>
-                                            Icon(Icons.error),
-                                        placeholderFadeInDuration:
-                                        Duration(days: 30),
-                                        useOldImageOnUrlChange: true,
-                                        filterQuality:
-                                        FilterQuality.low,
-                                      ),
-                                    ),
-                        ),
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () {
-                          Provider.of<InfoProvider>(context, listen: false)
-                                  .modifyImage =
-                              Provider.of<InfoProvider>(context, listen: false)
-                                  .updatedImage;
-                          Navigator.pushNamed(context, ProfileImageScreen.id);
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              Flexible(
-                                child: Text(
-                                  '${profileProvider.nameProfile}',
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
-                                    fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',//Color(0xff2CC696),
-                                  ),
-                                ),
-                              ),
-                              PopupMenuButton(
-                                icon: Icon(
-                                  Icons.more_vert,
-                                  color: Colors.white,
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(6.0),
-                                ),
-                                onSelected: (kMainPopMenu result) {
-                                  if (result == kMainPopMenu.editProfile) {
-                                    Provider.of<InfoProvider>(context,
-                                                listen: false)
-                                            .modifyImage =
-                                        Provider.of<InfoProvider>(context,
-                                                listen: false)
-                                            .updatedImage;
-
-                                    Provider.of<InfoProvider>(context,
-                                                listen: false)
-                                            .modifyStatus =
-                                        Provider.of<InfoProvider>(context,
-                                                listen: false)
-                                            .updatedStatus;
-                                    Provider.of<InfoProvider>(context,
-                                                listen: false)
-                                            .modifyGender =
-                                        Provider.of<InfoProvider>(context,
-                                                listen: false)
-                                            .updatedGender;
-
-                                    Provider.of<InfoProvider>(context,
-                                            listen: false)
-                                        .modifyDay = Provider.of<InfoProvider>(
-                                            context,
-                                            listen: false)
-                                        .updatedDay;
-
-                                    Provider.of<InfoProvider>(context,
-                                                listen: false)
-                                            .modifyMonth =
-                                        Provider.of<InfoProvider>(context,
-                                                listen: false)
-                                            .updatedMonth;
-
-                                    Provider.of<InfoProvider>(context,
-                                            listen: false)
-                                        .modifyYear = Provider.of<InfoProvider>(
-                                            context,
-                                            listen: false)
-                                        .updatedYear;
-                                  }
-                                  result == kMainPopMenu.moreInfo
-                                      ? showModalBottomSheet(
-                                          context: context,
-                                          builder: (context) => MoreInfo(),
-                                        )
-                                      : Navigator.pushNamed(
-                                          context, EditScreen.id);
-                                },
-                                itemBuilder: (BuildContext context) =>
-                                    <PopupMenuEntry<kMainPopMenu>>[
-                                  PopupMenuItem<kMainPopMenu>(
-                                    value: kMainPopMenu.moreInfo,
-                                    child: Text('More Information'),
-                                  ),
-                                  PopupMenuItem<kMainPopMenu>(
-                                    value: kMainPopMenu.editProfile,
-                                    child: Text('Edit Profile'),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 6.0,
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Icon(Icons.work, color: Colors.white),
-                              SizedBox(
-                                width: 12.0,
-                              ),
-                              Text(
-                                '${profileProvider.jopProfile}',
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                  fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Icon(Icons.location_on, color: Colors.white),
-                              SizedBox(
-                                width: 12.0,
-                              ),
-                              Text(
-                               '${profileProvider.locationProfile}',
-                                style: TextStyle(
-                                  fontSize: 11.0,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                  fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Image.asset(
-                                'assets/donate.png',
-                                color: Colors.white,
-                              ),
-                              SizedBox(
-                                width: 6.0,
-                              ),
-                              Text(
-                                '14 Donation',
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                    SizedBox(width: 15,),
+                    Text("الأدويه",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
                   ],
                 ),
-              ),
-            ],
-          ),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
+                SizedBox(height: 15),
                 Padding(
-                  padding: const EdgeInsets.only(left: 20.0, right: 20),
+                  padding: const EdgeInsets.only(left: 10.0, right: 10),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    child:  StreamBuilder<List<MedicineModel>>(
+                      stream: _bloc.streamMedicineProfile,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return new StaggeredGridView.countBuilder(
+                            crossAxisCount: 4,
+                            itemCount: snapshot.data.length,
+                            shrinkWrap: true,
+                            addAutomaticKeepAlives: false,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemBuilder: (BuildContext context, index) {
+                              var data = snapshot.data[index];
+
+                              return PostMedicineProfileMaterial(
+                                medicineModel: data,
+                              );
+                            },
+                            staggeredTileBuilder: (data) =>
+                            new StaggeredTile.count(
+                                2, data.isEven ? 3 : 3),
+                            mainAxisSpacing: 10.0,
+                            crossAxisSpacing: 20.0,
+                          );
+                        } else
+                          return Container();
+
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  textDirection: TextDirection.rtl,
+                  children: <Widget>[
+                    SizedBox(width: 15,),
+                    Text("الملابس",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
+                  ],
+                ),
+                SizedBox(height: 15),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0, right: 10),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    child:  StreamBuilder<List<ClothModel>>(
+                      stream: _bloc.streamClothProfile,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return new StaggeredGridView.countBuilder(
+                            crossAxisCount: 4,
+                            itemCount: snapshot.data.length,
+                            shrinkWrap: true,
+                            addAutomaticKeepAlives: false,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemBuilder: (BuildContext context, index) {
+                              var data = snapshot.data[index];
+
+                              return PostClothProfileMaterial(
+                                clothModel: data,
+                              );
+                            },
+                            staggeredTileBuilder: (data) =>
+                            new StaggeredTile.count(
+                                2, data.isEven ? 3 : 3),
+                            mainAxisSpacing: 10.0,
+                            crossAxisSpacing: 20.0,
+                          );
+                        } else
+                          return Container();
+
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+
+              ],
+            ),
+          ),
+        ],
+      )
+
+    );
+  }
+}
+
+
+
+class TopProfileHeader implements SliverPersistentHeaderDelegate {
+  TopProfileHeader({this.maxxExtent, this.minnExtent,});
+  final double minnExtent;
+  final double maxxExtent;
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    // TODO: implement build
+    return ProfileHeader();
+  }
+
+  @override
+  // TODO: implement maxExtent
+  double get maxExtent => minExtent;
+
+  @override
+  // TODO: implement minExtent
+  double get minExtent => maxxExtent;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
+    // TODO: implement shouldRebuild
+    return true;
+  }
+
+  @override
+  // TODO: implement snapConfiguration
+  FloatingHeaderSnapConfiguration get snapConfiguration => null;
+
+  @override
+  // TODO: implement stretchConfiguration
+  OverScrollHeaderStretchConfiguration get stretchConfiguration => null;
+}
+
+class ProfileHeader extends StatelessWidget {
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    var profileProvider = Provider.of<InfoProvider>(context);
+
+    return Container(
+      height: 200,
+      child: Stack(
+        children: <Widget>[
+          Container(
+            height: 240,
+            width: MediaQuery.of(context).size.width,
+       color: kMainColor
+          ),
+          Positioned(
+            top: 25.0,
+            left: 15.0,
+            right: 0.0,
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 2,
+                  child: InkWell(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white10,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30.0),
+                        ),
+                      ),
+                      width: 150.0,
+                      height: 150.0,
+                      child:
+                          profileProvider.imageUrlProfile ==
+                                  null
+                              ? Center(
+                                  child: Text(
+                                  'No image selected.',
+                                  style: TextStyle(color: Colors.white),
+                                ))
+                              : ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child:CachedNetworkImage(
+                                    imageUrl: profileProvider.imageUrlProfile,
+                                    height: 98,
+                                    width: 200,
+                                    fit: BoxFit.cover,
+                                    placeholder: (context, url) =>
+                                        CircularProgressIndicator(),
+                                    errorWidget:
+                                        (context, url, error) =>
+                                        Icon(Icons.error),
+                                    placeholderFadeInDuration:
+                                    Duration(days: 30),
+                                    useOldImageOnUrlChange: true,
+                                    filterQuality:
+                                    FilterQuality.low,
+                                  ),
+                                ),
+                    ),
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () {
+                      Provider.of<InfoProvider>(context, listen: false)
+                              .modifyImage =
+                          Provider.of<InfoProvider>(context, listen: false)
+                              .updatedImage;
+                      Navigator.pushNamed(context, ProfileImageScreen.id);
+                    },
+                  ),
+                ),
+                SizedBox(
+                  width: 10.0,
+                ),
+                Expanded(
+                  flex: 3,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.8),
-                              blurRadius: 7,
-                            ),
-                          ],
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 12.0,
-                            horizontal: 15.0,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 5.0),
-                                child: Text(
-                                  'BIO',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 23.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                      Row(
+                        children: <Widget>[
+                          Flexible(
+                            child: Text(
+                              '${profileProvider.nameProfile}',
+                              style: TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w700,
+                                color: kSecondColor,
+                                fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',//Color(0xff2CC696),
                               ),
-                              Text(
-                                Provider.of<InfoProvider>(context).bio,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 4,
-                                style: TextStyle(
-                                  fontSize: 21.0,
-                                  wordSpacing: 3.0,
-                                  color: Colors.black87, //Color(0xffB4B6B6),
-                                ),
+                            ),
+                          ),
+                          PopupMenuButton(
+                            icon: Icon(
+                              Icons.more_vert,
+                              color: kSecondColor,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6.0),
+                            ),
+                            onSelected: (kMainPopMenu result) {
+                              if (result == kMainPopMenu.editProfile) {
+                                Provider.of<InfoProvider>(context,
+                                            listen: false)
+                                        .modifyImage =
+                                    Provider.of<InfoProvider>(context,
+                                            listen: false)
+                                        .updatedImage;
+
+                                Provider.of<InfoProvider>(context,
+                                            listen: false)
+                                        .modifyStatus =
+                                    Provider.of<InfoProvider>(context,
+                                            listen: false)
+                                        .updatedStatus;
+                                Provider.of<InfoProvider>(context,
+                                            listen: false)
+                                        .modifyGender =
+                                    Provider.of<InfoProvider>(context,
+                                            listen: false)
+                                        .updatedGender;
+
+                                Provider.of<InfoProvider>(context,
+                                        listen: false)
+                                    .modifyDay = Provider.of<InfoProvider>(
+                                        context,
+                                        listen: false)
+                                    .updatedDay;
+
+                                Provider.of<InfoProvider>(context,
+                                            listen: false)
+                                        .modifyMonth =
+                                    Provider.of<InfoProvider>(context,
+                                            listen: false)
+                                        .updatedMonth;
+
+                                Provider.of<InfoProvider>(context,
+                                        listen: false)
+                                    .modifyYear = Provider.of<InfoProvider>(
+                                        context,
+                                        listen: false)
+                                    .updatedYear;
+                              }
+                              result == kMainPopMenu.moreInfo
+                                  ? showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) => MoreInfo(),
+                                    )
+                                  : Navigator.pushNamed(
+                                      context, EditScreen.id);
+                            },
+                            itemBuilder: (BuildContext context) =>
+                                <PopupMenuEntry<kMainPopMenu>>[
+                              PopupMenuItem<kMainPopMenu>(
+                                value: kMainPopMenu.moreInfo,
+                                child: Text('More Information'),
+                              ),
+                              PopupMenuItem<kMainPopMenu>(
+                                value: kMainPopMenu.editProfile,
+                                child: Text('Edit Profile'),
                               ),
                             ],
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 6.0,
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Icon(Icons.work, color: kSecondColor),
+                          SizedBox(
+                            width: 12.0,
                           ),
-                        ),
+                          Text(
+                            '${profileProvider.jopProfile}',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w600,
+                              color: kSecondColor,
+                              fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        height: 20,
+                      Row(
+                        children: <Widget>[
+                          Icon(Icons.location_on, color: kSecondColor),
+                          SizedBox(
+                            width: 12.0,
+                          ),
+                          Text(
+                           '${profileProvider.locationProfile}',
+                            style: TextStyle(
+                              fontSize: 11.0,
+                              fontWeight: FontWeight.w600,
+                              color: kSecondColor,
+                              fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        'Wheres your donations go?',
-                        style: TextStyle(
-                          fontSize: 25.0,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      ProgressBar(
-                        progressValue: 100.0,
-                        category: 'Education',
-                        value: 872400,
-                      ),
-                      ProgressBar(
-                        progressValue: 70.0,
-                        category: 'Medicine',
-                        value: 13700,
-                      ),
-                      ProgressBar(
-                        progressValue: 50.0,
-                        category: 'Clothes',
-                        value: 928,
-                      ),
-                      ProgressBar(
-                        progressValue: 60.0,
-                        category: 'Blood Donation',
-                        value: 420,
-                      ),
-                      ProgressBar(
-                        progressValue: 30.0,
-                        category: 'Furniture',
-                        value: 500,
+                      Row(
+                        children: <Widget>[
+                          Image.asset(
+                            'assets/donate.png',
+                            color: kSecondColor,
+                          ),
+                          SizedBox(
+                            width: 6.0,
+                          ),
+                          Text(
+                            '14 Donation',
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w600,
+                              color: kSecondColor,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ),
               ],
             ),
-            //width: 500,
           ),
         ],
       ),
     );
   }
 }
+
+class PostMedicineProfileMaterial extends StatelessWidget {
+
+  const PostMedicineProfileMaterial({
+    this.medicineModel,
+    this.onsSelect,
+  });
+
+   final MedicineModel medicineModel;
+   final Function onsSelect;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      elevation: 4,
+      borderRadius: BorderRadius.circular(10),
+      child: Container(
+        width: MediaQuery.of(context).size.width/2,
+        height: 270,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: kSecondColor
+        ),
+        child: Container(
+
+          child: Column(
+            children: <Widget>[
+              Container(
+                width: MediaQuery.of(context).size.width/2,
+                height: 130,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10)),
+                    color: kSecondColor
+                ),
+                child: Stack(
+                  children: <Widget>[
+                    Positioned(
+
+                      top: 0,
+                      left: 0,
+                      child:  ClipRRect(
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
+                        child:CachedNetworkImage(
+                          imageUrl: '${medicineModel.imageUrl}',
+                          height: 130,
+                          width: MediaQuery.of(context).size.width/2.21,
+
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) =>
+                              CircularProgressIndicator(),
+                          errorWidget:
+                              (context, url, error) =>
+                              Icon(Icons.error),
+                          placeholderFadeInDuration:
+                          Duration(days: 30),
+                          useOldImageOnUrlChange: true,
+                          filterQuality:
+                          FilterQuality.low,
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      child:
+                      PopupMenuButton(
+                        icon: Icon(
+                          Icons.more_vert,
+                          color: Colors.black,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
+                        onSelected: onsSelect,
+                        itemBuilder: (BuildContext context) =>
+                        <PopupMenuEntry<kPostPopMenu>>[
+                          PopupMenuItem<kPostPopMenu>(
+                            value: kPostPopMenu.edit,
+                            child: Text('تعديل',style: TextStyle(
+                              fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                            ),),
+                          ),
+                          PopupMenuItem<kPostPopMenu>(
+                            value: kPostPopMenu.delete,
+                            child: Text("إزاله",style: TextStyle(
+                              fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                            ),),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                  ],
+                ),
+              ),
+              SizedBox(height: 5,),
+               Column(
+                 children: <Widget>[
+                   Row(
+                     textDirection: TextDirection.rtl,
+                     children: <Widget>[
+                       Text(' : الدواء  ',style: kPostStyleArabicBase,),
+                       Text('${medicineModel.name}',style: kPostStyleArabicChange,),
+                     ],
+                   ),
+                   Row(
+                     textDirection: TextDirection.rtl,
+                     children: <Widget>[
+                       Text(' :المالك  ',style: kPostStyleArabicBase,),
+                       Text('${medicineModel.owner}',style: kPostStyleArabicChange,),
+                     ],
+                   ),
+                   Row(
+                     textDirection: TextDirection.rtl,
+                     children: <Widget>[
+                       Text(' :الحاله ',style: kPostStyleArabicBase,),
+                       Text('${medicineModel.state}',style: kPostStyleArabicChange,),
+                     ],
+                   ),
+                   Row(
+                     textDirection: TextDirection.rtl,
+                     children: <Widget>[
+                       Text(' :الهاتف   ',style: kPostStyleArabicBase,),
+                       Text('${medicineModel.phone}',style: kPostStyleArabicChange,),
+                     ],
+                   ),
+                 ],
+               )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class PostClothProfileMaterial extends StatelessWidget {
+
+  const PostClothProfileMaterial({
+    this.clothModel,
+    this.onsSelect,
+  });
+
+  final ClothModel clothModel;
+  final Function onsSelect;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      elevation: 4,
+      borderRadius: BorderRadius.circular(10),
+      child: Container(
+        width: MediaQuery.of(context).size.width/2,
+        height: 270,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: kSecondColor
+        ),
+        child: Container(
+
+          child: Column(
+            children: <Widget>[
+              Container(
+                width: MediaQuery.of(context).size.width/2,
+                height: 130,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10)),
+                    color: kSecondColor
+                ),
+                child: Stack(
+                  children: <Widget>[
+                    Positioned(
+
+                      top: 0,
+                      left: 0,
+                      child:  ClipRRect(
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
+                        child:CachedNetworkImage(
+                          imageUrl: '${clothModel.imageUrl}',
+                          height: 130,
+                          width: MediaQuery.of(context).size.width/2.21,
+
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) =>
+                              CircularProgressIndicator(),
+                          errorWidget:
+                              (context, url, error) =>
+                              Icon(Icons.error),
+                          placeholderFadeInDuration:
+                          Duration(days: 30),
+                          useOldImageOnUrlChange: true,
+                          filterQuality:
+                          FilterQuality.low,
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      child:
+                      PopupMenuButton(
+                        icon: Icon(
+                          Icons.more_vert,
+                          color: Colors.black,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
+                        onSelected: onsSelect,
+                        itemBuilder: (BuildContext context) =>
+                        <PopupMenuEntry<kPostPopMenu>>[
+                          PopupMenuItem<kPostPopMenu>(
+                            value: kPostPopMenu.edit,
+                            child: Text('تعديل',style: TextStyle(
+                              fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                            ),),
+                          ),
+                          PopupMenuItem<kPostPopMenu>(
+                            value: kPostPopMenu.delete,
+                            child: Text("إزاله",style: TextStyle(
+                              fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                            ),),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                  ],
+                ),
+              ),
+              SizedBox(height: 5,),
+              Column(
+                children: <Widget>[
+                  Row(
+                    textDirection: TextDirection.rtl,
+                    children: <Widget>[
+                      Text(' : الملبس     ',style: kPostStyleArabicBase,),
+                      Text('${clothModel.name}',style: kPostStyleArabicChange,),
+                    ],
+                  ),
+                  Row(
+                    textDirection: TextDirection.rtl,
+                    children: <Widget>[
+                      Text(' :المالك   ',style: kPostStyleArabicBase,),
+                      Text('${clothModel.owner}',style: kPostStyleArabicChange,),
+                    ],
+                  ),
+                  Row(
+                    textDirection: TextDirection.rtl,
+                    children: <Widget>[
+                      Text(' :الحاله  ',style: kPostStyleArabicBase,),
+                      Text('${clothModel.state}',style: kPostStyleArabicChange,),
+                    ],
+                  ),
+                  Row(
+                    textDirection: TextDirection.rtl,
+                    children: <Widget>[
+                      Text(' :الهاتف    ',style: kPostStyleArabicBase,),
+                      Text('${clothModel.phone}',style: kPostStyleArabicChange,),
+                    ],
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class MenuItem{
+  String menuValue;
+
+  MenuItem({this.menuValue});
+
+
+
+}
+
+
+
+
+

@@ -51,8 +51,9 @@ class ClothModelSearch{
   List<String> searchKey;
   int dayLeft;
   String description;
+  String userID;
 
-  ClothModelSearch({this.name,this.amount,this.imageUrl,this.location,this.owner,this.phone,this.state,this.searchKey,this.dayLeft,this.clothState,this.description});
+  ClothModelSearch({this.userID,this.name,this.amount,this.imageUrl,this.location,this.owner,this.phone,this.state,this.searchKey,this.dayLeft,this.clothState,this.description});
 
   factory ClothModelSearch.fromJison(DocumentSnapshot snapshot){
     var data = snapshot.data;
@@ -67,7 +68,8 @@ class ClothModelSearch{
         searchKey: data['sarchkey'],
         dayLeft: data['dayleft'],
         clothState: data['clothstate'],
-      description: data['description']
+      description: data['description'],
+        userID: data['userid']
 
     );
 

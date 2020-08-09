@@ -324,6 +324,7 @@ List<MedicineModel> _medicenmodelsearch = await _medicineRepostrySearch.getMedic
 
 
 
+
   MedicineRepostryFinish _medivcineRepostryFinish = MedicineRepostryFinish();
 
   final _MedicineListFinish = PublishSubject<List<MedicineModel>>();
@@ -332,6 +333,20 @@ List<MedicineModel> _medicenmodelsearch = await _medicineRepostrySearch.getMedic
   fetchMedicineFinish() async{
     List<MedicineModel> _medicineModelfinish = await _medivcineRepostryFinish.getMedicineFinish();
     return _MedicineListFinish.sink.add(_medicineModelfinish);
+  }
+
+
+
+
+
+  MedicineRepostoryProfile _medivcineRepostryProfile = MedicineRepostoryProfile();
+
+  final _MedicineListProfile = PublishSubject<List<MedicineModel>>();
+  Observable<List<MedicineModel>> get streamMedicineProfile => _MedicineListProfile.stream;
+
+  fetchMedicineProfileData(BuildContext context) async{
+    List<MedicineModel> _medicineModelProfile = await _medivcineRepostryProfile.getMedicineProfile(context);
+    return _MedicineListProfile.sink.add(_medicineModelProfile);
   }
 
   /////// Cloth ///
@@ -370,6 +385,18 @@ List<MedicineModel> _medicenmodelsearch = await _medicineRepostrySearch.getMedic
     return _clothListFinish.sink.add(_clothModelfinish);
   }
 
+
+
+
+  ClothRepostoryProfile _clothRepostryProfile = ClothRepostoryProfile();
+
+  final _clothListProfile = PublishSubject<List<ClothModel>>();
+  Observable<List<ClothModel>> get streamClothProfile => _clothListProfile.stream;
+
+  fetchClothProfileData(BuildContext context) async{
+    List<ClothModel> _ClothModelProfile = await _clothRepostryProfile.getClothProfile(context);
+    return _clothListProfile.sink.add(_ClothModelProfile);
+  }
   ////// Cloth Finish////
 
 
@@ -519,7 +546,7 @@ List<MedicineModel> _medicenmodelsearch = await _medicineRepostrySearch.getMedic
 
     SharedPreferences sharedPreferencesGetUserPassword =
     await SharedPreferences.getInstance();
-    sharedPreferencesGetUserPassword.setString(Common.userId,prov.newsListUser[8]);
+    sharedPreferencesGetUserPassword.setString(Common.password,prov.newsListUser[8]);
 
 
     SharedPreferences sharedPreferencesGetUserPhone =
@@ -575,7 +602,7 @@ emailProfile = await Common.getUserEmailToken();
     await _topList.drain();
     _evntList.close();
 
-
+    _MedicineListProfile.close();
     await _chairtyList.drain();
     _chairtyList.close();
 
@@ -587,7 +614,7 @@ emailProfile = await Common.getUserEmailToken();
     demond.close();
     donate.close();
 //    _clothListSearch.close();
-
+    _clothListProfile.close();
     _clothList.close();
     _bloodNeedyList.close();
     _clothListFinish.close();

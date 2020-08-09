@@ -171,7 +171,11 @@ catchError(signUpError,BuildContext context){
 }
 
 
-userDocment(BuildContext context)async{
+
+
+   final CollectionReference collectionReference = Firestore.instance.collection('Users');
+
+Future userDocment(BuildContext context)async{
   String urx;
   if (imageFile != null) {
     StorageReference _storageReference =
@@ -249,29 +253,25 @@ userDocment(BuildContext context)async{
 
 
 
+ await collectionReference.document(_user.id).setData({
+  'id': idController.text.toString(),
+  'name': "${firstNameController.text + " " + fatherNameController.text + " " + lastNameController.text}",
+  'email': emailController.text,
+  'image': urx,
+  'location': addressController.text,
+  'phone': phoneController.text.toString(),
+  'maritalstate': state,
+  'gander': gander,
+  'password': passwordController.text,
+  'jop': jopController.text,
+  'userId':_user.id
+}).whenComplete(() =>  Navigator.push(context, MaterialPageRoute(builder: (context){
+   return HomePage();
+ }))  );
 
 
-
-  DocumentReference ref = await databaseReference.collection("Users")
-      .add({
-    'id': int.parse(idController.text.toString()),
-    'name': "${firstNameController.text + " " + fatherNameController.text + " " + lastNameController.text}",
-    'email': emailController.text,
-    'image': urx,
-    'location': addressController.text,
-    'phone': int.parse(phoneController.text.toString()),
-    'maritalstate': state,
-    'gander': gander,
-    'password': passwordController.text,
-    'jop': jopController.text,
-    'userId':_user.id
-
-
-  }).whenComplete(() =>  Navigator.push(context, MaterialPageRoute(builder: (context){
-    return HomePage();
-  }))  );
 //
-  print(ref.documentID);
+  print(collectionReference.id);
 }
 
 

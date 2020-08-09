@@ -69,14 +69,15 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         builder: (context, child){
           //to remove scroll glow
+          Provider.of<AuthNotifier>(context);
           return ScrollConfiguration(
             behavior: ScrollBehavior()..buildViewportChrome(context, child, AxisDirection.down),
             child: child,
           );
         },
         debugShowCheckedModeBanner: false,
-        home:Consumer<AuthNotifier>(builder: (context ,notifire ,child){
-          return notifire.user != null ? SplashScreen() : LoginMainScreen();
+        home:Consumer2<AuthNotifier,InfoProvider>(builder: (context ,notifire,provid ,child){
+          return  notifire.user != null ? SplashScreen() : LoginMainScreen();
         },),
         routes: {
           HomePage.id: (context) => HomePage(),

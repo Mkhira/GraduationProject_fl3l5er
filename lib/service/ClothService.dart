@@ -1,5 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:company_task/Utli/Common.dart';
 import 'package:company_task/models/ClothesModel.dart';
+import 'package:company_task/provider/info_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ClothService{
   Firestore _firestore = Firestore.instance;
@@ -68,6 +72,41 @@ class ClothServiceSearch {
   return clothModelSearch;
   }
   }
+
+
+
+
+
+
+}
+
+
+
+class ClothProfile{
+
+  Future<List<ClothModel>> getClothProfile(BuildContext context) async {
+    String userID = await Common.getUserIdToken();
+    print("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+    print(userID);
+    print("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+
+    final QuerySnapshot querySnapshot =
+    await Firestore.instance.collection("Cloth")
+        .where("userid", isEqualTo: Provider.of<InfoProvider>(context).UserLoginId)
+        .getDocuments();
+
+    if (querySnapshot.documents.length == 0) {
+      return null;
+    } else {
+      List<ClothModel> medicineModelSearch = [];
+      for( var snapshot in querySnapshot.documents){
+        medicineModelSearch.add(ClothModel.fromJison(snapshot));
+      }
+      return medicineModelSearch;
+    }
+  }
+
+
 
 
 

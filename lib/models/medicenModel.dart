@@ -10,9 +10,10 @@ class MedicineModel{
   String owner;
   String imageUrl;
   String state;
+  String userID;
   int dayLeft;
 
-  MedicineModel({this.name,this.amount,this.imageUrl,this.location,this.owner,this.phone,this.state,this.dayLeft});
+  MedicineModel({this.userID,this.name,this.amount,this.imageUrl,this.location,this.owner,this.phone,this.state,this.dayLeft});
 
   factory MedicineModel.fromJison(DocumentSnapshot snapshot){
     var data = snapshot.data;
@@ -24,7 +25,8 @@ class MedicineModel{
       owner: data['owner'],
       phone: data['phone'],
       state: data['state'],
-        dayLeft: data['dayleft']
+        dayLeft: data['dayleft'],
+      userID: data['userid']
 
     );
 

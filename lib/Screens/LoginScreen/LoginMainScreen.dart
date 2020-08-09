@@ -48,8 +48,8 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
   void initState() {
 
     AuthNotifier authNotifier = Provider.of<AuthNotifier>(context,listen: false);
-    initializeCurrentUser(authNotifier);
-
+    initializeCurrentUser(authNotifier,context);
+//    signOut(authNotifier);
 
     _focusNode.addListener(() {
       if (_focusNode.hasFocus) {
@@ -77,7 +77,7 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
         .passwordController
         .text, authNotifier,context);
 
-    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+//    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
 
 //
@@ -193,8 +193,10 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
 //                          return HomePage();
 //                        }));
 
+                       setState(() {
                          loginProviderObj.loginn(context);
                          _submitForm(context);
+                       });
                         },
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),

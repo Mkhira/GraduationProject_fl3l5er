@@ -5,6 +5,7 @@ import 'package:company_task/models/User.dart';
 import 'package:company_task/service/ClothService.dart';
 import 'package:company_task/service/GetUser.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 
 import '../models/eventModel.dart';
 import 'BloodNeedyService.dart';
@@ -58,6 +59,14 @@ class MedicineRepostryFinish{
   Future<List<MedicineModel>> getMedicineFinish() => _medicineService.getMedicineFinish();
 
 }
+
+
+
+class MedicineRepostoryProfile{
+  final _medicineService = MedicineProfile();
+  Future<List<MedicineModel>> getMedicineProfile(BuildContext context) => _medicineService.getMedicineProfile(context);
+
+}
 ////////////////////////////// Cloth start /////////////////
 class ClothRepostry{
   final _clothService = ClothService();
@@ -81,6 +90,14 @@ class ClothRepostryFinish{
   Future<List<ClothModel>> getCloth() => _clothService.getClothFinish();
 
 }
+
+
+class ClothRepostoryProfile{
+  final _clothService = ClothProfile();
+  Future<List<ClothModel>> getClothProfile(BuildContext context) => _clothService.getClothProfile(context);
+
+}
+
 /////////////////////////// Cloth Finish ///////////////////
 ////////////////////////// Furniture start ///////////
 

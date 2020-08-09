@@ -1,4 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:company_task/Utli/Common.dart';
+import 'package:company_task/provider/info_provider.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 import '../models/medicenModel.dart';
 
@@ -68,6 +72,41 @@ class MedicineServiceFinish{
         .where("dayleft", isLessThanOrEqualTo: 2)
         .getDocuments();
 
+
+    if (querySnapshot.documents.length == 0) {
+      return null;
+    } else {
+      List<MedicineModel> medicineModelSearch = [];
+      for( var snapshot in querySnapshot.documents){
+        medicineModelSearch.add(MedicineModel.fromJison(snapshot));
+      }
+      return medicineModelSearch;
+    }
+  }
+
+
+
+
+
+
+
+
+}
+
+
+
+class MedicineProfile{
+
+  Future<List<MedicineModel>> getMedicineProfile(BuildContext context) async {
+      String userID = await Common.getUserIdToken();
+      print("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+      print(userID);
+      print("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+
+      final QuerySnapshot querySnapshot =
+    await Firestore.instance.collection("medicine")
+        .where("userid", isEqualTo: Provider.of<InfoProvider>(context).UserLoginId)
+        .getDocuments();
 
     if (querySnapshot.documents.length == 0) {
       return null;

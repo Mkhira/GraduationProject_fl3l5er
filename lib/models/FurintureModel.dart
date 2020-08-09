@@ -8,9 +8,10 @@ class FurnitureModel{
   String owner;
   String imageUrl;
   String state;
+  String userID;
   int dayLeft;
 
-  FurnitureModel({this.name,this.amount,this.imageUrl,this.location,this.owner,this.phone,this.state,this.dayLeft});
+  FurnitureModel({this.userID,this.name,this.amount,this.imageUrl,this.location,this.owner,this.phone,this.state,this.dayLeft});
 
   factory FurnitureModel.fromJison(DocumentSnapshot snapshot){
     var data = snapshot.data;
@@ -22,7 +23,8 @@ class FurnitureModel{
         owner: data['owner'],
         phone: data['phone'],
         state: data['state'],
-        dayLeft: data['dayleft']
+        dayLeft: data['dayleft'],
+      userID: data['userid']
 
     );
 
