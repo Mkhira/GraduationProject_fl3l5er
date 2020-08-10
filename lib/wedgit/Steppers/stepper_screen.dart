@@ -298,6 +298,7 @@ class _StepperScreenState extends State<StepperScreen> {
           width: MediaQuery.of(context).size.width,
           hintText: 'الرقم القومي',
           labelText: 'الرقم القومي',
+
           inputType: TextInputType.number,
         ),
         SizedBox(

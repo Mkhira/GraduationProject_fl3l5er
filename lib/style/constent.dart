@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 
@@ -33,7 +34,7 @@ Color kMainColor = Color(0xffe6e6ea);
 
 Color kSecondColor = Color(0xffF9A110);
 Color KBackGroundColor =  Color(0xffe6e6ea);
-
+     TextStyle kNavigationBar = TextStyle(color: Colors.black87, fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',);
 TextStyle kTitleHeadLine = TextStyle(
     color: Color(0xffAAA59F), fontSize: 12, fontWeight: FontWeight.w400,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',);
 TextStyle bigHeadLine =

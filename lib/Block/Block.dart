@@ -6,6 +6,7 @@ import 'package:company_task/models/FurintureModel.dart';
 import 'package:company_task/models/User.dart';
 import 'package:company_task/models/charityModel.dart';
 import 'package:company_task/wedgit/FriebaseErrorDailog.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -601,9 +602,30 @@ emailProfile = await Common.getUserEmailToken();
     print(imageUrlProfile);
   }
 
+//////////////////////////////////// Chat /////////////////////////////
+  BehaviorSubject<bool> uploadingSubject = BehaviorSubject();
+  Observable<bool> get isUploading => uploadingSubject.stream;
 
+  Future<String> uploadApk(file) async {
+    uploadingSubject.sink.add(true);
+    StorageReference storageRef = FirebaseStorage.instance
+        .ref()
+        .child('apks/' + basename(file.path));
+    final StorageUploadTask uploadTask = storageRef.putFile(
+      file,
+    );
+    StorageTaskSnapshot snap = await uploadTask.onComplete;
+    String url = await snap.ref.getDownloadURL();
+    uploadingSubject.sink.add(false);
+    return url;
+  }
+
+
+  /////////////////////////////////////////////////////////////
 
   void dispose() async {
+    await uploadingSubject.drain();
+    uploadingSubject.close();
 //    _userList.close();
     await _evntList.drain();
     _evntList.close();
