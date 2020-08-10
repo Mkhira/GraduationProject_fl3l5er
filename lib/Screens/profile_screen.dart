@@ -60,7 +60,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   ];
 
 
-
   List<String> category = ['Medicine', 'Food', 'Clothes', 'Education'];
   Bloc _bloc;
 
