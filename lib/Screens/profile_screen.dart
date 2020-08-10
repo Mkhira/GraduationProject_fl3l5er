@@ -92,6 +92,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       backgroundColor: kMainColor, //Color(0xFF04022B),
       drawer: MainDrawer(),
       appBar: AppBar(
+
         leading: GestureDetector(
           onTap:(){
             Navigator.pop(context);
@@ -104,163 +105,209 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: kSecondColor,
         elevation: 0.0,
       ),
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverPersistentHeader(
-            pinned: true,
-            floating: false,
-            delegate: TopProfileHeader(
-                maxxExtent: 200,
-                minnExtent: 100,
-               ),
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              <Widget>[
-                SizedBox(height: 15),
-                Row(
-                  textDirection: TextDirection.rtl,
-                  children: <Widget>[
-                    SizedBox(width: 15,),
-                    Text("الملابس",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
-                  ],
-                ),
-                SizedBox(height: 15),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10.0, right: 10),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    child:  StreamBuilder<List<ClothModel>>(
-                      stream: _bloc.streamClothProfile,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return new StaggeredGridView.countBuilder(
-                            crossAxisCount: 4,
-                            itemCount: snapshot.data.length,
-                            shrinkWrap: true,
-                            addAutomaticKeepAlives: false,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemBuilder: (BuildContext context, index) {
-                              var data = snapshot.data[index];
-
-                              return PostClothProfileMaterial(
-                                clothModel: data,
-                              );
-                            },
-                            staggeredTileBuilder: (data) =>
-                            new StaggeredTile.count(
-                                2, data.isEven ? 3 : 3),
-                            mainAxisSpacing: 10.0,
-                            crossAxisSpacing: 20.0,
-                          );
-                        } else
-                          return Container();
-
-                      },
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  textDirection: TextDirection.rtl,
-                  children: <Widget>[
-                    SizedBox(width: 15,),
-                    Text("ألاثاث",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
-                  ],
-                ),
-                SizedBox(height: 15),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10.0, right: 10),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    child:  StreamBuilder<List<FurnitureModel>>(
-                      stream: _bloc.streamFurnitureProfile,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return new StaggeredGridView.countBuilder(
-                            crossAxisCount: 4,
-                            itemCount: snapshot.data.length,
-                            shrinkWrap: true,
-                            addAutomaticKeepAlives: false,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemBuilder: (BuildContext context, index) {
-                              var data = snapshot.data[index];
-
-                              return PostFurnitureProfileMaterial(
-                                furnitureModel: data,
-                              );
-                            },
-                            staggeredTileBuilder: (data) =>
-                            new StaggeredTile.count(
-                                2, data.isEven ? 3 : 3),
-                            mainAxisSpacing: 10.0,
-                            crossAxisSpacing: 20.0,
-                          );
-                        } else
-                          return Container();
-
-                      },
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  textDirection: TextDirection.rtl,
-                  children: <Widget>[
-                    SizedBox(width: 15,),
-                    Text("الأدويه",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
-                  ],
-                ),
-                SizedBox(height: 15),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10.0, right: 10),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    child:  StreamBuilder<List<MedicineModel>>(
-                      stream: _bloc.streamMedicineProfile,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return new StaggeredGridView.countBuilder(
-                            crossAxisCount: 4,
-                            itemCount: snapshot.data.length,
-                            shrinkWrap: true,
-                            addAutomaticKeepAlives: false,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemBuilder: (BuildContext context, index) {
-                              var data = snapshot.data[index];
-
-                              return PostMedicineProfileMaterial(
-                                medicineModel: data,
-                              );
-                            },
-                            staggeredTileBuilder: (data) =>
-                            new StaggeredTile.count(
-                                2, data.isEven ? 3 : 3),
-                            mainAxisSpacing: 10.0,
-                            crossAxisSpacing: 20.0,
-                          );
-                        } else
-                          return Container();
-
-                      },
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            SizedBox(height: 20),
+            ProfileHeader(),
+            SizedBox(height: 15),
+            Row(
+              textDirection: TextDirection.rtl,
+              children: <Widget>[
+                SizedBox(width: 35,),
+                Text("الملابس",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
               ],
             ),
-          ),
-        ],
+            SizedBox(height: 15),
+            Padding(
+              padding: const EdgeInsets.only(left: 10.0, right: 10),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                child:  StreamBuilder<List<ClothModel>>(
+                  stream: _bloc.streamClothProfile,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Container(
+                        height: 290,
+                        child: new ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: snapshot.data.length,
+                            shrinkWrap: true,
+                            addAutomaticKeepAlives: false,
+                            itemBuilder: (BuildContext context, index) {
+                              var data = snapshot.data[index];
+
+                              return Padding(
+                                padding: const EdgeInsets.only(left: 10,right: 10),
+                                child: PostClothProfileMaterial(
+                                  clothModel: data,
+                                ),
+                              );
+                            }),
+                      );
+                    } else
+                      return Container();
+
+                  },
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Row(
+              textDirection: TextDirection.rtl,
+              children: <Widget>[
+                SizedBox(width: 40,),
+                Text("الأثاث",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
+              ],
+            ),
+            SizedBox(height: 15),
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0, right: 20,top: 10,bottom: 10),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                child:  StreamBuilder<List<FurnitureModel>>(
+                  stream: _bloc.streamFurnitureProfile,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Container(
+                        height: 290,
+                        child: new ListView.builder(
+
+                            scrollDirection: Axis.horizontal,
+                            itemCount: snapshot.data.length,
+                            shrinkWrap: false,
+                            addAutomaticKeepAlives: false,
+                            itemBuilder: (BuildContext context, index) {
+                              var data = snapshot.data[index];
+
+                              return Padding(
+                                padding: const EdgeInsets.only(left: 10,right: 10),
+                                child: PostFurnitureProfileMaterial(
+                                  furnitureModel: data,
+                                ),
+                              );
+                            }),
+                      );
+                    } else
+                      return Container();
+
+                  },
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Row(
+              textDirection: TextDirection.rtl,
+              children: <Widget>[
+                SizedBox(width: 15,),
+                Text("الأدويه",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
+              ],
+            ),
+            SizedBox(height: 15),
+            Padding(
+              padding: const EdgeInsets.only(left: 10.0, right: 10),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                child:  StreamBuilder<List<MedicineModel>>(
+                  stream: _bloc.streamMedicineProfile,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 290,
+                        child: new ListView.builder(
+
+                            scrollDirection: Axis.horizontal,
+                            itemCount: snapshot.data.length,
+                            shrinkWrap: false,
+                            addAutomaticKeepAlives: false,
+                            itemBuilder: (BuildContext context, index) {
+                              var data = snapshot.data[index];
+
+                              return Padding(
+                                padding: const EdgeInsets.only(left: 10,right: 10),
+                                child: PostMedicineProfileMaterial(
+                                  medicineModel: data,
+                                ),
+                              );
+                            }),
+                      );
+                    } else
+                      return Container(
+                        height: 100,
+                        width: 200,
+                        color: Colors.purpleAccent,
+                      );
+
+                  },
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Row(
+              textDirection: TextDirection.rtl,
+              children: <Widget>[
+                SizedBox(width: 15,),
+                Text("الأدويه",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
+              ],
+            ),
+            SizedBox(height: 15),
+            Padding(
+              padding: const EdgeInsets.only(left: 10.0, right: 10),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                child:  StreamBuilder<List<MedicineModel>>(
+                  stream: _bloc.streamMedicineProfile,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 290,
+                        child: new ListView.builder(
+
+                            scrollDirection: Axis.horizontal,
+                            itemCount: snapshot.data.length,
+                            shrinkWrap: false,
+                            addAutomaticKeepAlives: false,
+                            itemBuilder: (BuildContext context, index) {
+                              var data = snapshot.data[index];
+
+                              return Padding(
+                                padding: const EdgeInsets.only(left: 10,right: 10),
+                                child: PostMedicineProfileMaterial(
+                                  medicineModel: data,
+                                ),
+                              );
+                            }),
+                      );
+                    } else
+                      return Container(
+                        height: 100,
+                        width: 200,
+                        color: Colors.purpleAccent,
+                      );
+
+                  },
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+          ],
+        ),
       )
 
     );
@@ -551,126 +598,138 @@ class PostMedicineProfileMaterial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 4,
-      borderRadius: BorderRadius.circular(10),
-      child: Container(
-        width: MediaQuery.of(context).size.width/2,
-        height: 270,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: kSecondColor
-        ),
-        child: Container(
+    return
+     Column(
+       children: <Widget>[
+         SizedBox(
+           height: 10,
+         ),
+         Material(
+           elevation: 4,
+           borderRadius: BorderRadius.circular(10),
+           child: Container(
+             width: MediaQuery.of(context).size.width/2.21,
+             height: 270,
+             decoration: BoxDecoration(
+                 borderRadius: BorderRadius.circular(10),
+                 color: kSecondColor
+             ),
+             child: Container(
 
-          child: Column(
-            children: <Widget>[
-              Container(
-                width: MediaQuery.of(context).size.width/2,
-                height: 130,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10)),
-                    color: kSecondColor
-                ),
-                child: Stack(
-                  children: <Widget>[
-                    Positioned(
-
-                      top: 0,
-                      left: 0,
-                      child:  ClipRRect(
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
-                        child:CachedNetworkImage(
-                          imageUrl: '${medicineModel.imageUrl}',
-                          height: 130,
-                          width: MediaQuery.of(context).size.width/2.21,
-
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) =>
-                              CircularProgressIndicator(),
-                          errorWidget:
-                              (context, url, error) =>
-                              Icon(Icons.error),
-                          placeholderFadeInDuration:
-                          Duration(days: 30),
-                          useOldImageOnUrlChange: true,
-                          filterQuality:
-                          FilterQuality.low,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      top: 0,
-                      right: 0,
-                      child:
-                      PopupMenuButton(
-                        icon: Icon(
-                          Icons.more_vert,
-                          color: Colors.black,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6.0),
-                        ),
-                        onSelected: onsSelect,
-                        itemBuilder: (BuildContext context) =>
-                        <PopupMenuEntry<kPostPopMenu>>[
-                          PopupMenuItem<kPostPopMenu>(
-                            value: kPostPopMenu.edit,
-                            child: Text('تعديل',style: TextStyle(
-                              fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                            ),),
-                          ),
-                          PopupMenuItem<kPostPopMenu>(
-                            value: kPostPopMenu.delete,
-                            child: Text("إزاله",style: TextStyle(
-                              fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                            ),),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                  ],
-                ),
-              ),
-              SizedBox(height: 5,),
-               Column(
+               child: Column(
                  children: <Widget>[
-                   Row(
-                     textDirection: TextDirection.rtl,
-                     children: <Widget>[
-                       Text(' : الدواء  ',style: kPostStyleArabicBase,),
-                       Text('${medicineModel.name}',style: kPostStyleArabicChange,),
-                     ],
+                   Container(
+                     width: MediaQuery.of(context).size.width/2,
+                     height: 130,
+                     decoration: BoxDecoration(
+                         borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10)),
+                         color: kSecondColor
+                     ),
+                     child: Stack(
+                       children: <Widget>[
+                         Positioned(
+
+                           top: 0,
+                           left: 0,
+                           child:  ClipRRect(
+                             borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
+                             child:CachedNetworkImage(
+                               imageUrl: '${medicineModel.imageUrl}',
+                               height: 130,
+                               width: MediaQuery.of(context).size.width/2.21,
+
+                               fit: BoxFit.cover,
+                               placeholder: (context, url) =>
+                                   CircularProgressIndicator(),
+                               errorWidget:
+                                   (context, url, error) =>
+                                   Icon(Icons.error),
+                               placeholderFadeInDuration:
+                               Duration(days: 30),
+                               useOldImageOnUrlChange: true,
+                               filterQuality:
+                               FilterQuality.low,
+                             ),
+                           ),
+                         ),
+                         Positioned(
+                           top: 0,
+                           right: 0,
+                           child:
+                           PopupMenuButton(
+                             icon: Icon(
+                               Icons.more_vert,
+                               color: Colors.black,
+                             ),
+                             shape: RoundedRectangleBorder(
+                               borderRadius: BorderRadius.circular(6.0),
+                             ),
+                             onSelected: onsSelect,
+                             itemBuilder: (BuildContext context) =>
+                             <PopupMenuEntry<kPostPopMenu>>[
+                               PopupMenuItem<kPostPopMenu>(
+                                 value: kPostPopMenu.edit,
+                                 child: Text('تعديل',style: TextStyle(
+                                   fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                                 ),),
+                               ),
+                               PopupMenuItem<kPostPopMenu>(
+                                 value: kPostPopMenu.delete,
+                                 child: Text("إزاله",style: TextStyle(
+                                   fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                                 ),),
+                               ),
+                             ],
+                           ),
+                         ),
+
+                       ],
+                     ),
                    ),
-                   Row(
-                     textDirection: TextDirection.rtl,
+                   SizedBox(height: 5,),
+                   Column(
                      children: <Widget>[
-                       Text(' :المالك  ',style: kPostStyleArabicBase,),
-                       Text('${medicineModel.owner}',style: kPostStyleArabicChange,),
+                       Row(
+                         textDirection: TextDirection.rtl,
+                         children: <Widget>[
+                           Text(' : الدواء  ',style: kPostStyleArabicBase,),
+                           Text('${medicineModel.name}',style: kPostStyleArabicChange,),
+                         ],
+                       ),
+                       Row(
+                         textDirection: TextDirection.rtl,
+                         children: <Widget>[
+                           Text(' :المالك  ',style: kPostStyleArabicBase,),
+                           Text('${medicineModel.owner}',style: kPostStyleArabicChange,),
+                         ],
+                       ),
+                       Row(
+                         textDirection: TextDirection.rtl,
+                         children: <Widget>[
+                           Text(' :الحاله ',style: kPostStyleArabicBase,),
+                           Text('${medicineModel.state}',style: kPostStyleArabicChange,),
+                         ],
+                       ),
+                       Row(
+                         textDirection: TextDirection.rtl,
+                         children: <Widget>[
+                           Text(' :الهاتف   ',style: kPostStyleArabicBase,),
+                           Text('${medicineModel.phone}',style: kPostStyleArabicChange,),
+                         ],
+                       ),
                      ],
-                   ),
-                   Row(
-                     textDirection: TextDirection.rtl,
-                     children: <Widget>[
-                       Text(' :الحاله ',style: kPostStyleArabicBase,),
-                       Text('${medicineModel.state}',style: kPostStyleArabicChange,),
-                     ],
-                   ),
-                   Row(
-                     textDirection: TextDirection.rtl,
-                     children: <Widget>[
-                       Text(' :الهاتف   ',style: kPostStyleArabicBase,),
-                       Text('${medicineModel.phone}',style: kPostStyleArabicChange,),
-                     ],
-                   ),
+                   )
                  ],
-               )
-            ],
-          ),
-        ),
-      ),
-    );
+               ),
+             ),
+           ),
+         ),
+         SizedBox(
+           height: 10,
+         )
+       ],
+     )
+      ;
   }
 }
 
@@ -686,126 +745,138 @@ class PostClothProfileMaterial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 4,
-      borderRadius: BorderRadius.circular(10),
-      child: Container(
-        width: MediaQuery.of(context).size.width/2,
-        height: 270,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: kSecondColor
+    return
+    Column(
+      children: <Widget>[
+        SizedBox(
+          height: 10,
         ),
-        child: Container(
+        Material(
+          elevation: 4,
+          borderRadius: BorderRadius.circular(10),
+          child: Container(
+            width: MediaQuery.of(context).size.width/2.21,
+            height: 270,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: kSecondColor
+            ),
+            child: Container(
 
-          child: Column(
-            children: <Widget>[
-              Container(
-                width: MediaQuery.of(context).size.width/2,
-                height: 130,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10)),
-                    color: kSecondColor
-                ),
-                child: Stack(
-                  children: <Widget>[
-                    Positioned(
-
-                      top: 0,
-                      left: 0,
-                      child:  ClipRRect(
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
-                        child:CachedNetworkImage(
-                          imageUrl: '${clothModel.imageUrl}',
-                          height: 130,
-                          width: MediaQuery.of(context).size.width/2.21,
-
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) =>
-                              CircularProgressIndicator(),
-                          errorWidget:
-                              (context, url, error) =>
-                              Icon(Icons.error),
-                          placeholderFadeInDuration:
-                          Duration(days: 30),
-                          useOldImageOnUrlChange: true,
-                          filterQuality:
-                          FilterQuality.low,
-                        ),
-                      ),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    width: MediaQuery.of(context).size.width/2,
+                    height: 130,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10)),
+                        color: kSecondColor
                     ),
-                    Positioned(
-                      top: 0,
-                      right: 0,
-                      child:
-                      PopupMenuButton(
-                        icon: Icon(
-                          Icons.more_vert,
-                          color: Colors.black,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6.0),
-                        ),
-                        onSelected: onsSelect,
-                        itemBuilder: (BuildContext context) =>
-                        <PopupMenuEntry<kPostPopMenu>>[
-                          PopupMenuItem<kPostPopMenu>(
-                            value: kPostPopMenu.edit,
-                            child: Text('تعديل',style: TextStyle(
-                              fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                            ),),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned(
+
+                          top: 0,
+                          left: 0,
+                          child:  ClipRRect(
+                            borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
+                            child:CachedNetworkImage(
+                              imageUrl: '${clothModel.imageUrl}',
+                              height: 130,
+                              width: MediaQuery.of(context).size.width/2.21,
+
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) =>
+                                  CircularProgressIndicator(),
+                              errorWidget:
+                                  (context, url, error) =>
+                                  Icon(Icons.error),
+                              placeholderFadeInDuration:
+                              Duration(days: 30),
+                              useOldImageOnUrlChange: true,
+                              filterQuality:
+                              FilterQuality.low,
+                            ),
                           ),
-                          PopupMenuItem<kPostPopMenu>(
-                            value: kPostPopMenu.delete,
-                            child: Text("إزاله",style: TextStyle(
-                              fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                            ),),
+                        ),
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child:
+                          PopupMenuButton(
+                            icon: Icon(
+                              Icons.more_vert,
+                              color: Colors.black,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6.0),
+                            ),
+                            onSelected: onsSelect,
+                            itemBuilder: (BuildContext context) =>
+                            <PopupMenuEntry<kPostPopMenu>>[
+                              PopupMenuItem<kPostPopMenu>(
+                                value: kPostPopMenu.edit,
+                                child: Text('تعديل',style: TextStyle(
+                                  fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                                ),),
+                              ),
+                              PopupMenuItem<kPostPopMenu>(
+                                value: kPostPopMenu.delete,
+                                child: Text("إزاله",style: TextStyle(
+                                  fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                                ),),
+                              ),
+                            ],
                           ),
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 5,),
+                  Column(
+                    children: <Widget>[
+                      Row(
+                        textDirection: TextDirection.rtl,
+                        children: <Widget>[
+                          Text(' : الملبس     ',style: kPostStyleArabicBase,),
+                          Text('${clothModel.name}',style: kPostStyleArabicChange,),
                         ],
                       ),
-                    ),
-
-                  ],
-                ),
-              ),
-              SizedBox(height: 5,),
-              Column(
-                children: <Widget>[
-                  Row(
-                    textDirection: TextDirection.rtl,
-                    children: <Widget>[
-                      Text(' : الملبس     ',style: kPostStyleArabicBase,),
-                      Text('${clothModel.name}',style: kPostStyleArabicChange,),
+                      Row(
+                        textDirection: TextDirection.rtl,
+                        children: <Widget>[
+                          Text(' :المالك   ',style: kPostStyleArabicBase,),
+                          Text('${clothModel.owner}',style: kPostStyleArabicChange,),
+                        ],
+                      ),
+                      Row(
+                        textDirection: TextDirection.rtl,
+                        children: <Widget>[
+                          Text(' :الحاله  ',style: kPostStyleArabicBase,),
+                          Text('${clothModel.state}',style: kPostStyleArabicChange,),
+                        ],
+                      ),
+                      Row(
+                        textDirection: TextDirection.rtl,
+                        children: <Widget>[
+                          Text(' :الهاتف    ',style: kPostStyleArabicBase,),
+                          Text('${clothModel.phone}',style: kPostStyleArabicChange,),
+                        ],
+                      ),
                     ],
-                  ),
-                  Row(
-                    textDirection: TextDirection.rtl,
-                    children: <Widget>[
-                      Text(' :المالك   ',style: kPostStyleArabicBase,),
-                      Text('${clothModel.owner}',style: kPostStyleArabicChange,),
-                    ],
-                  ),
-                  Row(
-                    textDirection: TextDirection.rtl,
-                    children: <Widget>[
-                      Text(' :الحاله  ',style: kPostStyleArabicBase,),
-                      Text('${clothModel.state}',style: kPostStyleArabicChange,),
-                    ],
-                  ),
-                  Row(
-                    textDirection: TextDirection.rtl,
-                    children: <Widget>[
-                      Text(' :الهاتف    ',style: kPostStyleArabicBase,),
-                      Text('${clothModel.phone}',style: kPostStyleArabicChange,),
-                    ],
-                  ),
+                  )
                 ],
-              )
-            ],
+              ),
+            ),
           ),
         ),
-      ),
-    );
+        SizedBox(
+          height: 10,
+        )
+      ],
+    )
+  ;
   }
 }
 class PostFurnitureProfileMaterial extends StatelessWidget {
@@ -820,126 +891,134 @@ class PostFurnitureProfileMaterial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 4,
-      borderRadius: BorderRadius.circular(10),
-      child: Container(
-        width: MediaQuery.of(context).size.width/2,
-        height: 270,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: kSecondColor
-        ),
-        child: Container(
+    return
+    Column(
+      children: <Widget>[
+        SizedBox(height: 10,),
+        Material(
+          elevation: 4,
+          borderRadius: BorderRadius.circular(10),
+          child: Container(
+            width: MediaQuery.of(context).size.width/2.21,
+            height: 270,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: kSecondColor
+            ),
+            child: Container(
 
-          child: Column(
-            children: <Widget>[
-              Container(
-                width: MediaQuery.of(context).size.width/2,
-                height: 130,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10)),
-                    color: kSecondColor
-                ),
-                child: Stack(
-                  children: <Widget>[
-                    Positioned(
-
-                      top: 0,
-                      left: 0,
-                      child:  ClipRRect(
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
-                        child:CachedNetworkImage(
-                          imageUrl: '${furnitureModel.imageUrl}',
-                          height: 130,
-                          width: MediaQuery.of(context).size.width/2.21,
-
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) =>
-                              CircularProgressIndicator(),
-                          errorWidget:
-                              (context, url, error) =>
-                              Icon(Icons.error),
-                          placeholderFadeInDuration:
-                          Duration(days: 30),
-                          useOldImageOnUrlChange: true,
-                          filterQuality:
-                          FilterQuality.low,
-                        ),
-                      ),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    width: MediaQuery.of(context).size.width/2,
+                    height: 130,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10)),
+                        color: kSecondColor
                     ),
-                    Positioned(
-                      top: 0,
-                      right: 0,
-                      child:
-                      PopupMenuButton(
-                        icon: Icon(
-                          Icons.more_vert,
-                          color: Colors.black,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6.0),
-                        ),
-                        onSelected: onsSelect,
-                        itemBuilder: (BuildContext context) =>
-                        <PopupMenuEntry<kPostPopMenu>>[
-                          PopupMenuItem<kPostPopMenu>(
-                            value: kPostPopMenu.edit,
-                            child: Text('تعديل',style: TextStyle(
-                              fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                            ),),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned(
+
+                          top: 0,
+                          left: 0,
+                          child:  ClipRRect(
+                            borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
+                            child:CachedNetworkImage(
+                              imageUrl: '${furnitureModel.imageUrl}',
+                              height: 130,
+                              width: MediaQuery.of(context).size.width/2.21,
+
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) =>
+                                  CircularProgressIndicator(),
+                              errorWidget:
+                                  (context, url, error) =>
+                                  Icon(Icons.error),
+                              placeholderFadeInDuration:
+                              Duration(days: 30),
+                              useOldImageOnUrlChange: true,
+                              filterQuality:
+                              FilterQuality.low,
+                            ),
                           ),
-                          PopupMenuItem<kPostPopMenu>(
-                            value: kPostPopMenu.delete,
-                            child: Text("إزاله",style: TextStyle(
-                              fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                            ),),
+                        ),
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child:
+                          PopupMenuButton(
+                            icon: Icon(
+                              Icons.more_vert,
+                              color: Colors.black,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6.0),
+                            ),
+                            onSelected: onsSelect,
+                            itemBuilder: (BuildContext context) =>
+                            <PopupMenuEntry<kPostPopMenu>>[
+                              PopupMenuItem<kPostPopMenu>(
+                                value: kPostPopMenu.edit,
+                                child: Text('تعديل',style: TextStyle(
+                                  fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                                ),),
+                              ),
+                              PopupMenuItem<kPostPopMenu>(
+                                value: kPostPopMenu.delete,
+                                child: Text("إزاله",style: TextStyle(
+                                  fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                                ),),
+                              ),
+                            ],
                           ),
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 5,),
+                  Column(
+                    children: <Widget>[
+                      Row(
+                        textDirection: TextDirection.rtl,
+                        children: <Widget>[
+                          Text(' : الملبس     ',style: kPostStyleArabicBase,),
+                          Text('${furnitureModel.name}',style: kPostStyleArabicChange,),
                         ],
                       ),
-                    ),
-
-                  ],
-                ),
-              ),
-              SizedBox(height: 5,),
-              Column(
-                children: <Widget>[
-                  Row(
-                    textDirection: TextDirection.rtl,
-                    children: <Widget>[
-                      Text(' : الملبس     ',style: kPostStyleArabicBase,),
-                      Text('${furnitureModel.name}',style: kPostStyleArabicChange,),
+                      Row(
+                        textDirection: TextDirection.rtl,
+                        children: <Widget>[
+                          Text(' :المالك   ',style: kPostStyleArabicBase,),
+                          Text('${furnitureModel.owner}',style: kPostStyleArabicChange,),
+                        ],
+                      ),
+                      Row(
+                        textDirection: TextDirection.rtl,
+                        children: <Widget>[
+                          Text(' :الحاله  ',style: kPostStyleArabicBase,),
+                          Text('${furnitureModel.state}',style: kPostStyleArabicChange,),
+                        ],
+                      ),
+                      Row(
+                        textDirection: TextDirection.rtl,
+                        children: <Widget>[
+                          Text(' :الهاتف    ',style: kPostStyleArabicBase,),
+                          Text('${furnitureModel.phone}',style: kPostStyleArabicChange,),
+                        ],
+                      ),
                     ],
-                  ),
-                  Row(
-                    textDirection: TextDirection.rtl,
-                    children: <Widget>[
-                      Text(' :المالك   ',style: kPostStyleArabicBase,),
-                      Text('${furnitureModel.owner}',style: kPostStyleArabicChange,),
-                    ],
-                  ),
-                  Row(
-                    textDirection: TextDirection.rtl,
-                    children: <Widget>[
-                      Text(' :الحاله  ',style: kPostStyleArabicBase,),
-                      Text('${furnitureModel.state}',style: kPostStyleArabicChange,),
-                    ],
-                  ),
-                  Row(
-                    textDirection: TextDirection.rtl,
-                    children: <Widget>[
-                      Text(' :الهاتف    ',style: kPostStyleArabicBase,),
-                      Text('${furnitureModel.phone}',style: kPostStyleArabicChange,),
-                    ],
-                  ),
+                  )
                 ],
-              )
-            ],
+              ),
+            ),
           ),
         ),
-      ),
-    );
+        SizedBox(height: 10,)
+      ],
+    )
+      ;
   }
 }
 
