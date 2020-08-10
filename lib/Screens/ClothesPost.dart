@@ -98,6 +98,18 @@ class _ClothesPostState extends State<ClothesPost> {
             SliverList(
               delegate: SliverChildListDelegate(
                 <Widget>[
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Row(
+                    textDirection: TextDirection.rtl,
+                    children: <Widget>[
+                      SizedBox(width: 15,),
+                      Text("الملابس",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
+                    ],
+                  ),
+
+
                   SizedBox(height: 15),
                   Padding(
                     padding: const EdgeInsets.only(left: 10.0, right: 10),

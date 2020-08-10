@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/wedgit/ChosseImage.dart';
 import 'package:company_task/wedgit/FriebaseErrorDailog.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,6 +19,7 @@ import 'package:path/path.dart' as p;
 class AddPostFurnitureProvider extends ChangeNotifier{
 
   var location = Location();
+  bool value = false;
 
   Future checkGps() async {
     if (!await location.serviceEnabled()) {
@@ -175,7 +177,7 @@ class AddPostFurnitureProvider extends ChangeNotifier{
         'amount': int.parse(furnitureAmount.value.toString()),
         'description': furnitureDescription.value,
         'name': furnitureName.value,
-        'owner': 'mk',
+        'owner': (value == false) ?"مجهول" : Provider.of<InfoProvider>(context).nameProfile,
         'image':  urx,
         'location':  locationList,
         'phone':  int.parse(phone.value.toString()),
@@ -183,6 +185,7 @@ class AddPostFurnitureProvider extends ChangeNotifier{
         'state': selectedsState,
         'clothstate': selectedsStateType,
         'dayleft': int.parse(duration.value.toString()),
+        'userid': Provider.of<InfoProvider>(context).UserLoginId,
 
 
       }).whenComplete(close(context));

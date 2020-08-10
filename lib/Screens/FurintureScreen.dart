@@ -16,6 +16,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:google_fonts_arabic/fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'ItemsContent.dart';
@@ -94,6 +95,18 @@ class _FurnitureScreenState extends State<FurnitureScreen> {
             SliverList(
               delegate: SliverChildListDelegate(
                 <Widget>[
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Row(
+                    textDirection: TextDirection.rtl,
+                    children: <Widget>[
+                      SizedBox(width: 15,),
+                      Text("الأثاث",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
+                    ],
+                  ),
+
+
                   SizedBox(height: 15),
                   Padding(
                     padding: const EdgeInsets.only(left: 10.0, right: 10),

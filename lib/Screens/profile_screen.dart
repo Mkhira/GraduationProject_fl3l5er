@@ -5,6 +5,7 @@ import 'package:company_task/Screens/more_info.dart';
 import 'package:company_task/Screens/profile_image_screen.dart';
 import 'package:company_task/Utli/Common.dart';
 import 'package:company_task/models/ClothesModel.dart';
+import 'package:company_task/models/FurintureModel.dart';
 import 'package:company_task/models/medicenModel.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/style/constent.dart';
@@ -68,14 +69,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     // TODO: implement initState
 
+  super.initState();
   var prov = Provider.of<InfoProvider>(context,listen: false);
   prov.fetch();
   Bloc();
   _bloc = Bloc();
-  _bloc.fetchMedicineProfileData(context);
   _bloc.fetchClothProfileData(context);
+  _bloc.fetchFurnitureProfileData(context);
+  _bloc.fetchMedicineProfileData(context);
 
-  super.initState();
   }
 
   final List<MenuItem> menuitems =[
@@ -123,51 +125,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   textDirection: TextDirection.rtl,
                   children: <Widget>[
                     SizedBox(width: 15,),
-                    Text("الأدويه",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
-                  ],
-                ),
-                SizedBox(height: 15),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10.0, right: 10),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    child:  StreamBuilder<List<MedicineModel>>(
-                      stream: _bloc.streamMedicineProfile,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return new StaggeredGridView.countBuilder(
-                            crossAxisCount: 4,
-                            itemCount: snapshot.data.length,
-                            shrinkWrap: true,
-                            addAutomaticKeepAlives: false,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemBuilder: (BuildContext context, index) {
-                              var data = snapshot.data[index];
-
-                              return PostMedicineProfileMaterial(
-                                medicineModel: data,
-                              );
-                            },
-                            staggeredTileBuilder: (data) =>
-                            new StaggeredTile.count(
-                                2, data.isEven ? 3 : 3),
-                            mainAxisSpacing: 10.0,
-                            crossAxisSpacing: 20.0,
-                          );
-                        } else
-                          return Container();
-
-                      },
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  textDirection: TextDirection.rtl,
-                  children: <Widget>[
-                    SizedBox(width: 15,),
                     Text("الملابس",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
                   ],
                 ),
@@ -191,6 +148,96 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                               return PostClothProfileMaterial(
                                 clothModel: data,
+                              );
+                            },
+                            staggeredTileBuilder: (data) =>
+                            new StaggeredTile.count(
+                                2, data.isEven ? 3 : 3),
+                            mainAxisSpacing: 10.0,
+                            crossAxisSpacing: 20.0,
+                          );
+                        } else
+                          return Container();
+
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  textDirection: TextDirection.rtl,
+                  children: <Widget>[
+                    SizedBox(width: 15,),
+                    Text("ألاثاث",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
+                  ],
+                ),
+                SizedBox(height: 15),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0, right: 10),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    child:  StreamBuilder<List<FurnitureModel>>(
+                      stream: _bloc.streamFurnitureProfile,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return new StaggeredGridView.countBuilder(
+                            crossAxisCount: 4,
+                            itemCount: snapshot.data.length,
+                            shrinkWrap: true,
+                            addAutomaticKeepAlives: false,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemBuilder: (BuildContext context, index) {
+                              var data = snapshot.data[index];
+
+                              return PostFurnitureProfileMaterial(
+                                furnitureModel: data,
+                              );
+                            },
+                            staggeredTileBuilder: (data) =>
+                            new StaggeredTile.count(
+                                2, data.isEven ? 3 : 3),
+                            mainAxisSpacing: 10.0,
+                            crossAxisSpacing: 20.0,
+                          );
+                        } else
+                          return Container();
+
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  textDirection: TextDirection.rtl,
+                  children: <Widget>[
+                    SizedBox(width: 15,),
+                    Text("الأدويه",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
+                  ],
+                ),
+                SizedBox(height: 15),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0, right: 10),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    child:  StreamBuilder<List<MedicineModel>>(
+                      stream: _bloc.streamMedicineProfile,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return new StaggeredGridView.countBuilder(
+                            crossAxisCount: 4,
+                            itemCount: snapshot.data.length,
+                            shrinkWrap: true,
+                            addAutomaticKeepAlives: false,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemBuilder: (BuildContext context, index) {
+                              var data = snapshot.data[index];
+
+                              return PostMedicineProfileMaterial(
+                                medicineModel: data,
                               );
                             },
                             staggeredTileBuilder: (data) =>
@@ -750,6 +797,140 @@ class PostClothProfileMaterial extends StatelessWidget {
                     children: <Widget>[
                       Text(' :الهاتف    ',style: kPostStyleArabicBase,),
                       Text('${clothModel.phone}',style: kPostStyleArabicChange,),
+                    ],
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+class PostFurnitureProfileMaterial extends StatelessWidget {
+
+  const PostFurnitureProfileMaterial({
+    this.furnitureModel,
+    this.onsSelect,
+  });
+
+  final FurnitureModel furnitureModel;
+  final Function onsSelect;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      elevation: 4,
+      borderRadius: BorderRadius.circular(10),
+      child: Container(
+        width: MediaQuery.of(context).size.width/2,
+        height: 270,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: kSecondColor
+        ),
+        child: Container(
+
+          child: Column(
+            children: <Widget>[
+              Container(
+                width: MediaQuery.of(context).size.width/2,
+                height: 130,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(topRight: Radius.circular(10),topLeft: Radius.circular(10)),
+                    color: kSecondColor
+                ),
+                child: Stack(
+                  children: <Widget>[
+                    Positioned(
+
+                      top: 0,
+                      left: 0,
+                      child:  ClipRRect(
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
+                        child:CachedNetworkImage(
+                          imageUrl: '${furnitureModel.imageUrl}',
+                          height: 130,
+                          width: MediaQuery.of(context).size.width/2.21,
+
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) =>
+                              CircularProgressIndicator(),
+                          errorWidget:
+                              (context, url, error) =>
+                              Icon(Icons.error),
+                          placeholderFadeInDuration:
+                          Duration(days: 30),
+                          useOldImageOnUrlChange: true,
+                          filterQuality:
+                          FilterQuality.low,
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      child:
+                      PopupMenuButton(
+                        icon: Icon(
+                          Icons.more_vert,
+                          color: Colors.black,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
+                        onSelected: onsSelect,
+                        itemBuilder: (BuildContext context) =>
+                        <PopupMenuEntry<kPostPopMenu>>[
+                          PopupMenuItem<kPostPopMenu>(
+                            value: kPostPopMenu.edit,
+                            child: Text('تعديل',style: TextStyle(
+                              fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                            ),),
+                          ),
+                          PopupMenuItem<kPostPopMenu>(
+                            value: kPostPopMenu.delete,
+                            child: Text("إزاله",style: TextStyle(
+                              fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                            ),),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                  ],
+                ),
+              ),
+              SizedBox(height: 5,),
+              Column(
+                children: <Widget>[
+                  Row(
+                    textDirection: TextDirection.rtl,
+                    children: <Widget>[
+                      Text(' : الملبس     ',style: kPostStyleArabicBase,),
+                      Text('${furnitureModel.name}',style: kPostStyleArabicChange,),
+                    ],
+                  ),
+                  Row(
+                    textDirection: TextDirection.rtl,
+                    children: <Widget>[
+                      Text(' :المالك   ',style: kPostStyleArabicBase,),
+                      Text('${furnitureModel.owner}',style: kPostStyleArabicChange,),
+                    ],
+                  ),
+                  Row(
+                    textDirection: TextDirection.rtl,
+                    children: <Widget>[
+                      Text(' :الحاله  ',style: kPostStyleArabicBase,),
+                      Text('${furnitureModel.state}',style: kPostStyleArabicChange,),
+                    ],
+                  ),
+                  Row(
+                    textDirection: TextDirection.rtl,
+                    children: <Widget>[
+                      Text(' :الهاتف    ',style: kPostStyleArabicBase,),
+                      Text('${furnitureModel.phone}',style: kPostStyleArabicChange,),
                     ],
                   ),
                 ],

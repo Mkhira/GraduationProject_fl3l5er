@@ -3,6 +3,8 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:company_task/Block/Block.dart';
+import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/wedgit/ChosseImage.dart';
 import 'package:company_task/wedgit/FriebaseErrorDailog.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,7 +20,7 @@ import 'package:path/path.dart' as p;
 class AddPostMedicineProvider extends ChangeNotifier{
 
   var location = Location();
-
+  bool value = false;
   Future checkGps() async {
     if (!await location.serviceEnabled()) {
       location.requestService();
@@ -171,7 +173,7 @@ class AddPostMedicineProvider extends ChangeNotifier{
         'amount': int.parse(medicineAmount.value.toString()),
         'description': medicineDescription.value,
         'name': medicineName.value,
-        'owner': 'mk',
+        'owner': (value == false) ?"مجهول" : Provider.of<InfoProvider>(context).nameProfile,
         'image':  urx,
         'location':  locationList,
         'phone':  int.parse(phone.value.toString()),
@@ -181,6 +183,8 @@ class AddPostMedicineProvider extends ChangeNotifier{
             .format(DateTime.parse(dateTime.toString()))
             .toString(),
         'dayleft': int.parse(duration.value.toString()),
+        'userid': Provider.of<InfoProvider>(context).UserLoginId,
+
 
 
       }).then(close(context)).whenComplete(done());
@@ -223,8 +227,10 @@ class AddPostMedicineProvider extends ChangeNotifier{
     name.clear();duration.value =null;
     imagefile= null;
   }
-
+Bloc _bloc;
   done(){
+//    _bloc.fetchMedicineFinish();
+//    _bloc.fetchMedicine();
     print("ggggggggggggggggggggggggggggggggggggggggggggggg");
   }
   @override

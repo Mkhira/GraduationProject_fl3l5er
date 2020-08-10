@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:company_task/provider/AddPostMedicineProvider.dart';
+import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/wedgit/ChosseImage.dart';
 import 'package:company_task/wedgit/FriebaseErrorDailog.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,6 +19,7 @@ import 'package:path/path.dart' as p;
 
 class AddPostClothProvider extends ChangeNotifier{
 
+  bool value = false;
 
   var location = Location();
 
@@ -178,7 +180,7 @@ class AddPostClothProvider extends ChangeNotifier{
         'amount': int.parse(clothAmount.value.toString()),
         'description': clothDescription.value,
         'name': clothName.value,
-        'owner': 'mk',
+        'owner': (value == false) ?"مجهول" : Provider.of<InfoProvider>(context).nameProfile,
         'image':  urx,
         'location':  locationList,
         'phone':  int.parse(phone.value.toString()),
@@ -186,6 +188,7 @@ class AddPostClothProvider extends ChangeNotifier{
         'state': selectedsState,
        'clothstate': selectedsStateType,
         'dayleft': int.parse(duration.value.toString()),
+        'userid': Provider.of<InfoProvider>(context).UserLoginId,
 
 
       }).then(done()).whenComplete(close(context));

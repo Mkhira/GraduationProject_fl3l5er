@@ -3,6 +3,7 @@
 
 
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:company_task/Screens/profile_screen.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/style/constent.dart';
@@ -144,15 +145,24 @@ class _PostsAppBarrHeaderState extends State<PostsAppBarrHeader> {
                   width: 65.0,
                   height: 65.0,
                   child:
-                  Provider.of<InfoProvider>(context).updatedImage ==
-                      null
-                      ? Center()
-                      : ClipRRect(
+                  ClipRRect(
                     borderRadius: BorderRadius.circular(10.0),
-                    child: Image.file(
-                      Provider.of<InfoProvider>(context)
-                          .updatedImage,
+                    child: CachedNetworkImage(
+                      imageUrl: '${Provider.of<InfoProvider>(context).imageUrlProfile}',
+                      height: 130,
+                      width: MediaQuery.of(context).size.width/2.21,
+
                       fit: BoxFit.cover,
+                      placeholder: (context, url) =>
+                          CircularProgressIndicator(),
+                      errorWidget:
+                          (context, url, error) =>
+                          Icon(Icons.error),
+                      placeholderFadeInDuration:
+                      Duration(days: 30),
+                      useOldImageOnUrlChange: true,
+                      filterQuality:
+                      FilterQuality.low,
                     ),
                   ),
                 ),

@@ -125,6 +125,15 @@ class FurnitureRepostryFinish{
 }
 
 
+
+
+class FurnitureRepostoryProfile{
+  final _furnitureService = FurnitureProfile();
+  Future<List<FurnitureModel>> getFurnitureProfile(BuildContext context) => _furnitureService.getFurnitureProfile(context);
+
+}
+
+//////////////////////////////////////
 class BloodRepostry{
   final _bloodService = BloodNeedyService();
   Future<List<BloodNeedyModel>> getNeedy() => _bloodService.getNeedy();

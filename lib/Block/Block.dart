@@ -344,7 +344,7 @@ List<MedicineModel> _medicenmodelsearch = await _medicineRepostrySearch.getMedic
   final _MedicineListProfile = PublishSubject<List<MedicineModel>>();
   Observable<List<MedicineModel>> get streamMedicineProfile => _MedicineListProfile.stream;
 
-  fetchMedicineProfileData(BuildContext context) async{
+ Future fetchMedicineProfileData(BuildContext context) async{
     List<MedicineModel> _medicineModelProfile = await _medivcineRepostryProfile.getMedicineProfile(context);
     return _MedicineListProfile.sink.add(_medicineModelProfile);
   }
@@ -393,7 +393,7 @@ List<MedicineModel> _medicenmodelsearch = await _medicineRepostrySearch.getMedic
   final _clothListProfile = PublishSubject<List<ClothModel>>();
   Observable<List<ClothModel>> get streamClothProfile => _clothListProfile.stream;
 
-  fetchClothProfileData(BuildContext context) async{
+  Future fetchClothProfileData(BuildContext context) async{
     List<ClothModel> _ClothModelProfile = await _clothRepostryProfile.getClothProfile(context);
     return _clothListProfile.sink.add(_ClothModelProfile);
   }
@@ -437,6 +437,15 @@ List<MedicineModel> _medicenmodelsearch = await _medicineRepostrySearch.getMedic
 
 
 
+  FurnitureRepostoryProfile _furnitureRepostryProfile = FurnitureRepostoryProfile();
+
+  final _furnitureListProfile = PublishSubject<List<FurnitureModel>>();
+  Observable<List<FurnitureModel>> get streamFurnitureProfile => _furnitureListProfile.stream;
+
+  Future  fetchFurnitureProfileData(BuildContext context) async{
+    List<FurnitureModel> _furnitureModelProfile = await _furnitureRepostryProfile.getFurnitureProfile(context);
+    return _furnitureListProfile.sink.add(_furnitureModelProfile);
+  }
 
 
 /////////////////////////////////////////////////////////
