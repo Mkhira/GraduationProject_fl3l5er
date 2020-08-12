@@ -13,12 +13,14 @@ class BloodNeedyModel{
    String bloodBankId;
    String hospitalName;
    String userId;
+   String documentId;
    String postOwnerName;
    String gander;
+   String userImage;
    List<dynamic> location;
    BloodNeedyModel({this.gander,this.location,this.postOwnerName,this.userId,this.imageUrl,
-     this.name,this.description,this.bloodType,this.collectedAmount,this.neededAmount,
-     this.age,this.bloodBankId,this.hospitalName});
+     this.name,this.description,this.bloodType,this.collectedAmount,this.neededAmount,this.userImage,
+     this.documentId, this.age,this.bloodBankId,this.hospitalName});
    factory BloodNeedyModel.formJison(DocumentSnapshot snapshot){
      var data = snapshot;
      return BloodNeedyModel(
@@ -35,6 +37,8 @@ class BloodNeedyModel{
        userId: data['userid'],
        gander: data['gander'],
        age: data['age'],
+       documentId: data["documentId"],
+        userImage: data["userImage"],
      );
    }
 

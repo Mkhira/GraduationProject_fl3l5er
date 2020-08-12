@@ -1,6 +1,6 @@
 import 'package:company_task/Screens/LoginScreen/LoginMainScreen.dart';
 import 'package:company_task/Screens/homePage.dart';
-import 'package:company_task/Screens/profile_screen.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Profile/profile_screen.dart';
 import 'package:company_task/provider/SignUpLoginProvider/FireBaseAuth.dart';
 //import 'package:company_task/Screens/MedicinePosts.dart';
 import 'package:company_task/provider/info_provider.dart';

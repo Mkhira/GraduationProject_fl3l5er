@@ -168,8 +168,8 @@ class AddPostMedicineProvider extends ChangeNotifier{
     }
     if(medicineAmount.value != null && medicineName.value != null &&  urx != null && locationList[0] != null && locationList[1] != null
         && phone.value != null && name.length>=3 && dateTime != null && duration.value != null){
-      DocumentReference ref = await databaseReference.collection("medicine")
-          .add({
+      DocumentReference ref = await Firestore.instance.collection("medicine").document();
+      ref.setData({
         'amount': int.parse(medicineAmount.value.toString()),
         'description': medicineDescription.value,
         'name': medicineName.value,
@@ -184,6 +184,9 @@ class AddPostMedicineProvider extends ChangeNotifier{
             .toString(),
         'dayleft': int.parse(duration.value.toString()),
         'userid': Provider.of<InfoProvider>(context).UserLoginId,
+        "documentId": ref.documentID,
+        "userImage": Provider.of<InfoProvider>(context).imageUrlProfile,
+        "ownerName":Provider.of<InfoProvider>(context).nameProfile,
 
 
 

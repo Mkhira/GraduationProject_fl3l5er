@@ -1,8 +1,8 @@
 
 import 'package:company_task/Block/Block.dart';
-import 'package:company_task/Screens/AddingPosts/AddClothPost.dart';
-import 'package:company_task/Screens/AddingPosts/AddFurniturePost.dart';
-import 'package:company_task/Screens/AdingMedicienPost.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Cloth/AddClothPost.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Furinture/AddFurniturePost.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Medicine/AdingMedicienPost.dart';
 import 'package:company_task/models/ClothesModel.dart';
 import 'package:company_task/models/FurintureModel.dart';
 import 'package:company_task/provider/AddPostMedicineProvider.dart';
@@ -19,7 +19,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:provider/provider.dart';
 
-import 'ItemsContent.dart';
+import '../ItemsContent.dart';
 
 class FurnitureScreen extends StatefulWidget {
   static const String id = 'FurnitureScreenPost';
@@ -80,7 +80,7 @@ class _FurnitureScreenState extends State<FurnitureScreen> {
                   ), Row(
                     textDirection: TextDirection.rtl,
                     children: <Widget>[
-                      SizedBox(width: 15,),
+                      SizedBox(width: 35,),
                       Text("الأثاث",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
                     ],
                   ), SizedBox(height: 15), Padding(
@@ -208,12 +208,16 @@ class ContentWidget extends StatelessWidget {
             amount: furnitureModel.amount,
             dayLeft: furnitureModel.dayLeft,
             owner: furnitureModel.owner,
-            state: furnitureModel.state,
+            state: furnitureModel.state,userImage: furnitureModel.userImage,
+            information: "معلومات عن الأثاث",
+            description: furnitureModel.description,
+            userId: furnitureModel.userID,
+            ownerName: furnitureModel.ownerName,
           );
         }));
       },
       child: PostsMaterial(
-        type: "الأثاث",
+        type: " الأثاث   ",
         state: furnitureModel.state,
         owner: furnitureModel.owner,
         imageUrl: furnitureModel.imageUrl,

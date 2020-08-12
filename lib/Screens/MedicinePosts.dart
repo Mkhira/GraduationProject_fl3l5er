@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:company_task/Screens/AdingMedicienPost.dart';
-import 'package:company_task/Screens/profile_screen.dart';
+import 'Medicine/MedicineContentWidget.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Medicine/AdingMedicienPost.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Profile/profile_screen.dart';
 import 'package:company_task/models/medicenModel.dart';
 import 'package:company_task/provider/AddPostMedicineProvider.dart';
 import 'package:company_task/provider/info_provider.dart';
@@ -125,7 +126,7 @@ class _MedicinePostsState extends State<MedicinePosts> {
                               },
                               staggeredTileBuilder: (data) =>
                               new StaggeredTile.count(
-                                  2, data.isEven ? 3.25 : 3),
+                                  2, data.isEven ? 3.1 : 3),
                               mainAxisSpacing: 15.0,
                               crossAxisSpacing: 15.0,
                             );
@@ -152,7 +153,7 @@ class _MedicinePostsState extends State<MedicinePosts> {
                               },
                               staggeredTileBuilder: (data) =>
                               new StaggeredTile.count(
-                                  2, data.isEven ? 3.25 : 3),
+                                  2, data.isEven ? 3.1 : 3),
                               mainAxisSpacing: 15.0,
                               crossAxisSpacing: 15.0,
                             );
@@ -294,31 +295,7 @@ class DropdownItems extends StatelessWidget {
   }
 }
 
-class ContentWidget extends StatelessWidget {
-  final MedicineModel medicineModel;
-  ContentWidget({this.medicineModel});
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return ItemContent(
-            phone: medicineModel.phone,
-            name: medicineModel.name,
-            location: medicineModel.location,
-            imageUrl: medicineModel.imageUrl,
-            amount: medicineModel.amount,
-            dayLeft: medicineModel.dayLeft,
-            owner: medicineModel.owner,
-            state: medicineModel.state,
-          );
-        }));
-      },
-      child:
-      PostsMaterial(type: "الدواء",state: medicineModel.state,phone: medicineModel.phone,name: medicineModel.name,imageUrl: medicineModel.imageUrl,owner: medicineModel.owner,)
-    );
-  }
-}
+
 
 
 

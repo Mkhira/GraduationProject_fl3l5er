@@ -9,10 +9,10 @@ import 'package:provider/provider.dart';
 
 class UserServiceLogin{
 
-  Future<List<User>> getUserData( BuildContext context) async {
+  Future<List<User>> getUserData( BuildContext context,String userId) async {
     final QuerySnapshot querySnapshot =
     await Firestore.instance.collection("Users")
-        .where("userId",isEqualTo: "${Provider.of<InfoProvider>(context).UserLoginId}")
+        .where("userId",isEqualTo: userId)
         .getDocuments();
 
 

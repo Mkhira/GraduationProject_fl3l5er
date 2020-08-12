@@ -4,8 +4,9 @@
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:company_task/Screens/ChatScreen.dart';
-import 'package:company_task/Screens/ConversationScreen.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Chat/ChatScreen.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Chat/ConversationScreen.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Profile/profile_screen.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/style/constent.dart';
 import 'package:company_task/wedgit/ButtonWidget.dart';
@@ -111,30 +112,37 @@ class _BloodNeedyDataState extends State<BloodNeedyData> {
               Positioned(
                 top: 40,
                 right: 40,
-                child: Container(
-                  height: 98,
-                  width: 98,
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),
-                      color: Colors.white,
+                child: GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context){
+                      return ProfileScreen();
+                    }));
+                  },
+                  child: Container(
+                    height: 98,
+                    width: 98,
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),
+                        color: Colors.white,
+                      ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: CachedNetworkImage(
+                        imageUrl: widget.imageUrl,
+                        height: 98,
+                        width: 200,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) =>
+                            CircularProgressIndicator(),
+                        errorWidget:
+                            (context, url, error) =>
+                            Icon(Icons.error),
+                        placeholderFadeInDuration:
+                        Duration(days: 30),
+                        useOldImageOnUrlChange: true,
+                        filterQuality:
+                        FilterQuality.low,
+                      )
                     ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: CachedNetworkImage(
-                      imageUrl: widget.imageUrl,
-                      height: 98,
-                      width: 200,
-                      fit: BoxFit.cover,
-                      placeholder: (context, url) =>
-                          CircularProgressIndicator(),
-                      errorWidget:
-                          (context, url, error) =>
-                          Icon(Icons.error),
-                      placeholderFadeInDuration:
-                      Duration(days: 30),
-                      useOldImageOnUrlChange: true,
-                      filterQuality:
-                      FilterQuality.low,
-                    )
                   ),
                 ),
               ),

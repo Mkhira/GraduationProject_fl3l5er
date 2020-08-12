@@ -175,8 +175,8 @@ class AddPostClothProvider extends ChangeNotifier{
     }
     if(clothAmount.value != null && clothName.value != null &&  urx != null && locationList[0] != null && locationList[1] != null
         && phone.value != null && name.length>=3 &&  duration.value != null){
-      DocumentReference ref = await databaseReference.collection("Cloth")
-          .add({
+      DocumentReference ref = await databaseReference.collection("Cloth").document();
+          ref.setData({
         'amount': int.parse(clothAmount.value.toString()),
         'description': clothDescription.value,
         'name': clothName.value,
@@ -189,9 +189,13 @@ class AddPostClothProvider extends ChangeNotifier{
        'clothstate': selectedsStateType,
         'dayleft': int.parse(duration.value.toString()),
         'userid': Provider.of<InfoProvider>(context).UserLoginId,
+            "documentId":ref.documentID,
+            "userImage": Provider.of<InfoProvider>(context).imageUrlProfile,
+            "ownerName":Provider.of<InfoProvider>(context).nameProfile,
 
 
-      }).then(done()).whenComplete(close(context));
+
+          }).then(done()).whenComplete(close(context));
       print(ref.documentID);}
      else if((locationList[0] == null || locationList[1] == null) && imageFileCloth != null && urx != null){
       showDialog(context: context ,

@@ -172,8 +172,8 @@ class AddPostFurnitureProvider extends ChangeNotifier{
     }
     if(furnitureAmount.value != null && furnitureName.value != null &&  urx != null && locationList[0] != null && locationList[1] != null
         && phone.value != null && name.length>=3 &&  duration.value != null){
-      DocumentReference ref = await databaseReference.collection("Furniture")
-          .add({
+      DocumentReference ref = await databaseReference.collection("Furniture").document();
+          ref.setData({
         'amount': int.parse(furnitureAmount.value.toString()),
         'description': furnitureDescription.value,
         'name': furnitureName.value,
@@ -186,9 +186,14 @@ class AddPostFurnitureProvider extends ChangeNotifier{
         'clothstate': selectedsStateType,
         'dayleft': int.parse(duration.value.toString()),
         'userid': Provider.of<InfoProvider>(context).UserLoginId,
+        "documentId": ref.documentID,
+          "userImage": Provider.of<InfoProvider>(context).imageUrlProfile,
+            "ownerName":Provider.of<InfoProvider>(context).nameProfile,
 
 
-      }).whenComplete(close(context));
+
+
+          }).whenComplete(close(context));
       print(ref.documentID);}
     else if((locationList[0] == null || locationList[1] == null) && imageFileFurniture != null && urx != null){
       showDialog(context: context ,

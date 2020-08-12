@@ -509,11 +509,17 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
                             borderColor: kSecondColor,
                             text: "إضافه",
                             onPressed: (){
-                              Provider.of<AddPostMedicineProvider>(context).createRecord(context);
+                                setState(() {
 
 //                            _bloc.fetchMedicine();
 //                            _bloc.fetchMedicineFinish();
+                            _loading=true;
 
+                                });
+
+                                Provider.of<AddPostMedicineProvider>(context).createRecord(context);
+
+                                _loading=false;
 
                             }
                           ),

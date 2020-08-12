@@ -11,10 +11,15 @@ class ClothModel{
   String imageUrl;
   String state;
   String clothState;
+  String documentId;
 String description;
+String ownerName;
+  String userID;
+
+String userImage;
   int dayLeft;
 
-  ClothModel({this.name,this.amount,this.imageUrl,this.location,this.owner,this.phone,this.state,this.dayLeft,this.clothState,this.description});
+  ClothModel({this.userID,this.ownerName,this.userImage,this.documentId,this.name,this.amount,this.imageUrl,this.location,this.owner,this.phone,this.state,this.dayLeft,this.clothState,this.description});
 
   factory ClothModel.fromJison(DocumentSnapshot snapshot){
     var data = snapshot.data;
@@ -28,7 +33,11 @@ String description;
         state: data['state'],
         dayLeft: data['dayleft'],
         clothState: data['clothstate'],
-      description: data['description']
+      description: data['description'],
+      documentId: data["documentId"],userImage: data["userImage"],
+      ownerName: data["ownerName"],
+      userID: data["userid"]
+
 
 
     );
@@ -51,9 +60,12 @@ class ClothModelSearch{
   List<String> searchKey;
   int dayLeft;
   String description;
+  String documentId;
+  String userImage;
   String userID;
+  String ownerName;
 
-  ClothModelSearch({this.userID,this.name,this.amount,this.imageUrl,this.location,this.owner,this.phone,this.state,this.searchKey,this.dayLeft,this.clothState,this.description});
+  ClothModelSearch({this.ownerName,this.userImage,this.documentId,this.userID,this.name,this.amount,this.imageUrl,this.location,this.owner,this.phone,this.state,this.searchKey,this.dayLeft,this.clothState,this.description});
 
   factory ClothModelSearch.fromJison(DocumentSnapshot snapshot){
     var data = snapshot.data;
@@ -69,7 +81,10 @@ class ClothModelSearch{
         dayLeft: data['dayleft'],
         clothState: data['clothstate'],
       description: data['description'],
-        userID: data['userid']
+        userID: data['userid'],
+      documentId: data["documentId"],
+      userImage: data["userImage"],
+      ownerName: data["ownerName"],
 
     );
 

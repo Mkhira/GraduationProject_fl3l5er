@@ -104,13 +104,12 @@ class appBar extends StatelessWidget {
       height: 50,
       decoration: BoxDecoration(color: Colors.white),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+  textDirection: TextDirection.rtl,
         children: <Widget>[
           SizedBox(
             width: 20,
           ),
-          Text("Name:", style: HomeHeadreStyle),
+          Text(" :الإسم", style: HomeHeadreStyle),
           Text(
             " $itemName",
             style: TextStyle(color: Colors.black),
@@ -119,7 +118,7 @@ class appBar extends StatelessWidget {
             flex: 1,
           ),
           Text(
-            "Amount:",
+            " :الكميه ",
             style: HomeHeadreStyle,
           ),
           Text(

@@ -3,8 +3,8 @@
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:company_task/Screens/ChatScreen.dart';
-import 'package:company_task/Screens/ConversationScreen.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Chat/ChatScreen.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Chat/ConversationScreen.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/style/constent.dart';
 import 'package:company_task/wedgit/ButtonWidget.dart';

@@ -1,13 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:company_task/Block/Block.dart';
+import 'package:company_task/Screens/Cloth/ClothMoreScreen.dart';
+import 'package:company_task/Screens/Furinture/FurintureMoreScreen.dart';
+import 'package:company_task/Screens/HomePageContentScreen.dart';
+import 'package:company_task/Screens/Profile/ProfileClothMore.dart';
+import 'package:company_task/Screens/Profile/ProfileFurnitureMore.dart';
+import 'package:company_task/Screens/Profile/ProfileMedicineMore.dart';
 import 'package:company_task/Screens/edit_screen.dart';
-import 'package:company_task/Screens/more_info.dart';
-import 'package:company_task/Screens/profile_image_screen.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Profile/more_info.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Profile/profile_image_screen.dart';
 import 'package:company_task/Utli/Common.dart';
 import 'package:company_task/models/ClothesModel.dart';
 import 'package:company_task/models/FurintureModel.dart';
 import 'package:company_task/models/medicenModel.dart';
 import 'package:company_task/provider/info_provider.dart';
+import 'package:company_task/service/deleteService.dart';
 import 'package:company_task/style/constent.dart';
 import 'package:company_task/wedgit/list_item.dart';
 import 'package:company_task/wedgit/main_drawer.dart';
@@ -32,6 +39,9 @@ import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const String id = 'home_screen';
+
+
+
 
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
@@ -63,6 +73,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   List<String> category = ['Medicine', 'Food', 'Clothes', 'Education'];
   Bloc _bloc;
 
+
+
+Delete delete = Delete();
+
 @override
   void initState()  {
 
@@ -76,6 +90,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   _bloc.fetchClothProfileData(context);
   _bloc.fetchFurnitureProfileData(context);
   _bloc.fetchMedicineProfileData(context);
+//  _bloc.fetchUSerProfile(context, widget.userId);
 
   }
 
@@ -100,11 +115,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             margin: EdgeInsets.only(left: 25.0),
             child: Icon(
               Icons.arrow_back_ios,
-              color: Colors.white,
+              color: kSecondColor,
             ),
           ),
         ),
-        backgroundColor: kSecondColor,
+        backgroundColor: kMainColor,
         elevation: 0.0,
       ),
       body: SingleChildScrollView(
@@ -117,8 +132,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
               textDirection: TextDirection.rtl,
               children: <Widget>[
                 SizedBox(width: 35,),
-                Text("الملابس",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
-              ],
+                Container(
+                  width: MediaQuery.of(context).size.width-40,
+                  child: Row(
+                    textDirection: TextDirection.rtl,
+                    children: <Widget>[
+
+                      FlatButton(onPressed: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileClothMoreScreen()));
+                      },
+                        child: Text("المزيد",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
+                      ),
+
+                      Spacer(),
+                      Text("الملابس",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
+                      SizedBox(width: 40,)
+
+
+                    ],
+                  ),
+                )              ],
             ),
             SizedBox(height: 15),
             Padding(
@@ -143,6 +176,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 padding: const EdgeInsets.only(left: 10,right: 10),
                                 child: PostClothProfileMaterial(
                                   clothModel: data,
+                                  onsSelect: (kPostPopMenu result){
+
+                                    if(result == kPostPopMenu.delete){
+                                      setState(() {
+                                        delete.deleteDocument('Cloth', data.documentId);
+                                        _bloc.fetchClothProfileData(context);
+                                      });
+                                    }
+
+                                  },
                                 ),
                               );
                             }),
@@ -161,8 +204,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
               textDirection: TextDirection.rtl,
               children: <Widget>[
                 SizedBox(width: 40,),
-                Text("الأثاث",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
-              ],
+                Container(
+                  width: MediaQuery.of(context).size.width-40,
+                  child: Row(
+                    textDirection: TextDirection.rtl,
+                    children: <Widget>[
+
+                      FlatButton(
+
+                        onPressed: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileFurnitureMoreScreen()));
+                      },
+                        child: Text("المزيد",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
+                      ),
+
+                      Spacer(),
+                      Text("الأثاث",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
+SizedBox(width: 40,)
+
+                    ],
+                  ),
+                )              ],
             ),
             SizedBox(height: 15),
             Padding(
@@ -188,6 +250,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 padding: const EdgeInsets.only(left: 10,right: 10),
                                 child: PostFurnitureProfileMaterial(
                                   furnitureModel: data,
+                                  onsSelect: (kPostPopMenu result){
+
+                                    if(result == kPostPopMenu.delete){
+                                      setState(() {
+                                        delete.deleteDocument('Furniture', data.documentId);
+                                        _bloc.fetchFurnitureProfileData(context);
+                                      });
+                                    }
+
+                                  },
                                 ),
                               );
                             }),
@@ -206,7 +278,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
               textDirection: TextDirection.rtl,
               children: <Widget>[
                 SizedBox(width: 15,),
-                Text("الأدويه",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
+                Container(
+                  width: MediaQuery.of(context).size.width-40,
+                  child: Row(
+                    textDirection: TextDirection.rtl,
+                    children: <Widget>[
+
+                      FlatButton(onPressed: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileMedicineMoreScreen()));
+                      },
+                        child: Text("المزيد",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
+                      ),
+
+                      Spacer(),
+                      Text("الأدويه",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
+
+
+                    ],
+                  ),
+                )
               ],
             ),
             SizedBox(height: 15),
@@ -214,7 +304,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: const EdgeInsets.only(left: 10.0, right: 10),
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                child:  StreamBuilder<List<MedicineModel>>(
+                child:
+                StreamBuilder<List<MedicineModel>>(
                   stream: _bloc.streamMedicineProfile,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
@@ -234,6 +325,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 padding: const EdgeInsets.only(left: 10,right: 10),
                                 child: PostMedicineProfileMaterial(
                                   medicineModel: data,
+                                  onsSelect: (kPostPopMenu result){
+
+                                    if(result == kPostPopMenu.delete){
+                                      setState(() {
+                                        delete.deleteDocument('medicine', data.documentId);
+                                        _bloc.fetchMedicineProfileData(context);
+                                      });
+                                    }
+
+                                  },
                                 ),
                               );
                             }),
@@ -249,59 +350,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 30,
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Row(
-              textDirection: TextDirection.rtl,
-              children: <Widget>[
-                SizedBox(width: 15,),
-                Text("الأدويه",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
-              ],
-            ),
-            SizedBox(height: 15),
-            Padding(
-              padding: const EdgeInsets.only(left: 10.0, right: 10),
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                child:  StreamBuilder<List<MedicineModel>>(
-                  stream: _bloc.streamMedicineProfile,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 290,
-                        child: new ListView.builder(
 
-                            scrollDirection: Axis.horizontal,
-                            itemCount: snapshot.data.length,
-                            shrinkWrap: false,
-                            addAutomaticKeepAlives: false,
-                            itemBuilder: (BuildContext context, index) {
-                              var data = snapshot.data[index];
-
-                              return Padding(
-                                padding: const EdgeInsets.only(left: 10,right: 10),
-                                child: PostMedicineProfileMaterial(
-                                  medicineModel: data,
-                                ),
-                              );
-                            }),
-                      );
-                    } else
-                      return Container(
-                        height: 100,
-                        width: 200,
-                        color: Colors.purpleAccent,
-                      );
-
-                  },
-                ),
-              ),
-            ),
             SizedBox(
               height: 30,
             ),
@@ -666,12 +715,7 @@ class PostMedicineProfileMaterial extends StatelessWidget {
                              onSelected: onsSelect,
                              itemBuilder: (BuildContext context) =>
                              <PopupMenuEntry<kPostPopMenu>>[
-                               PopupMenuItem<kPostPopMenu>(
-                                 value: kPostPopMenu.edit,
-                                 child: Text('تعديل',style: TextStyle(
-                                   fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                                 ),),
-                               ),
+
                                PopupMenuItem<kPostPopMenu>(
                                  value: kPostPopMenu.delete,
                                  child: Text("إزاله",style: TextStyle(
@@ -713,7 +757,7 @@ class PostMedicineProfileMaterial extends StatelessWidget {
                          textDirection: TextDirection.rtl,
                          children: <Widget>[
                            Text(' :الهاتف   ',style: kPostStyleArabicBase,),
-                           Text('${medicineModel.phone}',style: kPostStyleArabicChange,),
+                           Text('0${medicineModel.phone}',style: kPostStyleArabicChange,),
                          ],
                        ),
                      ],
@@ -813,12 +857,7 @@ class PostClothProfileMaterial extends StatelessWidget {
                             onSelected: onsSelect,
                             itemBuilder: (BuildContext context) =>
                             <PopupMenuEntry<kPostPopMenu>>[
-                              PopupMenuItem<kPostPopMenu>(
-                                value: kPostPopMenu.edit,
-                                child: Text('تعديل',style: TextStyle(
-                                  fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                                ),),
-                              ),
+
                               PopupMenuItem<kPostPopMenu>(
                                 value: kPostPopMenu.delete,
                                 child: Text("إزاله",style: TextStyle(
@@ -957,12 +996,7 @@ class PostFurnitureProfileMaterial extends StatelessWidget {
                             onSelected: onsSelect,
                             itemBuilder: (BuildContext context) =>
                             <PopupMenuEntry<kPostPopMenu>>[
-                              PopupMenuItem<kPostPopMenu>(
-                                value: kPostPopMenu.edit,
-                                child: Text('تعديل',style: TextStyle(
-                                  fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                                ),),
-                              ),
+
                               PopupMenuItem<kPostPopMenu>(
                                 value: kPostPopMenu.delete,
                                 child: Text("إزاله",style: TextStyle(

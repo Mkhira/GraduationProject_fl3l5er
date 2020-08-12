@@ -558,22 +558,26 @@ class Bloc extends Object with Validator {
     print(imageUrlProfile);
   }
 
-//////////////////////////////////// Chat /////////////////////////////
-  BehaviorSubject<bool> uploadingSubject = BehaviorSubject();
-  Observable<bool> get isUploading => uploadingSubject.stream;
 
-  Future<String> uploadApk(file) async {
-    uploadingSubject.sink.add(true);
-    StorageReference storageRef =
-        FirebaseStorage.instance.ref().child('apks/' + basename(file.path));
-    final StorageUploadTask uploadTask = storageRef.putFile(
-      file,
-    );
-    StorageTaskSnapshot snap = await uploadTask.onComplete;
-    String url = await snap.ref.getDownloadURL();
-    uploadingSubject.sink.add(false);
-    return url;
+
+
+
+  UserRopestryLogin _userRopestryLogin= UserRopestryLogin();
+
+  final _userRopestrylist = PublishSubject<List<User>>();
+  Observable<List<User>> get streamUSerProfile =>
+      _userRopestrylist.stream;
+
+  fetchUSerProfile(BuildContext context ,String userId) async {
+    List<User> _user =
+    await _userRopestryLogin.getUserData(context, userId);
+    return _userRopestrylist.sink.add(_user);
   }
+
+
+
+//////////////////////////////////// Chat /////////////////////////////
+
   ////////////////////////////////////////////////// chat ////////////////////
 
 
@@ -593,8 +597,7 @@ class Bloc extends Object with Validator {
 
   void dispose() async {
     _chatRomRepostryList.close();
-    await uploadingSubject.drain();
-    uploadingSubject.close();
+
 //    _userList.close();
     await _evntList.drain();
     _evntList.close();

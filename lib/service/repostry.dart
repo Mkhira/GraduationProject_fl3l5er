@@ -148,7 +148,7 @@ class BloodRepostry{
 
 class UserRopestryLogin{
   final _userService = UserServiceLogin();
-  Future<List<User>> getUserData( BuildContext context) => _userService.getUserData( context);
+  Future<List<User>> getUserData( BuildContext context, String userId) => _userService.getUserData( context,userId);
 
 }
 

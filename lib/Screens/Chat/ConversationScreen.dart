@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:company_task/Screens/ChatScreen.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Chat/ChatScreen.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/style/constent.dart';
 import 'package:flutter/cupertino.dart';

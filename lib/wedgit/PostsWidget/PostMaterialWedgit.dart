@@ -61,12 +61,12 @@ class PostsMaterial extends StatelessWidget {
             ),
             Positioned(
               top: 192,
-              right: 24,
+              right: 5,
               child: Container(
                 width: MediaQuery.of(context)
                     .size
                     .width /
-                    2.2,
+                    1.8,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -75,8 +75,11 @@ class PostsMaterial extends StatelessWidget {
                         "$name",
                         style: kPostStyleArabicChange
                     ),
+                    SizedBox(
+                      width: 10,
+                    ),
                     Text(
-                        " : $type",
+                        ":$type",
                         style: kPostStyleArabicBase
                     ),
 
@@ -86,12 +89,12 @@ class PostsMaterial extends StatelessWidget {
             ),
             Positioned(
               top: 215,
-              right: 12.5,
+              right: 4,
               child: Container(
                 width: MediaQuery.of(context)
                     .size
                     .width /
-                    2.2,
+                    2,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -111,7 +114,7 @@ class PostsMaterial extends StatelessWidget {
             ),
             Positioned(
               top: 237,
-              right: 23,
+              right: 16,
               child: Container(
                 width: MediaQuery.of(context)
                     .size
@@ -135,12 +138,12 @@ class PostsMaterial extends StatelessWidget {
             ),
             Positioned(
               top: 260,
-              right: 5,
+              right: -3,
               child: Container(
                 width: MediaQuery.of(context)
                     .size
                     .width /
-                    2.2,
+                    2,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.end,

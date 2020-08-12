@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:company_task/Block/Block.dart';
-import 'package:company_task/Screens/ChatSearchScreen.dart';
-import 'package:company_task/Screens/ConversationScreen.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Chat/ChatSearchScreen.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Chat/ConversationScreen.dart';
 import 'package:company_task/Utli/Common.dart';
 import 'package:company_task/models/ChatModel.dart';
 import 'package:company_task/provider/info_provider.dart';

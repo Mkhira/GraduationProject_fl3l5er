@@ -9,9 +9,13 @@ class FurnitureModel{
   String imageUrl;
   String state;
   String userID;
+  String documentId;
+  String userImage;
+  String description;
+  String ownerName;
   int dayLeft;
 
-  FurnitureModel({this.userID,this.name,this.amount,this.imageUrl,this.location,this.owner,this.phone,this.state,this.dayLeft});
+  FurnitureModel({this.ownerName,this.description,this.userImage,this.documentId,this.userID,this.name,this.amount,this.imageUrl,this.location,this.owner,this.phone,this.state,this.dayLeft});
 
   factory FurnitureModel.fromJison(DocumentSnapshot snapshot){
     var data = snapshot.data;
@@ -24,7 +28,11 @@ class FurnitureModel{
         phone: data['phone'],
         state: data['state'],
         dayLeft: data['dayleft'],
-      userID: data['userid']
+      userID: data['userid'],
+      documentId: data["documentId"],
+      userImage: data["userImage"],
+      description: data["description"],
+      ownerName: data["ownerName"]
 
     );
 
@@ -42,10 +50,14 @@ class FurnitureModelSearch{
   String owner;
   String imageUrl;
   String state;
+  String documentId;
+  String userImage;
+  String description;
+  String ownerName;
   List<String> searchKey;
   int dayLeft;
 
-  FurnitureModelSearch({this.name,this.amount,this.imageUrl,this.location,this.owner,this.phone,this.state,this.searchKey,this.dayLeft});
+  FurnitureModelSearch({this.ownerName,this.description,this.userImage,this.documentId,this.name,this.amount,this.imageUrl,this.location,this.owner,this.phone,this.state,this.searchKey,this.dayLeft});
 
   factory FurnitureModelSearch.fromJison(DocumentSnapshot snapshot){
     var data = snapshot.data;
@@ -58,7 +70,11 @@ class FurnitureModelSearch{
         phone: data['phone'],
         state: data['state'],
         searchKey: data['searchkey'],
-        dayLeft: data['dayleft']
+        dayLeft: data['dayleft'],
+      documentId: data["documentId"],
+      userImage: data["userImage"],
+      description: data["description"],
+      ownerName: data["ownerName"],
 
     );
 

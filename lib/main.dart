@@ -1,15 +1,16 @@
 import 'dart:async';
 
-import 'package:company_task/Screens/AdingMedicienPost.dart';
-import 'package:company_task/Screens/FurintureScreen.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Medicine/AdingMedicienPost.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Furinture/FurintureScreen.dart';
 import 'package:company_task/Screens/LoginScreen/LoginMainScreen.dart';
 import 'package:company_task/Screens/Maps/StaticMap.dart';
 import 'package:company_task/Screens/Maps/user_location.dart';
 import 'package:company_task/Screens/edit_screen.dart';
 import 'package:company_task/Screens/homePage.dart';
-import 'package:company_task/Screens/ClothesPost.dart';
-import 'package:company_task/Screens/profile_screen.dart';
-import 'package:company_task/Screens/profile_image_screen.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Cloth/ClothesPost.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Profile/profile_screen.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Profile/profile_image_screen.dart';
+import 'package:company_task/Utli/Common.dart';
 import 'package:company_task/provider/AddPostClothProvider.dart';
 import 'package:company_task/provider/AddPostMedicineProvider.dart';
 import 'package:company_task/provider/AddPostfurnitureProvider.dart';
@@ -30,8 +31,11 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+    String ID ;
+
     return   MultiProvider(
         providers: [
 
@@ -66,8 +70,10 @@ class MyApp extends StatelessWidget {
 
           ),
         ],
+
       child: MaterialApp(
-        builder: (context, child){
+
+        builder: (context, child)  {
           //to remove scroll glow
           Provider.of<AuthNotifier>(context);
           return ScrollConfiguration(

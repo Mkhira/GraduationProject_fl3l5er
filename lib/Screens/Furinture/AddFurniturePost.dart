@@ -1,9 +1,11 @@
-import 'package:android_intent/android_intent.dart';
+
+
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:community_material_icon/community_material_icon.dart';
-import 'package:company_task/Screens/Maps/user_location.dart';
-import 'package:company_task/provider/AddPostClothProvider.dart';
+import 'package:company_task/Block/Block.dart';
 import 'package:company_task/provider/AddPostMedicineProvider.dart';
+import 'package:company_task/provider/AddPostfurnitureProvider.dart';
 import 'package:company_task/provider/MapProvider.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/style/constent.dart';
@@ -11,36 +13,23 @@ import 'package:company_task/wedgit/ButtonWidget.dart';
 import 'package:company_task/wedgit/OurTextFeilds/MyMainTextField.dart';
 import 'file:///E:/flater_projects/company_task/lib/wedgit/OurTextFeilds/MainTextFeild.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 
-class AddClothPostDataScreen extends StatefulWidget {
-  PermissionStatus status;
-
+class AddFurniturePostScreen extends StatefulWidget {
   @override
-  _AddClothPostDataScreenState createState() =>
-      _AddClothPostDataScreenState();
+  _AddFurniturePostScreenState createState() => _AddFurniturePostScreenState();
 }
 
-class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-  }
-
-
+class _AddFurniturePostScreenState extends State<AddFurniturePostScreen> {
+  Bloc _bloc = Bloc();
   bool  _loading=false;
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<AddPostClothProvider>(context);
+    var provider = Provider.of<AddPostFurnitureProvider>(context);
 
     return SafeArea(
         child: Scaffold(
@@ -48,7 +37,7 @@ class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
           appBar: AppBar(
             leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () {}),
             backgroundColor: kSecondColor,
-            title: Text('إضافه المبس ',style: KBaseHeaders,),
+            title: Text('إضافه الأثاث ',style: KBaseHeaders,),
           ),
           body: ModalProgressHUD(
             inAsyncCall: _loading,
@@ -104,6 +93,8 @@ class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
                             ),
                           ),
                         ),
+
+
                         SizedBox(
                           width: 20,
                         ),
@@ -111,6 +102,7 @@ class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
                       ],
                     ),
                   ),
+
                   SizedBox(
                     height: 10,
                   ),
@@ -118,6 +110,9 @@ class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
                     height: 5,
                     width: MediaQuery.of(context).size.width,
                     color: Colors.white,
+                  ),
+                  SizedBox(
+                    height: 5,
                   ),
                   SizedBox(height: 15,),
 
@@ -150,9 +145,6 @@ class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
                         SizedBox(width: 30,),
                       ],
                     ),
-                  ),
-                  SizedBox(
-                    height: 5,
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width,
@@ -227,13 +219,13 @@ class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
                                     child: ClipRRect(
                                       borderRadius:
                                       BorderRadius.all(Radius.circular(120)),
-                                      child: provider.imageFileCloth == null
+                                      child: provider.imageFileFurniture == null
                                           ? Container(
                                         height: 0,
                                         width: 0,
                                       )
                                           : Image.file(
-                                        provider.imageFileCloth,
+                                        provider.imageFileFurniture,
                                         height: 120,
                                         width: 120,
                                       ),
@@ -259,14 +251,12 @@ class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
                           margin: EdgeInsets.all(15),
                           width: MediaQuery.of(context).size.width,
                           child: StreamBuilder(
-                            stream: provider.clothDescriptionStream,
+                            stream: provider.furnitureDescriptionStream,
                             builder: (context, snapshot) {
-                              return TextField
-                                (
-                                enabled: true,
+                              return TextField(
                                 textAlign: TextAlign.right,
 
-                                onChanged: provider.clothDescriptionChange,
+                                onChanged: provider.furnitureDescriptionChange,
                                 textInputAction: TextInputAction.newline,
                                 keyboardType: TextInputType.multiline,
                                 maxLines: null,
@@ -278,8 +268,8 @@ class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
                             },
                           ),
                         ),
-                         Container(width: MediaQuery.of(context).size.width,height: 2,color: Colors.white,),
-                         SizedBox(height: 30,),
+                        Container(width: MediaQuery.of(context).size.width,height: 2,color: Colors.white,),
+                        SizedBox(height: 30,),
                         Container(
                           width: MediaQuery.of(context).size.width,
                           child: Row(
@@ -288,17 +278,17 @@ class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
                                 width: 15,
                               ),
                               MyMainTextField(
-                                labelText: 'اسم الملبس',
+                                labelText: 'اسم الأثاث',
                                 width: MediaQuery.of(context).size.width / 2.3,
                                 widget: Container(
                                   width: 0,
                                   height: 0,
                                 ),
-                                textChange: provider.clothNameChange,
+                                textChange: provider.furnitureChange,
                                 obscure: false,
-                                textStream: provider.clothNameStream,
+                                textStream: provider.furnitureStream,
                                 inputType: TextInputType.text,
-                                hintText: "اسم الملبس",
+                                hintText: "اسم الأثاث",
                               ),
                               Spacer(
                                 flex: 2,
@@ -310,9 +300,9 @@ class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
                                   width: 0,
                                   height: 0,
                                 ),
-                                textChange: provider.clothAmountChange,
+                                textChange: provider.furnitureAmountChange,
                                 obscure: false,
-                                textStream: provider.clothAmountStream,
+                                textStream: provider.furnitureAmountStream,
                                 inputType: TextInputType.number,
                                 hintText: "  الكميه",
                               ),
@@ -351,8 +341,9 @@ class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
                               SizedBox(
                                 width: 15,
                               ),
-                             MyMainTextField(
-                               labelText: 'المده',
+                              MyMainTextField(
+
+                                labelText: 'المده',
                                 width: MediaQuery.of(context).size.width / 3.5,
                                 widget: Container(
                                   width: 0,
@@ -408,7 +399,7 @@ class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
                                 children: <Widget>[
                                   SizedBox(height: 35,),
                                   Text(
-                                    " : إختر حاله الملبس",
+                                    " : إختر حاله الأثاث",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic'),
@@ -439,11 +430,11 @@ class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
                                 borderColor: kSecondColor,
                                 text: "إختر الموقع الحالى",
                                 onPressed: () async {
-                                  //get current position using geolocator package
                                   setState(() {
                                     _loading=true;
 
                                   });
+                                  //get current position using geolocator package
                                   Map<Permission, PermissionStatus> statuses = await [
                                     Permission.location,
                                   ].request();
@@ -463,7 +454,6 @@ class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
                                   }
 
                                   _loading=false;
-
                                 },
                               ),
                             ],
@@ -520,7 +510,14 @@ class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
                               borderColor: kSecondColor,
                               text: "إضافه",
                               onPressed: (){
-                                Provider.of<AddPostClothProvider>(context).createRecordCloth(context);
+
+                                setState(() {
+                                  _loading=true;
+//                                  _bloc.fetchFurniture();
+//                                  _bloc.fetchFurnitureFinish();
+
+                                });
+                                Provider.of<AddPostFurnitureProvider>(context).createRecordFurniture(context);
 
                               }
                           ),
@@ -538,4 +535,3 @@ class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
         ));
   }
 }
-

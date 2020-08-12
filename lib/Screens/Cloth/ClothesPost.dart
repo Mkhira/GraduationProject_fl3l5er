@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:company_task/Block/Block.dart';
-import 'package:company_task/Screens/AddingPosts/AddClothPost.dart';
-import 'package:company_task/Screens/AddingPosts/AddFurniturePost.dart';
-import 'package:company_task/Screens/AdingMedicienPost.dart';
-import 'package:company_task/Screens/profile_screen.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Cloth/AddClothPost.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Furinture/AddFurniturePost.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Medicine/AdingMedicienPost.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Profile/profile_screen.dart';
 import 'package:company_task/models/ClothesModel.dart';
 import 'package:company_task/provider/AddPostClothProvider.dart';
 import 'package:company_task/provider/info_provider.dart';
@@ -21,7 +21,7 @@ import 'package:google_fonts_arabic/fonts.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:provider/provider.dart';
 
-import 'ItemsContent.dart';
+import '../ItemsContent.dart';
 
 class ClothesPost extends StatefulWidget {
   static const String id = 'ClothesPost';
@@ -239,10 +239,16 @@ class ContentWidget extends StatelessWidget {
             dayLeft: clothModel.dayLeft,
             owner: clothModel.owner,
             state: clothModel.state,
+            userImage: clothModel.userImage,
+            information: "معلومات عن الملبس",
+            description: clothModel.description,
+            ownerName: clothModel.ownerName,
+            userId: clothModel.userID,
+
           );
         }));
       },
-      child: PostsMaterial(type: "الملبس",
+      child: PostsMaterial(type: "الملبس  ",
         state: clothModel.state,
         owner: clothModel.owner,
         imageUrl: clothModel.imageUrl,

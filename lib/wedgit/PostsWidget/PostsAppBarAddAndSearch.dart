@@ -4,7 +4,7 @@
 
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:company_task/Screens/profile_screen.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Profile/profile_screen.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/style/constent.dart';
 import 'package:flutter/material.dart';

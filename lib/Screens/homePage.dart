@@ -1,12 +1,12 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:company_task/Block/Block.dart';
-import 'package:company_task/Screens/ChatScreen.dart';
-import 'package:company_task/Screens/ClothesPost.dart';
-import 'package:company_task/Screens/FurintureScreen.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Chat/ChatScreen.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Cloth/ClothesPost.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Furinture/FurintureScreen.dart';
 import 'package:company_task/Screens/HomePageContentScreen.dart';
 import 'package:company_task/Screens/Notification.dart';
-import 'package:company_task/Screens/profile_screen.dart';
+import 'file:///E:/flater_projects/company_task/lib/Screens/Profile/profile_screen.dart';
 import 'package:company_task/Utli/Common.dart';
 import 'package:company_task/models/eventModel.dart';
 import 'package:company_task/provider/info_provider.dart';

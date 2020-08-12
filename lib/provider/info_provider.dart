@@ -457,7 +457,7 @@ double height ,width ,xPosition,yPosition;
     return _expireYear;
   }
 
-
+bool expire = true;
 
 
 ///////////////////////////////////////////////

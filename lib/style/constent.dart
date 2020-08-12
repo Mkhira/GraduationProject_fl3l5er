@@ -95,7 +95,7 @@ const kTextFieldDecoration = InputDecoration(
 enum kPickImage { gallery, camera }
 
 enum kMainPopMenu { editProfile, moreInfo }
-enum kPostPopMenu { edit, delete }
+enum kPostPopMenu {  delete }
 
 enum kGender { male, female }
 
