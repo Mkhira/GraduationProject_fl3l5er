@@ -51,35 +51,16 @@ class _FurnitureScreenState extends State<FurnitureScreen> {
                 return AddFurniturePostScreen();
               }));
             },blocStream: _bloc.furnitureTextStream,state: (String text) {
-              setState(() {
-                _bloc.updateFurnitureText(text);
-
-                print(_bloc
-                    .FurnitureTextController.value);
-
-                print(_bloc.FurnitureTextController
-                    .value.length);
-
-                x = text;
-
-                if (_bloc.FurnitureTextController.value
-                    .length >=
+              setState(() {_bloc.updateFurnitureText(text);
+              print(_bloc.FurnitureTextController.value);
+                print(_bloc.FurnitureTextController.value.length);x = text;
+                if (_bloc.FurnitureTextController.value.length >=
                     1) {
                   _bloc.FurnitureSearch();
-                } else if (_bloc.FurnitureTextController
-                    .value.length ==
-                    0 ||
-                    _bloc.FurnitureTextController.value
-                        .trim() ==
-                        "" ||
-                    _bloc.FurnitureTextController
-                        .value ==
-                        null) {
+                } else if (_bloc.FurnitureTextController.value.length == 0 || _bloc.FurnitureTextController.value.trim() == ""
+                    || _bloc.FurnitureTextController.value == null) {
                   _bloc.fetchFurniture();
-                }
-              });
-            },),
-
+                }});},),
             preferredSize: Size.fromHeight(80)),
         backgroundColor: kMainColor,
         body: CustomScrollView(
@@ -94,21 +75,15 @@ class _FurnitureScreenState extends State<FurnitureScreen> {
             ),
             SliverList(
               delegate: SliverChildListDelegate(
-                <Widget>[
-                  SizedBox(
+                <Widget>[SizedBox(
                     height: 15,
-                  ),
-                  Row(
+                  ), Row(
                     textDirection: TextDirection.rtl,
                     children: <Widget>[
                       SizedBox(width: 15,),
                       Text("الأثاث",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
                     ],
-                  ),
-
-
-                  SizedBox(height: 15),
-                  Padding(
+                  ), SizedBox(height: 15), Padding(
                     padding: const EdgeInsets.only(left: 10.0, right: 10),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
@@ -170,8 +145,7 @@ class _FurnitureScreenState extends State<FurnitureScreen> {
                         },
                       ),
                     ),
-                  ),
-                  SizedBox(
+                  ), SizedBox(
                     height: 30,
                   ),
                 ],
@@ -183,7 +157,6 @@ class _FurnitureScreenState extends State<FurnitureScreen> {
     );
   }
 }
-
 class TopFurniturePostHeader implements SliverPersistentHeaderDelegate {
   TopFurniturePostHeader({this.maxxExtent, this.minnExtent, this.stream});
   final double minnExtent;

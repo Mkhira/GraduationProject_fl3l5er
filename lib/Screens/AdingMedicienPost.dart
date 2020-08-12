@@ -20,11 +20,9 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 class AddMedicinePostDataScreen extends StatefulWidget {
   static const String id = 'AddPostScreen';
   PermissionStatus status;
-
   @override
   _AddMedicinePostDataScreenState createState() =>
       _AddMedicinePostDataScreenState();
@@ -35,12 +33,8 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
   }
-
-
   bool  _loading=false;
-
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<AddPostMedicineProvider>(context);
@@ -173,10 +167,7 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
                       ],
                     ),
                   ),
-
-
                 SizedBox(height: 15,),
-
                   Container(
                     width: MediaQuery.of(context).size.width,
 

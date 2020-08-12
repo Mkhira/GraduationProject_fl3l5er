@@ -28,11 +28,7 @@ class ItemContent extends StatelessWidget {
         backgroundColor: kMainColor,
         body: CustomScrollView(
            slivers: <Widget>[
-
-
-
              SliverPersistentHeader(
-
                  pinned: true,
                  floating: false,
                  delegate: Bar(expandedHeight: 300, collapsedHeight: 200,image: '$imageUrl',itemAmount: amount,itemName: name)),
@@ -284,17 +280,7 @@ class ItemContent extends StatelessWidget {
                        ),
                      ),
                    ),
-
-                 ],),),
-
-           ],
-        ),
-      ),
-    );
-  }
-}
-
-
+                 ],),),],),),);}}
 class MedicinePostText extends StatelessWidget {
   final String title, value;
 

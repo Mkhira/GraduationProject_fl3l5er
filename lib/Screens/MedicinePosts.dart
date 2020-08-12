@@ -66,7 +66,8 @@ class _MedicinePostsState extends State<MedicinePosts> {
                     _bloc.MedicenTextController.value == null) {
                   _bloc.fetchMedicine();
                 }
-              });
+              }
+              );
             },
           ),
           preferredSize: Size.fromHeight(80)),

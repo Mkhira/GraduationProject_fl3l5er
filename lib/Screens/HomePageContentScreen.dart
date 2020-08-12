@@ -21,15 +21,10 @@ class MainHomePage extends StatefulWidget {
   @override
   _MainHomePageState createState() => _MainHomePageState();
 }
-
 class _MainHomePageState extends State<MainHomePage> {
   Bloc _bloc;
-
-
   @override
   void initState() {
-    // TODO: implement initState
-
     Bloc();
     _bloc = Bloc();
     _bloc.fetchEvent();
@@ -40,10 +35,8 @@ class _MainHomePageState extends State<MainHomePage> {
   }
   @override
   Widget build(BuildContext context) {
-
     var x = (MediaQuery.of(context).orientation == Orientation.portrait);
     var profileProvider = Provider.of<InfoProvider>(context);
-
     return  SingleChildScrollView(
       child: Container(
         child: Column(
@@ -479,7 +472,6 @@ class _MainHomePageState extends State<MainHomePage> {
     );
   }
 }
-
 class TopDonaorsList extends StatelessWidget {
   final String name;
   final String image;
@@ -554,7 +546,6 @@ class TopDonaorsList extends StatelessWidget {
     );
   }
 }
-
 class categoryWedgit extends StatelessWidget {
   categoryWedgit({this.categoryName, this.onTap});
 
@@ -588,7 +579,6 @@ class categoryWedgit extends StatelessWidget {
     );
   }
 }
-
 class EventHeader extends StatelessWidget {
   const EventHeader({
     Key key,
@@ -1117,7 +1107,6 @@ class EventHeader extends StatelessWidget {
     );
   }
 }
-
 class SliderEvent extends StatelessWidget {
   const
 

@@ -4,11 +4,16 @@
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:company_task/Screens/ChatScreen.dart';
+import 'package:company_task/Screens/ConversationScreen.dart';
+import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/style/constent.dart';
 import 'package:company_task/wedgit/ButtonWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
+import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class BloodNeedyData extends StatefulWidget {
@@ -23,17 +28,69 @@ class BloodNeedyData extends StatefulWidget {
   final String gander;
   final String postOwnerName;
   final String imageUrl;
+  final String userId;
 
   final String hospitalName;
   final List location;
 
-  BloodNeedyData( {this.imageUrl,this.hospitalName,this.postOwnerName,this.gander,this.name,this.description,this.location,this.age,this.bankAccount,this.bloodCollected,this.bloodNeed,this.bloodType});
+  BloodNeedyData( {this.userId,this.imageUrl,this.hospitalName,this.postOwnerName,this.gander,this.name,this.description,this.location,this.age,this.bankAccount,this.bloodCollected,this.bloodNeed,this.bloodType});
   @override
   _BloodNeedyDataState createState() => _BloodNeedyDataState();
 }
 
+DataBaseMethods dataBaseMethods = DataBaseMethods();
+getChatRoomID(String a, String b) {
+  if (a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0)) {
+    return "$b\_$a";
+  } else
+    return "$a\_$b";
+}
+getImages(String a, String b) {
+  if (a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0)) {
+    return "$b\(\#\_\*\)$a";
+  } else
+    return "$a\(\#\_\*\)$b";
+}
+createChatRomAndStartConverstion({String userId, String userName, String imageUrl,String userNames,String userimages,BuildContext context}) {
 
+  if(userName != Provider.of<InfoProvider>(context).nameProfile && userId != Provider.of<InfoProvider>(context).UserLoginId) {
+    String chatRoom_id =
+    getChatRoomID(userId, Provider
+        .of<InfoProvider>(context)
+        .UserLoginId);
+    String userNames = getChatRoomID(userName, Provider
+        .of<InfoProvider>(context)
+        .nameProfile);
+    String userimage = getImages(imageUrl, Provider
+        .of<InfoProvider>(context)
+        .imageUrlProfile);
+    List<String> ids = [
+      userId,
+      Provider
+          .of<InfoProvider>(context)
+          .UserLoginId
+    ];
+    Map<String, dynamic> chatRoomMap = {
+      'ids': ids,
+      'chatrooid': chatRoom_id,
+      "image": imageUrl,
+      "userid": userId,
+      "username": userNames,
+      "userimage": userimage
+    };
+    dataBaseMethods.createChatRoom(chatRoom_id, chatRoomMap);
 
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                ConversationScreen(
+                  chatRoomId: chatRoom_id,
+                  name: userName,
+                  imageUrl: imageUrl,
+                )));
+  }
+}
 class _BloodNeedyDataState extends State<BloodNeedyData> {
   @override
   Widget build(BuildContext context) {
@@ -253,10 +310,21 @@ class _BloodNeedyDataState extends State<BloodNeedyData> {
                                   Container(
                                     width: MediaQuery.of(context).size.width/.83,
                                     child: ButtonWidget(
+
                                       height: 50,
                                       color: kSecondColor,
                                       textColor: Colors.white,
-                                      onPressed: (){},
+                                      onPressed: (){
+                                        print("${widget.userId}");
+                                        print("${widget.postOwnerName}");
+                                        print("${widget.imageUrl}");
+                                        print("${Provider.of<InfoProvider>(context).nameProfile}");
+                                        print("${Provider.of<InfoProvider>(context).idProfile}");
+                                        print("${Provider.of<InfoProvider>(context).imageUrlProfile}");
+
+
+                                        createChatRomAndStartConverstion(context: context, imageUrl: widget.imageUrl,userId: widget.userId,userimages: widget.imageUrl,userNames: widget.postOwnerName,userName: widget.postOwnerName);
+                                      },
                                       borderColor: kSecondColor,
                                       text: 'ارسال رساله',
                                     ),

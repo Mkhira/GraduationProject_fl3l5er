@@ -16,9 +16,9 @@ class BloodNeedyModel{
    String postOwnerName;
    String gander;
    List<dynamic> location;
-
-   BloodNeedyModel({this.gander,this.location,this.postOwnerName,this.userId,this.imageUrl,this.name,this.description,this.bloodType,this.collectedAmount,this.neededAmount,this.age,this.bloodBankId,this.hospitalName});
-
+   BloodNeedyModel({this.gander,this.location,this.postOwnerName,this.userId,this.imageUrl,
+     this.name,this.description,this.bloodType,this.collectedAmount,this.neededAmount,
+     this.age,this.bloodBankId,this.hospitalName});
    factory BloodNeedyModel.formJison(DocumentSnapshot snapshot){
      var data = snapshot;
      return BloodNeedyModel(

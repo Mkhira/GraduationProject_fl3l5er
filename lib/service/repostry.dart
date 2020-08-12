@@ -1,7 +1,9 @@
 import 'package:company_task/models/BloodNeedyModel.dart';
+import 'package:company_task/models/ChatModel.dart';
 import 'package:company_task/models/ClothesModel.dart';
 import 'package:company_task/models/FurintureModel.dart';
 import 'package:company_task/models/User.dart';
+import 'package:company_task/service/ChatService.dart';
 import 'package:company_task/service/ClothService.dart';
 import 'package:company_task/service/GetUser.dart';
 import 'package:flutter/material.dart';
@@ -147,5 +149,17 @@ class BloodRepostry{
 class UserRopestryLogin{
   final _userService = UserServiceLogin();
   Future<List<User>> getUserData( BuildContext context) => _userService.getUserData( context);
+
+}
+
+
+///////////////////////////////// chat /////////
+
+
+
+
+class chatRommRepostry{
+  final _chatService = chatServices();
+  Future<List<ChatModel>> getChatRoom(BuildContext context) => _chatService.getChatRoom(context);
 
 }

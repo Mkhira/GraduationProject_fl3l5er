@@ -13,6 +13,8 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   Bloc bloc = Bloc();
+  Bloc _bloc;
+
   open(){
              bloc.getNewsOnSearchBar(context);
       Provider.of<InfoProvider>(context).fetch();
@@ -23,8 +25,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    bloc.getNewsOnSearchBar(context);
-
+    Bloc();
+    _bloc = Bloc();
+    _bloc.getNewsOnSearchBar(context);
+    _bloc.fetchChatRoom(context);
     super.initState();
     Timer(Duration(seconds: 7),()=> open());
   }

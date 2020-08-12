@@ -75,12 +75,11 @@ class _BloodDonationState extends State<BloodDonation> {
                                 blood: list.bloodType,
                                 onPressed: () async{
 
-                                   tokne = await Common.getUserImageToken();
-                                   Provider.of<InfoProvider>(context).imageUrlProfile = await Common.getUserNameToken();
 
-                                  print(Provider.of<InfoProvider>(context).imageUrlProfile);
                                   Navigator.push(context, MaterialPageRoute(builder: (context){
-                                    return BloodNeedyData(name: list.name,location: list.location,gander: list.gander,age: list.age,
+                                    return BloodNeedyData(
+                                      userId: list.userId,
+                                      name: list.name,location: list.location,gander: list.gander,age: list.age,
                                     bankAccount: list.bloodBankId,bloodCollected: list.collectedAmount,bloodNeed: list.neededAmount,bloodType: list.bloodType,description: list.description,hospitalName: list.hospitalName,postOwnerName: list.postOwnerName,imageUrl: list.imageUrl,);
                                   }));
                                 },
