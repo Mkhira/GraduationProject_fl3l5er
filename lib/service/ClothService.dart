@@ -5,9 +5,15 @@ import 'package:company_task/provider/info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+
+
+
+
+
+
+
 class ClothService{
   Firestore _firestore = Firestore.instance;
-
   Future<List<ClothModel>> getCloth( ) async {
     final QuerySnapshot querySnapshot =
     await _firestore.collection("Cloth").getDocuments() ;
@@ -15,7 +21,8 @@ class ClothService{
 
     if (querySnapshot.documents.length == 0) {
       return null;
-    } else {
+    }
+    else {
       List<ClothModel> clothModel = [];
       for( var snapshot in querySnapshot.documents){
         clothModel.add(ClothModel.fromJison(snapshot));
@@ -24,26 +31,17 @@ class ClothService{
     }
   }
 
-
-
-
-
-
-
-
 }
 class ClothServiceSearch {
-
   Future<List<ClothModel>> getClothSearch(String query) async {
     final QuerySnapshot querySnapshot =
     await Firestore.instance.collection("Cloth")
         .where("sarchkey", arrayContains: query)
         .getDocuments();
-
-
     if (querySnapshot.documents.length == 0) {
       return null;
-    } else {
+    }
+    else {
       List<ClothModel> clothModelSearch = [];
       for (var snapshot in querySnapshot.documents) {
         clothModelSearch.add(ClothModel.fromJison(snapshot));
@@ -53,6 +51,16 @@ class ClothServiceSearch {
   }
 
 }
+
+
+
+
+
+
+
+
+
+
   class ClothServicefinsh{
 
   Future<List<ClothModel>> getClothFinish() async {

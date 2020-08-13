@@ -15,17 +15,14 @@ class MapProvider extends ChangeNotifier{
      Position position = await Geolocator()
          .getCurrentPosition(
          desiredAccuracy: LocationAccuracy.high);
-
      //get the address from the coordinates
      List<Placemark> placemark = await Geolocator()
          .placemarkFromCoordinates(
          position.latitude, position.longitude);
-
      Placemark place = placemark[0];
      String administrativeArea =
          place.subAdministrativeArea;
      String locality = place.locality;
-
      print('$administrativeArea  $locality');
      print(
          '${position.latitude}  ${position.longitude}');

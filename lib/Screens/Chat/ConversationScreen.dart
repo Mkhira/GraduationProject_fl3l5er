@@ -19,6 +19,27 @@ class ConversationScreen extends StatefulWidget {
 }
 class _ConversationScreenState extends State<ConversationScreen> {
   TextEditingController messageController = TextEditingController();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   DataBaseMethods dataBaseMethods = DataBaseMethods();
 
   sendMessage() {
@@ -32,6 +53,21 @@ class _ConversationScreenState extends State<ConversationScreen> {
       messageController.text = "";
     }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   Stream chatMessageStream;
   @override
   void initState() {

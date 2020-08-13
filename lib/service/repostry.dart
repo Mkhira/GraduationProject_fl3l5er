@@ -19,6 +19,7 @@ import 'cahrityService.dart';
 import '../models/charityModel.dart';
 import '../models/medicenModel.dart';
 import 'MedicineService.dart';
+
 class eventRepostry{
   final _eventService = eventService();
          Future<List<EventModel>> getevent() => _eventService.getevent();
@@ -38,6 +39,9 @@ class charityRepostry{
   Future<List<charityModel>> getcharity() => _charityService.getcharity();
 
 }
+
+
+
 
 
 
@@ -61,6 +65,13 @@ class MedicineRepostryFinish{
   Future<List<MedicineModel>> getMedicineFinish() => _medicineService.getMedicineFinish();
 
 }
+
+
+
+
+
+
+
 
 
 

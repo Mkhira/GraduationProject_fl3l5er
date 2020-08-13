@@ -46,7 +46,6 @@ class SignUpProvider extends ChangeNotifier {
   Stream<String> get passwordStream =>
       _password.stream.transform(validator.validatePassword);
   Function(String) get passwordChange => _password.sink.add;
-
   File imageFile;
 
   Future<void> openGallary(BuildContext context) async {
@@ -57,14 +56,12 @@ class SignUpProvider extends ChangeNotifier {
     print(picture);
     notifyListeners();
   }
-
   Future<void> openCamera(BuildContext context) async {
     var picture = await ImagePicker.pickImage(source: ImageSource.camera);
     imageFile = picture;
     print(imageFile.toString());
     notifyListeners();
   }
-
   onChoseImage(context) {
     showModalBottomSheet(
         context: context,
@@ -72,13 +69,9 @@ class SignUpProvider extends ChangeNotifier {
           return OnChoseImageSignUp();
         });
   }
-
   final databaseReference = Firestore.instance;
-
   User _user = User();
-
   signUpRecord(BuildContext context) async {}
-
   catchError(signUpError, BuildContext context) {
     if (signUpError is PlatformException) {
       if (signUpError.code == 'ERROR_EMAIL_ALREADY_IN_USE') {
@@ -94,20 +87,11 @@ class SignUpProvider extends ChangeNotifier {
       }
     }
   }
-
   final CollectionReference collectionReference =
       Firestore.instance.collection('Users');
-
   Future userDocment(BuildContext context) async {
-
-
-    if (jopController.text.isNotEmpty ||
-        phoneController.text.isNotEmpty ||
-        addressController.text.isNotEmpty ||
-        fatherNameController.text.isNotEmpty ||
-        firstNameController.text.isNotEmpty ||
-        lastNameController.text.isNotEmpty ||
-        idController.text.isNotEmpty) {
+    if (jopController.text.isNotEmpty || phoneController.text.isNotEmpty || addressController.text.isNotEmpty || fatherNameController.text.isNotEmpty ||
+        firstNameController.text.isNotEmpty || lastNameController.text.isNotEmpty || idController.text.isNotEmpty) {
     _user.email = emailController.text;
     _user.password = passwordController.text;
     _user.gander = gander;
@@ -152,7 +136,6 @@ class SignUpProvider extends ChangeNotifier {
       print('Token : $Token');
     }
 
-
     String urx;
     if (imageFile != null) {
       StorageReference _storageReference = FirebaseStorage.instance
@@ -174,10 +157,7 @@ class SignUpProvider extends ChangeNotifier {
             );
           });
     }
-
     _user.imageUrl = urx;
-
-
     SharedPreferences sharedPreferencesGetUserEmail =
         await SharedPreferences.getInstance();
     sharedPreferencesGetUserEmail.setString(Common.email, _user.email);
@@ -248,9 +228,7 @@ class SignUpProvider extends ChangeNotifier {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
         return HomePage();
       }));});
-
     print(collectionReference.id);
-
     } else {
       showDialog(
           context: context,
@@ -262,7 +240,6 @@ class SignUpProvider extends ChangeNotifier {
           });
     }
   }
-
   @override
   void dispose() {
     // TODO: implement dispose

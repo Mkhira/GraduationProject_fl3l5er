@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:company_task/Block/Block.dart';
-import 'file:///E:/flater_projects/company_task/lib/Screens/Chat/ChatSearchScreen.dart';
-import 'file:///E:/flater_projects/company_task/lib/Screens/Chat/ConversationScreen.dart';
+import '../Chat/ChatSearchScreen.dart';
+import '../Chat/ConversationScreen.dart';
 import 'package:company_task/Utli/Common.dart';
 import 'package:company_task/models/ChatModel.dart';
 import 'package:company_task/provider/info_provider.dart';
@@ -19,6 +19,15 @@ class ChatScreenPage extends StatefulWidget {
   _ChatScreenPageState createState() => _ChatScreenPageState();
 }
 class _ChatScreenPageState extends State<ChatScreenPage> {
+
+
+
+
+
+
+
+
+
   DataBaseMethods dataBaseMethods = DataBaseMethods();
   getChatRoomID(String a, String b) {
     if (a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0)) {
@@ -27,30 +36,6 @@ class _ChatScreenPageState extends State<ChatScreenPage> {
       return "$a\_$b";
   }
 
-  Widget ChatRoomList() {
-    return  StreamBuilder<List<ChatModel>>(
-      stream: _bloc.streamChatRoom,
-      builder: (context, snapshot) {
-        return snapshot.hasData
-            ? ListView.builder(
-                shrinkWrap: true,
-                itemCount: snapshot.data.length,
-                itemBuilder: (context, index) {
-                  var data = snapshot.data[index];
-
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 10.0, bottom: 10),
-                    child: UserContainer(
-                         chatModel: data,
-
-                    ),
-                  );
-                },
-              )
-            : Container();
-      },
-    );
-  }
   createChatRomAndStartConverstion({String userId, String userName, String imageUrl}) {
     String chatRoom_id =
         getChatRoomID(userId, Provider.of<InfoProvider>(context).UserLoginId);
@@ -67,7 +52,6 @@ class _ChatScreenPageState extends State<ChatScreenPage> {
       "username": userNames
     };
     dataBaseMethods.createChatRoom(chatRoom_id, chatRoomMap);
-
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -77,20 +61,37 @@ class _ChatScreenPageState extends State<ChatScreenPage> {
                   imageUrl: imageUrl,
                 )));
   }
-//  getName() async {
-//    String username = "";
-//
-//    username = await Common.getUserNameToken();
-//    if (username != null) {
-//     await dataBaseMethods.getChatRooms(username).then((val) {
-//        setState(() {
-//          chatRoomStream = val;
-//        });
-//      });
-//    }
-//  }
 
 
+
+
+
+
+
+  Widget ChatRoomList() {
+    return  StreamBuilder<List<ChatModel>>(
+      stream: _bloc.streamChatRoom,
+      builder: (context, snapshot) {
+        return snapshot.hasData
+            ? ListView.builder(
+          shrinkWrap: true,
+          itemCount: snapshot.data.length,
+          itemBuilder: (context, index) {
+            var data = snapshot.data[index];
+
+            return Padding(
+              padding: const EdgeInsets.only(top: 10.0, bottom: 10),
+              child: UserContainer(
+                chatModel: data,
+
+              ),
+            );
+          },
+        )
+            : Container();
+      },
+    );
+  }
 
      openConversation({String chatRoom_id,String userName,String imageUrl}){
        dataBaseMethods.getConversationMessages(chatRoom_id);
@@ -233,6 +234,20 @@ class ChatHeader implements SliverPersistentHeaderDelegate {
   // TODO: implement stretchConfiguration
   OverScrollHeaderStretchConfiguration get stretchConfiguration => null;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class DataBaseMethods {
   getUserByName(String name) async {
     return await Firestore.instance

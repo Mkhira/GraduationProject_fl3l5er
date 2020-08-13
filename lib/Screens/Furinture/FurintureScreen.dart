@@ -1,8 +1,6 @@
 
 import 'package:company_task/Block/Block.dart';
-import 'file:///E:/flater_projects/company_task/lib/Screens/Cloth/AddClothPost.dart';
-import 'file:///E:/flater_projects/company_task/lib/Screens/Furinture/AddFurniturePost.dart';
-import 'file:///E:/flater_projects/company_task/lib/Screens/Medicine/AdingMedicienPost.dart';
+import '../Furinture/AddFurniturePost.dart';
 import 'package:company_task/models/ClothesModel.dart';
 import 'package:company_task/models/FurintureModel.dart';
 import 'package:company_task/provider/AddPostMedicineProvider.dart';

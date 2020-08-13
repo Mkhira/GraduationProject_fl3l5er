@@ -11,7 +11,7 @@
 
 
 import 'package:company_task/Block/Block.dart';
-import 'file:///E:/flater_projects/company_task/lib/Screens/Furinture/FurintureScreen.dart';
+import '../Furinture/FurintureScreen.dart';
 import 'package:company_task/models/FurintureModel.dart';
 import 'package:company_task/style/constent.dart';
 import 'package:flutter/cupertino.dart';

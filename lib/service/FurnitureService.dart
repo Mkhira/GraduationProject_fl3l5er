@@ -57,25 +57,24 @@ class FurnitureServiceSearch{
 
 
 
-
-
-
-
 }
 
 
-class FurnitureServiceFinish{
 
+
+
+
+
+class FurnitureServiceFinish{
   Future<List<FurnitureModel>> getFurnitureFinish(  ) async {
     final QuerySnapshot querySnapshot =
     await Firestore.instance.collection("Furniture")
         .where("dayleft", isLessThanOrEqualTo: 2)
         .getDocuments();
-
-
     if (querySnapshot.documents.length == 0) {
       return null;
-    } else {
+    }
+    else {
       List<FurnitureModel> furnitureModelSearch = [];
       for( var snapshot in querySnapshot.documents){
         furnitureModelSearch.add(FurnitureModel.fromJison(snapshot));
@@ -83,34 +82,19 @@ class FurnitureServiceFinish{
       return furnitureModelSearch;
     }
   }
-
-
-
-
-
-
-
-
 }
 
-
-
 class FurnitureProfile{
-
   Future<List<FurnitureModel>> getFurnitureProfile(BuildContext context) async {
     String userID = await Common.getUserIdToken();
-    print("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
-    print(userID);
-    print("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
-
     final QuerySnapshot querySnapshot =
     await Firestore.instance.collection("Furniture")
         .where("userid", isEqualTo: Provider.of<InfoProvider>(context).UserLoginId)
         .getDocuments();
-
     if (querySnapshot.documents.length == 0) {
       return null;
-    } else {
+    }
+    else {
       List<FurnitureModel> FurnitureModelSearch = [];
       for( var snapshot in querySnapshot.documents){
         FurnitureModelSearch.add(FurnitureModel.fromJison(snapshot));

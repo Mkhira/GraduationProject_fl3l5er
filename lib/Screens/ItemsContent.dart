@@ -1,5 +1,4 @@
 
-import 'file:///E:/flater_projects/company_task/lib/Screens/Profile/profile_screen.dart';
 import 'package:company_task/Screens/Chat/ChatScreen.dart';
 import 'package:company_task/Screens/Chat/ConversationScreen.dart';
 import 'package:company_task/provider/info_provider.dart';

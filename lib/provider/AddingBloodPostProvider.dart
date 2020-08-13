@@ -107,14 +107,10 @@ class BloodPostProvider extends ChangeNotifier{
 
   final databaseReference = Firestore.instance;
   void createBloodPost(BuildContext context) async {
-
-
     if(locationList.length == 0){
       locationList.insert(0, chosenLat);
       locationList.insert(1, chosenLong);
     }
-
-
     if(bloodNeededAmount.value != null && patientName.value != null &&  patientDescription.value != null && locationList[0] != null && locationList[1] != null
         && phone.value != null && hospitalName.value!=null ){
       DocumentReference ref = await databaseReference.collection("bloodNeedy").document();
@@ -135,10 +131,6 @@ class BloodPostProvider extends ChangeNotifier{
         "blood": selectedBloodType,
         "age": int.parse(patientAge.value.toString()),
         "collectedAmount": 0,
-
-
-
-
       }).whenComplete(close(context));
       print(ref.documentID);}
     else if((locationList[0] == null || locationList[1] == null) ){

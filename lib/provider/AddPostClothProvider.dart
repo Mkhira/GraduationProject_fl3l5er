@@ -164,7 +164,6 @@ class AddPostClothProvider extends ChangeNotifier{
       StorageUploadTask storageUploadTask = _storageReference.putFile(
           imageFileCloth);
       StorageTaskSnapshot snapshot = await storageUploadTask.onComplete;
-
       urx = await snapshot.ref.getDownloadURL();
     }else if(imageFileCloth == null ){
       print(imageFileCloth.path);
@@ -173,8 +172,8 @@ class AddPostClothProvider extends ChangeNotifier{
           builder: (BuildContext context) {
             return  DailogError(text: "من فضلك إختر صوره",titleText: "هنالك خطأ فى البيانات",); } );
     }
-    if(clothAmount.value != null && clothName.value != null &&  urx != null && locationList[0] != null && locationList[1] != null
-        && phone.value != null && name.length>=3 &&  duration.value != null){
+    if(clothAmount.value != null && clothName.value != null &&  urx != null && locationList[0] != null && locationList[1] != null && phone.value != null && name.length>=3 &&
+        duration.value != null){
       DocumentReference ref = await databaseReference.collection("Cloth").document();
           ref.setData({
         'amount': int.parse(clothAmount.value.toString()),

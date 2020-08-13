@@ -501,7 +501,6 @@ bool medicineClick = true;
   String idProfile;
 
   fetch()async{
-
     imageUrlProfile = await Common.getUserImageToken();
     emailProfile = await Common.getUserEmailToken();
     passwordProfile = await Common.getUserPasswordToken();
@@ -513,7 +512,6 @@ bool medicineClick = true;
     locationProfile = await Common.getUserLocationToken();
     nameProfile = await Common.getUserNameToken();
     idProfile = await Common.getUserIdToken();
-
     print(imageUrlProfile);
     print(imageUrlProfile);
     notifyListeners();

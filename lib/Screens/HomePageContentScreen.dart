@@ -7,10 +7,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:company_task/Block/Block.dart';
 import 'package:company_task/Screens/Chat/ChatScreen.dart';
-import 'file:///E:/flater_projects/company_task/lib/Screens/Cloth/ClothesPost.dart';
-import 'file:///E:/flater_projects/company_task/lib/Screens/Furinture/FurintureScreen.dart';
 import 'package:company_task/Screens/MedicinePosts.dart';
-import 'file:///E:/flater_projects/company_task/lib/Screens/Profile/profile_screen.dart';
+import 'Cloth/ClothesPost.dart';
+import 'Furinture/FurintureScreen.dart';
 import 'package:company_task/models/charityModel.dart';
 import 'package:company_task/models/eventModel.dart';
 import 'package:company_task/models/topDonatersmodel.dart';
@@ -19,6 +18,8 @@ import 'package:company_task/style/constent.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:provider/provider.dart';
+
+import 'Profile/profile_screen.dart';
 
 class MainHomePage extends StatefulWidget {
   @override

@@ -17,57 +17,34 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
   login(String email,String password, AuthNotifier authNotifier ,BuildContext context)async{
-
   AuthResult authResult =  await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password).
     catchError((error)=>  showDialog(context: context ,
       builder: (BuildContext context) {
         return  DailogError(text: "${error.code}",titleText: "هنالك خطأ فى البيانات",); } ));
-
-
    if(authResult != null){
      FirebaseUser firebaseUser = authResult.user;
-
      if(FirebaseUser != null){
        Provider.of<InfoProvider>(context).UserLoginId = firebaseUser.uid;
        print('Login : ${Provider.of<InfoProvider>(context).UserLoginId}');
        SharedPreferences sharedPreferencesGetUserId =
        await SharedPreferences.getInstance();
        sharedPreferencesGetUserId.setString(Common.userId, firebaseUser.uid);
-//       print('Login : ${firebaseUser.uid}');
-//       print('Login : ${firebaseUser.uid}');
-//       print('Login : ${firebaseUser.uid}');
            authNotifier.setUser(firebaseUser);
-
-
-
            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
              return SplashScreen();
            }));
      }
    }
   }
-
-//  signUp(User user, BuildContext context)async{
-//
-//
-//
-//  }
-
-
-
   signOut(AuthNotifier authNotifier)async{
     await FirebaseAuth.instance.signOut().catchError((error)=> print(error.code));
     authNotifier.setUser(null);
   }
-
-
 User _user =User();
   initializeCurrentUser(AuthNotifier authNotifier,BuildContext context)async{
-
     FirebaseUser firebaseUser = await FirebaseAuth.instance.currentUser();
     Provider.of<InfoProvider>(context).UserLoginId = firebaseUser.uid;
     print('Login : ${Provider.of<InfoProvider>(context).UserLoginId}');
-
     if(firebaseUser != null){
       print(firebaseUser.photoUrl);
       authNotifier.setUser(firebaseUser);
@@ -81,14 +58,5 @@ User _user =User();
          });
 
     }
-
   }
 
-//  User _user =User();
-//submitSignUp(BuildContext context){
-//
-//    AuthNotifier not = Provider.of<AuthNotifier>(context,listen: false);
-//    signUp(_user, not);
-//
-
-//}

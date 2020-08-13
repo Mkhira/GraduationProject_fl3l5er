@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'Medicine/AdingMedicienPost.dart';
 import 'Medicine/MedicineContentWidget.dart';
-import 'file:///E:/flater_projects/company_task/lib/Screens/Medicine/AdingMedicienPost.dart';
-import 'file:///E:/flater_projects/company_task/lib/Screens/Profile/profile_screen.dart';
 import 'package:company_task/models/medicenModel.dart';
 import 'package:company_task/provider/AddPostMedicineProvider.dart';
 import 'package:company_task/provider/info_provider.dart';

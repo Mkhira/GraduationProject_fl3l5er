@@ -16,16 +16,12 @@ class Common{
   static final String state ='state';
   static final String phone ='phone';
   static final String name ='name';
-
-
   static getUserIdToken() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     String userIdToken = _prefs.getString(Common.userId) ?? '';
 
     return userIdToken;
   }
-
-
   static getUserEmailToken() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     String userEmailToken = _prefs.getString(Common.email) ?? '';
@@ -74,14 +70,12 @@ class Common{
 
     return userStateToken;
   }
-
   static getUserPhoneToken() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     String userPhoneToken = _prefs.getString(Common.phone) ?? '';
 
     return userPhoneToken;
   }
-
   static getUserNameToken() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     String userNameToken = _prefs.getString(Common.name) ?? '';

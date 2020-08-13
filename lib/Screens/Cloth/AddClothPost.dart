@@ -10,7 +10,6 @@ import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/style/constent.dart';
 import 'package:company_task/wedgit/ButtonWidget.dart';
 import 'package:company_task/wedgit/OurTextFeilds/MyMainTextField.dart';
-import 'file:///E:/flater_projects/company_task/lib/wedgit/OurTextFeilds/MainTextFeild.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:geolocator/geolocator.dart';

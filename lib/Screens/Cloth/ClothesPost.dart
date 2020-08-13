@@ -1,10 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:company_task/Block/Block.dart';
-import 'file:///E:/flater_projects/company_task/lib/Screens/Cloth/AddClothPost.dart';
-import 'file:///E:/flater_projects/company_task/lib/Screens/Furinture/AddFurniturePost.dart';
-import 'file:///E:/flater_projects/company_task/lib/Screens/Medicine/AdingMedicienPost.dart';
-import 'file:///E:/flater_projects/company_task/lib/Screens/Profile/profile_screen.dart';
+import '../Cloth/AddClothPost.dart';
+
 import 'package:company_task/models/ClothesModel.dart';
 import 'package:company_task/provider/AddPostClothProvider.dart';
 import 'package:company_task/provider/info_provider.dart';
@@ -115,7 +113,11 @@ class _ClothesPostState extends State<ClothesPost> {
                     padding: const EdgeInsets.only(left: 10.0, right: 10),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
-                      child: (_bloc.ClothTextController.value == null ||
+                      child:
+
+
+
+                      (_bloc.ClothTextController.value == null ||
                               _bloc.ClothTextController.value.trim() == "" ||
                               _bloc.ClothTextController.value.length == 0)
                           ? StreamBuilder<List<ClothModel>>(

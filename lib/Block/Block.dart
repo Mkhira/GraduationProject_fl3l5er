@@ -118,65 +118,6 @@ class Bloc extends Object with Validator {
 
   final Firestore firestore = Firestore();
 
-  createProfileData(
-    BuildContext context,
-  ) async {
-//    final snapShot = await Firestore.instance;
-    final snapShot = await Firestore.instance
-        .collection('userData')
-        .document(_cardId.value)
-        .get();
-
-    if (!snapShot.exists &&
-        _cardId.value != null &&
-        _email.value != null &&
-        _fristName.value != null &&
-        _lastName.value != null &&
-        _nickName.value != null &&
-        _password.value != null &&
-        Provider.of<InfoProvider>(context).genderReturn() != null) {
-      if (_password.value == _confirmPassword.value) {
-        firestore.collection("userData").document(_cardId.value).setData({
-          "email": _email.value,
-          "firstName": _fristName.value,
-          "lastName": _lastName.value,
-          "nickName": _nickName.value,
-          "password": _password.value,
-          "address": (_country.value == null ||
-                  _governate.value == null ||
-                  _city.value == null ||
-                  _street.value == null)
-              ? ""
-              : "${_country.value + "/" + _governate.value + "/" + _city.value + "/" + _street.value}",
-          "date": _date.value,
-          "phone": _phone.value,
-          "jop": (Provider.of<InfoProvider>(context).jopReturn() == "")
-              ? ""
-              : "${Provider.of<InfoProvider>(context).jopReturn()}",
-          "gender": "${Provider.of<InfoProvider>(context).genderReturn()}",
-          "kidsNum": (_numKids.value == null) ? "" : _numKids.value,
-          "maritalStatus":
-              (Provider.of<InfoProvider>(context).stateReturn() == "")
-                  ? ""
-                  : "${Provider.of<InfoProvider>(context).stateReturn()}",
-          "salary": (_salary.value == null) ? "" : _salary.value,
-        }).whenComplete(Provider.of<InfoProvider>(context).login(context));
-      } else {
-        passwordNotMatch(context);
-      }
-    }
-    if (snapShot.exists) {
-      idExsits(context);
-    } else if (_cardId.value == null ||
-        _email.value == null ||
-        _fristName.value == null ||
-        _lastName.value == null ||
-        _nickName.value == null ||
-        _password.value == null ||
-        Provider.of<InfoProvider>(context).genderReturn() == "") {
-      missingData(context);
-    }
-  }
 
   void idExsits(BuildContext context) {
     showDialog(

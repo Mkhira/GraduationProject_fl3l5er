@@ -3,8 +3,8 @@
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'file:///E:/flater_projects/company_task/lib/Screens/Chat/ChatScreen.dart';
-import 'file:///E:/flater_projects/company_task/lib/Screens/Chat/ConversationScreen.dart';
+import '../Chat/ChatScreen.dart';
+import '../Chat/ConversationScreen.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/style/constent.dart';
 import 'package:company_task/wedgit/ButtonWidget.dart';
@@ -18,6 +18,12 @@ class ChatSearchScreen extends StatefulWidget {
 }
 
 class _ChatSearchScreenState extends State<ChatSearchScreen> {
+
+
+
+
+
+
 
   DataBaseMethods dataBaseMethods = DataBaseMethods();
 
@@ -76,6 +82,16 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
                  )));
    }
   }
+
+
+
+
+
+
+
+
+
+
 
   inateSearch(){
 
