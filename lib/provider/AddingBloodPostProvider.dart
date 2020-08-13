@@ -4,6 +4,7 @@
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:company_task/Block/Validator.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/wedgit/FriebaseErrorDailog.dart';
 import 'package:flutter/foundation.dart';
@@ -13,6 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 class BloodPostProvider extends ChangeNotifier{
+  Validator validator = Validator();
 
   var location = Location();
 
@@ -59,7 +61,7 @@ class BloodPostProvider extends ChangeNotifier{
 
   final phone = BehaviorSubject<String>();
 
-  Stream<String> get phoneStream => phone.stream;
+  Stream<String> get phoneStream => phone.stream.transform(validator.phone);
 
   Function(String) get phoneChange => phone.sink.add;
 

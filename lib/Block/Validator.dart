@@ -20,7 +20,7 @@ class Validator {
         Pattern pattern =r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
 
 
-    if (password.length > 8) {
+    if (password.length >=8) {
       sink.add(password);
     } else {
       sink.addError("Password should not less than 8");
@@ -51,6 +51,15 @@ class Validator {
           sink.addError("Un valid  characters ");
         } else {
           sink.add(lastName);
+        }
+      });
+
+  final phone = StreamTransformer<String, String>.fromHandlers(
+      handleData: (phone, sink) {
+        if (phone.length==11) {
+          sink.addError("phone is only 11 numper");
+        } else {
+          sink.add(phone);
         }
       });
 

@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:company_task/Block/Validator.dart';
 import 'package:company_task/provider/AddPostMedicineProvider.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/wedgit/ChosseImage.dart';
@@ -20,6 +21,7 @@ import 'package:path/path.dart' as p;
 class AddPostClothProvider extends ChangeNotifier{
 
   bool value = false;
+  Validator validator = Validator();
 
   var location = Location();
 
@@ -73,7 +75,7 @@ class AddPostClothProvider extends ChangeNotifier{
 
   final phone = BehaviorSubject<String>();
 
-  Stream<String> get phoneStream => phone.stream;
+  Stream<String> get phoneStream => phone.stream.transform(validator.phone);
 
   Function(String) get phoneChange => phone.sink.add;
 
