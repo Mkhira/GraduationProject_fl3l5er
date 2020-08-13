@@ -1,39 +1,27 @@
-import 'package:company_task/Block/Block.dart';
-import 'package:company_task/Screens/homePage.dart';
-import 'package:company_task/provider/info_provider.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'dart:async';
-import '../style/constent.dart';
 
-class SplashScreen extends StatefulWidget {
+import 'package:company_task/Screens/LoginScreen/LoginMainScreen.dart';
+import 'package:company_task/style/constent.dart';
+import 'package:flutter/material.dart';
+
+
+
+
+class CustomSplashwidget extends StatefulWidget {
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  _CustomSplashwidgetState createState() => _CustomSplashwidgetState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
-  Bloc bloc = Bloc();
-  Bloc _bloc;
 
-  open(){
-             bloc.getNewsOnSearchBar(context);
-      Provider.of<InfoProvider>(context).fetch();
-    Navigator.pushReplacement(context,
-        MaterialPageRoute(
-            builder: (BuildContext context) => HomePage()) );
-  }
+class _CustomSplashwidgetState extends State<CustomSplashwidget> {
   @override
   void initState() {
     // TODO: implement initState
-    Bloc();
-    _bloc = Bloc();
-    _bloc.getNewsOnSearchBar(context);
-    _bloc.fetchChatRoom(context);
+        Timer(Duration(seconds: 1),()=> LoginMainScreen());
+
     super.initState();
-    Timer(Duration(seconds: 7),()=> open());
   }
   @override
-
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(

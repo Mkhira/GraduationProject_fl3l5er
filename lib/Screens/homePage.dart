@@ -34,12 +34,12 @@ class HomePage extends StatefulWidget {
 }
 class _HomePageState extends State<HomePage> {
   Bloc _bloc;
-  PageController _pageController;
-  List<Widget> _widgetOptions = <Widget>[
-    MainHomePage(),
-    ChatScreenPage(),
-    NotificationScreen(),
-  ];
+//  PageController _pageController;
+//  List<Widget> _widgetOptions = <Widget>[
+//    MainHomePage(),
+//    ChatScreenPage(),
+//    NotificationScreen(),
+//  ];
  @override
   void initState()  {
    Bloc();
@@ -48,51 +48,51 @@ class _HomePageState extends State<HomePage> {
    _bloc.fetchTopDonators();
    _bloc.fetchcharity();
    _bloc.fetchcharity();
-   _pageController = PageController();
+//   _pageController = PageController();
    super.initState();
   }
   @override
   void dispose() {
     super.dispose();
     _bloc.dispose();
-    _pageController.dispose();
+//    _pageController.dispose();
   }
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            bottomNavigationBar: BottomNavyBar(
-              selectedIndex: _currentIndex,
-              onItemSelected: (index) {
-                setState(() => _currentIndex = index);
-              }, items: <BottomNavyBarItem>[
-                BottomNavyBarItem(
-                    title: Text('الرئيسيه',style: kNavigationBar),
-                    icon: Icon(Icons.home,textDirection: TextDirection.rtl,size: 30,),
-                  activeColor: kSecondColor,
-                   inactiveColor: Colors.grey,
-                  textAlign: TextAlign.right
-                ), BottomNavyBarItem(
-                    title: Text('الرسائل',style: kNavigationBar,),
-                    icon: Icon(Icons.message,size: 30,),
-                    activeColor: kSecondColor,
-                    inactiveColor: Colors.grey,
-                    textAlign: TextAlign.right
-                ), BottomNavyBarItem(
-                    title: Text('الأشعارات'),
-                    icon: Icon(Icons.notifications_active,size: 30,),
-
-                    activeColor: kSecondColor,
-                    inactiveColor: Colors.grey,
-                    textAlign: TextAlign.right
-
-                ),
-              ],
-            ),
+//            bottomNavigationBar: BottomNavyBar(
+//              selectedIndex: _currentIndex,
+//              onItemSelected: (index) {
+//                setState(() => _currentIndex = index);
+//              }, items: <BottomNavyBarItem>[
+//                BottomNavyBarItem(
+//                    title: Text('الرئيسيه',style: kNavigationBar),
+//                    icon: Icon(Icons.home,textDirection: TextDirection.rtl,size: 30,),
+//                  activeColor: kSecondColor,
+//                   inactiveColor: Colors.grey,
+//                  textAlign: TextAlign.right
+//                ), BottomNavyBarItem(
+//                    title: Text('الرسائل',style: kNavigationBar,),
+//                    icon: Icon(Icons.message,size: 30,),
+//                    activeColor: kSecondColor,
+//                    inactiveColor: Colors.grey,
+//                    textAlign: TextAlign.right
+//                ), BottomNavyBarItem(
+//                    title: Text('الأشعارات'),
+//                    icon: Icon(Icons.notifications_active,size: 30,),
+//
+//                    activeColor: kSecondColor,
+//                    inactiveColor: Colors.grey,
+//                    textAlign: TextAlign.right
+//
+//                ),
+//              ],
+//            ),
             drawer: MainDrawer(),
             backgroundColor: Color(0xffe6e6ea),
-            body:   _widgetOptions.elementAt(_currentIndex)));}
+            body:   MainHomePage(),),);}
 }
 
 

@@ -6,6 +6,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:company_task/Block/Block.dart';
+import 'package:company_task/Screens/Chat/ChatScreen.dart';
 import 'file:///E:/flater_projects/company_task/lib/Screens/Cloth/ClothesPost.dart';
 import 'file:///E:/flater_projects/company_task/lib/Screens/Furinture/FurintureScreen.dart';
 import 'package:company_task/Screens/MedicinePosts.dart';
@@ -39,466 +40,480 @@ class _MainHomePageState extends State<MainHomePage> {
   Widget build(BuildContext context) {
     var x = (MediaQuery.of(context).orientation == Orientation.portrait);
     var profileProvider = Provider.of<InfoProvider>(context);
-    return  SingleChildScrollView(
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 100,
-              decoration: BoxDecoration(
-                  color: Color(0xffe6e6ea),
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20))),
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: <Widget>[
-                      Spacer(
-                        flex: 5,
-                      ),
-                      Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: kMainColor,
-                          ),
-                          width:
-                          MediaQuery.of(context).size.width / 1.5,
-                          height: 60,
+    return  SafeArea(
+      child: Scaffold(
+        floatingActionButton:  FloatingActionButton(
+          backgroundColor: Colors.white,
+          child: Icon(Icons.chat,color: kSecondColor,size: 30,),
+          onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatScreenPage()));
+          },
+        ),
+        body: SingleChildScrollView(
+          child: Container(
+            child: Column(
+              children: <Widget>[
+                Material(
+                  elevation: 5,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 100,
+                    decoration: BoxDecoration(
+                        color: Color(0xffe6e6ea),
+                    ),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
                         child: Row(
-                          textDirection: TextDirection.rtl,
                           children: <Widget>[
-                            Text(Provider.of<InfoProvider>(context).nameProfile != null ? "${Provider.of<InfoProvider>(context).nameProfile}" : "من فضلك اضغط هنا >>",style: TextStyle(
-                              fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                              fontWeight: FontWeight.bold,
-                              color: kSecondColor,
-                              fontSize: 20
-                            ),)
+                            SizedBox(width: 10,),
+
+                            Spacer(
+                              flex: 1,
+                            ),
+                            Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: kMainColor,
+                                ),
+                                width:
+                                MediaQuery.of(context).size.width / 1.8,
+                                height: 60,
+                              child: Row(
+                                textDirection: TextDirection.rtl,
+                                children: <Widget>[
+                                  Text(Provider.of<InfoProvider>(context).nameProfile != null ? "${Provider.of<InfoProvider>(context).nameProfile}" : "من فضلك اضغط هنا >>",style: TextStyle(
+                                    fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                                    fontWeight: FontWeight.bold,
+                                    color: kSecondColor,
+                                    fontSize: 20
+                                  ),)
+                                ],
+                              ),
+                                ),
+                            Spacer(
+                              flex: 1,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(context,ProfileScreen.id);
+                              },
+                              child:Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                ),
+                                width: 65.0,
+                                height: 65.0,
+                                child:  profileProvider.imageUrlProfile ==
+                                    null
+                                    ? Center(
+                                    child: Text(
+                                      'Click',
+                                      style: TextStyle(color: Colors.white),
+                                    ))
+                                    : ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child:CachedNetworkImage(
+                                    imageUrl: profileProvider.imageUrlProfile,
+                                    height: 98,
+                                    width: 200,
+                                    fit: BoxFit.cover,
+                                    placeholder: (context, url) =>
+                                        CircularProgressIndicator(),
+                                    errorWidget:
+                                        (context, url, error) =>
+                                        Icon(Icons.error),
+                                    placeholderFadeInDuration:
+                                    Duration(days: 30),
+                                    useOldImageOnUrlChange: true,
+                                    filterQuality:
+                                    FilterQuality.low,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Spacer(
+                              flex: 1,
+                            ),
                           ],
                         ),
-                          ),
-                      Spacer(
-                        flex: 1,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context,ProfileScreen.id);
-                        },
-                        child:Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                          ),
-                          width: 65.0,
-                          height: 65.0,
-                          child:  profileProvider.imageUrlProfile ==
-                              null
-                              ? Center(
-                              child: Text(
-                                'Click',
-                                style: TextStyle(color: Colors.white),
-                              ))
-                              : ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
-                            child:CachedNetworkImage(
-                              imageUrl: profileProvider.imageUrlProfile,
-                              height: 98,
-                              width: 200,
-                              fit: BoxFit.cover,
-                              placeholder: (context, url) =>
-                                  CircularProgressIndicator(),
-                              errorWidget:
-                                  (context, url, error) =>
-                                  Icon(Icons.error),
-                              placeholderFadeInDuration:
-                              Duration(days: 30),
-                              useOldImageOnUrlChange: true,
-                              filterQuality:
-                              FilterQuality.low,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Spacer(
-                        flex: 1,
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height - 100,
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    EventHeader(
-                      x: x,
-                      bloc: _bloc,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            top: 10, bottom: 0, left: 20),
-                        child: Row(
-                          textDirection: TextDirection.rtl,
-                          children: <Widget>[
-                            SizedBox(width: 30,),
-                            Text(
-                              "الفئات",
-                              style: HomeHeadreStyle,
-                            ),
-                          ],
+                Container(
+                  height: MediaQuery.of(context).size.height - 100,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        EventHeader(
+                          x: x,
+                          bloc: _bloc,
                         ),
-                      ),
-                    ),
-                    Divider(),
-                    Container(
-                      height: 80,
-                      width: MediaQuery.of(context).size.width,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: <Widget>[
-                          categoryWedgit(
-                            onTap: () {
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 10, bottom: 0, left: 20),
+                            child: Row(
+                              textDirection: TextDirection.rtl,
+                              children: <Widget>[
+                                SizedBox(width: 30,),
+                                Text(
+                                  "الفئات",
+                                  style: HomeHeadreStyle,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Divider(),
+                        Container(
+                          height: 80,
+                          width: MediaQuery.of(context).size.width,
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: <Widget>[
+                              categoryWedgit(
+                                onTap: () {
 //                                      Provider.of<TaskData>(context)
 //                                          .item(context);
-                              Navigator.pushNamed(context, MedicinePosts.id);
-                              setState(() {
-                                Provider.of<InfoProvider>(context).medicineClick = true;
+                                  Navigator.pushNamed(context, MedicinePosts.id);
+                                  setState(() {
+                                    Provider.of<InfoProvider>(context).medicineClick = true;
 
-                              });
-                            },
-                            categoryName: "الدواء",
-                          ),
-                          categoryWedgit(
-                            onTap: () {
-                              Navigator.pushNamed(context,ClothesPost.id);
-                              setState(() {
-                                Provider.of<InfoProvider>(context).medicineClick = false;
-
-                              });
-                            },
-                            categoryName: "الملابس",
-                          ),
-                          categoryWedgit(
-                            onTap: () {
-                              Navigator.pushNamed(context, FurnitureScreen.id);
-                              setState(() {
-                                Provider.of<InfoProvider>(context).medicineClick = false;
-
-                              });
-                            },
-                            categoryName: "الأثاث",
-                          ),
-                          categoryWedgit(
-                            onTap: () {
-                              Provider.of<InfoProvider>(context).Blood(context);
-
-                            },
-                            categoryName: "الدم",
-                          ),
-                        ],
-                      ),
-                    ),
-                    Divider(),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            top: 0, bottom: 0, right: 20),
-                        child: Row(
-                          textDirection: TextDirection.rtl,
-                          children: <Widget>[
-                            Text(
-                              "أوائل المتبرعين هذا الشهر ",
-                              style: HomeHeadreStyle,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 200,
-                      child: StreamBuilder<List<TopDonatorsModel>>(
-                          stream: _bloc.streamtopdonators,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) {
-                                    var data = snapshot.data[index];
-
-                                    return TopDonaorsList(
-                                      field: data.field,
-                                      image: data.urlImage,
-                                      name: data.name,
-                                    );
-                                  },
-                                  itemCount: snapshot.data.length,
-                                ),
-                              );
-                            } else
-                              return
-                                Container(
-                                height: 200,
-                                color: Colors.white,
-                                child: Center(
-                               child:   Text(
-                                    "قريبا فى اقرب اصدار ",
-                                    style: TextStyle(
-                                        fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                                        fontSize: 20,
-                                        color: kSecondColor,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              );
-                          }),
-                    ),
-                    Divider(),
-                    Padding(
-                      padding:
-                      const EdgeInsets.only(right: 20, bottom: 10),
-                      child: Row(
-                        textDirection: TextDirection.rtl,
-                         children: <Widget>[
-                           Text(
-                             "الفعاليات والإفينتات فى الجمعيات الخيريه",
-                             style: HomeHeadreStyle,
-                           ),
-                         ],
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: StreamBuilder<List<charityModel>>(
-                        stream: _bloc.streamCharity,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            return CarouselSlider.builder(
-                              autoPlay: false,
-                              autoPlayAnimationDuration:
-                              Duration(milliseconds: 0),
-                              height: x ? 220 : 370,
-                              itemCount: snapshot.data.length,
-                              scrollPhysics: BouncingScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                var data = snapshot.data[index];
-
-                                return Container(
-                                  width: MediaQuery.of(context)
-                                      .size
-                                      .width *
-                                      .99,
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Positioned(
-                                        top: 0,
-                                        left: 0,
-                                        child: ClipRRect(
-                                          borderRadius:
-                                          BorderRadius.circular(20),
-                                          child: CachedNetworkImage(
-                                            imageUrl: data.image,
-                                            width: (MediaQuery.of(
-                                                context)
-                                                .orientation ==
-                                                Orientation
-                                                    .portrait)
-                                                ? MediaQuery.of(context)
-                                                .size
-                                                .width -
-                                                100
-                                                : 600,
-                                            height: (MediaQuery.of(
-                                                context)
-                                                .orientation ==
-                                                Orientation
-                                                    .portrait)
-                                                ? 150
-                                                : 300,
-                                            fit: BoxFit.cover,
-                                            placeholder: (context,
-                                                url) =>
-                                                CircularProgressIndicator(),
-                                            errorWidget:
-                                                (context, url, error) =>
-                                                Icon(Icons.error),
-                                            placeholderFadeInDuration:
-                                            Duration(days: 30),
-                                            useOldImageOnUrlChange:
-                                            true,
-                                            filterQuality:
-                                            FilterQuality.low,
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned(
-                                          left: 15,
-                                          bottom: 15,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                              BorderRadius.circular(
-                                                  15),
-                                              color: Colors.white,
-                                            ),
-                                            child: FlatButton(
-                                                onPressed: () {},
-                                                child: Text("Join")),
-                                          ))
-                                    ],
-                                  ),
-                                );
-                              },
-                            );
-                          } else
-                            return   Container(
-                              height: 200,
-                              color: Colors.white,
-                              child: Center(
-                                child:   Text(
-                                  "قريبا فى اقرب اصدار ",
-                                  style: TextStyle(
-                                      fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                                      fontSize: 20,
-                                      color: kSecondColor,
-                                      fontWeight: FontWeight.bold),
-                                ),
+                                  });
+                                },
+                                categoryName: "الدواء",
                               ),
-                            );
-                        },
-                      ),
-                    ),
-                    Divider(),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 400,
-                      child: Center(
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * .9,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Color(0xffF9A110),
-                          ),
-                          child: Stack(
-                            children: <Widget>[
-                              Positioned(
-                                top: 40,
-                                left: x
-                                    ? MediaQuery.of(context)
-                                    .size
-                                    .width /
-                                    3
-                                    : MediaQuery.of(context)
-                                    .size
-                                    .width /
-                                    2,
-                                child: Text(
-                                  "قرآن اليوم",
-                                  style: TextStyle(
-                                      fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
-                                ),
-                              ),
-                              Positioned(
-                                top: 110,
-                                left: x
-                                    ? MediaQuery.of(context)
-                                    .size
-                                    .width /
-                                    10
-                                    : MediaQuery.of(context)
-                                    .size
-                                    .width /
-                                    3.6,
-                                child: Container(
-                                  width: x
-                                      ? MediaQuery.of(context)
-                                      .size
-                                      .width /
-                                      1.46
-                                      : MediaQuery.of(context)
-                                      .size
-                                      .width /
-                                      3,
-                                  child:
-                                  Center(
-                                    child: AutoSizeText(
-                                      "يَسْأَلُونَكَ مَاذَا يُنْفِقُونَ قُلْ مَا أَنْفَقْتُمْ مِنْ خَيْرٍ فَلِلْوَالِدَيْنِ وَالْأَقْرَبِينَ وَالْيَتَامَى وَالْمَسَاكِينِ وَابْنِ السَّبِيلِ وَمَا تَفْعَلُوا مِنْ خَيْرٍ فَإِنَّ اللَّهَ بِهِ عَلِيمٌ",
-                                      style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',),
-                                      minFontSize: 15,
-                                      stepGranularity: 15,
-                                      maxLines: 4,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
+                              categoryWedgit(
+                                onTap: () {
+                                  Navigator.pushNamed(context,ClothesPost.id);
+                                  setState(() {
+                                    Provider.of<InfoProvider>(context).medicineClick = false;
 
-                                ),
+                                  });
+                                },
+                                categoryName: "الملابس",
                               ),
-                              Positioned(
-                                bottom: 110,
-                                left:
-                                MediaQuery.of(context).size.width /
-                                    10,
-                                child: Container(
-                                  width: MediaQuery.of(context)
-                                      .size
-                                      .width /
-                                      1.46,
-                                  child: Center(
-                                      child: Text(
-                                        "صدق اللَّهُ العظيم",
-                                        style: TextStyle(
-                                            fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16),
-                                      )),
-                                ),
+                              categoryWedgit(
+                                onTap: () {
+                                  Navigator.pushNamed(context, FurnitureScreen.id);
+                                  setState(() {
+                                    Provider.of<InfoProvider>(context).medicineClick = false;
+
+                                  });
+                                },
+                                categoryName: "الأثاث",
                               ),
-                              Positioned(
-                                bottom: 50,
-                                left:
-                                MediaQuery.of(context).size.width /
-                                    10,
-                                child: Container(
-                                  width: MediaQuery.of(context)
-                                      .size
-                                      .width /
-                                      1.46,
-                                  child: Center(
-                                      child: Text(
-                                        "( 2:215 القرآن)",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16),
-                                      )),
-                                ),
+                              categoryWedgit(
+                                onTap: () {
+                                  Provider.of<InfoProvider>(context).Blood(context);
+
+                                },
+                                categoryName: "الدم",
                               ),
                             ],
                           ),
                         ),
-                      ),
+                        Divider(),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 0, bottom: 0, right: 20),
+                            child: Row(
+                              textDirection: TextDirection.rtl,
+                              children: <Widget>[
+                                Text(
+                                  "أوائل المتبرعين هذا الشهر ",
+                                  style: HomeHeadreStyle,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 200,
+                          child: StreamBuilder<List<TopDonatorsModel>>(
+                              stream: _bloc.streamtopdonators,
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) {
+                                        var data = snapshot.data[index];
+
+                                        return TopDonaorsList(
+                                          field: data.field,
+                                          image: data.urlImage,
+                                          name: data.name,
+                                        );
+                                      },
+                                      itemCount: snapshot.data.length,
+                                    ),
+                                  );
+                                } else
+                                  return
+                                    Container(
+                                    height: 200,
+                                    color: Colors.white,
+                                    child: Center(
+                                   child:   Text(
+                                        "قريبا فى اقرب اصدار ",
+                                        style: TextStyle(
+                                            fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                                            fontSize: 20,
+                                            color: kSecondColor,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  );
+                              }),
+                        ),
+                        Divider(),
+                        Padding(
+                          padding:
+                          const EdgeInsets.only(right: 20, bottom: 10),
+                          child: Row(
+                            textDirection: TextDirection.rtl,
+                             children: <Widget>[
+                               Text(
+                                 "الفعاليات والإفينتات فى الجمعيات الخيريه",
+                                 style: HomeHeadreStyle,
+                               ),
+                             ],
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: StreamBuilder<List<charityModel>>(
+                            stream: _bloc.streamCharity,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return CarouselSlider.builder(
+                                  autoPlay: false,
+                                  autoPlayAnimationDuration:
+                                  Duration(milliseconds: 0),
+                                  height: x ? 220 : 370,
+                                  itemCount: snapshot.data.length,
+                                  scrollPhysics: BouncingScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    var data = snapshot.data[index];
+
+                                    return Container(
+                                      width: MediaQuery.of(context)
+                                          .size
+                                          .width *
+                                          .99,
+                                      child: Stack(
+                                        children: <Widget>[
+                                          Positioned(
+                                            top: 0,
+                                            left: 0,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                              BorderRadius.circular(20),
+                                              child: CachedNetworkImage(
+                                                imageUrl: data.image,
+                                                width: (MediaQuery.of(
+                                                    context)
+                                                    .orientation ==
+                                                    Orientation
+                                                        .portrait)
+                                                    ? MediaQuery.of(context)
+                                                    .size
+                                                    .width -
+                                                    100
+                                                    : 600,
+                                                height: (MediaQuery.of(
+                                                    context)
+                                                    .orientation ==
+                                                    Orientation
+                                                        .portrait)
+                                                    ? 150
+                                                    : 300,
+                                                fit: BoxFit.cover,
+                                                placeholder: (context,
+                                                    url) =>
+                                                    CircularProgressIndicator(),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                    Icon(Icons.error),
+                                                placeholderFadeInDuration:
+                                                Duration(days: 30),
+                                                useOldImageOnUrlChange:
+                                                true,
+                                                filterQuality:
+                                                FilterQuality.low,
+                                              ),
+                                            ),
+                                          ),
+                                          Positioned(
+                                              left: 15,
+                                              bottom: 15,
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      15),
+                                                  color: Colors.white,
+                                                ),
+                                                child: FlatButton(
+                                                    onPressed: () {},
+                                                    child: Text("Join")),
+                                              ))
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
+                              } else
+                                return   Container(
+                                  height: 200,
+                                  color: Colors.white,
+                                  child: Center(
+                                    child:   Text(
+                                      "قريبا فى اقرب اصدار ",
+                                      style: TextStyle(
+                                          fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                                          fontSize: 20,
+                                          color: kSecondColor,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                );
+                            },
+                          ),
+                        ),
+                        Divider(),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 400,
+                          child: Center(
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * .9,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Color(0xffF9A110),
+                              ),
+                              child: Stack(
+                                children: <Widget>[
+                                  Positioned(
+                                    top: 40,
+                                    left: x
+                                        ? MediaQuery.of(context)
+                                        .size
+                                        .width /
+                                        3
+                                        : MediaQuery.of(context)
+                                        .size
+                                        .width /
+                                        2,
+                                    child: Text(
+                                      "قرآن اليوم",
+                                      style: TextStyle(
+                                          fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: 110,
+                                    left: x
+                                        ? MediaQuery.of(context)
+                                        .size
+                                        .width /
+                                        10
+                                        : MediaQuery.of(context)
+                                        .size
+                                        .width /
+                                        3.6,
+                                    child: Container(
+                                      width: x
+                                          ? MediaQuery.of(context)
+                                          .size
+                                          .width /
+                                          1.46
+                                          : MediaQuery.of(context)
+                                          .size
+                                          .width /
+                                          3,
+                                      child:
+                                      Center(
+                                        child: AutoSizeText(
+                                          "يَسْأَلُونَكَ مَاذَا يُنْفِقُونَ قُلْ مَا أَنْفَقْتُمْ مِنْ خَيْرٍ فَلِلْوَالِدَيْنِ وَالْأَقْرَبِينَ وَالْيَتَامَى وَالْمَسَاكِينِ وَابْنِ السَّبِيلِ وَمَا تَفْعَلُوا مِنْ خَيْرٍ فَإِنَّ اللَّهَ بِهِ عَلِيمٌ",
+                                          style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',),
+                                          minFontSize: 15,
+                                          stepGranularity: 15,
+                                          maxLines: 4,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: 110,
+                                    left:
+                                    MediaQuery.of(context).size.width /
+                                        10,
+                                    child: Container(
+                                      width: MediaQuery.of(context)
+                                          .size
+                                          .width /
+                                          1.46,
+                                      child: Center(
+                                          child: Text(
+                                            "صدق اللَّهُ العظيم",
+                                            style: TextStyle(
+                                                fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16),
+                                          )),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: 50,
+                                    left:
+                                    MediaQuery.of(context).size.width /
+                                        10,
+                                    child: Container(
+                                      width: MediaQuery.of(context)
+                                          .size
+                                          .width /
+                                          1.46,
+                                      child: Center(
+                                          child: Text(
+                                            "( 2:215 القرآن)",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16),
+                                          )),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 100,
+                        )
+                      ],
                     ),
-                    SizedBox(
-                      height: 100,
-                    )
-                  ],
-                ),
-              ),
-            )
-          ],
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );

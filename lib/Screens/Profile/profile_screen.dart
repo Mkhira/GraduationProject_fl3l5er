@@ -400,7 +400,7 @@ class TopProfileHeader implements SliverPersistentHeaderDelegate {
 
 class ProfileHeader extends StatelessWidget {
 
-
+Bloc _bloc = Bloc();
 
   @override
   Widget build(BuildContext context) {
@@ -493,77 +493,77 @@ class ProfileHeader extends StatelessWidget {
                               ),
                             ),
                           ),
-                          PopupMenuButton(
-                            icon: Icon(
-                              Icons.more_vert,
-                              color: kSecondColor,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6.0),
-                            ),
-                            onSelected: (kMainPopMenu result) {
-                              if (result == kMainPopMenu.editProfile) {
-                                Provider.of<InfoProvider>(context,
-                                            listen: false)
-                                        .modifyImage =
-                                    Provider.of<InfoProvider>(context,
-                                            listen: false)
-                                        .updatedImage;
-
-                                Provider.of<InfoProvider>(context,
-                                            listen: false)
-                                        .modifyStatus =
-                                    Provider.of<InfoProvider>(context,
-                                            listen: false)
-                                        .updatedStatus;
-                                Provider.of<InfoProvider>(context,
-                                            listen: false)
-                                        .modifyGender =
-                                    Provider.of<InfoProvider>(context,
-                                            listen: false)
-                                        .updatedGender;
-
-                                Provider.of<InfoProvider>(context,
-                                        listen: false)
-                                    .modifyDay = Provider.of<InfoProvider>(
-                                        context,
-                                        listen: false)
-                                    .updatedDay;
-
-                                Provider.of<InfoProvider>(context,
-                                            listen: false)
-                                        .modifyMonth =
-                                    Provider.of<InfoProvider>(context,
-                                            listen: false)
-                                        .updatedMonth;
-
-                                Provider.of<InfoProvider>(context,
-                                        listen: false)
-                                    .modifyYear = Provider.of<InfoProvider>(
-                                        context,
-                                        listen: false)
-                                    .updatedYear;
-                              }
-                              result == kMainPopMenu.moreInfo
-                                  ? showModalBottomSheet(
-                                      context: context,
-                                      builder: (context) => MoreInfo(),
-                                    )
-                                  : Navigator.pushNamed(
-                                      context, EditScreen.id);
-                            },
-                            itemBuilder: (BuildContext context) =>
-                                <PopupMenuEntry<kMainPopMenu>>[
-                              PopupMenuItem<kMainPopMenu>(
-                                value: kMainPopMenu.moreInfo,
-                                child: Text('More Information'),
-                              ),
-                              PopupMenuItem<kMainPopMenu>(
-                                value: kMainPopMenu.editProfile,
-                                child: Text('Edit Profile'),
-                              ),
-                            ],
-                          )
+//                          PopupMenuButton(
+//                            icon: Icon(
+//                              Icons.more_vert,
+//                              color: kSecondColor,
+//                            ),
+//                            shape: RoundedRectangleBorder(
+//                              borderRadius: BorderRadius.circular(6.0),
+//                            ),
+//                            onSelected: (kMainPopMenu result) {
+//                              if (result == kMainPopMenu.editProfile) {
+//                                Provider.of<InfoProvider>(context,
+//                                            listen: false)
+//                                        .modifyImage =
+//                                    Provider.of<InfoProvider>(context,
+//                                            listen: false)
+//                                        .updatedImage;
+//
+//                                Provider.of<InfoProvider>(context,
+//                                            listen: false)
+//                                        .modifyStatus =
+//                                    Provider.of<InfoProvider>(context,
+//                                            listen: false)
+//                                        .updatedStatus;
+//                                Provider.of<InfoProvider>(context,
+//                                            listen: false)
+//                                        .modifyGender =
+//                                    Provider.of<InfoProvider>(context,
+//                                            listen: false)
+//                                        .updatedGender;
+//
+//                                Provider.of<InfoProvider>(context,
+//                                        listen: false)
+//                                    .modifyDay = Provider.of<InfoProvider>(
+//                                        context,
+//                                        listen: false)
+//                                    .updatedDay;
+//
+//                                Provider.of<InfoProvider>(context,
+//                                            listen: false)
+//                                        .modifyMonth =
+//                                    Provider.of<InfoProvider>(context,
+//                                            listen: false)
+//                                        .updatedMonth;
+//
+//                                Provider.of<InfoProvider>(context,
+//                                        listen: false)
+//                                    .modifyYear = Provider.of<InfoProvider>(
+//                                        context,
+//                                        listen: false)
+//                                    .updatedYear;
+//                              }
+//                              result == kMainPopMenu.moreInfo
+//                                  ? showModalBottomSheet(
+//                                      context: context,
+//                                      builder: (context) => MoreInfo(),
+//                                    )
+//                                  : Navigator.pushNamed(
+//                                      context, EditScreen.id);
+//                            },
+//                            itemBuilder: (BuildContext context) =>
+//                                <PopupMenuEntry<kMainPopMenu>>[
+//                              PopupMenuItem<kMainPopMenu>(
+//                                value: kMainPopMenu.moreInfo,
+//                                child: Text('More Information'),
+//                              ),
+//                              PopupMenuItem<kMainPopMenu>(
+//                                value: kMainPopMenu.editProfile,
+//                                child: Text('Edit Profile'),
+//                              ),
+//                            ],
+//                          )
                         ],
                       ),
                       SizedBox(
@@ -603,25 +603,26 @@ class ProfileHeader extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Row(
-                        children: <Widget>[
-                          Image.asset(
-                            'assets/donate.png',
-                            color: kSecondColor,
-                          ),
-                          SizedBox(
-                            width: 6.0,
-                          ),
-                          Text(
-                            '14 Donation',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w600,
-                              color: kSecondColor,
-                            ),
-                          ),
-                        ],
-                      ),
+//                      Row(
+//                        children: <Widget>[
+//                          Image.asset(
+//                            'assets/donate.png',
+//                            color: kSecondColor,
+//                          ),
+//                          SizedBox(
+//                            width: 6.0,
+//                          ),
+//                          Text(
+//                            '${}',
+//                            style: TextStyle(
+//                              fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+//                              fontSize: 18.0,
+//                              fontWeight: FontWeight.w600,
+//                              color: kSecondColor,
+//                            ),
+//                          ),
+//                        ],
+//                      ),
                     ],
                   ),
                 ),

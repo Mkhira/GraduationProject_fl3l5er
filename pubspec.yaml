@@ -61,6 +61,7 @@ dependencies:
   file_picker: ^1.13.3
   fluttertoast: ^7.0.2
   url_launcher: ^5.5.0
+  custom_splash: ^0.0.2
 
 
 dev_dependencies:

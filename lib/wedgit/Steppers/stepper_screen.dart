@@ -202,6 +202,8 @@ class _StepperScreenState extends State<StepperScreen> {
           height: 40.0,
         ),
         MyMainTextField(
+          textChange: signUpProviderObj.emailChange,
+          textStream: signUpProviderObj.emailStream,
           inputController: signUpProviderObj.emailController,
           width: MediaQuery.of(context).size.width,
           hintText: 'الايميل',
@@ -516,10 +518,12 @@ class _StepperScreenState extends State<StepperScreen> {
                   onPressed:
                   (){
                     setState(() {
-                      signUpProviderObj.signUpRecord(context);
-                      _bloc.fetch();
-
+                      _loading=true;
                     });
+                    signUpProviderObj.userDocment(context);
+                    _bloc.fetch();
+                    _loading=false;
+
                   },
 //                      ()=>Navigator.push(context, MaterialPageRoute(builder: (context){
 //                    return HomePage();
@@ -579,6 +583,8 @@ class _Step1TextFieldState extends State<Step1TextField> {
     return Column(
       children: [
         MyMainTextField(
+          textChange: signUpProviderObj.passwordChange,
+          textStream: signUpProviderObj.passwordStream,
           inputController: signUpProviderObj.passwordController,
           width: MediaQuery.of(context).size.width,
           hintText: 'كلمة المرور',
@@ -596,6 +602,7 @@ class _Step1TextFieldState extends State<Step1TextField> {
           height: 25.0,
         ),
         MyMainTextField(
+
            inputController: signUpProviderObj.passwordConfirmController,
           width: MediaQuery.of(context).size.width,
           hintText: 'تأكيد كلمة المرور',

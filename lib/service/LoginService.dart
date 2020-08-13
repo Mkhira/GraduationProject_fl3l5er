@@ -6,6 +6,7 @@ import 'package:company_task/Utli/Common.dart';
 import 'package:company_task/models/User.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/wedgit/ButtonWidget.dart';
+import 'package:company_task/wedgit/FriebaseErrorDailog.dart';
 import 'file:///E:/flater_projects/company_task/lib/provider/SignUpLoginProvider/FireBaseAuth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,7 +19,9 @@ import 'package:shared_preferences/shared_preferences.dart';
   login(String email,String password, AuthNotifier authNotifier ,BuildContext context)async{
 
   AuthResult authResult =  await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password).
-    catchError((error)=> print(error.code));
+    catchError((error)=>  showDialog(context: context ,
+      builder: (BuildContext context) {
+        return  DailogError(text: "${error.code}",titleText: "هنالك خطأ فى البيانات",); } ));
 
 
    if(authResult != null){

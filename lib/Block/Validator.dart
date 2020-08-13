@@ -3,18 +3,23 @@ import 'dart:async';
 class Validator {
   final validateEmail =
       StreamTransformer<String, String>.fromHandlers(handleData: (email, sink) {
-    if (email.contains("@") && email.contains(".com")&& email.contains(",")!=true&& email.contains("!")!=true&& email.contains("%")!=true&& email.contains("#")!=true
-   && email.contains("%")!=true&& email.contains("^")!=true&& email.contains("&")!=true&& email.contains("*")!=true&& email.contains("(")!=true&& email.contains(")")!=true&& email.contains("-")!=true&& email.contains("=")!=true
-        && email.contains("+")!=true&& email.contains("[")!=true&& email.contains("]")!=true
-        && email.contains("{")!=true&& email.contains("}")!=true&& email.contains(":")!=true&& email.contains(";")!=true
-        && email.contains("\\")!=true&& email.contains("|")!=true&& email.contains("?")!=true&& email.contains("/")!=true&& email.contains("/")!=true&& email.contains(" ")!=true && email.length>=15 ) {
+        Pattern pattern =
+            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+        bool regExp =  RegExp(pattern).hasMatch(email);
+    if (regExp == true ) {
       sink.add(email);
     } else {
       sink.addError("Wrong Email Type");
     }
   });
   final validatePassword = StreamTransformer<String, String>.fromHandlers(
+
+
       handleData: (password, sink) {
+
+        Pattern pattern =r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+
+
     if (password.length > 8) {
       sink.add(password);
     } else {
