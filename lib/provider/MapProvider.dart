@@ -2,6 +2,7 @@ import 'package:company_task/Screens/Maps/user_location.dart';
 import 'package:company_task/provider/AddPostClothProvider.dart';
 import 'package:company_task/provider/AddPostMedicineProvider.dart';
 import 'package:company_task/provider/AddPostfurnitureProvider.dart';
+import 'package:company_task/provider/AddingBloodPostProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
@@ -34,6 +35,8 @@ class MapProvider extends ChangeNotifier{
      Provider.of<AddPostClothProvider>(context).chosenLat =position.latitude;
      Provider.of<AddPostFurnitureProvider>(context).chosenLong =position.longitude;
      Provider.of<AddPostFurnitureProvider>(context).chosenLat =position.latitude;
+     Provider.of<BloodPostProvider>(context).chosenLong =position.longitude;
+     Provider.of<BloodPostProvider>(context).chosenLat =position.latitude;
      notifyListeners();
    }
 

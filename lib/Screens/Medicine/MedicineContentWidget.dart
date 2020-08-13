@@ -30,6 +30,7 @@ class ContentWidget extends StatelessWidget {
               description: medicineModel.description,
               userId: medicineModel.userID,
               ownerName: medicineModel.ownerName,
+              typeState: "",
 
             );
           }));

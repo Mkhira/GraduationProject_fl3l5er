@@ -183,7 +183,7 @@ class AddPostFurnitureProvider extends ChangeNotifier{
         'phone':  int.parse(phone.value.toString()),
         'searchkey':name,
         'state': selectedsState,
-        'clothstate': selectedsStateType,
+        'furnitureState': selectedsStateType,
         'dayleft': int.parse(duration.value.toString()),
         'userid': Provider.of<InfoProvider>(context).UserLoginId,
         "documentId": ref.documentID,

@@ -244,6 +244,7 @@ class ContentWidget extends StatelessWidget {
             description: clothModel.description,
             ownerName: clothModel.ownerName,
             userId: clothModel.userID,
+            typeState: clothModel.clothState,
 
           );
         }));

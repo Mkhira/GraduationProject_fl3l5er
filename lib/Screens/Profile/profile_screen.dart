@@ -343,7 +343,7 @@ SizedBox(width: 40,)
                       return Container(
                         height: 100,
                         width: 200,
-                        color: Colors.purpleAccent,
+
                       );
 
                   },

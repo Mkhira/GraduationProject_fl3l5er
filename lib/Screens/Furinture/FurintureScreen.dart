@@ -213,6 +213,7 @@ class ContentWidget extends StatelessWidget {
             description: furnitureModel.description,
             userId: furnitureModel.userID,
             ownerName: furnitureModel.ownerName,
+            typeState: furnitureModel.furnitureState,
           );
         }));
       },

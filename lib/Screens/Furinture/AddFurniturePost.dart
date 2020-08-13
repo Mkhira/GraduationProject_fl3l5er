@@ -518,7 +518,7 @@ class _AddFurniturePostScreenState extends State<AddFurniturePostScreen> {
 
                                 });
                                 Provider.of<AddPostFurnitureProvider>(context).createRecordFurniture(context);
-
+                                _loading=false;
                               }
                           ),
                         ),

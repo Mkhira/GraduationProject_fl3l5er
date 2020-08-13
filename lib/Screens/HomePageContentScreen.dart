@@ -1,6 +1,7 @@
 
 
 
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -15,6 +16,7 @@ import 'package:company_task/models/topDonatersmodel.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/style/constent.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts_arabic/fonts.dart';
 import 'package:provider/provider.dart';
 
 class MainHomePage extends StatefulWidget {
@@ -55,37 +57,30 @@ class _MainHomePageState extends State<MainHomePage> {
                   child: Row(
                     children: <Widget>[
                       Spacer(
-                        flex: 1,
+                        flex: 5,
                       ),
                       Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            color: Colors.white,
+                            color: kMainColor,
                           ),
                           width:
                           MediaQuery.of(context).size.width / 1.5,
                           height: 60,
-                          child: TextField(
-                            decoration: InputDecoration(
-                              hintText: 'Find your needs',
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  Icons.search,
-                                  color: Colors.grey,
-                                ),
-                                onPressed: () {},
-                              ),
-                              prefix: IconButton(
-                                  icon: Icon(
-                                    Icons.format_align_left,
-                                    color: Colors.grey,
-                                  ),
-                                  onPressed: () {}),
-                              border: InputBorder.none,
-                            ),
-                          )),
+                        child: Row(
+                          textDirection: TextDirection.rtl,
+                          children: <Widget>[
+                            Text(Provider.of<InfoProvider>(context).nameProfile != null ? "${Provider.of<InfoProvider>(context).nameProfile}" : "من فضلك اضغط هنا >>",style: TextStyle(
+                              fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                              fontWeight: FontWeight.bold,
+                              color: kSecondColor,
+                              fontSize: 20
+                            ),)
+                          ],
+                        ),
+                          ),
                       Spacer(
-                        flex: 2,
+                        flex: 1,
                       ),
                       GestureDetector(
                         onTap: () {
@@ -102,7 +97,7 @@ class _MainHomePageState extends State<MainHomePage> {
                               null
                               ? Center(
                               child: Text(
-                                'No image selected.',
+                                'Click',
                                 style: TextStyle(color: Colors.white),
                               ))
                               : ClipRRect(
@@ -151,9 +146,11 @@ class _MainHomePageState extends State<MainHomePage> {
                         padding: const EdgeInsets.only(
                             top: 10, bottom: 0, left: 20),
                         child: Row(
+                          textDirection: TextDirection.rtl,
                           children: <Widget>[
+                            SizedBox(width: 30,),
                             Text(
-                              "Categories",
+                              "الفئات",
                               style: HomeHeadreStyle,
                             ),
                           ],
@@ -187,7 +184,7 @@ class _MainHomePageState extends State<MainHomePage> {
 
                               });
                             },
-                            categoryName: "Cloth",
+                            categoryName: "الملابس",
                           ),
                           categoryWedgit(
                             onTap: () {
@@ -197,14 +194,14 @@ class _MainHomePageState extends State<MainHomePage> {
 
                               });
                             },
-                            categoryName: "Furniture",
+                            categoryName: "الأثاث",
                           ),
                           categoryWedgit(
                             onTap: () {
                               Provider.of<InfoProvider>(context).Blood(context);
 
                             },
-                            categoryName: "Blood",
+                            categoryName: "الدم",
                           ),
                         ],
                       ),
@@ -214,11 +211,12 @@ class _MainHomePageState extends State<MainHomePage> {
                       width: MediaQuery.of(context).size.width,
                       child: Padding(
                         padding: const EdgeInsets.only(
-                            top: 0, bottom: 0, left: 20),
+                            top: 0, bottom: 0, right: 20),
                         child: Row(
+                          textDirection: TextDirection.rtl,
                           children: <Widget>[
                             Text(
-                              "Top Donated Peple",
+                              "أوائل المتبرعين هذا الشهر ",
                               style: HomeHeadreStyle,
                             ),
                           ],
@@ -249,16 +247,35 @@ class _MainHomePageState extends State<MainHomePage> {
                                 ),
                               );
                             } else
-                              return Container();
+                              return
+                                Container(
+                                height: 200,
+                                color: Colors.white,
+                                child: Center(
+                               child:   Text(
+                                    "قريبا فى اقرب اصدار ",
+                                    style: TextStyle(
+                                        fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                                        fontSize: 20,
+                                        color: kSecondColor,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              );
                           }),
                     ),
                     Divider(),
                     Padding(
                       padding:
-                      const EdgeInsets.only(left: 20, bottom: 10),
-                      child: Text(
-                        "Join Charites",
-                        style: HomeHeadreStyle,
+                      const EdgeInsets.only(right: 20, bottom: 10),
+                      child: Row(
+                        textDirection: TextDirection.rtl,
+                         children: <Widget>[
+                           Text(
+                             "الفعاليات والإفينتات فى الجمعيات الخيريه",
+                             style: HomeHeadreStyle,
+                           ),
+                         ],
                       ),
                     ),
                     Container(
@@ -345,7 +362,20 @@ class _MainHomePageState extends State<MainHomePage> {
                               },
                             );
                           } else
-                            return Container();
+                            return   Container(
+                              height: 200,
+                              color: Colors.white,
+                              child: Center(
+                                child:   Text(
+                                  "قريبا فى اقرب اصدار ",
+                                  style: TextStyle(
+                                      fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                                      fontSize: 20,
+                                      color: kSecondColor,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            );
                         },
                       ),
                     ),
@@ -363,26 +393,27 @@ class _MainHomePageState extends State<MainHomePage> {
                           child: Stack(
                             children: <Widget>[
                               Positioned(
-                                top: 50,
+                                top: 40,
                                 left: x
                                     ? MediaQuery.of(context)
                                     .size
                                     .width /
-                                    3.8
+                                    3
                                     : MediaQuery.of(context)
                                     .size
                                     .width /
-                                    2.8,
+                                    2,
                                 child: Text(
-                                  "QUTE THE DAY",
+                                  "قرآن اليوم",
                                   style: TextStyle(
+                                      fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18),
                                 ),
                               ),
                               Positioned(
-                                top: 90,
+                                top: 110,
                                 left: x
                                     ? MediaQuery.of(context)
                                     .size
@@ -406,7 +437,7 @@ class _MainHomePageState extends State<MainHomePage> {
                                   Center(
                                     child: AutoSizeText(
                                       "يَسْأَلُونَكَ مَاذَا يُنْفِقُونَ قُلْ مَا أَنْفَقْتُمْ مِنْ خَيْرٍ فَلِلْوَالِدَيْنِ وَالْأَقْرَبِينَ وَالْيَتَامَى وَالْمَسَاكِينِ وَابْنِ السَّبِيلِ وَمَا تَفْعَلُوا مِنْ خَيْرٍ فَإِنَّ اللَّهَ بِهِ عَلِيمٌ",
-                                      style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold,),
+                                      style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',),
                                       minFontSize: 15,
                                       stepGranularity: 15,
                                       maxLines: 4,
@@ -430,6 +461,7 @@ class _MainHomePageState extends State<MainHomePage> {
                                       child: Text(
                                         "صدق اللَّهُ العظيم",
                                         style: TextStyle(
+                                            fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
                                             fontWeight: FontWeight.bold,
                                             fontSize: 16),
                                       )),
@@ -447,7 +479,7 @@ class _MainHomePageState extends State<MainHomePage> {
                                       1.46,
                                   child: Center(
                                       child: Text(
-                                        "(QURAN 2:215)",
+                                        "( 2:215 القرآن)",
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 16),
@@ -460,7 +492,7 @@ class _MainHomePageState extends State<MainHomePage> {
                       ),
                     ),
                     SizedBox(
-                      height: 50,
+                      height: 100,
                     )
                   ],
                 ),
@@ -599,18 +631,19 @@ class EventHeader extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.only(left: 15, right: 15, bottom: 20, top: 10),
+            padding: EdgeInsets.only(left: 40, bottom: 20, top: 10),
             child: Row(
+              textDirection: TextDirection.rtl,
               children: <Widget>[
                 Text(
-                  "Trending",
+                  "تبرع بالمال",
                   style: HomeHeadreStyle,
                 ),
                 Spacer(
                   flex: 1,
                 ),
                 Text(
-                  "MORE",
+                  "المزيد",
                   style: homeLittleHeaderStyle,
                 ),
               ],
@@ -642,6 +675,7 @@ class EventHeader extends StatelessWidget {
                         ),
                         child: Stack(
                           children: <Widget>[
+
                             Positioned(
                               top: 0,
                               left: 0,
@@ -700,356 +734,366 @@ class EventHeader extends StatelessWidget {
                                     child: Row(
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       mainAxisAlignment: MainAxisAlignment.center,
+                                      textDirection: TextDirection.rtl,
                                       children: <Widget>[
                                         Text(
                                           "${data.duration}",
                                           style: TextStyle(
+                                              fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
                                               fontWeight: FontWeight.bold),
                                         ),
-                                        Text(" Days left")
+                                        Text(" يوم متبقى ",style: TextStyle(fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',),)
                                       ],
                                     )),
                               ),
                             ),
+//                            Positioned(
+//                              right: 10,
+//                              top: x ? 135 : 230,
+//                              child: FlatButton(
+//                                shape: CircleBorder(),
+//                                onPressed: () {
+//                                  showModalBottomSheet(
+//                                    context: context,
+//                                    builder: (context) => Container(
+//                                      color: Color(0xff757575),
+//                                      child: Container(
+//                                        decoration: BoxDecoration(
+//                                          color: Color(0xffe6e6ea),
+//                                          borderRadius: BorderRadius.only(
+//                                            topLeft: Radius.circular(20),
+//                                            topRight: Radius.circular(20),
+//                                          ),
+//                                        ),
+//                                        child: Stack(
+//                                          children: <Widget>[
+////                                            Positioned(
+////                                              top: 0,
+////                                              right: 30,
+////                                              child: RaisedButton(
+////                                                shape: CircleBorder(),
+////                                                color: Color(0xffF9A110),
+////                                                child: Icon(
+////                                                  Icons.bookmark_border,
+////                                                  size: 30,
+////                                                  color: Colors.white,
+////                                                ),
+////                                                onPressed: () {},
+////                                              ),
+////                                            ),
+//                                            Positioned(
+//                                              top: 60,
+//                                              left: 20,
+//                                              child: Container(
+//                                                  width: MediaQuery.of(context)
+//                                                      .size
+//                                                      .width,
+//                                                  height: 100,
+//                                                  child: Text(
+//
+//                                                    data.eventName,
+//                                                    textDirection: TextDirection.rtl,
+//                                                    style: HomeHeadreStyle,
+//                                                  )),
+//                                            ),
+//                                            Positioned(
+//                                              top: 120,
+//                                              left: 0,
+//                                              child: Container(
+//                                                width: MediaQuery.of(context)
+//                                                    .size
+//                                                    .width,
+//                                                child: Padding(
+//                                                  padding:
+//                                                  const EdgeInsets.only(
+//                                                      left: 0),
+//                                                  child: Column(
+//                                                    crossAxisAlignment:
+//                                                    CrossAxisAlignment
+//                                                        .start,
+//                                                    children: <Widget>[
+//                                                      Padding(
+//                                                        padding:
+//                                                        const EdgeInsets
+//                                                            .only(
+//                                                          left: 20,
+//                                                        ),
+//                                                        child: Container(
+//                                                          width: MediaQuery.of(
+//                                                              context)
+//                                                              .size
+//                                                              .width /
+//                                                              1.1,
+//                                                          child: Row(
+//                                                            children: <Widget>[
+//                                                              Text(
+//                                                                "Organized by: ",
+//                                                                style:
+//                                                                homeLittleHeaderStyle,
+//                                                              ),
+//                                                              Text(
+//                                                                "Sona3 El hua",
+//                                                                style:
+//                                                                HomeHeadreStyle,
+//                                                              ),
+//                                                            ],
+//                                                          ),
+//                                                        ),
+//                                                      ),
+//                                                      SliderEvent(data: data),
+//                                                      Container(
+//                                                        width: MediaQuery.of(
+//                                                            context)
+//                                                            .size
+//                                                            .width,
+//                                                        child: Column(
+//                                                          crossAxisAlignment:
+//                                                          CrossAxisAlignment
+//                                                              .start,
+//                                                          mainAxisAlignment:
+//                                                          MainAxisAlignment
+//                                                              .start,
+//                                                          children: <Widget>[
+//                                                            Row(
+//                                                              children: <
+//                                                                  Widget>[
+//                                                                SizedBox(
+//                                                                  width: 50,
+//                                                                ),
+//                                                                Text(
+//                                                                  "Raisd so far",
+//                                                                  style:
+//                                                                  kTitleHeadLine,
+//                                                                ),
+//                                                                Spacer(),
+//                                                                Text(
+//                                                                  "Target",
+//                                                                  style:
+//                                                                  kTitleHeadLine,
+//                                                                ),
+//                                                                SizedBox(
+//                                                                  width: 50,
+//                                                                ),
+//                                                              ],
+//                                                            ),
+//                                                            SizedBox(
+//                                                              height: 5,
+//                                                            ),
+//                                                            Row(
+//                                                              children: <
+//                                                                  Widget>[
+//                                                                SizedBox(
+//                                                                  width: 65,
+//                                                                ),
+//                                                                Text(
+//                                                                  "${data.amount}",
+//                                                                  style: TextStyle(
+//                                                                      fontWeight:
+//                                                                      FontWeight
+//                                                                          .bold),
+//                                                                ),
+//                                                                Spacer(),
+//                                                                Text(
+//                                                                    "(%${((data.amount / data.need) * 100).round()})",
+//                                                                    style: TextStyle(
+//                                                                        fontWeight:
+//                                                                        FontWeight.w300)),
+//                                                                SizedBox(
+//                                                                  width: 50,
+//                                                                ),
+//                                                              ],
+//                                                            ),
+//                                                          ],
+//                                                        ),
+//                                                      ),
+//                                                      Divider(),
+//                                                      Center(
+//                                                        child: Container(
+//                                                          height: 260,
+//                                                          color:
+//                                                          Color(0xffe6e6ea),
+//                                                          width: MediaQuery.of(
+//                                                              context)
+//                                                              .size
+//                                                              .width *
+//                                                              .9,
+////                                                              color: Colors.red,
+//                                                          child: ListView(
+//                                                            shrinkWrap: true,
+//                                                            children: <Widget>[
+//                                                              Padding(
+//                                                                padding:
+//                                                                const EdgeInsets
+//                                                                    .only(
+//                                                                    bottom:
+//                                                                    20),
+//                                                                child: Text(
+//                                                                  "Recent donors",
+//                                                                  style:
+//                                                                  kTitleHeadLine,
+//                                                                ),
+//                                                              ),
+//                                                              Row(
+//                                                                children: <
+//                                                                    Widget>[
+//                                                                  CircleAvatar(
+//                                                                    radius: 35,
+//                                                                    backgroundImage:
+//                                                                    AssetImage(
+//                                                                        "assets/me.jpg"),
+//                                                                  ),
+//                                                                  Spacer(
+//                                                                    flex: 1,
+//                                                                  ),
+//                                                                  CircleAvatar(
+//                                                                    radius: 32,
+//                                                                    backgroundImage:
+//                                                                    AssetImage(
+//                                                                        "assets/me.jpg"),
+//                                                                  ),
+//                                                                  Spacer(
+//                                                                    flex: 1,
+//                                                                  ),
+//                                                                  CircleAvatar(
+//                                                                    radius: 30,
+//                                                                    backgroundImage:
+//                                                                    AssetImage(
+//                                                                        "assets/me.jpg"),
+//                                                                  ),
+//                                                                  Spacer(
+//                                                                    flex: 1,
+//                                                                  ),
+//                                                                  CircleAvatar(
+//                                                                    radius: 27,
+//                                                                    backgroundImage:
+//                                                                    AssetImage(
+//                                                                        "assets/me.jpg"),
+//                                                                  ),
+//                                                                  Spacer(
+//                                                                    flex: 1,
+//                                                                  ),
+//                                                                  CircleAvatar(
+//                                                                    radius: 24,
+//                                                                    backgroundColor:
+//                                                                    Color(
+//                                                                        0xffF9A110),
+//                                                                    child: Text(
+//                                                                      "99+",
+//                                                                      style: TextStyle(
+//                                                                          color:
+//                                                                          Colors.white),
+//                                                                    ),
+//                                                                  ),
+//                                                                  Spacer(
+//                                                                    flex: 2,
+//                                                                  ),
+//                                                                ],
+//                                                              ),
+//                                                              SizedBox(
+//                                                                height: 20,
+//                                                              ),
+//                                                              Padding(
+//                                                                padding:
+//                                                                const EdgeInsets
+//                                                                    .only(
+//                                                                    right:
+//                                                                    200),
+//                                                                child:
+//                                                                Container(
+//                                                                  height: 50,
+//                                                                  decoration:
+//                                                                  BoxDecoration(
+//                                                                    borderRadius:
+//                                                                    BorderRadius.circular(
+//                                                                        20),
+//                                                                    color: Colors
+//                                                                        .white,
+//                                                                  ),
+//                                                                  child: Center(
+//                                                                      child:
+//                                                                      Text(
+//                                                                        "Event Details",
+//                                                                        style:
+//                                                                        HomeHeadreStyle,
+//                                                                      )),
+//                                                                ),
+//                                                              ),
+//                                                              SizedBox(
+//                                                                height: 20,
+//                                                              ),
+//                                                              Text(
+//                                                                  "This event is about bulding a mosqueue in "),
+//                                                              Text(
+//                                                                  "quisna where there is no mosque to help people "),
+//                                                              Text(
+//                                                                  "to pray try to help us bulding god hous in earth"),
+//                                                              Text(
+//                                                                  "god build u house in heven "),
+//                                                              SizedBox(
+//                                                                height: 90,
+//                                                              )
+//                                                            ],
+//                                                          ),
+//                                                        ),
+//                                                      )
+//                                                    ],
+//                                                  ),
+//                                                ),
+//                                              ),
+//                                            ),
+//                                            Positioned(
+//                                              bottom: 10,
+//                                              right: 10,
+//                                              child: MaterialButton(
+//                                                onPressed: () {},
+//                                                shape: RoundedRectangleBorder(
+//                                                  side: BorderSide(
+//                                                      width: 3,
+//                                                      color: Colors.white,
+//                                                      style: BorderStyle.solid),
+//                                                  borderRadius:
+//                                                  BorderRadius.all(
+//                                                    Radius.circular(30),
+//                                                  ),
+//                                                ),
+//                                                height: 40,
+//                                                minWidth: 100,
+//                                                child: Text(
+//                                                  "Donate",
+//                                                  style: TextStyle(
+//                                                      color: Colors.white,
+//                                                      fontWeight:
+//                                                      FontWeight.bold),
+//                                                ),
+//                                                elevation: 5,
+//                                                color: Colors.black,
+//                                              ),
+//                                            )
+//                                          ],
+//                                        ),
+//                                      ),
+//                                    ),
+//                                  );
+//                                },
+//                                color: Colors.white,
+//                                child: Icon(
+//                                  Icons.bookmark,
+//                                  color: Colors.grey,
+//                                ),
+//                              ),
+//                            ),
                             Positioned(
-                              right: 10,
-                              top: x ? 135 : 230,
-                              child: FlatButton(
-                                shape: CircleBorder(),
-                                onPressed: () {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    builder: (context) => Container(
-                                      color: Color(0xff757575),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Color(0xffe6e6ea),
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(20),
-                                            topRight: Radius.circular(20),
-                                          ),
-                                        ),
-                                        child: Stack(
-                                          children: <Widget>[
-                                            Positioned(
-                                              top: 0,
-                                              right: 30,
-                                              child: RaisedButton(
-                                                shape: CircleBorder(),
-                                                color: Color(0xffF9A110),
-                                                child: Icon(
-                                                  Icons.bookmark_border,
-                                                  size: 30,
-                                                  color: Colors.white,
-                                                ),
-                                                onPressed: () {},
-                                              ),
-                                            ),
-                                            Positioned(
-                                              top: 60,
-                                              left: 20,
-                                              child: Container(
-                                                  width: MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                                  height: 100,
-                                                  child: Text(
-                                                    data.eventName,
-                                                    style: HomeHeadreStyle,
-                                                  )),
-                                            ),
-                                            Positioned(
-                                              top: 120,
-                                              left: 0,
-                                              child: Container(
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                child: Padding(
-                                                  padding:
-                                                  const EdgeInsets.only(
-                                                      left: 0),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .start,
-                                                    children: <Widget>[
-                                                      Padding(
-                                                        padding:
-                                                        const EdgeInsets
-                                                            .only(
-                                                          left: 20,
-                                                        ),
-                                                        child: Container(
-                                                          width: MediaQuery.of(
-                                                              context)
-                                                              .size
-                                                              .width /
-                                                              1.1,
-                                                          child: Row(
-                                                            children: <Widget>[
-                                                              Text(
-                                                                "Organized by: ",
-                                                                style:
-                                                                homeLittleHeaderStyle,
-                                                              ),
-                                                              Text(
-                                                                "Sona3 El hua",
-                                                                style:
-                                                                HomeHeadreStyle,
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      SliderEvent(data: data),
-                                                      Container(
-                                                        width: MediaQuery.of(
-                                                            context)
-                                                            .size
-                                                            .width,
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                          mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                          children: <Widget>[
-                                                            Row(
-                                                              children: <
-                                                                  Widget>[
-                                                                SizedBox(
-                                                                  width: 50,
-                                                                ),
-                                                                Text(
-                                                                  "Raisd so far",
-                                                                  style:
-                                                                  kTitleHeadLine,
-                                                                ),
-                                                                Spacer(),
-                                                                Text(
-                                                                  "Target",
-                                                                  style:
-                                                                  kTitleHeadLine,
-                                                                ),
-                                                                SizedBox(
-                                                                  width: 50,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            SizedBox(
-                                                              height: 5,
-                                                            ),
-                                                            Row(
-                                                              children: <
-                                                                  Widget>[
-                                                                SizedBox(
-                                                                  width: 65,
-                                                                ),
-                                                                Text(
-                                                                  "${data.amount}",
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
-                                                                ),
-                                                                Spacer(),
-                                                                Text(
-                                                                    "(%${((data.amount / data.need) * 100).round()})",
-                                                                    style: TextStyle(
-                                                                        fontWeight:
-                                                                        FontWeight.w300)),
-                                                                SizedBox(
-                                                                  width: 50,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      Divider(),
-                                                      Center(
-                                                        child: Container(
-                                                          height: 260,
-                                                          color:
-                                                          Color(0xffe6e6ea),
-                                                          width: MediaQuery.of(
-                                                              context)
-                                                              .size
-                                                              .width *
-                                                              .9,
-//                                                              color: Colors.red,
-                                                          child: ListView(
-                                                            shrinkWrap: true,
-                                                            children: <Widget>[
-                                                              Padding(
-                                                                padding:
-                                                                const EdgeInsets
-                                                                    .only(
-                                                                    bottom:
-                                                                    20),
-                                                                child: Text(
-                                                                  "Recent donors",
-                                                                  style:
-                                                                  kTitleHeadLine,
-                                                                ),
-                                                              ),
-                                                              Row(
-                                                                children: <
-                                                                    Widget>[
-                                                                  CircleAvatar(
-                                                                    radius: 35,
-                                                                    backgroundImage:
-                                                                    AssetImage(
-                                                                        "assets/me.jpg"),
-                                                                  ),
-                                                                  Spacer(
-                                                                    flex: 1,
-                                                                  ),
-                                                                  CircleAvatar(
-                                                                    radius: 32,
-                                                                    backgroundImage:
-                                                                    AssetImage(
-                                                                        "assets/me.jpg"),
-                                                                  ),
-                                                                  Spacer(
-                                                                    flex: 1,
-                                                                  ),
-                                                                  CircleAvatar(
-                                                                    radius: 30,
-                                                                    backgroundImage:
-                                                                    AssetImage(
-                                                                        "assets/me.jpg"),
-                                                                  ),
-                                                                  Spacer(
-                                                                    flex: 1,
-                                                                  ),
-                                                                  CircleAvatar(
-                                                                    radius: 27,
-                                                                    backgroundImage:
-                                                                    AssetImage(
-                                                                        "assets/me.jpg"),
-                                                                  ),
-                                                                  Spacer(
-                                                                    flex: 1,
-                                                                  ),
-                                                                  CircleAvatar(
-                                                                    radius: 24,
-                                                                    backgroundColor:
-                                                                    Color(
-                                                                        0xffF9A110),
-                                                                    child: Text(
-                                                                      "99+",
-                                                                      style: TextStyle(
-                                                                          color:
-                                                                          Colors.white),
-                                                                    ),
-                                                                  ),
-                                                                  Spacer(
-                                                                    flex: 2,
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              SizedBox(
-                                                                height: 20,
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                const EdgeInsets
-                                                                    .only(
-                                                                    right:
-                                                                    200),
-                                                                child:
-                                                                Container(
-                                                                  height: 50,
-                                                                  decoration:
-                                                                  BoxDecoration(
-                                                                    borderRadius:
-                                                                    BorderRadius.circular(
-                                                                        20),
-                                                                    color: Colors
-                                                                        .white,
-                                                                  ),
-                                                                  child: Center(
-                                                                      child:
-                                                                      Text(
-                                                                        "Event Details",
-                                                                        style:
-                                                                        HomeHeadreStyle,
-                                                                      )),
-                                                                ),
-                                                              ),
-                                                              SizedBox(
-                                                                height: 20,
-                                                              ),
-                                                              Text(
-                                                                  "This event is about bulding a mosqueue in "),
-                                                              Text(
-                                                                  "quisna where there is no mosque to help people "),
-                                                              Text(
-                                                                  "to pray try to help us bulding god hous in earth"),
-                                                              Text(
-                                                                  "god build u house in heven "),
-                                                              SizedBox(
-                                                                height: 90,
-                                                              )
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Positioned(
-                                              bottom: 10,
-                                              right: 10,
-                                              child: MaterialButton(
-                                                onPressed: () {},
-                                                shape: RoundedRectangleBorder(
-                                                  side: BorderSide(
-                                                      width: 3,
-                                                      color: Colors.white,
-                                                      style: BorderStyle.solid),
-                                                  borderRadius:
-                                                  BorderRadius.all(
-                                                    Radius.circular(30),
-                                                  ),
-                                                ),
-                                                height: 40,
-                                                minWidth: 100,
-                                                child: Text(
-                                                  "Donate",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                      FontWeight.bold),
-                                                ),
-                                                elevation: 5,
-                                                color: Colors.black,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                                color: Colors.white,
-                                child: Icon(
-                                  Icons.bookmark,
-                                  color: Colors.grey,
+                              bottom: 75,
+                              left: 70,
+                              child: Center(
+                                child: Text(
+                                  "قريبا فى اقرب اصدار ",
+                                  style: TextStyle(
+                                      fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                                          fontSize: 20,
+                                      color: kSecondColor,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                              ),
-                            ),
-                            Positioned(
-                              bottom: 90,
-                              left: 15,
-                              child: Text(
-                                "${data.eventName}",
-                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
                             Positioned(
@@ -1063,21 +1107,24 @@ class EventHeader extends StatelessWidget {
                               bottom: 20,
                               left: 20,
                               child: Container(
-                                width: MediaQuery.of(context).size.width - 100,
+                                width: MediaQuery.of(context).size.width /1.5,
                                 child: Row(
+                                  textDirection: TextDirection.rtl,
                                   children: <Widget>[
                                     Text(
-                                      "Total collected",
+                                      "ما تم جمعه",
                                       style: TextStyle(
-                                          fontWeight: FontWeight.w300,
+                                          fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                                          fontWeight: FontWeight.bold,
                                           fontSize: 12),
                                     ),
                                     Spacer(
-                                      flex: 1,
+                                      flex: 5,
                                     ),
                                     Text(
                                       "${data.amount}",
                                       style: TextStyle(
+                                          fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
                                           fontWeight: FontWeight.bold),
                                     ),
                                     SizedBox(
@@ -1086,10 +1133,9 @@ class EventHeader extends StatelessWidget {
                                     Text(
                                         "(%${((data.amount / data.need) * 100).round()})",
                                         style: TextStyle(
+                                            fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
                                             fontWeight: FontWeight.w300)),
-                                    Spacer(
-                                      flex: 1,
-                                    ),
+
                                   ],
                                 ),
                               ),

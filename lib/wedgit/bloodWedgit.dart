@@ -62,8 +62,8 @@ class donationList extends StatelessWidget {
 
         child: Container(
 
-          width: MediaQuery.of(context).size.width,
-          height: 90,
+          width: MediaQuery.of(context).size.width-20,
+          height: 130,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: Colors.white,
@@ -71,19 +71,18 @@ class donationList extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+               textDirection: TextDirection.rtl,
               children: <Widget>[
                 SizedBox(width: 5,),
                 Container(
-                  height: 60,
-                  width: 60,
+                  height: 100,
+                  width: 80,
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle
+                        borderRadius: BorderRadius.circular(15)
                   ),
                   child: ClipRRect(
                     borderRadius:
-                    BorderRadius.circular(50),
+                    BorderRadius.circular(15),
                     child: CachedNetworkImage(
                       imageUrl: imageUrl,
                       width: MediaQuery.of(context)
@@ -107,25 +106,31 @@ class donationList extends StatelessWidget {
                 ),
 
                 Spacer(
-                  flex: 1,
+                  flex: 2,
                 ),
+
                 Container(
+                  padding: EdgeInsets.only(right: 10),
                   width: MediaQuery.of(context).size.width/1.6,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
+                    textDirection: TextDirection.rtl,
                     children: <Widget>[
                       Text(
                         name,
+                        textDirection: TextDirection.rtl,
                         style: HomeHeadreStyle,
                       ),
                       SizedBox(height: 10,),
                       AutoSizeText(
                         "$description",
-                        style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: kSecondColor),
-                        minFontSize: 10,
-                        stepGranularity: 10,
-                        maxLines: 1,
+                        textDirection: TextDirection.rtl,
+                        presetFontSizes: [10,8,5,2],
+                        style: TextStyle(fontWeight: FontWeight.bold,color: kSecondColor),
+
+                    
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
 
@@ -133,7 +138,7 @@ class donationList extends StatelessWidget {
                   ),
                 ),
                 Spacer(
-                  flex: 2,
+                  flex: 1,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

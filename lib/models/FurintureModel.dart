@@ -13,12 +13,15 @@ class FurnitureModel{
   String userImage;
   String description;
   String ownerName;
+  String furnitureState;
+
   int dayLeft;
 
-  FurnitureModel({this.ownerName,this.description,this.userImage,this.documentId,this.userID,this.name,this.amount,this.imageUrl,this.location,this.owner,this.phone,this.state,this.dayLeft});
+  FurnitureModel({this.furnitureState,this.ownerName,this.description,this.userImage,this.documentId,this.userID,this.name,this.amount,this.imageUrl,this.location,this.owner,this.phone,this.state,this.dayLeft});
 
   factory FurnitureModel.fromJison(DocumentSnapshot snapshot){
     var data = snapshot.data;
+
     return FurnitureModel(
         name: data['name'],
         amount: data['amount'],
@@ -32,7 +35,8 @@ class FurnitureModel{
       documentId: data["documentId"],
       userImage: data["userImage"],
       description: data["description"],
-      ownerName: data["ownerName"]
+      ownerName: data["ownerName"],
+      furnitureState: data["furnitureState"],
 
     );
 

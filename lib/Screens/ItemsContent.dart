@@ -29,7 +29,8 @@ class ItemContent extends StatefulWidget {
  final String description;
  final String userId;
  final String ownerName;
- ItemContent({this.ownerName,this.userId,this.name,this.imageUrl,this.phone,this.location,this.amount,this.owner,this.state,this.dayLeft,this.userImage,this.information,this.description});
+ final String typeState;
+ ItemContent({this.typeState,this.ownerName,this.userId,this.name,this.imageUrl,this.phone,this.location,this.amount,this.owner,this.state,this.dayLeft,this.userImage,this.information,this.description});
 
   @override
   _ItemContentState createState() => _ItemContentState();
@@ -242,17 +243,22 @@ createChatRomAndStartConverstion({String userId, String userName, String imageUr
                                                ),
                                                MedicinePostText(
                                                  title: ' :الإسم    ',
-                                                 value: '${widget.name} ',
+                                                 value: '${widget.name}    ',
                                                ),
 
                                              Provider.of<InfoProvider>(context).medicineClick==true?   MedicinePostText(
                                                  title: ' :الإنتهاء   ',
                                                  value: '${widget.dayLeft}'
-                                               ):Container(height: 0,width: 0,),
+                                               ):
+
+                                             MedicinePostText(
+                                                 title: ' :حاله المنتج ',
+                                                 value: '${    widget.typeState}  '
+                                             ),
 
                                                MedicinePostText(
                                                  title: ' :الوصف     ',
-                                                 value:"${widget.description}",
+                                                 value:"${widget.description}  ",
                                                ),
                                                MedicinePostText(
                                                  title: '  :الحاله',

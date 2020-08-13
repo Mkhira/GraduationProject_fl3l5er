@@ -14,6 +14,7 @@ import 'package:company_task/Utli/Common.dart';
 import 'package:company_task/provider/AddPostClothProvider.dart';
 import 'package:company_task/provider/AddPostMedicineProvider.dart';
 import 'package:company_task/provider/AddPostfurnitureProvider.dart';
+import 'package:company_task/provider/AddingBloodPostProvider.dart';
 import 'file:///E:/flater_projects/company_task/lib/provider/SignUpLoginProvider/FireBaseAuth.dart';
 import 'package:company_task/provider/MapProvider.dart';
 import 'package:company_task/provider/SignUpLoginProvider/LoginProvider.dart';
@@ -67,6 +68,10 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (context)=>LoginProvider(),
+
+          ),
+          ChangeNotifierProvider(
+            create: (context)=>BloodPostProvider(),
 
           ),
         ],
