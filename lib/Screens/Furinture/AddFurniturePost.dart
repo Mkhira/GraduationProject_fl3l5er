@@ -25,6 +25,7 @@ class AddFurniturePostScreen extends StatefulWidget {
 class _AddFurniturePostScreenState extends State<AddFurniturePostScreen> {
   Bloc _bloc = Bloc();
   bool  _loading=false;
+  final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -269,6 +270,8 @@ class _AddFurniturePostScreenState extends State<AddFurniturePostScreen> {
                         ),
                         Container(width: MediaQuery.of(context).size.width,height: 2,color: Colors.white,),
                         SizedBox(height: 30,),
+
+
                         Container(
                           width: MediaQuery.of(context).size.width,
                           child: Row(
@@ -294,7 +297,7 @@ class _AddFurniturePostScreenState extends State<AddFurniturePostScreen> {
                               ),
                               MyMainTextField(
                                 labelText: 'الكميه',
-                                width: MediaQuery.of(context).size.width / 3.5,
+                                width: MediaQuery.of(context).size.width / 3,
                                 widget: Container(
                                   width: 0,
                                   height: 0,
@@ -316,48 +319,72 @@ class _AddFurniturePostScreenState extends State<AddFurniturePostScreen> {
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width,
-                          child: Row(
-                            children: <Widget>[
-                              SizedBox(
-                                width: 15,
-                              ),
-                              MyMainTextField(
-                                labelText: 'الهاتف',
-                                width: MediaQuery.of(context).size.width / 2.3,
-                                widget: Container(
-                                  width: 0,
-                                  height: 0,
+                          child: Form(
+                            autovalidate: true,
+                            key: _form,
+                            child: Row(
+                              children: <Widget>[
+                                SizedBox(
+                                  width: 15,
                                 ),
-                                textChange: provider.phoneChange,
-                                obscure: false,
-                                textStream: provider.phoneStream,
-                                inputType: TextInputType.phone,
-                                hintText: "الهاتف ",
-                              ),
-                              Spacer(
-                                flex: 2,
-                              ),
-                              SizedBox(
-                                width: 15,
-                              ),
-                              MyMainTextField(
+                                MyMainTextFieldForm(
+                                  inputController: provider.phoneController,
+                                  val: (val){
+                                    if(val.length==11){
+                                      return null;
 
-                                labelText: 'المده',
-                                width: MediaQuery.of(context).size.width / 3.5,
-                                widget: Container(
-                                  width: 0,
-                                  height: 0,
+                                    } else{
+                                      return "الهاتف خطاء";
+
+                                    }
+                                  },
+                                  labelText: 'الهاتف',
+                                  width: MediaQuery.of(context).size.width / 2.3,
+                                  widget: Container(
+                                    width: 0,
+                                    height: 0,
+                                  ),
+                                  textChange: provider.phoneChange,
+                                  obscure: false,
+                                  textStream: provider.phoneStream,
+                                  inputType: TextInputType.phone,
+                                  hintText: "الهاتف ",
                                 ),
-                                textChange: provider.durationChange,
-                                obscure: false,
-                                textStream: provider.durationStream,
-                                inputType: TextInputType.number,
-                                hintText: '  المده',
-                              ),
-                              Spacer(
-                                flex: 1,
-                              )
-                            ],
+                                Spacer(
+                                  flex: 2,
+                                ),
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                MyMainTextFieldForm(
+                                  inputController: provider.dayController,
+                                  val: (val){
+                                    if(val.length==1){
+                                      return null;
+
+                                    } else{
+                                      return "المده طويله";
+
+                                    }
+                                  },
+
+                                  labelText: 'المده',
+                                  width: MediaQuery.of(context).size.width / 3,
+                                  widget: Container(
+                                    width: 0,
+                                    height: 0,
+                                  ),
+                                  textChange: provider.durationChange,
+                                  obscure: false,
+                                  textStream: provider.durationStream,
+                                  inputType: TextInputType.number,
+                                  hintText: '  المده',
+                                ),
+                                Spacer(
+                                  flex: 1,
+                                )
+                              ],
+                            ),
                           ),
                         ),
                         SizedBox(
@@ -543,7 +570,6 @@ class _AddFurniturePostScreenState extends State<AddFurniturePostScreen> {
 
                                 setState(() {
                                   _loading=true;
-                                  Provider.of<InfoProvider>(context).postLocation =null;
 
 //                                  _bloc.fetchFurniture();
 //                                  _bloc.fetchFurnitureFinish();

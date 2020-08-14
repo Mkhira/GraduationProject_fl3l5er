@@ -83,14 +83,19 @@ class _MainHomePageState extends State<MainHomePage> {
                               child: Row(
                                 textDirection: TextDirection.rtl,
                                 children: <Widget>[
-                                  AutoSizeText(
-                                    Provider.of<InfoProvider>(context).nameProfile != null ? "${Provider.of<InfoProvider>(context).nameProfile}" : "من فضلك اضغط هنا >>",
-                                    textAlign: TextAlign.right,
-                                    presetFontSizes: [ 20, 13,12,8,4],
-                                    style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic', fontWeight: FontWeight.bold,
-                                      color: kSecondColor,),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
+                                  Container(
+
+                                    width:
+                                    MediaQuery.of(context).size.width / 1.4,
+                                    child: AutoSizeText(
+                                      Provider.of<InfoProvider>(context).nameProfile != null ? "${Provider.of<InfoProvider>(context).nameProfile}" : "من فضلك اضغط هنا >>",
+                                      textAlign: TextAlign.right,
+                                      presetFontSizes: [ 20, 13,12,8],
+                                      style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic', fontWeight: FontWeight.bold,
+                                        color: kSecondColor,),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
                                 ],
                               ),

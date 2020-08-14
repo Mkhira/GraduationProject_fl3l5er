@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:company_task/Screens/ContactUs.dart';
 import 'package:company_task/Screens/LoginScreen/LoginMainScreen.dart';
@@ -78,16 +79,17 @@ class MainDrawer extends StatelessWidget {
                       SizedBox(
                         height: 15.0,
                       ),
-                      Flexible(
-                        child: Text(
-
-                          Provider.of<InfoProvider>(context).nameProfile,
-                          textDirection: TextDirection.rtl,
-                          style: TextStyle(
-                            fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                            fontSize: 25.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w900,
+                      Container(
+                        height: 80,
+                        width: MediaQuery.of(context).size.width,
+                        child: Center(
+                          child: AutoSizeText(
+                            '${Provider.of<InfoProvider>(context).nameProfile}',
+                            textAlign: TextAlign.right,
+                            presetFontSizes: [ 20, 15,10],
+                            style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',color: Colors.white),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                       ),
@@ -176,6 +178,7 @@ class MainDrawer extends StatelessWidget {
 
                 await FirebaseAuth.instance.signOut().catchError((error)=> print(error.code));
 //                Provider.of<AuthNotifier>(context).setUser(null);
+                Navigator.pop(context);
               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
                 return LoginMainScreen();
               }));

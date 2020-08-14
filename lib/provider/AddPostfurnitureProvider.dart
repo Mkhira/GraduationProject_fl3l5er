@@ -16,6 +16,7 @@ import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as p;
+import 'package:progress_dialog/progress_dialog.dart';
 
 class AddPostFurnitureProvider extends ChangeNotifier{
   Validator validator = Validator();
@@ -56,7 +57,8 @@ class AddPostFurnitureProvider extends ChangeNotifier{
 
   Function(String) get furnitureChange => furnitureName.sink.add;
 
-
+TextEditingController phoneController = TextEditingController();
+TextEditingController dayController = TextEditingController();
 
   final furnitureDescription = BehaviorSubject<String>();
 
@@ -73,7 +75,7 @@ class AddPostFurnitureProvider extends ChangeNotifier{
 
   final phone = BehaviorSubject<String>();
 
-  Stream<String> get phoneStream => phone.stream.transform(validator.phone);
+  Stream<String> get phoneStream => phone.stream;
 
   Function(String) get phoneChange => phone.sink.add;
 
@@ -143,6 +145,11 @@ class AddPostFurnitureProvider extends ChangeNotifier{
   double chosenLong;
 
   void createRecordFurniture(BuildContext context) async {
+
+    ProgressDialog pr = new ProgressDialog(context);
+    pr = new ProgressDialog(context,
+        type: ProgressDialogType.Normal, isDismissible: false, showLogs: true);
+
     if(furnitureName.value != null && name.length == 0){
 
       for(int x = 0 ; x<= furnitureName.value.length ; x++){
@@ -157,6 +164,7 @@ class AddPostFurnitureProvider extends ChangeNotifier{
     }
 
     if(imageFileFurniture != null) {
+      pr.show();
       StorageReference _storageReference =
       FirebaseStorage.instance.ref().child(
           "Furniture/${p.basename(imageFileFurniture.path)}");
@@ -167,12 +175,22 @@ class AddPostFurnitureProvider extends ChangeNotifier{
       urx = await snapshot.ref.getDownloadURL();
     }else if(imageFileFurniture == null ){
       print(urx);
+      pr.hide();
       showDialog(context: context ,
           builder: (BuildContext context) {
-            return  DailogError(text: "من فضلك إختر صوره",titleText: "هنالك خطأ فى البيانات",); } );
+            return  customError(text: "من فضلك إختر صوره",titleText: "هنالك خطأ فى البيانات",
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+
+            ); } );
     }
     if(furnitureAmount.value != null && furnitureName.value != null &&  urx != null && locationList[0] != null && locationList[1] != null
-        && phone.value != null && name.length>=3 &&  duration.value != null&& phone.value.length ==11){
+        && phone.value != null && name.length>=3 &&  duration.value != null  && phoneController.text.length == 11 &&dayController.text.length ==1){
+
+
+
+
       DocumentReference ref = await databaseReference.collection("Furniture").document();
           ref.setData({
         'amount': int.parse(furnitureAmount.value.toString()),
@@ -194,32 +212,85 @@ class AddPostFurnitureProvider extends ChangeNotifier{
 
 
 
-          }).whenComplete(close(context));
+          }).whenComplete((){
+            pr.hide();
+            locationList.clear();
+            close(context);});
       print(ref.documentID);}
     else if((locationList[0] == null || locationList[1] == null) && imageFileFurniture != null && urx != null){
+      pr.hide();
       showDialog(context: context ,
           builder: (BuildContext context) {
             return
-              DailogError(text: "من فضلك إختر الموقع",titleText: "هنالك خطأ فى البيانات",);
+              customError(text: "من فضلك إختر الموقع",titleText: "هنالك خطأ فى البيانات",
+              onPressed: (){
+
+
+                Navigator.pop(context);
+              },
+              );
           } );
     }
     else if(furnitureAmount.value == null || furnitureName.value == null || phone.value == null || name.length <3 || duration.value == null){
+      pr.hide();
+
       showDialog(context: context ,
           builder: (BuildContext context) {
             return
-              DailogError(text: "من فضلك تأكد من ادخال جميع البيانات ",titleText: "هنالك خطأ فى البيانات",);
+              customError(text: "من فضلك تأكد من ادخال جميع البيانات ",titleText: "هنالك خطأ فى البيانات",
+                onPressed: (){
+                  Navigator.pop(context);
+                  notifyListeners();
+
+                },
+              );
           } );
     }
-    else { showDialog(context: context ,
+    else if(phoneController.text.length !=10 || dayController.text.length !=1){
+      pr.hide();
+      showDialog(context: context ,
         builder: (BuildContext context) {
           return
-            DailogError(text: "من فضلك تأكد من الاتصال بالإنترنت ",titleText: "هنالك خطأ فى البيانات",);
-        } );
+            customError(text: "من فضلك تأكد من الهاتف والمده ",titleText: "هنالك خطأ فى البيانات",
+              onPressed: (){
 
+                Navigator.pop(context);
+              },
+
+            );
+        }
+
+
+        );
+
+    } else{
+      pr.hide();
+      showDialog(context: context ,
+          builder: (BuildContext context) {
+            return
+              customError(text: "من فضلك تأكد من الاتصال بالإنترنت ",titleText: "هنالك خطأ فى البيانات",
+                onPressed: (){
+
+                  Navigator.pop(context);
+                },
+
+              );
+          }
+
+
+      );
     }
-    print(int.parse(furnitureAmount.value.toString()));
-    print(int.parse(phone.value.toString()));
-    print(int.parse(duration.value.toString()));
+    print("${furnitureAmount.value}");
+    print("${furnitureName.value}");
+    print("${locationList[0]}");
+    print("$urx");
+    print("${locationList[1]}");
+    print("${phone.value}");
+    print("${name.length}");
+    print("${duration.value}");
+    print("${furnitureAmount.value}");
+
+
 
   }
 
@@ -228,6 +299,9 @@ class AddPostFurnitureProvider extends ChangeNotifier{
   close(BuildContext context){
 
     Navigator.pop(context);
+
+    phoneController.text = null;
+    dayController.text = null;
     furnitureAmount.value =null;
     furnitureDescription.value = null;
     furnitureName.value = null;

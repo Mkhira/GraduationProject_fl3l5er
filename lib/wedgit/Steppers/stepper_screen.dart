@@ -12,6 +12,9 @@ import 'package:google_fonts_arabic/fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import '../FriebaseErrorDailog.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:company_task/provider/AddPostMedicineProvider.dart';
+
 class StepperScreen extends StatefulWidget {
   @override
   _StepperScreenState createState() => _StepperScreenState();
@@ -451,10 +454,9 @@ class _StepperScreenState extends State<StepperScreen> {
   Widget step3() {
     var signUpProviderObj = Provider.of<SignUpProvider>(context);
      Bloc _bloc= Bloc();
-    return ModalProgressHUD(
-      inAsyncCall: _loading,
+    return
 
-      child: Column(
+      Column(
         children: [
           SizedBox(
             height: 80.0,
@@ -480,7 +482,7 @@ class _StepperScreenState extends State<StepperScreen> {
           SizedBox(
             height: 25,
           ),
-          MyMainTextField(
+          MyMainTextFieldLocationSignUp(
 
             inputController: signUpProviderObj.addressController,
             hintText: _locality,
@@ -488,25 +490,42 @@ class _StepperScreenState extends State<StepperScreen> {
             widget: IconButton(
               icon: Icon(Icons.language),
               onPressed: () async {
-                setState(() {
-                  _loading=true;
-                });
-                Position position = await Geolocator()
-                    .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
 
-                //get the address from the coordinates
-                List<Placemark> placeMark = await Geolocator()
-                    .placemarkFromCoordinates(
-                    position.latitude, position.longitude);
 
-                Placemark place = placeMark[0];
-                setState(() {
-//                  _administrativeArea =
-//                      place.locality;
+
+
+
+                Map<Permission, PermissionStatus> statuses = await [
+                  Permission.location,
+                ].request();
+                print(statuses[Permission.location]);
+                if( await Permission.locationWhenInUse.isPermanentlyDenied &&(await Permission.location.serviceStatus.isDisabled ||await Permission.location.serviceStatus.isEnabled ||await Permission.location.isGranted != true) ){
+                  openAppSettings();
+                }  else
+                if(await Permission.locationWhenInUse.serviceStatus.isEnabled && await Permission.location.serviceStatus.isEnabled && await Permission.location.isGranted){
+
+
+                  Position position = await Geolocator()
+                      .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+
+                  //get the address from the coordinates
+                  List<Placemark> placeMark = await Geolocator()
+                      .placemarkFromCoordinates(
+                      position.latitude, position.longitude);
+                  Placemark place = placeMark[0];
                   _locality = place.locality;
                   signUpProviderObj.addressController.text = place.locality;
-                  _loading=false;
-                });
+                }
+                else if(
+                await Permission.location.serviceStatus.isDisabled && await Permission.locationWhenInUse.isPermanentlyDenied != true){
+
+//
+                  Provider.of<AddPostMedicineProvider>(context).checkGps();
+
+                }
+
+
+
               },
             ),
           ),
@@ -621,7 +640,7 @@ class _StepperScreenState extends State<StepperScreen> {
             ),
           ),
         ],
-      ),
+
     );
   }
 }

@@ -38,7 +38,7 @@ class PostsMaterial extends StatelessWidget {
               left: 0,
               child: ClipRRect(
                 borderRadius:
-                BorderRadius.circular(20),
+                BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
                 child: CachedNetworkImage(
                   imageUrl: imageUrl,
                   width: MediaQuery.of(context)
@@ -88,7 +88,7 @@ class PostsMaterial extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 215,
+              top: 225,
               right: 4,
               child: Container(
                 width: MediaQuery.of(context)
@@ -113,7 +113,7 @@ class PostsMaterial extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 237,
+              top: 257,
               right: 16,
               child: Container(
                 width: MediaQuery.of(context)
@@ -137,7 +137,7 @@ class PostsMaterial extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 260,
+              top: 290,
               right: -3,
               child: Container(
                 width: MediaQuery.of(context)

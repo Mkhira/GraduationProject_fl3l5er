@@ -10,6 +10,7 @@ import 'package:company_task/wedgit/FriebaseErrorDailog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -106,15 +107,24 @@ class BloodPostProvider extends ChangeNotifier{
 
 
   List<double> locationList=[];
+  TextEditingController phoneController = TextEditingController();
+
+  TextEditingController ageController = TextEditingController();
+  TextEditingController bloodNeededController = TextEditingController();
 
   final databaseReference = Firestore.instance;
   void createBloodPost(BuildContext context) async {
+
+    ProgressDialog pr = new ProgressDialog(context);
+    pr = new ProgressDialog(context,
+        type: ProgressDialogType.Normal, isDismissible: false, showLogs: true);
     if(locationList.length == 0){
       locationList.insert(0, chosenLat);
       locationList.insert(1, chosenLong);
     }
     if(bloodNeededAmount.value != null && patientName.value != null &&  patientDescription.value != null && locationList[0] != null && locationList[1] != null
-        && phone.value != null && hospitalName.value!=null && phone.value.length ==11){
+        && phone.value != null && hospitalName.value!=null ){
+      pr.show();
       DocumentReference ref = await databaseReference.collection("bloodNeedy").document();
       ref.setData({
         'neededAmount': int.parse(bloodNeededAmount.value.toString()),
@@ -133,9 +143,13 @@ class BloodPostProvider extends ChangeNotifier{
         "blood": selectedBloodType,
         "age": int.parse(patientAge.value.toString()),
         "collectedAmount": 0,
-      }).whenComplete(close(context));
-      print(ref.documentID);}
+      }).whenComplete(()async{
+        pr.hide();
+        close(context);});
+      print(ref.documentID);
+    }
     else if((locationList[0] == null || locationList[1] == null) ){
+      pr.hide();
       showDialog(context: context ,
           builder: (BuildContext context) {
             return
@@ -143,13 +157,16 @@ class BloodPostProvider extends ChangeNotifier{
           } );
     }
     else if(hospitalName.value == null || patientAge.value == null || phone.value == null || bloodNeededAmount.value ==null|| phone.value == null|| bloodBank.value == null || patientName.value == null || patientDescription.value ==null){
+      pr.hide();
       showDialog(context: context ,
           builder: (BuildContext context) {
             return
               DailogError(text: "من فضلك تأكد من ادخال جميع البيانات ",titleText: "هنالك خطأ فى البيانات",);
           } );
     }
-    else { showDialog(context: context ,
+    else {
+      pr.hide();
+      showDialog(context: context ,
         builder: (BuildContext context) {
           return
             DailogError(text: "من فضلك تأكد من الاتصال بالإنترنت ",titleText: "هنالك خطأ فى البيانات",);
@@ -157,7 +174,7 @@ class BloodPostProvider extends ChangeNotifier{
 
     }
     print(int.parse(bloodNeededAmount.value.toString()));
-    print(int.parse(phone.value.toString()));
+    print("${phoneController.text.length}");
 
   }
 
@@ -168,6 +185,7 @@ class BloodPostProvider extends ChangeNotifier{
   close(BuildContext context){
 
     Navigator.pop(context);
+
     hospitalName.value =null;
     patientAge.value = null;
     bloodNeededAmount.value = null;

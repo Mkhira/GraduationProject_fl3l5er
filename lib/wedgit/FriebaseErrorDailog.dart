@@ -22,7 +22,7 @@ class DailogError extends StatelessWidget {
           Text(
             text,
             style: TextStyle(
-                color: kSecondColor, fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic'),
+                color: kSecondColor, fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 10),
           ),
         ],
       ),
@@ -52,7 +52,7 @@ class DailogErrorimage extends StatelessWidget {
       title: Text(
         titleText,
         style:
-        TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic'),
+        TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',),
       ),
       content: Row(
         children: <Widget>[
@@ -60,7 +60,7 @@ class DailogErrorimage extends StatelessWidget {
           Text(
             text,
             style: TextStyle(
-                color: kSecondColor, fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic'),
+                color: kSecondColor, fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 10),
           ),
         ],
       ),
@@ -95,7 +95,7 @@ class customError extends StatelessWidget {
       title: Text(
         titleText,
         style:
-        TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic'),
+        TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',),
       ),
       content: Row(
         children: <Widget>[
@@ -103,7 +103,7 @@ class customError extends StatelessWidget {
           Text(
             text,
             style: TextStyle(
-                color: kSecondColor, fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic'),
+                color: kSecondColor, fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 10),
           ),
         ],
       ),

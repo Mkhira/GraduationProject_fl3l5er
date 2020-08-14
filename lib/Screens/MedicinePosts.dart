@@ -125,7 +125,7 @@ class _MedicinePostsState extends State<MedicinePosts> {
                               },
                               staggeredTileBuilder: (data) =>
                               new StaggeredTile.count(
-                                  2, data.isEven ? 3.1 : 3),
+                                  2, data.isEven ? 3.5 : 3.5),
                               mainAxisSpacing: 15.0,
                               crossAxisSpacing: 15.0,
                             );

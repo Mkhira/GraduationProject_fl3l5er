@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:location/location.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -143,8 +144,13 @@ class AddPostClothProvider extends ChangeNotifier{
   FirebaseStorage _storage = FirebaseStorage.instance;
   double chosenLat;
   double chosenLong;
-
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController dayController = TextEditingController();
   void createRecordCloth(BuildContext context) async {
+
+    ProgressDialog pr = new ProgressDialog(context);
+    pr = new ProgressDialog(context,
+        type: ProgressDialogType.Normal, isDismissible: false, showLogs: true);
     if(clothName.value != null && name.length == 0){
 
       for(int x = 0 ; x<= clothName.value.length ; x++){
@@ -160,6 +166,7 @@ class AddPostClothProvider extends ChangeNotifier{
     print(locationList[0]);
     print(locationList[1]);
     if(imageFileCloth != null) {
+      pr.show();
       StorageReference _storageReference =
       FirebaseStorage.instance.ref().child(
           "Cloth/${p.basename(imageFileCloth.path)}");
@@ -168,13 +175,14 @@ class AddPostClothProvider extends ChangeNotifier{
       StorageTaskSnapshot snapshot = await storageUploadTask.onComplete;
       urx = await snapshot.ref.getDownloadURL();
     }else if(imageFileCloth == null ){
+      pr.hide();
       print(urx);
       showDialog(context: context ,
           builder: (BuildContext context) {
             return  DailogError(text: "من فضلك إختر صوره",titleText: "هنالك خطأ فى البيانات",); } );
     }
     if(clothAmount.value != null && clothName.value != null &&  urx != null && locationList[0] != null && locationList[1] != null && phone.value != null && name.length>=3 &&
-        duration.value != null&& phone.value.length ==11){
+        duration.value != null&& phoneController.text.length == 11 &&dayController.text.length ==1){
       DocumentReference ref = await databaseReference.collection("Cloth").document();
           ref.setData({
         'amount': int.parse(clothAmount.value.toString()),
@@ -195,9 +203,12 @@ class AddPostClothProvider extends ChangeNotifier{
 
 
 
-          }).then(done()).whenComplete(close(context));
+          }).then(done()).whenComplete((){
+            pr.hide();
+            close(context);});
       print(ref.documentID);}
      else if((locationList[0] == null || locationList[1] == null) && imageFileCloth != null && urx != null){
+      pr.hide();
       showDialog(context: context ,
           builder: (BuildContext context) {
             return
@@ -205,13 +216,33 @@ class AddPostClothProvider extends ChangeNotifier{
           } );
     }
      else if(clothAmount.value == null || clothName.value == null || phone.value == null || name.length <3 || duration.value == null){
+      pr.hide();
       showDialog(context: context ,
           builder: (BuildContext context) {
             return
               DailogError(text: "من فضلك تأكد من ادخال جميع البيانات ",titleText: "هنالك خطأ فى البيانات",);
           } );
+    } else if(phoneController.text.length !=10 || dayController.text.length !=1){
+      pr.hide();
+      showDialog(context: context ,
+          builder: (BuildContext context) {
+            return
+              customError(text: "من فضلك تأكد من الهاتف والمده ",titleText: "هنالك خطأ فى البيانات",
+                onPressed: (){
+
+                  Navigator.pop(context);
+                },
+
+              );
+          }
+
+
+      );
+
     }
-    else { showDialog(context: context ,
+    else {
+      pr.hide();
+      showDialog(context: context ,
         builder: (BuildContext context) {
           return
             DailogError(text: "من فضلك تأكد من الاتصال بالإنترنت ",titleText: "هنالك خطأ فى البيانات",);
@@ -229,6 +260,9 @@ class AddPostClothProvider extends ChangeNotifier{
   close(BuildContext context){
 
     Navigator.pop(context);
+
+    phoneController.text = null;
+    dayController.text = null;
     clothAmount.value =null;
     clothDescription.value = null;
     clothName.value = null;

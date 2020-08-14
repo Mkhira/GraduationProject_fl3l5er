@@ -107,7 +107,7 @@ class _FurnitureScreenState extends State<FurnitureScreen> {
                               },
                               staggeredTileBuilder: (data) =>
                               new StaggeredTile.count(
-                                  2, data.isEven ? 3.25 : 3),
+                                  2, data.isEven ? 3.5 : 3.5),
                               mainAxisSpacing: 15.0,
                               crossAxisSpacing: 15.0,
                             );
@@ -134,7 +134,7 @@ class _FurnitureScreenState extends State<FurnitureScreen> {
                               },
                               staggeredTileBuilder: (data) =>
                               new StaggeredTile.count(
-                                  2, data.isEven ? 3.25 : 3),
+                                  2, data.isEven ? 3.5 : 3.5),
                               mainAxisSpacing: 15.0,
                               crossAxisSpacing: 15.0,
                             );

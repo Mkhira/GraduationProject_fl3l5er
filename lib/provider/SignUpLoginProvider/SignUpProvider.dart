@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:path/path.dart' as p;
@@ -134,7 +135,9 @@ class SignUpProvider extends ChangeNotifier {
     }
   Future userDocment(BuildContext context) async {
 
-
+    ProgressDialog pr = new ProgressDialog(context);
+    pr = new ProgressDialog(context,
+        type: ProgressDialogType.Normal, isDismissible: false, showLogs: true);
 
     _user.imageUrl = urx;
     if (jopController.text.isNotEmpty || phoneController.text.isNotEmpty || addressController.text.isNotEmpty || fatherNameController.text.isNotEmpty ||
@@ -150,7 +153,7 @@ class SignUpProvider extends ChangeNotifier {
 
     _user.name =
         '${firstNameController.text + " " + fatherNameController.text + " " + lastNameController.text}';
-
+   pr.show();
     AuthResult authResult = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(
           email: _user.email,
@@ -199,16 +202,22 @@ class SignUpProvider extends ChangeNotifier {
           'jop': jopController.text,
           'userId': _user.id
         })
-            .catchError((onError) => showDialog(
+            .catchError((onError) {
+
+              pr.hide();
+
+              showDialog(
+
             context: context,
             builder: (BuildContext context) {
               return DailogError(
                 text: "تأكد من أنك قد ادخلت جميع البيانات",
                 titleText: "هنالك خطأ فى البيانات",
               );
-            }))
+            });})
             .whenComplete(() async {
-
+              pr.hide();
+           Navigator.pop(context);
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
             return SplashScreen();
           }));});

@@ -29,6 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
     _bloc = Bloc();
     _bloc.getNewsOnSearchBar(context);
     _bloc.fetchChatRoom(context);
+
     super.initState();
     Timer(Duration(seconds: 7),()=> open());
   }

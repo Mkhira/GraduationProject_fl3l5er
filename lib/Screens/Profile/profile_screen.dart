@@ -1,4 +1,5 @@
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:company_task/Block/Block.dart';
 import 'package:company_task/Screens/Cloth/ClothMoreScreen.dart';
@@ -106,7 +107,7 @@ Delete delete = Delete();
     return SafeArea(
       child: Scaffold(
         backgroundColor: kMainColor, //Color(0xFF04022B),
-        drawer: MainDrawer(),
+
         appBar: AppBar(
 
          title: Row(
@@ -754,29 +755,57 @@ class PostMedicineProfileMaterial extends StatelessWidget {
                          textDirection: TextDirection.rtl,
                          children: <Widget>[
                            Text(' : الدواء  ',style: kPostStyleArabicBase,),
-                           Text('${medicineModel.name}',style: kPostStyleArabicChange,),
-                         ],
+                           AutoSizeText(
+                             '${medicineModel.name}',
+                             textAlign: TextAlign.right,
+
+                             presetFontSizes: [ 14, 12,8],
+                             style: kPostStyleArabicChange,
+                             maxLines: 1,
+                             overflow: TextOverflow.ellipsis,
+                           )   ,                             ],
                        ),
                        Row(
                          textDirection: TextDirection.rtl,
                          children: <Widget>[
                            Text(' :المالك  ',style: kPostStyleArabicBase,),
-                           Text('${medicineModel.owner}',style: kPostStyleArabicChange,),
-                         ],
+                           AutoSizeText(
+                             '${medicineModel.owner}',
+                             textAlign: TextAlign.right,
+
+                             presetFontSizes: [ 14, 12,8],
+                             style: kPostStyleArabicChange,
+                             maxLines: 1,
+                             overflow: TextOverflow.ellipsis,
+                           )   ,                             ],
                        ),
                        Row(
                          textDirection: TextDirection.rtl,
                          children: <Widget>[
                            Text(' :الحاله ',style: kPostStyleArabicBase,),
-                           Text('${medicineModel.state}',style: kPostStyleArabicChange,),
-                         ],
+                           AutoSizeText(
+                             '${medicineModel.state}',
+                             textAlign: TextAlign.right,
+
+                             presetFontSizes: [ 14, 12,8],
+                             style: kPostStyleArabicChange,
+                             maxLines: 1,
+                             overflow: TextOverflow.ellipsis,
+                           )   ,                             ],
                        ),
                        Row(
                          textDirection: TextDirection.rtl,
                          children: <Widget>[
                            Text(' :الهاتف   ',style: kPostStyleArabicBase,),
-                           Text('0${medicineModel.phone}',style: kPostStyleArabicChange,),
-                         ],
+                           AutoSizeText(
+                             '${medicineModel.phone}',
+                             textAlign: TextAlign.right,
+
+                             presetFontSizes: [ 14, 12,8],
+                             style: kPostStyleArabicChange,
+                             maxLines: 1,
+                             overflow: TextOverflow.ellipsis,
+                           )   ,                          ],
                        ),
                      ],
                    )
@@ -896,29 +925,57 @@ class PostClothProfileMaterial extends StatelessWidget {
                         textDirection: TextDirection.rtl,
                         children: <Widget>[
                           Text(' : الملبس     ',style: kPostStyleArabicBase,),
-                          Text('${clothModel.name}',style: kPostStyleArabicChange,),
-                        ],
+                          AutoSizeText(
+                            '${clothModel.name}',
+                            textAlign: TextAlign.right,
+
+                            presetFontSizes: [ 14, 12,8],
+                            style: kPostStyleArabicChange,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          )   ,                         ],
                       ),
                       Row(
                         textDirection: TextDirection.rtl,
                         children: <Widget>[
                           Text(' :المالك   ',style: kPostStyleArabicBase,),
-                          Text('${clothModel.owner}',style: kPostStyleArabicChange,),
-                        ],
+                          AutoSizeText(
+                            '${clothModel.owner}',
+                            textAlign: TextAlign.right,
+
+                            presetFontSizes: [ 14, 12,8],
+                            style: kPostStyleArabicChange,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          )   ,                         ],
                       ),
                       Row(
                         textDirection: TextDirection.rtl,
                         children: <Widget>[
                           Text(' :الحاله  ',style: kPostStyleArabicBase,),
-                          Text('${clothModel.state}',style: kPostStyleArabicChange,),
-                        ],
+                          AutoSizeText(
+                            '${clothModel.state}',
+                            textAlign: TextAlign.right,
+
+                            presetFontSizes: [ 14, 12,8],
+                            style: kPostStyleArabicChange,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          )   ,                         ],
                       ),
                       Row(
                         textDirection: TextDirection.rtl,
                         children: <Widget>[
                           Text(' :الهاتف    ',style: kPostStyleArabicBase,),
-                          Text('${clothModel.phone}',style: kPostStyleArabicChange,),
-                        ],
+                          AutoSizeText(
+                            '${clothModel.phone}',
+                            textAlign: TextAlign.right,
+
+                            presetFontSizes: [ 14, 12,8],
+                            style: kPostStyleArabicChange,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          )   ,                      ],
                       ),
                     ],
                   )
@@ -1034,30 +1091,59 @@ class PostFurnitureProfileMaterial extends StatelessWidget {
                       Row(
                         textDirection: TextDirection.rtl,
                         children: <Widget>[
-                          Text(' : الملبس     ',style: kPostStyleArabicBase,),
-                          Text('${furnitureModel.name}',style: kPostStyleArabicChange,),
+                          Text(' : الأثاث       ',style: kPostStyleArabicBase,),
+                          AutoSizeText(
+                            '${furnitureModel.name}',
+                            textAlign: TextAlign.right,
+
+                            presetFontSizes: [ 14, 12,8],
+                            style: kPostStyleArabicChange,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          )  ,
                         ],
                       ),
                       Row(
                         textDirection: TextDirection.rtl,
                         children: <Widget>[
                           Text(' :المالك   ',style: kPostStyleArabicBase,),
-                          Text('${furnitureModel.owner}',style: kPostStyleArabicChange,),
-                        ],
+                          AutoSizeText(
+                            '${furnitureModel.owner}',
+                            textAlign: TextAlign.right,
+
+                            presetFontSizes: [ 14, 12,8],
+                            style: kPostStyleArabicChange,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          )  ,                          ],
                       ),
                       Row(
                         textDirection: TextDirection.rtl,
                         children: <Widget>[
                           Text(' :الحاله  ',style: kPostStyleArabicBase,),
-                          Text('${furnitureModel.state}',style: kPostStyleArabicChange,),
-                        ],
+                          AutoSizeText(
+                            '${furnitureModel.state}',
+                            textAlign: TextAlign.right,
+
+                            presetFontSizes: [ 14, 12,8],
+                            style: kPostStyleArabicChange,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          )  ,                          ],
                       ),
                       Row(
                         textDirection: TextDirection.rtl,
                         children: <Widget>[
                           Text(' :الهاتف    ',style: kPostStyleArabicBase,),
-                          Text('${furnitureModel.phone}',style: kPostStyleArabicChange,),
-                        ],
+                          AutoSizeText(
+                            '${furnitureModel.phone}',
+                            textAlign: TextAlign.right,
+
+                            presetFontSizes: [ 14, 12,8],
+                            style: kPostStyleArabicChange,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          )  ,                          ],
                       ),
                     ],
                   )

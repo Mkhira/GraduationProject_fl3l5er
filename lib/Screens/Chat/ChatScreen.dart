@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:company_task/Block/Block.dart';
 import '../Chat/ChatSearchScreen.dart';
@@ -74,6 +75,7 @@ class _ChatScreenPageState extends State<ChatScreenPage> {
       builder: (context, snapshot) {
         return snapshot.hasData
             ? ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: snapshot.data.length,
           itemBuilder: (context, index) {
@@ -189,22 +191,30 @@ class ChatHeader implements SliverPersistentHeaderDelegate {
           Container(
             height: 30,
           ),
-          Container(
-            height: 70,
-            child: MyMainTextField(
-              width: MediaQuery.of(context).size.width - 40,
-              hintText: 'اسم المستخدم',
-              labelText: 'ابحث بالأسم',
-              inputController: nameController,
-              widget: IconButton(
-                icon: Icon(
-                  Icons.search,
-                  size: 25,
-                  color: kSecondColor,
-                ),
-                onPressed: onPressed,
+          Material(
+            elevation: 3,
+            borderRadius: BorderRadius.circular(10),
+
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white
               ),
-              inputType: TextInputType.text,
+              child: MyMainTextFieldSearch(
+                width: MediaQuery.of(context).size.width - 40,
+                hintText: 'اسم المستخدم',
+                labelText: 'ابحث بالأسم',
+                inputController: nameController,
+                widget: IconButton(
+                  icon: Icon(
+                    Icons.search,
+                    size: 25,
+                    color: kSecondColor,
+                  ),
+                  onPressed: onPressed,
+                ),
+                inputType: TextInputType.text,
+              ),
             ),
           ),
         ],
@@ -348,14 +358,17 @@ class UserContainer extends StatelessWidget {
                 SizedBox(
                   width: 10,
                 ),
-                Text(
+
+                AutoSizeText(
                   "${chatModel.usersName.toString().replaceAll("_", "").replaceAll("${Provider.of<InfoProvider>(context).nameProfile}", "")}",
-                  style: TextStyle(
-                    fontFamily: ArabicFonts.Amiri,
-                    package: 'google_fonts_arabic',
-                  ),
-                  textDirection: TextDirection.rtl,
+                  textAlign: TextAlign.right,
+
+                  presetFontSizes: [ 18,17, 15,14,13,12,11],
+                  style: TextStyle(color:kSecondColor,fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic'),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
+
                 Spacer(),
 
                 SizedBox(

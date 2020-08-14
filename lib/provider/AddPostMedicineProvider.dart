@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:location/location.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -64,7 +65,7 @@ class AddPostMedicineProvider extends ChangeNotifier{
 
   final phone = BehaviorSubject<String>();
 
-  Stream<String> get phoneStream => phone.stream.transform(validator.phone);
+  Stream<String> get phoneStream => phone.stream;
 
   Function(String) get phoneChange => phone.sink.add;
 
@@ -140,7 +141,17 @@ class AddPostMedicineProvider extends ChangeNotifier{
   double chosenLat;
   double chosenLong;
 
+
+
+
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController dayController = TextEditingController();
   void createRecord(BuildContext context) async {
+
+
+    ProgressDialog pr = new ProgressDialog(context);
+    pr = new ProgressDialog(context,
+        type: ProgressDialogType.Normal, isDismissible: false, showLogs: true);
     if(medicineName.value != null && name.length == 0){
 
       for(int x = 0 ; x<= medicineName.value.length ; x++){
@@ -155,6 +166,7 @@ class AddPostMedicineProvider extends ChangeNotifier{
     }
 
     if(imagefile != null) {
+      pr.show();
       StorageReference _storageReference =
       FirebaseStorage.instance.ref().child(
           "medicen/${p.basename(imagefile.path)}");
@@ -164,12 +176,13 @@ class AddPostMedicineProvider extends ChangeNotifier{
 
       urx = await snapshot.ref.getDownloadURL();
     }else if(imagefile == null ){
+      pr.hide();
       showDialog(context: context ,
           builder: (BuildContext context) {
             return  DailogError(text: "من فضلك إختر صوره",titleText: "هنالك خطأ فى البيانات",); } );
     }
     if(medicineAmount.value != null && medicineName.value != null &&  urx != null && locationList[0] != null && locationList[1] != null
-        && phone.value != null && name.length>=3 && dateTime != null && duration.value != null&& phone.value.length ==11){
+        && phone.value != null && name.length>=3 && dateTime != null && duration.value != null&&  phoneController.text.length == 11 &&dayController.text.length ==1){
       DocumentReference ref = await Firestore.instance.collection("medicine").document();
       ref.setData({
         'amount': int.parse(medicineAmount.value.toString()),
@@ -192,21 +205,47 @@ class AddPostMedicineProvider extends ChangeNotifier{
 
 
 
-      }).then(close(context)).whenComplete(done());
+      }).then(close(context)).whenComplete( (){
+        pr.hide();
+        close(context);
+        done();
+
+      });
       print(ref.documentID);
     } else if((locationList[0] == null || locationList[1] == null) && imagefile != null && urx != null){
+      pr.hide();
       showDialog(context: context ,
           builder: (BuildContext context) {
             return
               DailogError(text: "من فضلك إختر الموقع",titleText: "هنالك خطأ فى البيانات",);
           } );
     } else if(medicineAmount.value == null || medicineName.value == null || phone.value == null || name.length <3 || dateTime == null || duration.value == null){
+      pr.hide();
       showDialog(context: context ,
           builder: (BuildContext context) {
             return
               DailogError(text: "من فضلك تأكد من ادخال جميع البيانات ",titleText: "هنالك خطأ فى البيانات",);
           } );
-    }else { showDialog(context: context ,
+    } else if(phoneController.text.length !=10 || dayController.text.length !=1){
+      pr.hide();
+      showDialog(context: context ,
+          builder: (BuildContext context) {
+            return
+              customError(text: "من فضلك تأكد من الهاتف والمده ",titleText: "هنالك خطأ فى البيانات",
+                onPressed: (){
+
+                  Navigator.pop(context);
+                },
+
+              );
+          }
+
+
+      );
+
+    }else {
+      pr.hide();
+      showDialog(context: context ,
         builder: (BuildContext context) {
           return
             DailogError(text: "من فضلك تأكد من الاتصال بالإنترنت ",titleText: "هنالك خطأ فى البيانات",);
@@ -224,6 +263,8 @@ class AddPostMedicineProvider extends ChangeNotifier{
   close(BuildContext context){
 
     Navigator.pop(context);
+    phoneController.text = null;
+    dayController.text = null;
     medicineAmount.value =null;
     medicineDescription.value = null;
     medicineName.value = null;

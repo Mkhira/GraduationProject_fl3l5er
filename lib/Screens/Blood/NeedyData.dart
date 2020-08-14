@@ -109,7 +109,7 @@ class _BloodNeedyDataState extends State<BloodNeedyData> {
 
           child: Container(
             color: Color(0xffFFC200),
-            height: 800,
+            height: 850,
             child: Stack(
               children: <Widget>[
                 Positioned(
@@ -179,7 +179,7 @@ class _BloodNeedyDataState extends State<BloodNeedyData> {
                   bottom: 0,
                   right: 0,
                   child: Container(
-                    height: 570,
+                    height: 600,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(topLeft: Radius.circular(30),topRight: Radius.circular(30)),
@@ -195,7 +195,7 @@ class _BloodNeedyDataState extends State<BloodNeedyData> {
                             borderRadius: BorderRadius.circular(20),
                             child: Container(
                               width: MediaQuery.of(context).size.width*.83,
-                              height: 470,
+                              height: 500,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 color: Colors.white
@@ -222,11 +222,11 @@ class _BloodNeedyDataState extends State<BloodNeedyData> {
                                     ),
                                     //////// azbtha///
                                     Padding(
-                                      padding: const EdgeInsets.only(right: 25),
+                                      padding: const EdgeInsets.only(right: 5),
                                       child: Row(
                                         textDirection: TextDirection.rtl,
                                         children: <Widget>[
-                                          Text(": عدد أكياس الدم",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 16,fontWeight: FontWeight.bold)),
+                                          Text(": ما تم جمعه",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 16,fontWeight: FontWeight.bold)),
                                           SizedBox(width: 10,),
                                       SleekCircularSlider(
 
@@ -266,14 +266,32 @@ class _BloodNeedyDataState extends State<BloodNeedyData> {
                                       ),
                                     ),
                                     Padding(
+                                      padding: const EdgeInsets.only(right: 17),
+                                      child: Row(
+                                        textDirection: TextDirection.rtl,
+                                        children: <Widget>[
+                                          Text(": عدد الاكياس المطلوبه ",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 16,fontWeight: FontWeight.bold))
+                                          ,  SizedBox(width: 20,),
+                                          Text("${widget.bloodNeed}",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 16,fontWeight: FontWeight.bold,color: kSecondColor))
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
                                       padding: const EdgeInsets.only(right: 6),
                                       child: Row(
                                         textDirection: TextDirection.rtl,
                                         children: <Widget>[
                                           Text(": اسم الحاله",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 16,fontWeight: FontWeight.bold))
                                           ,  SizedBox(width: 20,),
-                                          Text("${widget.name}",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 16,fontWeight: FontWeight.bold,color: kSecondColor))
-                                        ],
+                                          AutoSizeText(
+                                            '${widget.name}',
+                                            textAlign: TextAlign.right,
+
+                                            presetFontSizes: [ 16, 13,10],
+                                            style: TextStyle(color:kSecondColor,fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic'),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          )  ,                                      ],
                                       ),
                                     ),
                                     Padding(

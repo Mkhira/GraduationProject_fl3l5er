@@ -65,6 +65,18 @@ class Validator {
 
         }
       });
+
+  final amount = StreamTransformer<String, String>.fromHandlers(
+      handleData: (amount, sink) {
+
+
+        if (amount.length<=2 ) {
+          sink.add(amount);
+        } else {
+          sink.addError("المده طويله");
+
+        }
+      });
   final nID = StreamTransformer<String, String>.fromHandlers(
       handleData: (nId, sink) {
 

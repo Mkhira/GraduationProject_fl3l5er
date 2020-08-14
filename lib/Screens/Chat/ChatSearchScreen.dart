@@ -2,6 +2,7 @@
 
 
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../Chat/ChatScreen.dart';
 import '../Chat/ConversationScreen.dart';
@@ -116,7 +117,7 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
         body:        CustomScrollView(
           slivers: <Widget>[
             SliverPersistentHeader(
-              pinned: false,
+              pinned: true,
               floating: false,
               delegate: ChatHeader(
                   maxxExtent: 100,
@@ -136,6 +137,7 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
                   ),
 //                  ChatRoomList(),
                   querySnapshot !=null ? ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: querySnapshot.documents.length,
                     itemBuilder: (context,index){
@@ -209,14 +211,19 @@ class UserContainer extends StatelessWidget {
               SizedBox(
                 width: 10,
               ),
-              Text(
-                "$name",
-                style: TextStyle(
-                  fontFamily: ArabicFonts.Amiri,
-                  package: 'google_fonts_arabic',
+              Container(
+                width: MediaQuery.of(context).size.width /2,
+                child:
+                AutoSizeText(
+                  '$name',
+                  textAlign: TextAlign.right,
+
+                  presetFontSizes: [ 18,17, 15,14,13,12,11],
+                  style: TextStyle(color:kSecondColor,fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic'),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                textDirection: TextDirection.rtl,
-              ),
+              )  ,
               Spacer(),
               Container(
                 height: 40,
