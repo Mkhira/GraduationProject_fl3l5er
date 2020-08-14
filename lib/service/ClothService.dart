@@ -36,7 +36,7 @@ class ClothServiceSearch {
   Future<List<ClothModel>> getClothSearch(String query) async {
     final QuerySnapshot querySnapshot =
     await Firestore.instance.collection("Cloth")
-        .where("sarchkey", arrayContains: query)
+        .where("searchkey", arrayContains: query)
         .getDocuments();
     if (querySnapshot.documents.length == 0) {
       return null;

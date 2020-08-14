@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:company_task/Block/Validator.dart';
 import 'package:company_task/Screens/homePage.dart';
+import 'package:company_task/Screens/splashScreen.dart';
 import 'package:company_task/Utli/Common.dart';
 import 'package:company_task/models/User.dart';
 import 'package:company_task/provider/SignUpLoginProvider/FireBaseAuth.dart';
@@ -209,7 +210,7 @@ class SignUpProvider extends ChangeNotifier {
             .whenComplete(() async {
 
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-            return HomePage();
+            return SplashScreen();
           }));});
         print(collectionReference.id);
       });

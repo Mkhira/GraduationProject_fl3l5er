@@ -15,11 +15,11 @@ class ClothModel{
 String description;
 String ownerName;
   String userID;
-
+  List<dynamic> searchKey;
 String userImage;
   int dayLeft;
 
-  ClothModel({this.userID,this.ownerName,this.userImage,this.documentId,this.name,this.amount,this.imageUrl,this.location,this.owner,this.phone,this.state,this.dayLeft,this.clothState,this.description});
+  ClothModel({this.searchKey,this.userID,this.ownerName,this.userImage,this.documentId,this.name,this.amount,this.imageUrl,this.location,this.owner,this.phone,this.state,this.dayLeft,this.clothState,this.description});
 
   factory ClothModel.fromJison(DocumentSnapshot snapshot){
     var data = snapshot.data;
@@ -31,6 +31,7 @@ String userImage;
         owner: data['owner'],
         phone: data['phone'],
         state: data['state'],
+        searchKey: data['searchkey'],
         dayLeft: data['dayleft'],
         clothState: data['clothstate'],
       description: data['description'],
@@ -77,7 +78,7 @@ class ClothModelSearch{
         owner: data['owner'],
         phone: data['phone'],
         state: data['state'],
-        searchKey: data['sarchkey'],
+        searchKey: data['searchkey'],
         dayLeft: data['dayleft'],
         clothState: data['clothstate'],
       description: data['description'],
