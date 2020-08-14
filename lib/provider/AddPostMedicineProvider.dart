@@ -169,7 +169,7 @@ class AddPostMedicineProvider extends ChangeNotifier{
             return  DailogError(text: "من فضلك إختر صوره",titleText: "هنالك خطأ فى البيانات",); } );
     }
     if(medicineAmount.value != null && medicineName.value != null &&  urx != null && locationList[0] != null && locationList[1] != null
-        && phone.value != null && name.length>=3 && dateTime != null && duration.value != null){
+        && phone.value != null && name.length>=3 && dateTime != null && duration.value != null&& phone.value.length ==11){
       DocumentReference ref = await Firestore.instance.collection("medicine").document();
       ref.setData({
         'amount': int.parse(medicineAmount.value.toString()),

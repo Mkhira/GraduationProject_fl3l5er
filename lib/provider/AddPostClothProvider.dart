@@ -168,14 +168,13 @@ class AddPostClothProvider extends ChangeNotifier{
       StorageTaskSnapshot snapshot = await storageUploadTask.onComplete;
       urx = await snapshot.ref.getDownloadURL();
     }else if(imageFileCloth == null ){
-      print(imageFileCloth.path);
       print(urx);
       showDialog(context: context ,
           builder: (BuildContext context) {
             return  DailogError(text: "من فضلك إختر صوره",titleText: "هنالك خطأ فى البيانات",); } );
     }
     if(clothAmount.value != null && clothName.value != null &&  urx != null && locationList[0] != null && locationList[1] != null && phone.value != null && name.length>=3 &&
-        duration.value != null){
+        duration.value != null&& phone.value.length ==11){
       DocumentReference ref = await databaseReference.collection("Cloth").document();
           ref.setData({
         'amount': int.parse(clothAmount.value.toString()),

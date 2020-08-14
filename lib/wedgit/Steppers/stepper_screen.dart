@@ -11,8 +11,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
-
-
+import '../FriebaseErrorDailog.dart';
 class StepperScreen extends StatefulWidget {
   @override
   _StepperScreenState createState() => _StepperScreenState();
@@ -237,7 +236,42 @@ class _StepperScreenState extends State<StepperScreen> {
             width: 150.0,
             child: RaisedButton(
               padding: EdgeInsets.all(5),
-              onPressed: next,
+              onPressed: (){
+
+
+                  if(signUpProviderObj.emailController.text.isNotEmpty && signUpProviderObj.passwordController.text.isNotEmpty
+                  && signUpProviderObj.passwordConfirmController.text.isNotEmpty) {
+                    signUpProviderObj.uploodImage(context);
+                    if(signUpProviderObj.passwordConfirmController.text != signUpProviderObj.passwordController.text){
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return customError(
+                              text: "كلمه المرور غير متطابقه",
+                              titleText: "هنالك خطأ فى البيانات",
+                              onPressed: (){
+                                Navigator.pop(context);
+                              },
+                            );
+                          });
+                    }else{
+                    next();
+                    }
+                  }else{
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return customError(
+                            text: "من فضلك تأكد من جميع البيانات",
+                            titleText: "هنالك خطأ فى البيانات",
+                            onPressed: (){
+                              cancel();
+                              Navigator.pop(context);
+                            },
+                          );
+                        });
+                  }
+              },
               child: Text(
                 'التالي',
                 style: TextStyle(
@@ -296,6 +330,8 @@ class _StepperScreenState extends State<StepperScreen> {
           height: 25,
         ),
         MyMainTextField(
+          textChange: signUpProviderObj.nIDChange,
+          textStream: signUpProviderObj.nIDStream,
           inputController: signUpProviderObj.idController,
           width: MediaQuery.of(context).size.width,
           hintText: 'الرقم القومي',
@@ -374,7 +410,23 @@ class _StepperScreenState extends State<StepperScreen> {
                 width: 110.0,
                 child: RaisedButton(
                   padding: EdgeInsets.all(4.0),
-                  onPressed: next,
+                  onPressed: (){
+                    if(signUpProviderObj.firstNameController.text.isNotEmpty && signUpProviderObj.fatherNameController.text.isNotEmpty
+                    && signUpProviderObj.toString().isNotEmpty && signUpProviderObj.idController.text.isNotEmpty){
+                    next();}else{
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return customError(
+                              text: "من فضلك تأكد من جميع البيانات",
+                              titleText: "هنالك خطأ فى البيانات",
+                              onPressed: (){
+                                Navigator.pop(context);
+                              },
+                            );
+                          });
+                    }
+                  },
                   color: Colors.orange,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(6.0)),
@@ -399,153 +451,177 @@ class _StepperScreenState extends State<StepperScreen> {
   Widget step3() {
     var signUpProviderObj = Provider.of<SignUpProvider>(context);
      Bloc _bloc= Bloc();
-    return Column(
-      children: [
-        SizedBox(
-          height: 80.0,
-        ),
-        MyMainTextField(
-          inputController: signUpProviderObj.jopController,
-          width: MediaQuery.of(context).size.width,
-          hintText: 'الوظيفة',
-          labelText: 'الوظيفة',
-        ),
-        SizedBox(
-          height: 25,
-        ),
-        MyMainTextField(
-          inputController: signUpProviderObj.phoneController,
-          width: MediaQuery.of(context).size.width,
-          hintText: 'التلفون',
-          labelText: 'التلفون',
-          inputType: TextInputType.phone,
-        ),
-        SizedBox(
-          height: 25,
-        ),
-        MyMainTextField(
-          inputController: signUpProviderObj.addressController,
-          hintText: _locality,
-          labelText: 'العنوان',
-          widget: IconButton(
-            icon: Icon(Icons.language),
-            onPressed: () async {
-              setState(() {
-                _loading=true;
-              });
-              Position position = await Geolocator()
-                  .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    return ModalProgressHUD(
+      inAsyncCall: _loading,
 
-              //get the address from the coordinates
-              List<Placemark> placeMark = await Geolocator()
-                  .placemarkFromCoordinates(
-                  position.latitude, position.longitude);
+      child: Column(
+        children: [
+          SizedBox(
+            height: 80.0,
+          ),
+          MyMainTextField(
+            inputController: signUpProviderObj.jopController,
+            width: MediaQuery.of(context).size.width,
+            hintText: 'الوظيفة',
+            labelText: 'الوظيفة',
+          ),
+          SizedBox(
+            height: 25,
+          ),
+          MyMainTextField(
+            textStream: signUpProviderObj.phoneStream,
+            textChange: signUpProviderObj.phoneChange,
+            inputController: signUpProviderObj.phoneController,
+            width: MediaQuery.of(context).size.width,
+            hintText: 'التلفون',
+            labelText: 'التلفون',
+            inputType: TextInputType.phone,
+          ),
+          SizedBox(
+            height: 25,
+          ),
+          MyMainTextField(
 
-              Placemark place = placeMark[0];
-              setState(() {
+            inputController: signUpProviderObj.addressController,
+            hintText: _locality,
+            labelText: 'العنوان',
+            widget: IconButton(
+              icon: Icon(Icons.language),
+              onPressed: () async {
+                setState(() {
+                  _loading=true;
+                });
+                Position position = await Geolocator()
+                    .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+
+                //get the address from the coordinates
+                List<Placemark> placeMark = await Geolocator()
+                    .placemarkFromCoordinates(
+                    position.latitude, position.longitude);
+
+                Placemark place = placeMark[0];
+                setState(() {
 //                  _administrativeArea =
 //                      place.locality;
-                _locality = place.locality;
-                signUpProviderObj.addressController.text = place.locality;
-                _loading=false;
-              });
-            },
+                  _locality = place.locality;
+                  signUpProviderObj.addressController.text = place.locality;
+                  _loading=false;
+                });
+              },
+            ),
           ),
-        ),
-        SizedBox(
-          height: 30,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              width: 110,
-              child: Divider(
-                color: Colors.grey[300],
-                thickness: 2.0,
-                indent: 12.0,
-              ),
-            ),
-            Text(
-              'النوع',
-              style: TextStyle(
-                fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                color: Colors.grey[500],
-                fontWeight: FontWeight.bold,
-                fontSize: 20.0,
-              ),
-            ),
-            Container(
-              width: 110,
-              child: Divider(
-                endIndent: 12.0,
-                color: Colors.grey[300],
-                thickness: 2.0,
-              ),
-            ),
-          ],
-        ),
-        Step3Radio(),
-        Padding(
-          padding: const EdgeInsets.only(top: 80.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              SizedBox(
-                width: 110.0,
-                child: RaisedButton(
-                  padding: EdgeInsets.all(4.0),
-                  onPressed: cancel,
-                  color: Colors.orange,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6.0)),
-                  child: Text(
-                    'السابق',
-                    style: TextStyle(
-                      fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                      color: Colors.white,
-                      fontSize: 17.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+          SizedBox(
+            height: 30,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                width: 110,
+                child: Divider(
+                  color: Colors.grey[300],
+                  thickness: 2.0,
+                  indent: 12.0,
                 ),
               ),
-              SizedBox(
-                width: 110.0,
-                child: RaisedButton(
-                  padding: EdgeInsets.all(4.0),
-                  //todo goto main page && making condition to go to home page.
-                  onPressed:
-                  (){
-                    setState(() {
-                      _loading=true;
-                    });
-                    signUpProviderObj.userDocment(context);
-                    _bloc.fetch();
-                    _loading=false;
-
-                  },
-//                      ()=>Navigator.push(context, MaterialPageRoute(builder: (context){
-//                    return HomePage();
-//                  })),
-                  color: Colors.orange,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6.0)),
-                  child: Text(
-                    'انشاء',
-                    style: TextStyle(
-                      fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                      color: Colors.white,
-                      fontSize: 17.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+              Text(
+                'النوع',
+                style: TextStyle(
+                  fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                  color: Colors.grey[500],
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                ),
+              ),
+              Container(
+                width: 110,
+                child: Divider(
+                  endIndent: 12.0,
+                  color: Colors.grey[300],
+                  thickness: 2.0,
                 ),
               ),
             ],
           ),
-        ),
-      ],
+          Step3Radio(),
+          Padding(
+            padding: const EdgeInsets.only(top: 80.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                SizedBox(
+                  width: 110.0,
+                  child: RaisedButton(
+                    padding: EdgeInsets.all(4.0),
+                    onPressed: cancel,
+                    color: Colors.orange,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6.0)),
+                    child: Text(
+                      'السابق',
+                      style: TextStyle(
+                        fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                        color: Colors.white,
+                        fontSize: 17.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 110.0,
+                  child: RaisedButton(
+                    padding: EdgeInsets.all(4.0),
+                    //todo goto main page && making condition to go to home page.
+                    onPressed:
+                    (){
+                      setState(() {
+                        _loading=true;
+                      });
+
+                      if(signUpProviderObj.jopController.text.isNotEmpty && signUpProviderObj.phoneController.text.isNotEmpty &&
+                      signUpProviderObj.addressController.text.isNotEmpty) {
+                        signUpProviderObj.userDocment(context);
+                        _bloc.fetch();
+                        _loading = false;
+                      }else{
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return customError(
+                                text: "من فضلك تأكد من جميع البيانات",
+                                titleText: "هنالك خطأ فى البيانات",
+                                onPressed: (){
+                                  Navigator.pop(context);
+                                },
+                              );
+                            });
+                        _loading = false;
+                      }
+
+                    },
+//                      ()=>Navigator.push(context, MaterialPageRoute(builder: (context){
+//                    return HomePage();
+//                  })),
+                    color: Colors.orange,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6.0)),
+                    child: Text(
+                      'انشاء',
+                      style: TextStyle(
+                        fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                        color: Colors.white,
+                        fontSize: 17.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -578,47 +654,66 @@ class _Step1TextFieldState extends State<Step1TextField> {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<FormState> _form = GlobalKey<FormState>();
+
     var signUpProviderObj = Provider.of<SignUpProvider>(context);
 
-    return Column(
-      children: [
-        MyMainTextField(
-          textChange: signUpProviderObj.passwordChange,
-          textStream: signUpProviderObj.passwordStream,
-          inputController: signUpProviderObj.passwordController,
-          width: MediaQuery.of(context).size.width,
-          hintText: 'كلمة المرور',
-          labelText: 'كلمة المرور',
-          obscure: _obscure,
-          widget: IconButton(
-            icon: Icon(
-              _icon,
-              color: Colors.grey,
+    return Form(
+      autovalidate: true,
+      key: _form,
+      child: Column(
+        children: [
+          MyMainTextFieldForm(
+            val: (val){
+              if(val.isEmpty)
+                return 'من فضلك ادخل الباصورد';
+              return null;
+            },
+            textChange: signUpProviderObj.passwordChange,
+            textStream: signUpProviderObj.passwordStream,
+            inputController: signUpProviderObj.passwordController,
+            width: MediaQuery.of(context).size.width,
+            hintText: 'كلمة المرور',
+            labelText: 'كلمة المرور',
+            obscure: _obscure,
+            widget: IconButton(
+              icon: Icon(
+                _icon,
+                color: Colors.grey,
+              ),
+              onPressed: _toggle,
             ),
-            onPressed: _toggle,
           ),
-        ),
-        SizedBox(
-          height: 25.0,
-        ),
-        MyMainTextField(
+          SizedBox(
+            height: 25.0,
+          ),
+          MyMainTextFieldForm(
+               val:  (val){
+                 if(val.isEmpty)
+                   return 'Empty';
+                 if(val != signUpProviderObj.passwordController.text )
+                   return 'Not Match';
+                 return null;
+               },
+             inputController: signUpProviderObj.passwordConfirmController,
+            width: MediaQuery.of(context).size.width,
+            hintText: 'تأكيد كلمة المرور',
+            labelText: 'تأكيد كلمة المرور',
+            obscure: _confirmObscure,
+            widget: IconButton(
+              icon: Icon(
+                _confirmIcon,
+                color: Colors.grey,
+              ),
+              onPressed: _confirmToggle,
+            ),
+          ),
+        ],
+      ),
 
-           inputController: signUpProviderObj.passwordConfirmController,
-          width: MediaQuery.of(context).size.width,
-          hintText: 'تأكيد كلمة المرور',
-          labelText: 'تأكيد كلمة المرور',
-          obscure: _confirmObscure,
-          widget: IconButton(
-            icon: Icon(
-              _confirmIcon,
-              color: Colors.grey,
-            ),
-            onPressed: _confirmToggle,
-          ),
-        ),
-      ],
     );
   }
+
 }
 
 class Step3Radio extends StatefulWidget {

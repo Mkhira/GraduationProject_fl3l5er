@@ -56,10 +56,24 @@ class Validator {
 
   final phone = StreamTransformer<String, String>.fromHandlers(
       handleData: (phone, sink) {
-        if (phone.length==11) {
-          sink.addError("phone is only 11 numper");
-        } else {
+
+
+        if (phone.length==11 ) {
           sink.add(phone);
+        } else {
+          sink.addError("phone is only 11 numper");
+
+        }
+      });
+  final nID = StreamTransformer<String, String>.fromHandlers(
+      handleData: (nId, sink) {
+
+
+        if (nId.length==14 ) {
+          sink.add(nId);
+        } else {
+          sink.addError("National id is only 14 numper");
+
         }
       });
 

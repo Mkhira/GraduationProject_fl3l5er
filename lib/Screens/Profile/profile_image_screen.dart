@@ -1,7 +1,10 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:company_task/Utli/Common.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/style/constent.dart';
+import 'package:company_task/wedgit/ButtonWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -31,22 +34,30 @@ class ProfileImageScreen extends StatelessWidget {
         ],
       ),
       backgroundColor: Color(0xFF04022B),
-      body: Center(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Provider.of<InfoProvider>(context).pickedImage == null
-              ? Center(
-              child: Text(
-                'No image selected.',
-                style: TextStyle(color: Colors.white),
-              ))
-              : Image.file(
-            Provider.of<InfoProvider>(context).pickedImage,
-            fit: BoxFit.contain,
+      body:
+          Column(
+            children: <Widget>[
+              Center(
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height-250,
+                  child: Provider.of<InfoProvider>(context).pickedImage == null
+                      ? Center(
+                      child: Text(
+                        'No image selected.',
+                        style: TextStyle(color: Colors.white),
+                      ))
+                      : Image.file(
+                    Provider.of<InfoProvider>(context).pickedImage,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+              ButtonWidget(borderColor: kSecondColor ,color: kMainColor, height: 40,onPressed: (){},text: "تعديل الصوره",textColor: kSecondColor,)
+            ],
           ),
-        ),
-      ),
+
+
     );
   }
 }
@@ -67,7 +78,13 @@ class PopMenu{
             : file =
         await ImagePicker.pickImage(source: ImageSource.camera);
 
-        if (file != null) {
+        if (file != null)  {
+
+
+            Firestore.instance.collection("Users").document("${await Common.getUserIdToken()}").updateData({
+              "image": file.path
+            });
+
           cropped = await ImageCropper.cropImage(
             sourcePath: file.path,
             aspectRatio: CropAspectRatio(

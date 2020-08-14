@@ -78,23 +78,24 @@ class _MainHomePageState extends State<MainHomePage> {
                                   color: kMainColor,
                                 ),
                                 width:
-                                MediaQuery.of(context).size.width / 1.8,
+                                MediaQuery.of(context).size.width / 1.4,
                                 height: 60,
                               child: Row(
                                 textDirection: TextDirection.rtl,
                                 children: <Widget>[
-                                  Text(Provider.of<InfoProvider>(context).nameProfile != null ? "${Provider.of<InfoProvider>(context).nameProfile}" : "من فضلك اضغط هنا >>",style: TextStyle(
-                                    fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                                    fontWeight: FontWeight.bold,
-                                    color: kSecondColor,
-                                    fontSize: 20
-                                  ),)
+                                  AutoSizeText(
+                                    Provider.of<InfoProvider>(context).nameProfile != null ? "${Provider.of<InfoProvider>(context).nameProfile}" : "من فضلك اضغط هنا >>",
+                                    textAlign: TextAlign.right,
+                                    presetFontSizes: [ 20, 13,12,8,4],
+                                    style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic', fontWeight: FontWeight.bold,
+                                      color: kSecondColor,),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ],
                               ),
                                 ),
-                            Spacer(
-                              flex: 1,
-                            ),
+                              SizedBox(width: 10,),
                             GestureDetector(
                               onTap: () {
                                 Navigator.pushNamed(context,ProfileScreen.id);
@@ -114,12 +115,11 @@ class _MainHomePageState extends State<MainHomePage> {
                                       style: TextStyle(color: Colors.white),
                                     ))
                                     : ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius: BorderRadius.circular(10),
                                   child:CachedNetworkImage(
                                     imageUrl: profileProvider.imageUrlProfile,
-                                    height: 98,
-                                    width: 200,
-                                    fit: BoxFit.cover,
+
+                                                                      fit: BoxFit.cover,
                                     placeholder: (context, url) =>
                                         CircularProgressIndicator(),
                                     errorWidget:
@@ -134,9 +134,7 @@ class _MainHomePageState extends State<MainHomePage> {
                                 ),
                               ),
                             ),
-                            Spacer(
-                              flex: 1,
-                            ),
+
                           ],
                         ),
                       ),

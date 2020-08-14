@@ -1,3 +1,4 @@
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:company_task/Block/Block.dart';
 import 'package:company_task/Screens/Cloth/ClothMoreScreen.dart';
@@ -102,262 +103,278 @@ Delete delete = Delete();
   Widget build(BuildContext context) {
     var profileProvider = Provider.of<InfoProvider>(context);
 
-    return Scaffold(
-      backgroundColor: kMainColor, //Color(0xFF04022B),
-      drawer: MainDrawer(),
-      appBar: AppBar(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: kMainColor, //Color(0xFF04022B),
+        drawer: MainDrawer(),
+        appBar: AppBar(
 
-        leading: GestureDetector(
-          onTap:(){
-            Navigator.pop(context);
-          },
-          child: Container(
-            margin: EdgeInsets.only(left: 25.0),
-            child: Icon(
-              Icons.arrow_back_ios,
-              color: kSecondColor,
-            ),
-          ),
+         title: Row(
+           textDirection: TextDirection.rtl,
+           children: <Widget>[
+             SizedBox(width: 10,),
+             Text("الصفحه الشخصيه",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
+           ],
+         ),
+
+          backgroundColor: kSecondColor,
+          elevation: 0.0,
         ),
-        backgroundColor: kMainColor,
-        elevation: 0.0,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            SizedBox(height: 20),
-            ProfileHeader(),
-            SizedBox(height: 15),
-            Row(
-              textDirection: TextDirection.rtl,
-              children: <Widget>[
-                SizedBox(width: 35,),
-                Container(
-                  width: MediaQuery.of(context).size.width-40,
-                  child: Row(
-                    textDirection: TextDirection.rtl,
-                    children: <Widget>[
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 20),
+              ProfileHeader(),
+              SizedBox(height: 15),
+              Row(
+                textDirection: TextDirection.rtl,
+                children: <Widget>[
+                  SizedBox(width: 35,),
+                  Container(
+                    width: MediaQuery.of(context).size.width-40,
+                    child: Row(
+                      textDirection: TextDirection.rtl,
+                      children: <Widget>[
 
-                      FlatButton(onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileClothMoreScreen()));
-                      },
-                        child: Text("المزيد",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
-                      ),
+                        FlatButton(onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileClothMoreScreen()));
+                        },
+                          child: Text("المزيد",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
+                        ),
 
-                      Spacer(),
-                      Text("الملابس",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
-                      SizedBox(width: 40,)
+                        Spacer(),
+                        Text("الملابس",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
+                        SizedBox(width: 40,)
 
 
-                    ],
+                      ],
+                    ),
+                  )              ],
+              ),
+              SizedBox(height: 15),
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0, right: 10),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child:  StreamBuilder<List<ClothModel>>(
+                    stream: _bloc.streamClothProfile,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Container(
+                          height: 290,
+                          child: new ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.data.length,
+                              shrinkWrap: true,
+                              addAutomaticKeepAlives: false,
+                              itemBuilder: (BuildContext context, index) {
+                                var data = snapshot.data[index];
+
+                                return Padding(
+                                  padding: const EdgeInsets.only(left: 10,right: 10),
+                                  child: PostClothProfileMaterial(
+                                    clothModel: data,
+                                    onsSelect: (kPostPopMenu result){
+
+                                      if(result == kPostPopMenu.delete){
+                                        setState(() {
+                                          delete.deleteDocument('Cloth', data.documentId);
+                                          _bloc.fetchClothProfileData(context);
+                                        });
+                                      }
+
+                                    },
+                                  ),
+                                );
+                              }),
+                        );
+                      } else
+                        return
+                          Container(
+                          height: 290,
+                          width: MediaQuery.of(context).size.width,
+                          color: Colors.white,
+                          child: Center(
+                            child:   Text("لم يتم نشر بوستات الى الان",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold,color: kSecondColor),),
+                          ),
+                        );
+
+                    },
                   ),
-                )              ],
-            ),
-            SizedBox(height: 15),
-            Padding(
-              padding: const EdgeInsets.only(left: 10.0, right: 10),
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                child:  StreamBuilder<List<ClothModel>>(
-                  stream: _bloc.streamClothProfile,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return Container(
-                        height: 290,
-                        child: new ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: snapshot.data.length,
-                            shrinkWrap: true,
-                            addAutomaticKeepAlives: false,
-                            itemBuilder: (BuildContext context, index) {
-                              var data = snapshot.data[index];
-
-                              return Padding(
-                                padding: const EdgeInsets.only(left: 10,right: 10),
-                                child: PostClothProfileMaterial(
-                                  clothModel: data,
-                                  onsSelect: (kPostPopMenu result){
-
-                                    if(result == kPostPopMenu.delete){
-                                      setState(() {
-                                        delete.deleteDocument('Cloth', data.documentId);
-                                        _bloc.fetchClothProfileData(context);
-                                      });
-                                    }
-
-                                  },
-                                ),
-                              );
-                            }),
-                      );
-                    } else
-                      return Container();
-
-                  },
                 ),
               ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Row(
-              textDirection: TextDirection.rtl,
-              children: <Widget>[
-                SizedBox(width: 40,),
-                Container(
-                  width: MediaQuery.of(context).size.width-40,
-                  child: Row(
-                    textDirection: TextDirection.rtl,
-                    children: <Widget>[
+              SizedBox(
+                height: 30,
+              ),
+              Row(
+                textDirection: TextDirection.rtl,
+                children: <Widget>[
+                  SizedBox(width: 40,),
+                  Container(
+                    width: MediaQuery.of(context).size.width-40,
+                    child: Row(
+                      textDirection: TextDirection.rtl,
+                      children: <Widget>[
 
-                      FlatButton(
+                        FlatButton(
 
-                        onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileFurnitureMoreScreen()));
-                      },
-                        child: Text("المزيد",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
-                      ),
+                          onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileFurnitureMoreScreen()));
+                        },
+                          child: Text("المزيد",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
+                        ),
 
-                      Spacer(),
-                      Text("الأثاث",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
+                        Spacer(),
+                        Text("الأثاث",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
 SizedBox(width: 40,)
 
-                    ],
+                      ],
+                    ),
+                  )              ],
+              ),
+              SizedBox(height: 15),
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0, right: 20,top: 10,bottom: 10),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child:  StreamBuilder<List<FurnitureModel>>(
+                    stream: _bloc.streamFurnitureProfile,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Container(
+                          height: 290,
+                          child: new ListView.builder(
+
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.data.length,
+                              shrinkWrap: false,
+                              addAutomaticKeepAlives: false,
+                              itemBuilder: (BuildContext context, index) {
+                                var data = snapshot.data[index];
+
+                                return Padding(
+                                  padding: const EdgeInsets.only(left: 10,right: 10),
+                                  child: PostFurnitureProfileMaterial(
+                                    furnitureModel: data,
+                                    onsSelect: (kPostPopMenu result){
+
+                                      if(result == kPostPopMenu.delete){
+                                        setState(() {
+                                          delete.deleteDocument('Furniture', data.documentId);
+                                          _bloc.fetchFurnitureProfileData(context);
+                                        });
+                                      }
+
+                                    },
+                                  ),
+                                );
+                              }),
+                        );
+                      } else
+                        return     Container(
+                          height: 290,
+                          width: MediaQuery.of(context).size.width,
+                          color: Colors.white,
+                          child: Center(
+                            child:   Text("لم يتم نشر بوستات الى الان",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold,color: kSecondColor),),
+                          ),
+                        );
+
+                    },
                   ),
-                )              ],
-            ),
-            SizedBox(height: 15),
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 20,top: 10,bottom: 10),
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                child:  StreamBuilder<List<FurnitureModel>>(
-                  stream: _bloc.streamFurnitureProfile,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return Container(
-                        height: 290,
-                        child: new ListView.builder(
-
-                            scrollDirection: Axis.horizontal,
-                            itemCount: snapshot.data.length,
-                            shrinkWrap: false,
-                            addAutomaticKeepAlives: false,
-                            itemBuilder: (BuildContext context, index) {
-                              var data = snapshot.data[index];
-
-                              return Padding(
-                                padding: const EdgeInsets.only(left: 10,right: 10),
-                                child: PostFurnitureProfileMaterial(
-                                  furnitureModel: data,
-                                  onsSelect: (kPostPopMenu result){
-
-                                    if(result == kPostPopMenu.delete){
-                                      setState(() {
-                                        delete.deleteDocument('Furniture', data.documentId);
-                                        _bloc.fetchFurnitureProfileData(context);
-                                      });
-                                    }
-
-                                  },
-                                ),
-                              );
-                            }),
-                      );
-                    } else
-                      return Container();
-
-                  },
                 ),
               ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Row(
-              textDirection: TextDirection.rtl,
-              children: <Widget>[
-                SizedBox(width: 15,),
-                Container(
-                  width: MediaQuery.of(context).size.width-40,
-                  child: Row(
-                    textDirection: TextDirection.rtl,
-                    children: <Widget>[
+              SizedBox(
+                height: 30,
+              ),
+              Row(
+                textDirection: TextDirection.rtl,
+                children: <Widget>[
+                  SizedBox(width: 15,),
+                  Container(
+                    width: MediaQuery.of(context).size.width-40,
+                    child: Row(
+                      textDirection: TextDirection.rtl,
+                      children: <Widget>[
 
-                      FlatButton(onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileMedicineMoreScreen()));
-                      },
-                        child: Text("المزيد",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
-                      ),
+                        FlatButton(onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileMedicineMoreScreen()));
+                        },
+                          child: Text("المزيد",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
+                        ),
 
-                      Spacer(),
-                      Text("الأدويه",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
+                        Spacer(),
+                        Text("الأدويه",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
 
 
-                    ],
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(height: 15),
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0, right: 10),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child:
+                  StreamBuilder<List<MedicineModel>>(
+                    stream: _bloc.streamMedicineProfile,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 290,
+                          child: new ListView.builder(
+
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.data.length,
+                              shrinkWrap: false,
+                              addAutomaticKeepAlives: false,
+                              itemBuilder: (BuildContext context, index) {
+                                var data = snapshot.data[index];
+
+                                return Padding(
+                                  padding: const EdgeInsets.only(left: 10,right: 10),
+                                  child: PostMedicineProfileMaterial(
+                                    medicineModel: data,
+                                    onsSelect: (kPostPopMenu result){
+
+                                      if(result == kPostPopMenu.delete){
+                                        setState(() {
+                                          delete.deleteDocument('medicine', data.documentId);
+                                          _bloc.fetchMedicineProfileData(context);
+                                        });
+                                      }
+
+                                    },
+                                  ),
+                                );
+                              }),
+                        );
+                      } else
+                        return     Container(
+                          height: 290,
+                          width: MediaQuery.of(context).size.width,
+                          color: Colors.white,
+                          child: Center(
+                            child:   Text("لم يتم نشر بوستات الى الان",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold,color: kSecondColor),),
+                          ),
+                        );
+
+                    },
                   ),
-                )
-              ],
-            ),
-            SizedBox(height: 15),
-            Padding(
-              padding: const EdgeInsets.only(left: 10.0, right: 10),
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                child:
-                StreamBuilder<List<MedicineModel>>(
-                  stream: _bloc.streamMedicineProfile,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 290,
-                        child: new ListView.builder(
-
-                            scrollDirection: Axis.horizontal,
-                            itemCount: snapshot.data.length,
-                            shrinkWrap: false,
-                            addAutomaticKeepAlives: false,
-                            itemBuilder: (BuildContext context, index) {
-                              var data = snapshot.data[index];
-
-                              return Padding(
-                                padding: const EdgeInsets.only(left: 10,right: 10),
-                                child: PostMedicineProfileMaterial(
-                                  medicineModel: data,
-                                  onsSelect: (kPostPopMenu result){
-
-                                    if(result == kPostPopMenu.delete){
-                                      setState(() {
-                                        delete.deleteDocument('medicine', data.documentId);
-                                        _bloc.fetchMedicineProfileData(context);
-                                      });
-                                    }
-
-                                  },
-                                ),
-                              );
-                            }),
-                      );
-                    } else
-                      return Container(
-                        height: 100,
-                        width: 200,
-
-                      );
-
-                  },
                 ),
               ),
-            ),
 
-            SizedBox(
-              height: 30,
-            ),
-          ],
-        ),
-      )
+              SizedBox(
+                height: 30,
+              ),
+            ],
+          ),
+        )
 
+      ),
     );
   }
 }
@@ -463,13 +480,13 @@ Bloc _bloc = Bloc();
                     ),
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
-                    onTap: () {
-                      Provider.of<InfoProvider>(context, listen: false)
-                              .modifyImage =
-                          Provider.of<InfoProvider>(context, listen: false)
-                              .updatedImage;
-                      Navigator.pushNamed(context, ProfileImageScreen.id);
-                    },
+//                    onTap: () {
+//                      Provider.of<InfoProvider>(context, listen: false)
+//                              .modifyImage =
+//                          Provider.of<InfoProvider>(context, listen: false)
+//                              .updatedImage;
+//                      Navigator.pushNamed(context, ProfileImageScreen.id);
+//                    },
                   ),
                 ),
                 SizedBox(

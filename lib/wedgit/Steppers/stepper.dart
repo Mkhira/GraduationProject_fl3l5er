@@ -63,7 +63,7 @@ class _MyStepperState extends State<MyStepper> {
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 50.0),
                         child: Container(
-                          height: 900,
+                          height: 980,
                           width: width,
                           child: StepperScreen(),
                         ),

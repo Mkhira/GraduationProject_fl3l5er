@@ -42,7 +42,6 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
         child: Scaffold(
           backgroundColor: kMainColor,
           appBar: AppBar(
-            leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () {}),
             backgroundColor: kSecondColor,
             title: Text('إضافه دواء ',style: KBaseHeaders,),
           ),
@@ -298,7 +297,7 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
                               ),
                               MyMainTextField(
                                 labelText: 'الكميه',
-                                width: MediaQuery.of(context).size.width / 3.5,
+                                width: MediaQuery.of(context).size.width / 3.4,
                                 widget: Container(
                                   width: 0,
                                   height: 0,
@@ -389,8 +388,9 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
                               SizedBox(
                                 width: 10,
                               ),
-                              MainTextField(
-                                width: MediaQuery.of(context).size.width / 3,
+                              MyMainTextField(
+
+                                width: MediaQuery.of(context).size.width / 2,
                                 widget: Container(
                                   width: 0,
                                   height: 0,
@@ -399,6 +399,12 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
                                 obscure: false,
                                 enable: false,
                                 textStream: provider.dateStream,
+                                labelText: provider.dateTime == null
+                                    ? "التاريخ"
+                                    : DateFormat('dd/MM/yyyy ')
+                                    .format(DateTime.parse(
+                                    provider.dateTime.toString()))
+                                    .toString(),
                                 inputType: TextInputType.phone,
                                 hintText: provider.dateTime == null
                                     ? "       التاريخ"
@@ -413,14 +419,16 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
                             ],
                           ),
                         ),
-//                  SizedBox(
-//                    height: 8.0,
-//                  ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 20.0, horizontal: 15.0),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
                           child: Row(
-                            children: [
+                            children: <Widget>[
+                              SizedBox(
+                                width: 15,
+                              ),
                               ButtonWidget(
                                 height: 40,
                                 color: kSecondColor,
@@ -455,9 +463,41 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
 
                                 },
                               ),
+                              Spacer(
+                                flex: 3,
+                              ),
+
+                              MyMainTextFieldLocation(
+
+                                width: MediaQuery.of(context).size.width / 2,
+                                widget: Container(
+                                  width: 0,
+                                  height: 0,
+                                ),
+                                textChange: provider.dateChange,
+                                obscure: false,
+                                enable: false,
+                                textStream: provider.dateStream,
+                                labelText: Provider.of<InfoProvider>(context).postLocation == null
+                                    ? "الموقع"
+                                    : Provider.of<InfoProvider>(context).postLocation
+                                    .toString(),
+                                inputType: TextInputType.phone,
+                                hintText: Provider.of<InfoProvider>(context).postLocation == null
+                                    ? "الموقع"
+                                    : Provider.of<InfoProvider>(context).postLocation
+                                    .toString(),
+                              ),
+                              SizedBox(
+                                width: 15,
+                              ),
                             ],
                           ),
                         ),
+//                  SizedBox(
+//                    height: 8.0,
+//                  ),
+                  SizedBox(height: 20,),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15.0),
                           child: Row(
@@ -510,7 +550,7 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
                             text: "إضافه",
                             onPressed: (){
                                 setState(() {
-
+                                  Provider.of<InfoProvider>(context).postLocation =null;
 //                            _bloc.fetchMedicine();
 //                            _bloc.fetchMedicineFinish();
                             _loading=true;

@@ -422,16 +422,13 @@ class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
                             ],
                           ),
                         ),
-
-
-//                  SizedBox(
-//                    height: 8.0,
-//                  ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 20.0, horizontal: 15.0),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
                           child: Row(
-                            children: [
+                            children: <Widget>[
+                              SizedBox(
+                                width: 15,
+                              ),
                               ButtonWidget(
                                 height: 40,
                                 color: kSecondColor,
@@ -466,9 +463,40 @@ class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
 
                                 },
                               ),
+                              Spacer(
+                                flex: 3,
+                              ),
+
+                              MyMainTextFieldLocation(
+
+                                width: MediaQuery.of(context).size.width / 2,
+                                widget: Container(
+                                  width: 0,
+                                  height: 0,
+                                ),
+                                textChange: provider.dateChange,
+                                obscure: false,
+                                enable: false,
+                                textStream: provider.dateStream,
+                                labelText: Provider.of<InfoProvider>(context).postLocation == null
+                                    ? "الموقع"
+                                    : Provider.of<InfoProvider>(context).postLocation
+                                    .toString(),
+                                inputType: TextInputType.phone,
+                                hintText: Provider.of<InfoProvider>(context).postLocation == null
+                                    ? "الموقع"
+                                    : Provider.of<InfoProvider>(context).postLocation
+                                    .toString(),
+                              ),
+                              SizedBox(
+                                width: 15,
+                              ),
                             ],
                           ),
                         ),
+
+                        SizedBox(height: 20,),
+
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15.0),
                           child: Row(
@@ -522,6 +550,7 @@ class _AddClothPostDataScreenState extends State<AddClothPostDataScreen> {
                               onPressed: (){
 
                                 setState(() {
+                                  Provider.of<InfoProvider>(context).postLocation =null;
                                   _loading=true;
 //                                     _bloc.fetchCloth();
 //                                     _bloc.fetchClothFinish();

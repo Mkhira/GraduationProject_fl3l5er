@@ -137,12 +137,12 @@ class ContactUsCard extends StatelessWidget {
                     children: <Widget>[
                        Text(" :الإسم  ", style: TextStyle(
                            fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                           fontSize: 14,
+                           fontSize: 13,
                            fontWeight: FontWeight.bold,
                            color: Colors.black),),
                        Text("$name", style: TextStyle(
                            fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                           fontSize: 13,
+                           fontSize: 12,
                            fontWeight: FontWeight.bold,
                            color: kSecondColor),)
 
@@ -163,12 +163,12 @@ class ContactUsCard extends StatelessWidget {
                       SizedBox(width: 10,),
                        Text(" :الإيميل  ", style: TextStyle(
                            fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                           fontSize: 14,
+                           fontSize: 13,
                            fontWeight: FontWeight.bold,
                            color: Colors.black),),
                        Text("$email", style: TextStyle(
                            fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                           fontSize: 13,
+                           fontSize: 12,
                            fontWeight: FontWeight.bold,
                            color: kSecondColor),)
 
@@ -189,12 +189,12 @@ class ContactUsCard extends StatelessWidget {
 
                       Text(" :الهاتف  ", style: TextStyle(
                            fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                           fontSize: 14,
+                           fontSize: 13,
                            fontWeight: FontWeight.bold,
                            color: Colors.black),),
                        Text("$phone", style: TextStyle(
                            fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                           fontSize: 13,
+                           fontSize: 12,
                            fontWeight: FontWeight.bold,
                            color: kSecondColor),)
 

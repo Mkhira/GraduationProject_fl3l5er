@@ -3,6 +3,7 @@ import 'package:company_task/provider/AddPostClothProvider.dart';
 import 'package:company_task/provider/AddPostMedicineProvider.dart';
 import 'package:company_task/provider/AddPostfurnitureProvider.dart';
 import 'package:company_task/provider/AddingBloodPostProvider.dart';
+import 'package:company_task/provider/info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,7 @@ class MapProvider extends ChangeNotifier{
      String administrativeArea =
          place.subAdministrativeArea;
      String locality = place.locality;
+     Provider.of<InfoProvider>(context).postLocation =place.locality;
      print('$administrativeArea  $locality');
      print(
          '${position.latitude}  ${position.longitude}');

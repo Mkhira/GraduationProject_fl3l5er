@@ -480,7 +480,7 @@ bool medicineClick = true;
   }
 
   /////////////////////////////
-
+String postLocation;
   String UserLoginId='';
   List newsListUser = [];
 
@@ -512,8 +512,9 @@ bool medicineClick = true;
     locationProfile = await Common.getUserLocationToken();
     nameProfile = await Common.getUserNameToken();
     idProfile = await Common.getUserIdToken();
-    print(imageUrlProfile);
-    print(imageUrlProfile);
+    UserLoginId = await Common.getUserIdToken();
+    print(idProfile);
+    print(idProfile);
     notifyListeners();
   }
 

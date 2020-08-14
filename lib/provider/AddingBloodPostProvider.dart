@@ -61,7 +61,7 @@ class BloodPostProvider extends ChangeNotifier{
 
   final phone = BehaviorSubject<String>();
 
-  Stream<String> get phoneStream => phone.stream.transform(validator.phone);
+  Stream<String> get phoneStream => phone.stream;
 
   Function(String) get phoneChange => phone.sink.add;
 
@@ -114,7 +114,7 @@ class BloodPostProvider extends ChangeNotifier{
       locationList.insert(1, chosenLong);
     }
     if(bloodNeededAmount.value != null && patientName.value != null &&  patientDescription.value != null && locationList[0] != null && locationList[1] != null
-        && phone.value != null && hospitalName.value!=null ){
+        && phone.value != null && hospitalName.value!=null && phone.value.length ==11){
       DocumentReference ref = await databaseReference.collection("bloodNeedy").document();
       ref.setData({
         'neededAmount': int.parse(bloodNeededAmount.value.toString()),

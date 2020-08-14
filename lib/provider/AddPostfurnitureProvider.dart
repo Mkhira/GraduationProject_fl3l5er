@@ -166,14 +166,13 @@ class AddPostFurnitureProvider extends ChangeNotifier{
 
       urx = await snapshot.ref.getDownloadURL();
     }else if(imageFileFurniture == null ){
-      print(imageFileFurniture.path);
       print(urx);
       showDialog(context: context ,
           builder: (BuildContext context) {
             return  DailogError(text: "من فضلك إختر صوره",titleText: "هنالك خطأ فى البيانات",); } );
     }
     if(furnitureAmount.value != null && furnitureName.value != null &&  urx != null && locationList[0] != null && locationList[1] != null
-        && phone.value != null && name.length>=3 &&  duration.value != null){
+        && phone.value != null && name.length>=3 &&  duration.value != null&& phone.value.length ==11){
       DocumentReference ref = await databaseReference.collection("Furniture").document();
           ref.setData({
         'amount': int.parse(furnitureAmount.value.toString()),

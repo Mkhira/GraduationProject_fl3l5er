@@ -7,6 +7,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'file:///E:/flater_projects/company_task/lib/Screens/Profile/profile_screen.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/style/constent.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -57,51 +58,48 @@ class _PostsAppBarrHeaderState extends State<PostsAppBarrHeader> {
                   borderRadius: BorderRadius.circular(20),
                   color: Colors.white,
                 ),
-                width: MediaQuery.of(context).size.width / 1.6,
+                width: MediaQuery.of(context).size.width / 1.9,
                 height: 60,
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  textDirection: TextDirection.rtl,
                   children: <Widget>[
-                    SizedBox(
-                      width: 5,
-                    ),
-                    GestureDetector(
-                      key: Provider.of<InfoProvider>(context).actionKey,
-                      onTap: () {
-                        if (Provider.of<InfoProvider>(context)
-                            .isDropdownOpened) {
-                          Provider.of<InfoProvider>(context)
-                              .floatingDropdown
-                              .remove();
-                        } else {
-                          Provider.of<InfoProvider>(context)
-                              .floatingDropdown =
-                              Provider.of<InfoProvider>(context)
-                                  .createFloatingDropdown();
-                          Overlay.of(context).insert(
-                              Provider.of<InfoProvider>(context)
-                                  .floatingDropdown);
-                          Provider.of<InfoProvider>(context)
-                              .findDropdownData();
-                        }
-                        Provider.of<InfoProvider>(context)
-                            .changeDropdownOpenedState();
-                      },
-                      child: Container(
-                        width: 20,
-                        height: 60,
-                        child: Icon(
-                          Icons.format_align_left,
-                          size: 30,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                    Spacer(),
+
+//                    GestureDetector(
+//                      key: Provider.of<InfoProvider>(context).actionKey,
+//                      onTap: () {
+//                        if (Provider.of<InfoProvider>(context)
+//                            .isDropdownOpened) {
+//                          Provider.of<InfoProvider>(context)
+//                              .floatingDropdown
+//                              .remove();
+//                        } else {
+//                          Provider.of<InfoProvider>(context)
+//                              .floatingDropdown =
+//                              Provider.of<InfoProvider>(context)
+//                                  .createFloatingDropdown();
+//                          Overlay.of(context).insert(
+//                              Provider.of<InfoProvider>(context)
+//                                  .floatingDropdown);
+//                          Provider.of<InfoProvider>(context)
+//                              .findDropdownData();
+//                        }
+//                        Provider.of<InfoProvider>(context)
+//                            .changeDropdownOpenedState();
+//                      },
+//                      child: Container(
+//                        width: 20,
+//                        height: 60,
+//                        child: Icon(
+//                          Icons.format_align_left,
+//                          size: 30,
+//                          color: Colors.grey,
+//                        ),
+//                      ),
+//                    ),
+
                     Container(
                       height: 60,
-                      width: MediaQuery.of(context).size.width / 1.9,
+                      width: MediaQuery.of(context).size.width / 2.3,
                       child: Padding(
                         padding: const EdgeInsets.only(top: 6.0),
                         child: StreamBuilder(
@@ -125,6 +123,9 @@ class _PostsAppBarrHeaderState extends State<PostsAppBarrHeader> {
                               );
                             }),
                       ),
+                    ),
+                    SizedBox(
+                      width: 5,
                     ),
                   ],
                 ),

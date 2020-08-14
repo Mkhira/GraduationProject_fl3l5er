@@ -75,8 +75,8 @@ class donationList extends StatelessWidget {
               children: <Widget>[
                 SizedBox(width: 5,),
                 Container(
-                  height: 100,
-                  width: 80,
+                  height: 85,
+                  width: 60,
                   decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15)
                   ),
