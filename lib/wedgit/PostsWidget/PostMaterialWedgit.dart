@@ -26,142 +26,73 @@ class PostsMaterial extends StatelessWidget {
     return Material(
       borderRadius: BorderRadius.circular(20),
       elevation: 4,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: kSecondColor,
-        ),
-        child: Stack(
-          children: <Widget>[
-            Positioned(
-              top: 0,
-              left: 0,
-              child: ClipRRect(
-                borderRadius:
-                BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
-                child: CachedNetworkImage(
-                  imageUrl: imageUrl,
-                  width: MediaQuery.of(context)
-                      .size
-                      .width /2.18,
-                  height: 180,
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) =>
-                      CircularProgressIndicator(),
-                  errorWidget:
-                      (context, url, error) =>
-                      Icon(Icons.error),
-                  placeholderFadeInDuration:
-                  Duration(days: 30),
-                  useOldImageOnUrlChange: true,
-                  filterQuality:
-                  FilterQuality.low,
-                ),
-              ),
-            ),
-            Positioned(
-              top: 192,
-              right: 5,
-              child: Container(
-                width: MediaQuery.of(context)
-                    .size
-                    .width /
-                    1.8,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Text(
-                        "$name",
-                        style: kPostStyleArabicChange
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                        ":$type",
-                        style: kPostStyleArabicBase
-                    ),
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.white,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
 
-                  ],
+            children: <Widget>[
+              Expanded(
+                child: ClipRRect(
+                  borderRadius:
+                  BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
+                  child: CachedNetworkImage(
+                    imageUrl: imageUrl,
+                    width: MediaQuery.of(context)
+                        .size
+                        .width /2.18,
+                    height: 180,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) =>
+                        CircularProgressIndicator(),
+                    errorWidget:
+                        (context, url, error) =>
+                        Icon(Icons.error),
+                    placeholderFadeInDuration:
+                    Duration(days: 30),
+                    useOldImageOnUrlChange: true,
+                    filterQuality:
+                    FilterQuality.low,
+                  ),
                 ),
               ),
-            ),
-            Positioned(
-              top: 225,
-              right: 4,
-              child: Container(
-                width: MediaQuery.of(context)
-                    .size
-                    .width /
-                    2,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Text(
-                        "$owner",
-                        style: kPostStyleArabicChange
-                    ),
-                    Text(
-                        " : المالك",
-                        style: kPostStyleArabicBase
-                    ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                          "$type: $name",
+                          style: kPostStyleArabicBase
+                      ),
 
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              top: 257,
-              right: 16,
-              child: Container(
-                width: MediaQuery.of(context)
-                    .size
-                    .width /
-                    2.2,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Text(
-                      "0$phone",
-                      style: kPostStyleArabicChange,
-                    ),
-                    Text(
-                        " : الهاتف",
-                        style: kPostStyleArabicBase
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              top: 290,
-              right: -3,
-              child: Container(
-                width: MediaQuery.of(context)
-                    .size
-                    .width /
-                    2,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
 
-                    Text(
-                        "$state",
-                        style: kPostStyleArabicChange
-                    ),
-                    Text(
-                        " : الحاله",
-                        style: kPostStyleArabicBase
-                    ),
-                  ],
+                      Text(
+                          "المالك: $owner",
+                          style: kPostStyleArabicBase
+                      ),
+
+                      Text(
+                        "الهاتف: 0$phone",
+                        style: kPostStyleArabicBase,
+                      ),
+
+                      Text(
+                          "الحاله: $state",
+                          style: kPostStyleArabicBase
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

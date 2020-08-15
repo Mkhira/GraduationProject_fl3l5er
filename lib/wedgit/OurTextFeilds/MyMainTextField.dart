@@ -145,14 +145,15 @@ class MyMainTextFieldForm extends StatelessWidget {
             onChanged: textChange,
             controller: inputController,
             focusNode: focusNode,
+
             textAlign: TextAlign.right,
             style: TextStyle(color: Colors.black),
             cursorColor: Colors.white,
             autofocus: false,
             keyboardType: inputType,
             obscureText: obscure,
-            textInputAction: TextInputAction.next,
             decoration: InputDecoration(
+              prefix: widget,
               contentPadding:
               EdgeInsets.symmetric(vertical: height, horizontal: 15.0),
               errorText: snapshot.error,
@@ -438,7 +439,7 @@ class MyMainTextFieldSearch extends StatelessWidget {
                 borderSide: BorderSide(color: Colors.white, width: 3.0),
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
-              labelText: "$labelText",
+//              labelText: "$labelText",
               hintText: " $hintText",
               hintStyle: TextStyle(
                 fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',

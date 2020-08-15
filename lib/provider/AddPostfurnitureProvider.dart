@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:company_task/Block/Validator.dart';
+import 'package:company_task/provider/MapProvider.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/wedgit/ChosseImage.dart';
 import 'package:company_task/wedgit/FriebaseErrorDailog.dart';
@@ -158,10 +159,8 @@ TextEditingController dayController = TextEditingController();
     }
     String urx;
 
-    if(locationList.length == 0){
-      locationList.insert(0, chosenLat);
-      locationList.insert(1, chosenLong);
-    }
+    locationList.insert(0, Provider.of<MapProvider>(context).lat);
+    locationList.insert(1, Provider.of<MapProvider>(context).lat);
 
     if(imageFileFurniture != null) {
       pr.show();
@@ -185,7 +184,7 @@ TextEditingController dayController = TextEditingController();
 
             ); } );
     }
-    if(furnitureAmount.value != null && furnitureName.value != null &&  urx != null && locationList[0] != null && locationList[1] != null
+    if(furnitureAmount.value != null && furnitureName.value != null &&  urx != null && locationList[0] != null && locationList[1] != null && furnitureDescription.value != null
         && phone.value != null && name.length>=3 &&  duration.value != null  && phoneController.text.length == 11 &&dayController.text.length ==1){
 
 
@@ -214,8 +213,10 @@ TextEditingController dayController = TextEditingController();
 
           }).whenComplete((){
             pr.hide();
+            Navigator.pop(context);
             locationList.clear();
-            close(context);});
+
+          });
       print(ref.documentID);}
     else if((locationList[0] == null || locationList[1] == null) && imageFileFurniture != null && urx != null){
       pr.hide();
@@ -298,7 +299,7 @@ TextEditingController dayController = TextEditingController();
 
   close(BuildContext context){
 
-    Navigator.pop(context);
+
 
     phoneController.text = null;
     dayController.text = null;
@@ -309,6 +310,7 @@ TextEditingController dayController = TextEditingController();
     phone.value =null;
     name.clear();duration.value =null;
     imageFileFurniture= null;
+    notifyListeners();
   }
 
   done(){

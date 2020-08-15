@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:company_task/Block/Validator.dart';
 import 'package:company_task/provider/AddPostMedicineProvider.dart';
+import 'package:company_task/provider/MapProvider.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/wedgit/ChosseImage.dart';
 import 'package:company_task/wedgit/FriebaseErrorDailog.dart';
@@ -76,7 +77,7 @@ class AddPostClothProvider extends ChangeNotifier{
 
   final phone = BehaviorSubject<String>();
 
-  Stream<String> get phoneStream => phone.stream.transform(validator.phone);
+  Stream<String> get phoneStream => phone.stream;
 
   Function(String) get phoneChange => phone.sink.add;
 
@@ -159,10 +160,8 @@ class AddPostClothProvider extends ChangeNotifier{
     }
     String urx;
 
-    if(locationList.length == 0){
-      locationList.insert(0, chosenLat);
-      locationList.insert(1, chosenLong);
-    }
+    locationList.insert(0, Provider.of<MapProvider>(context).lat);
+    locationList.insert(1, Provider.of<MapProvider>(context).lat);
     print(locationList[0]);
     print(locationList[1]);
     if(imageFileCloth != null) {
@@ -182,7 +181,7 @@ class AddPostClothProvider extends ChangeNotifier{
             return  DailogError(text: "من فضلك إختر صوره",titleText: "هنالك خطأ فى البيانات",); } );
     }
     if(clothAmount.value != null && clothName.value != null &&  urx != null && locationList[0] != null && locationList[1] != null && phone.value != null && name.length>=3 &&
-        duration.value != null&& phoneController.text.length == 11 &&dayController.text.length ==1){
+        duration.value != null&& phoneController.text.length == 11 &&dayController.text.length ==1 && clothDescription.value != null){
       DocumentReference ref = await databaseReference.collection("Cloth").document();
           ref.setData({
         'amount': int.parse(clothAmount.value.toString()),
@@ -205,7 +204,8 @@ class AddPostClothProvider extends ChangeNotifier{
 
           }).then(done()).whenComplete((){
             pr.hide();
-            close(context);});
+            Navigator.pop(context);
+          });
       print(ref.documentID);}
      else if((locationList[0] == null || locationList[1] == null) && imageFileCloth != null && urx != null){
       pr.hide();
@@ -259,7 +259,7 @@ class AddPostClothProvider extends ChangeNotifier{
 
   close(BuildContext context){
 
-    Navigator.pop(context);
+
 
     phoneController.text = null;
     dayController.text = null;
@@ -270,6 +270,7 @@ class AddPostClothProvider extends ChangeNotifier{
     phone.value =null;
     name.clear();duration.value =null;
     imageFileCloth= null;
+    notifyListeners();
   }
 
   done(){

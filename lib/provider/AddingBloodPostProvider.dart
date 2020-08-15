@@ -5,6 +5,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:company_task/Block/Validator.dart';
+import 'package:company_task/provider/MapProvider.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/wedgit/FriebaseErrorDailog.dart';
 import 'package:flutter/foundation.dart';
@@ -118,12 +119,20 @@ class BloodPostProvider extends ChangeNotifier{
     ProgressDialog pr = new ProgressDialog(context);
     pr = new ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: false, showLogs: true);
-    if(locationList.length == 0){
-      locationList.insert(0, chosenLat);
-      locationList.insert(1, chosenLong);
-    }
+    print("objxxxxxxxxxxxxxxxxxxxxxxxxxxxect");
+    print("objxxxxxxxxxxxxxxxxxxxxxxxxxxxect");
+    print(locationList.length);
+    print("objxxxxxxxxxxxxxxxxxxxxxxxxxxxect");
+    print("objxxxxxxxxxxxxxxxxxxxxxxxxxxxect");
+
+
+      locationList.insert(0, Provider.of<MapProvider>(context).lat);
+      locationList.insert(1, Provider.of<MapProvider>(context).lat);
+
+
+
     if(bloodNeededAmount.value != null && patientName.value != null &&  patientDescription.value != null && locationList[0] != null && locationList[1] != null
-        && phone.value != null && hospitalName.value!=null ){
+        && phone.value != null && hospitalName.value!=null  ){
       pr.show();
       DocumentReference ref = await databaseReference.collection("bloodNeedy").document();
       ref.setData({
@@ -145,7 +154,9 @@ class BloodPostProvider extends ChangeNotifier{
         "collectedAmount": 0,
       }).whenComplete(()async{
         pr.hide();
-        close(context);});
+        Navigator.pop(context);
+
+      });
       print(ref.documentID);
     }
     else if((locationList[0] == null || locationList[1] == null) ){
@@ -185,7 +196,9 @@ class BloodPostProvider extends ChangeNotifier{
   close(BuildContext context){
 
     Navigator.pop(context);
-
+    phoneController.text =null;
+    ageController.text = null;
+    bloodNeededController.text =null;
     hospitalName.value =null;
     patientAge.value = null;
     bloodNeededAmount.value = null;
@@ -194,6 +207,7 @@ class BloodPostProvider extends ChangeNotifier{
     bloodBank.value = null;
     patientName.value =null;
     patientDescription.value= null;
+    notifyListeners();
   }
 
 

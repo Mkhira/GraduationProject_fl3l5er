@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
 //                ),
 //              ],
 //            ),
-            drawer: MainDrawer(),
+            endDrawer: MainDrawer(),
             backgroundColor: Color(0xffe6e6ea),
             body:   MainHomePage(),),);}
 }

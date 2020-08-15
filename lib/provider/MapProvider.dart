@@ -10,6 +10,8 @@ import 'package:provider/provider.dart';
 
 class MapProvider extends ChangeNotifier{
 
+   double lat ;
+   double long;
 
    getCurrentLocation(BuildContext context) async{
      //get current position using geolocator package
@@ -36,6 +38,8 @@ class MapProvider extends ChangeNotifier{
      Provider.of<AddPostFurnitureProvider>(context).chosenLat =position.latitude;
      Provider.of<BloodPostProvider>(context).chosenLong =position.longitude;
      Provider.of<BloodPostProvider>(context).chosenLat =position.latitude;
+     lat = position.latitude;
+     long = position.longitude;
      notifyListeners();
    }
 

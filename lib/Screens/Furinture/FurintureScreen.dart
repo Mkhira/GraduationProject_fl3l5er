@@ -45,6 +45,8 @@ class _FurnitureScreenState extends State<FurnitureScreen> {
         drawer: MainDrawer(),
         appBar: PreferredSize(
             child: PostsAppBarrHeader(add:  () {
+              Provider.of<AddPostFurnitureProvider>(context).close(context);
+
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return AddFurniturePostScreen();
               }));
@@ -60,7 +62,7 @@ class _FurnitureScreenState extends State<FurnitureScreen> {
                   _bloc.fetchFurniture();
                 }});},),
             preferredSize: Size.fromHeight(80)),
-        backgroundColor: kMainColor,
+        backgroundColor: Color(0xffeeeeee),
         body: CustomScrollView(
           slivers: <Widget>[
             SliverPersistentHeader(
@@ -73,13 +75,13 @@ class _FurnitureScreenState extends State<FurnitureScreen> {
             ),
             SliverList(
               delegate: SliverChildListDelegate(
-                <Widget>[SizedBox(
-                    height: 15,
-                  ), Row(
+                <Widget>[
+                   Divider(color: kSecondColor,),
+                  Row(
                     textDirection: TextDirection.rtl,
                     children: <Widget>[
                       SizedBox(width: 35,),
-                      Text("الأثاث",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
+                      Text("الأثاث",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold,color: kSecondColor),),
                     ],
                   ), SizedBox(height: 15), Padding(
                     padding: const EdgeInsets.only(left: 10.0, right: 10),
@@ -216,7 +218,7 @@ class ContentWidget extends StatelessWidget {
         }));
       },
       child: PostsMaterial(
-        type: " الأثاث   ",
+        type: "الاثاث",
         state: furnitureModel.state,
         owner: furnitureModel.owner,
         imageUrl: furnitureModel.imageUrl,

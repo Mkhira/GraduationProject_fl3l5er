@@ -151,14 +151,14 @@ class _StepperScreenState extends State<StepperScreen> {
       ),
     );
   }
-
+  final GlobalKey<FormState> _form = GlobalKey<FormState>();
   Widget step1() {
     var signUpProviderObj = Provider.of<SignUpProvider>(context);
 
     return Column(
       children: [
         SizedBox(
-          height: 45.0,
+          height: 20.0,
         ),
         Stack(
           children: [
@@ -201,7 +201,7 @@ class _StepperScreenState extends State<StepperScreen> {
           ],
         ),
         SizedBox(
-          height: 40.0,
+          height: 20.0,
         ),
         MyMainTextField(
           textChange: signUpProviderObj.emailChange,
@@ -213,9 +213,50 @@ class _StepperScreenState extends State<StepperScreen> {
           inputType: TextInputType.emailAddress,
         ),
         SizedBox(
-          height: 25.0,
+          height: 10.0,
         ),
-        Step1TextField(),
+        Form(
+          autovalidate: true,
+          key: _form,
+          child: Column(
+            children: [
+              MyMainTextFieldForm(
+                val: (val){
+                  if(val.isEmpty)
+                    return 'من فضلك ادخل الباصورد';
+                  return null;
+                },
+                textChange: signUpProviderObj.passwordChange,
+                textStream: signUpProviderObj.passwordStream,
+                inputController: signUpProviderObj.passwordController,
+                width: MediaQuery.of(context).size.width,
+                hintText: 'كلمة المرور',
+                labelText: 'كلمة المرور',
+                obscure: true,
+
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              MyMainTextFieldForm(
+                obscure: true,
+                val:  (val){
+                  if(val.isEmpty)
+                    return 'Empty';
+                  if(val != signUpProviderObj.passwordController.text )
+                    return 'Not Match';
+                  return null;
+                },
+                inputController: signUpProviderObj.passwordConfirmController,
+                width: MediaQuery.of(context).size.width,
+                hintText: 'تأكيد كلمة المرور',
+                labelText: 'تأكيد كلمة المرور',
+
+              ),
+            ],
+          ),
+
+        ),
         SizedBox(
           height: 25.0,
         ),
@@ -645,95 +686,96 @@ class _StepperScreenState extends State<StepperScreen> {
   }
 }
 
-class Step1TextField extends StatefulWidget {
-  @override
-  _Step1TextFieldState createState() => _Step1TextFieldState();
-}
-
-class _Step1TextFieldState extends State<Step1TextField> {
-  bool _obscure = true, _confirmObscure = true;
-  IconData _icon = Icons.visibility_off, _confirmIcon = Icons.visibility_off;
-
-  void _toggle() {
-    setState(() {
-      _obscure = !_obscure;
-      _icon =
-      _icon == Icons.visibility ? Icons.visibility_off : Icons.visibility;
-    });
-  }
-
-  void _confirmToggle() {
-    setState(() {
-      _confirmObscure = !_confirmObscure;
-      _confirmIcon = _confirmIcon == Icons.visibility
-          ? Icons.visibility_off
-          : Icons.visibility;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final GlobalKey<FormState> _form = GlobalKey<FormState>();
-
-    var signUpProviderObj = Provider.of<SignUpProvider>(context);
-
-    return Form(
-      autovalidate: true,
-      key: _form,
-      child: Column(
-        children: [
-          MyMainTextFieldForm(
-            val: (val){
-              if(val.isEmpty)
-                return 'من فضلك ادخل الباصورد';
-              return null;
-            },
-            textChange: signUpProviderObj.passwordChange,
-            textStream: signUpProviderObj.passwordStream,
-            inputController: signUpProviderObj.passwordController,
-            width: MediaQuery.of(context).size.width,
-            hintText: 'كلمة المرور',
-            labelText: 'كلمة المرور',
-            obscure: _obscure,
-            widget: IconButton(
-              icon: Icon(
-                _icon,
-                color: Colors.grey,
-              ),
-              onPressed: _toggle,
-            ),
-          ),
-          SizedBox(
-            height: 25.0,
-          ),
-          MyMainTextFieldForm(
-               val:  (val){
-                 if(val.isEmpty)
-                   return 'Empty';
-                 if(val != signUpProviderObj.passwordController.text )
-                   return 'Not Match';
-                 return null;
-               },
-             inputController: signUpProviderObj.passwordConfirmController,
-            width: MediaQuery.of(context).size.width,
-            hintText: 'تأكيد كلمة المرور',
-            labelText: 'تأكيد كلمة المرور',
-            obscure: _confirmObscure,
-            widget: IconButton(
-              icon: Icon(
-                _confirmIcon,
-                color: Colors.grey,
-              ),
-              onPressed: _confirmToggle,
-            ),
-          ),
-        ],
-      ),
-
-    );
-  }
-
-}
+//class Step1TextField extends StatefulWidget {
+//  @override
+//  _Step1TextFieldState createState() => _Step1TextFieldState();
+//}
+//
+//class _Step1TextFieldState extends State<Step1TextField> {
+//  bool _obscure = true, _confirmObscure = true;
+//  IconData _icon = Icons.visibility_off, _confirmIcon = Icons.visibility_off;
+//
+//  void _toggle() {
+//    setState(() {
+//      _obscure = !_obscure;
+//      _icon =
+//      _icon == Icons.visibility ? Icons.visibility_off : Icons.visibility;
+//    });
+//  }
+//
+//  void _confirmToggle() {
+//    setState(() {
+//      _confirmObscure = !_confirmObscure;
+//      _confirmIcon = _confirmIcon == Icons.visibility
+//          ? Icons.visibility_off
+//          : Icons.visibility;
+//    });
+//  }
+//
+//  @override
+//  Widget build(BuildContext context) {
+//
+//
+//    var signUpProviderObj = Provider.of<SignUpProvider>(context);
+//
+//    return
+//      Form(
+//      autovalidate: true,
+//      key: _form,
+//      child: Column(
+//        children: [
+//          MyMainTextFieldForm(
+//            val: (val){
+//              if(val.isEmpty)
+//                return 'من فضلك ادخل الباصورد';
+//              return null;
+//            },
+//            textChange: signUpProviderObj.passwordChange,
+//            textStream: signUpProviderObj.passwordStream,
+//            inputController: signUpProviderObj.passwordController,
+//            width: MediaQuery.of(context).size.width,
+//            hintText: 'كلمة المرور',
+//            labelText: 'كلمة المرور',
+//            obscure: _obscure,
+//            widget: IconButton(
+//              icon: Icon(
+//                _icon,
+//                color: Colors.grey,
+//              ),
+//              onPressed: _toggle,
+//            ),
+//          ),
+//          SizedBox(
+//            height: 25.0,
+//          ),
+//          MyMainTextFieldForm(
+//               val:  (val){
+//                 if(val.isEmpty)
+//                   return 'Empty';
+//                 if(val != signUpProviderObj.passwordController.text )
+//                   return 'Not Match';
+//                 return null;
+//               },
+//             inputController: signUpProviderObj.passwordConfirmController,
+//            width: MediaQuery.of(context).size.width,
+//            hintText: 'تأكيد كلمة المرور',
+//            labelText: 'تأكيد كلمة المرور',
+//            obscure: _confirmObscure,
+//            widget: IconButton(
+//              icon: Icon(
+//                _confirmIcon,
+//                color: Colors.grey,
+//              ),
+//              onPressed: _confirmToggle,
+//            ),
+//          ),
+//        ],
+//      ),
+//
+//    );
+//  }
+//
+//}
 
 class Step3Radio extends StatefulWidget {
   @override

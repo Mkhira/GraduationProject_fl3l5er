@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
     _bloc.fetchChatRoom(context);
 
     super.initState();
-    Timer(Duration(seconds: 7),()=> open());
+    Timer(Duration(seconds: 3),()=> open());
   }
   @override
 

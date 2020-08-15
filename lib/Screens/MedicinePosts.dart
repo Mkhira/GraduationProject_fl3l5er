@@ -42,10 +42,13 @@ class _MedicinePostsState extends State<MedicinePosts> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+
       drawer: MainDrawer(),
       appBar: PreferredSize(
           child: PostsAppBarrHeader(
             add: () {
+              Provider.of<AddPostMedicineProvider>(context).close(context);
+
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return AddMedicinePostDataScreen();
               }));
@@ -71,7 +74,7 @@ class _MedicinePostsState extends State<MedicinePosts> {
             },
           ),
           preferredSize: Size.fromHeight(80)),
-      backgroundColor: kMainColor,
+      backgroundColor: Color(0xffeeeeee),
       body: CustomScrollView(
         slivers: <Widget>[
           SliverPersistentHeader(
@@ -81,15 +84,15 @@ class _MedicinePostsState extends State<MedicinePosts> {
           SliverList(
             delegate: SliverChildListDelegate(
               <Widget>[
-
-                SizedBox(
-                  height: 15,
+                Divider(
+                  color: kSecondColor,
                 ),
+
                 Row(
                   textDirection: TextDirection.rtl,
                   children: <Widget>[
                     SizedBox(width: 15,),
-                    Text("الأدويه",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
+                    Text("الأدويه",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold,color: kSecondColor),),
                   ],
                 ),
 
@@ -121,7 +124,10 @@ class _MedicinePostsState extends State<MedicinePosts> {
 
                                 return
 
-                                  ContentWidget(medicineModel: data,);
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: ContentWidget(medicineModel: data,),
+                                  );
                               },
                               staggeredTileBuilder: (data) =>
                               new StaggeredTile.count(

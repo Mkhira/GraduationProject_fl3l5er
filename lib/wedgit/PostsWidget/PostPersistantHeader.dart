@@ -1,7 +1,3 @@
-
-
-
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:company_task/Screens/Cloth/ClothMoreScreen.dart';
@@ -22,137 +18,157 @@ class PostClothPersistantHeader extends StatelessWidget {
 
   final Stream stream;
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
         height: 300,
         width: MediaQuery.of(context).size.width,
-        color: Colors.white,
+        color: Color(0xffeeeeee),
         child: Column(
           children: <Widget>[
             Container(
                 width: MediaQuery.of(context).size.width,
                 child: Row(
                   children: <Widget>[
-                    SizedBox(width: 23,),
-                    Text("الحرجه",style: TextStyle(fontWeight: FontWeight.normal,fontSize: 17,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',color: Colors.black),),
+                    SizedBox(
+                      width: 23,
+                    ),
+                    Text(
+                      "البوستات الحرجه",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17,
+                          fontFamily: ArabicFonts.Amiri,
+                          package: 'google_fonts_arabic',
+                          color: Colors.black),
+                    ),
 
                     Spacer(),
-                    FlatButton(onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ClothMoreScreen()));
-                    }, child: Text("  المزيد",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic'),)),
+                    FlatButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ClothMoreScreen()));
+                        },
+                        child: Text(
+                          "  المزيد",
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontSize: 20,
+                              fontFamily: ArabicFonts.Amiri,
+                              package: 'google_fonts_arabic'),
+                        )),
 //                  SizedBox(width: 5,)
                   ],
                 )),
-            Container(height: 240,
+            Container(
+              height: 240,
               child: Padding(
-                padding: const EdgeInsets.only(top: 0,left: 5,right: 5),
+                padding: const EdgeInsets.only(top: 0, left: 5, right: 5),
                 child: StreamBuilder<List<ClothModel>>(
                   stream: stream,
-                  builder: (context,snapshot){
-                    if(snapshot.hasData){
-                      return      ListView.builder(
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView.builder(
                         itemCount: snapshot.data.length,
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
-                        itemBuilder: (context,index){
+                        itemBuilder: (context, index) {
                           var data = snapshot.data[index];
 
-                          return    Padding(
-                            padding: const EdgeInsets.only(left: 5,right: 10),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: kSecondColor,
-
-                              ),
-                              width: 160,
-                              height: 220,
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    height: 130,
-                                    width: 160,
-                                    child: ClipRRect(
-
-                                      borderRadius: BorderRadius.only(topRight: Radius.circular(20),topLeft: Radius.circular(20)),
-                                      child: CachedNetworkImage(
-                                        imageUrl: data.imageUrl,
-                                        width: 160,
-                                        height: 120,
-                                        fit: BoxFit.cover,
-                                        placeholder: (context,
-                                            url) =>
-                                            CircularProgressIndicator(),
-                                        errorWidget:
-                                            (context, url, error) =>
-                                            Icon(Icons.error),
-                                        placeholderFadeInDuration:
-                                        Duration(days: 30),
-                                        useOldImageOnUrlChange:
-                                        true,
-                                        filterQuality:
-                                        FilterQuality.low,
-                                      ),
-                                    ),
+                          return Padding(
+                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            child: Material(
+                              elevation: 4,
+                              borderRadius: BorderRadius.circular(20),
+                              child: Directionality(
+                                textDirection: TextDirection.rtl,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.white,
                                   ),
-
-
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.end,
+                                  width: 175,
+                                  height: 220,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      Text("${data.name}",style: kPostStyleArabicChange),
-                                      Text(" : الملبس",style: kPostStyleArabicBase),
-                                      SizedBox(
-                                        width: 19,
+                                      Expanded(
+                                        child: Container(
+                                          height: 130,
+                                          width: 175,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.only(
+                                                topRight: Radius.circular(20),
+                                                topLeft: Radius.circular(20)),
+                                            child: CachedNetworkImage(
+                                              imageUrl: data.imageUrl,
+                                              width: 175,
+                                              height: 120,
+                                              fit: BoxFit.cover,
+                                              placeholder: (context, url) =>
+                                                  CircularProgressIndicator(),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      Icon(Icons.error),
+                                              placeholderFadeInDuration:
+                                                  Duration(days: 30),
+                                              useOldImageOnUrlChange: true,
+                                              filterQuality: FilterQuality.low,
+                                            ),
+                                          ),
+                                        ),
                                       ),
-
-
-                                    ],),
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: <Widget>[
-                                      Text("${data.amount}",style: kPostStyleArabicChange,),
-                                      Text(" : القطع",style: kPostStyleArabicBase,),
                                       SizedBox(
-                                        width: 10,
+                                        height: 5,
                                       ),
-
-
-                                    ],),
-
-
-
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: <Widget>[
-                                      Text("${data.state}",style: kPostStyleArabicChange),
-                                      Text(" : الحاله",style: kPostStyleArabicBase),
-
-
-                                    ],),
-                                ],
+                                      Expanded(
+                                          child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            AutoSizeText(
+                                              'الملابس: ${data.name}',
+                                              style: TextStyle(
+                                                  fontFamily: ArabicFonts.Amiri,
+                                                  package:
+                                                      'google_fonts_arabic',
+                                                  fontWeight: FontWeight.bold),
+                                              presetFontSizes: [12.0, 5.0, 4.0],
+                                              maxLines: 1,
+                                            ),
+                                            Text(
+                                              "القطع: ${data.amount}",
+                                              style: kPostStyleArabicBase,
+                                            ),
+                                            Text("الحاله: ${data.state}",
+                                                style: kPostStyleArabicBase),
+                                          ],
+                                        ),
+                                      ))
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
                           );
                         },
                       );
-
-                    } else return Container();
+                    } else
+                      return Container();
                   },
-
                 ),
               ),
             ),
           ],
-        )
-    );
+        ));
   }
 }
+
 class PostMedicinePersistantHeader extends StatelessWidget {
   const PostMedicinePersistantHeader({
     Key key,
@@ -161,137 +177,159 @@ class PostMedicinePersistantHeader extends StatelessWidget {
 
   final Stream stream;
 
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: 300,
-        width: MediaQuery.of(context).size.width,
-        color: Colors.white,
-        child: Column(
-          children: <Widget>[
-            Container(
-                width: MediaQuery.of(context).size.width,
-                child: Row(
-                  children: <Widget>[
-                    SizedBox(width: 23,),
-                    Text("الحرجه",style: TextStyle(fontWeight: FontWeight.normal,fontSize: 17,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',color: Colors.black),),
+    return
+      Container(
+          height: 300,
+          width: MediaQuery.of(context).size.width,
+          color: Color(0xffeeeeee),
+          child: Column(
+            children: <Widget>[
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Row(
+                    children: <Widget>[
+                      SizedBox(
+                        width: 23,
+                      ),
+                      Text(
+                        "البوستات الحرجه",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17,
+                            fontFamily: ArabicFonts.Amiri,
+                            package: 'google_fonts_arabic',
+                            color: Colors.black),
+                      ),
 
-                    Spacer(),
-                    FlatButton(onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>MedicineMoreScreen()));
-                    }, child: Text("  المزيد",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic'),)),
+                      Spacer(),
+                      FlatButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => FurnitureMoreScreen()));
+                          },
+                          child: Text(
+                            "  المزيد",
+                            style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 20,
+                                fontFamily: ArabicFonts.Amiri,
+                                package: 'google_fonts_arabic'),
+                          )),
 //                  SizedBox(width: 5,)
-                  ],
-                )),
-            Container(height: 240,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 0,left: 10,right: 10),
-                child: StreamBuilder<List<MedicineModel>>(
-                  stream: stream,
-                  builder: (context,snapshot){
-                    if(snapshot.hasData){
-                      return      ListView.builder(
-                        itemCount: snapshot.data.length,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context,index){
-                          var data = snapshot.data[index];
+                    ],
+                  )),
+              Container(
+                height: 240,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 0, left: 10, right: 10,),
+                  child: StreamBuilder<List<MedicineModel>>(
+                    stream: stream,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return ListView.builder(
+                          itemCount: snapshot.data.length,
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            var data = snapshot.data[index];
 
-                          return    Padding(
-                            padding: const EdgeInsets.only(left: 10,right: 10),
-                            child: Container(
-                              decoration: BoxDecoration(
+                            return Padding(
+                              padding: const EdgeInsets.only(left: 10, right: 10),
+                              child: Material(
+                                elevation: 4,
                                 borderRadius: BorderRadius.circular(20),
-                                color: kSecondColor,
-
-                              ),
-                              width: 150,
-                              height: 220,
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    height: 130,
-                                    width: 150,
-                                    child: ClipRRect(
-
-                                      borderRadius: BorderRadius.only(topRight: Radius.circular(20),topLeft: Radius.circular(20)),
-                                      child: CachedNetworkImage(
-                                        imageUrl: data.imageUrl,
-                                        width: 150,
-                                        height: 120,
-                                        fit: BoxFit.cover,
-                                        placeholder: (context,
-                                            url) =>
-                                            CircularProgressIndicator(),
-                                        errorWidget:
-                                            (context, url, error) =>
-                                            Icon(Icons.error),
-                                        placeholderFadeInDuration:
-                                        Duration(days: 30),
-                                        useOldImageOnUrlChange:
-                                        true,
-                                        filterQuality:
-                                        FilterQuality.low,
-                                      ),
+                                child: Directionality(
+                                  textDirection: TextDirection.rtl,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.white,
+                                    ),
+                                    width: 175,
+                                    height: 220,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Container(
+                                            height: 130,
+                                            width: 175,
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.only(
+                                                  topRight: Radius.circular(20),
+                                                  topLeft: Radius.circular(20)),
+                                              child: CachedNetworkImage(
+                                                imageUrl: data.imageUrl,
+                                                width: 175,
+                                                height: 120,
+                                                fit: BoxFit.cover,
+                                                placeholder: (context, url) =>
+                                                    CircularProgressIndicator(),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                    Icon(Icons.error),
+                                                placeholderFadeInDuration:
+                                                Duration(days: 30),
+                                                useOldImageOnUrlChange: true,
+                                                filterQuality: FilterQuality.low,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  AutoSizeText(
+                                                    'الدواء: ${data.name}',
+                                                    style: TextStyle(
+                                                        fontFamily: ArabicFonts.Amiri,
+                                                        package:
+                                                        'google_fonts_arabic',
+                                                        fontWeight: FontWeight.bold),
+                                                    presetFontSizes: [12.0, 5.0, 4.0],
+                                                    maxLines: 1,
+                                                  ),
+                                                  Text(
+                                                    "القطع: ${data.amount}",
+                                                    style: kPostStyleArabicBase,
+                                                  ),
+                                                  Text("الحاله: ${data.state}",
+                                                      style: kPostStyleArabicBase),
+                                                ],
+                                              ),
+                                            ))
+                                      ],
                                     ),
                                   ),
-
-
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: <Widget>[
-                                      Text("${data.name}",style: kPostStyleArabicChange),
-                                      Text(" : الدواء",style: kPostStyleArabicBase),
-                                      SizedBox(
-                                        width: 13,
-                                      ),
-
-
-                                    ],),
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: <Widget>[
-                                      Text("${data.amount}",style: kPostStyleArabicChange,),
-                                      Text(" : القطع",style: kPostStyleArabicBase,),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-
-
-                                    ],),
-
-
-
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: <Widget>[
-                                      Text("${data.state}",style: kPostStyleArabicChange),
-                                      Text(" : الحاله",style: kPostStyleArabicBase),
-
-
-                                    ],),
-                                ],
+                                ),
                               ),
-                            ),
-                          );
-                        },
-                      );
-
-                    } else return Container();
-                  },
-
+                            );
+                          },
+                        );
+                      } else
+                        return Container();
+                    },
+                  ),
                 ),
               ),
-            ),
-          ],
-        )
-    );
+            ],
+          ));
+
   }
 }
+
 class PostFurniturePersistantHeader extends StatelessWidget {
   const PostFurniturePersistantHeader({
     Key key,
@@ -300,146 +338,154 @@ class PostFurniturePersistantHeader extends StatelessWidget {
 
   final Stream stream;
 
-
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return
+      Container(
         height: 300,
         width: MediaQuery.of(context).size.width,
-        color: Colors.white,
+        color: Color(0xffeeeeee),
         child: Column(
           children: <Widget>[
             Container(
                 width: MediaQuery.of(context).size.width,
                 child: Row(
                   children: <Widget>[
-                    SizedBox(width: 23,),
-                    Text("الحرجه",style: TextStyle(fontWeight: FontWeight.normal,fontSize: 17,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',color: Colors.black),),
+                    SizedBox(
+                      width: 23,
+                    ),
+                    Text(
+                      "البوستات الحرجه",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17,
+                          fontFamily: ArabicFonts.Amiri,
+                          package: 'google_fonts_arabic',
+                          color: Colors.black),
+                    ),
 
                     Spacer(),
-                    FlatButton(onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>FurnitureMoreScreen()));
-                    }, child: Text("  المزيد",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic'),)),
+                    FlatButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => FurnitureMoreScreen()));
+                        },
+                        child: Text(
+                          "  المزيد",
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontSize: 20,
+                              fontFamily: ArabicFonts.Amiri,
+                              package: 'google_fonts_arabic'),
+                        )),
 //                  SizedBox(width: 5,)
                   ],
                 )),
-            Container(height: 240,
+            Container(
+              height: 240,
               child: Padding(
-                padding: const EdgeInsets.only(top: 0,left: 10,right: 10),
+                padding: const EdgeInsets.only(top: 0, left: 10, right: 10),
                 child: StreamBuilder<List<FurnitureModel>>(
                   stream: stream,
-                  builder: (context,snapshot){
-                    if(snapshot.hasData){
-                      return      ListView.builder(
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView.builder(
                         itemCount: snapshot.data.length,
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
-                        itemBuilder: (context,index){
+                        itemBuilder: (context, index) {
                           var data = snapshot.data[index];
 
-                          return    Padding(
-                            padding: const EdgeInsets.only(left: 10,right: 10),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: kSecondColor,
-
-                              ),
-                              width: 175,
-                              height: 220,
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    height: 130,
-                                    width: 175,
-                                    child: ClipRRect(
-
-                                      borderRadius: BorderRadius.only(topRight: Radius.circular(20),topLeft: Radius.circular(20)),
-                                      child: CachedNetworkImage(
-                                        imageUrl: data.imageUrl,
-                                        width: 175,
-                                        height: 120,
-                                        fit: BoxFit.cover,
-                                        placeholder: (context,
-                                            url) =>
-                                            CircularProgressIndicator(),
-                                        errorWidget:
-                                            (context, url, error) =>
-                                            Icon(Icons.error),
-                                        placeholderFadeInDuration:
-                                        Duration(days: 30),
-                                        useOldImageOnUrlChange:
-                                        true,
-                                        filterQuality:
-                                        FilterQuality.low,
-                                      ),
-                                    ),
+                          return Padding(
+                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            child: Material(
+                              elevation: 4,
+                              borderRadius: BorderRadius.circular(20),
+                              child: Directionality(
+                                textDirection: TextDirection.rtl,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.white,
                                   ),
-
-
-                                  Container(
-                                    width: 175,
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: <Widget>[
-                                        AutoSizeText(
-                                          '${data.name}',
-                                          style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic', color: Colors.white,fontWeight: FontWeight.bold),
-                                          presetFontSizes: [12.0, 5.0, 4.0],
-                                          maxLines: 1,
-                                        ),
-                                        SizedBox(
-                                          width: 8,
-                                        ),
-                                        Text(":الاثاث    ",style: kPostStyleArabicBase),
-                                        SizedBox(
-                                          width: 13,
-                                        ),
-
-
-                                      ],),
-                                  ),
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.end,
+                                  width: 175,
+                                  height: 220,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      Text("${data.amount}",style: kPostStyleArabicChange,),
-                                      Text(" : القطع",style: kPostStyleArabicBase,),
+                                      Expanded(
+                                        child: Container(
+                                          height: 130,
+                                          width: 175,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.only(
+                                                topRight: Radius.circular(20),
+                                                topLeft: Radius.circular(20)),
+                                            child: CachedNetworkImage(
+                                              imageUrl: data.imageUrl,
+                                              width: 175,
+                                              height: 120,
+                                              fit: BoxFit.cover,
+                                              placeholder: (context, url) =>
+                                                  CircularProgressIndicator(),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      Icon(Icons.error),
+                                              placeholderFadeInDuration:
+                                                  Duration(days: 30),
+                                              useOldImageOnUrlChange: true,
+                                              filterQuality: FilterQuality.low,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
                                       SizedBox(
-                                        width: 10,
+                                        height: 5,
                                       ),
-
-
-                                    ],),
-
-
-
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: <Widget>[
-                                      Text("${data.state}",style: kPostStyleArabicChange),
-                                      Text(" : الحاله",style: kPostStyleArabicBase),
-
-
-                                    ],),
-                                ],
+                                      Expanded(
+                                          child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            AutoSizeText(
+                                              'الأثاث: ${data.name}',
+                                              style: TextStyle(
+                                                  fontFamily: ArabicFonts.Amiri,
+                                                  package:
+                                                      'google_fonts_arabic',
+                                                  fontWeight: FontWeight.bold),
+                                              presetFontSizes: [12.0, 5.0, 4.0],
+                                              maxLines: 1,
+                                            ),
+                                            Text(
+                                              "القطع: ${data.amount}",
+                                              style: kPostStyleArabicBase,
+                                            ),
+                                            Text("الحاله: ${data.state}",
+                                                style: kPostStyleArabicBase),
+                                          ],
+                                        ),
+                                      ))
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
                           );
                         },
                       );
-
-                    } else return Container();
+                    } else
+                      return Container();
                   },
-
                 ),
               ),
             ),
           ],
-        )
-    );
+        ));
   }
 }
-

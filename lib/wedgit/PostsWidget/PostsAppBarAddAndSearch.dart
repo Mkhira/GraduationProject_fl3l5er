@@ -83,14 +83,13 @@ class _PostsAppBarrHeaderState extends State<PostsAppBarrHeader> {
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius:
-                    BorderRadius.all(Radius.circular(10.0)),
-                  ),
+                   shape: BoxShape.circle
+                                    ),
                   width: 65.0,
                   height: 65.0,
                   child:
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(120.0),
                     child: CachedNetworkImage(
                       imageUrl: '${Provider.of<InfoProvider>(context).imageUrlProfile}',
                       height: 130,

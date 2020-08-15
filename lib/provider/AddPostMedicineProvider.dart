@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:company_task/Block/Block.dart';
 import 'package:company_task/Block/Validator.dart';
+import 'package:company_task/provider/MapProvider.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:company_task/wedgit/ChosseImage.dart';
 import 'package:company_task/wedgit/FriebaseErrorDailog.dart';
@@ -160,10 +161,8 @@ class AddPostMedicineProvider extends ChangeNotifier{
     }
     String urx;
 
-    if(locationList.length == 0){
-      locationList.insert(0, chosenLat);
-      locationList.insert(1, chosenLong);
-    }
+    locationList.insert(0, Provider.of<MapProvider>(context).lat);
+    locationList.insert(1, Provider.of<MapProvider>(context).lat);
 
     if(imagefile != null) {
       pr.show();
@@ -181,7 +180,7 @@ class AddPostMedicineProvider extends ChangeNotifier{
           builder: (BuildContext context) {
             return  DailogError(text: "من فضلك إختر صوره",titleText: "هنالك خطأ فى البيانات",); } );
     }
-    if(medicineAmount.value != null && medicineName.value != null &&  urx != null && locationList[0] != null && locationList[1] != null
+    if(medicineAmount.value != null && medicineName.value != null &&  urx != null && locationList[0] != null && locationList[1] != null && medicineDescription.value !=null
         && phone.value != null && name.length>=3 && dateTime != null && duration.value != null&&  phoneController.text.length == 11 &&dayController.text.length ==1){
       DocumentReference ref = await Firestore.instance.collection("medicine").document();
       ref.setData({
@@ -207,7 +206,7 @@ class AddPostMedicineProvider extends ChangeNotifier{
 
       }).then(close(context)).whenComplete( (){
         pr.hide();
-        close(context);
+        Navigator.pop(context);
         done();
 
       });
@@ -272,6 +271,7 @@ class AddPostMedicineProvider extends ChangeNotifier{
     phone.value =null;
     name.clear();duration.value =null;
     imagefile= null;
+    notifyListeners();
   }
 Bloc _bloc;
   done(){

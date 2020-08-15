@@ -8,6 +8,7 @@ import 'package:company_task/provider/SignUpLoginProvider/LoginProvider.dart';
 import 'file:///E:/flater_projects/company_task/lib/provider/SignUpLoginProvider/FireBaseAuth.dart';
 import 'package:company_task/service/LoginService.dart';
 import 'package:company_task/style/constent.dart';
+import 'package:company_task/wedgit/FriebaseErrorDailog.dart';
 import 'package:company_task/wedgit/OurTextFeilds/MyMainTextField.dart';
 import 'package:company_task/wedgit/Steppers/stepper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -26,6 +27,47 @@ class LoginMainScreen extends StatefulWidget {
 }
 
 class _LoginMainScreenState extends State<LoginMainScreen> {
+  FirebaseAuth auth = FirebaseAuth.instance;
+
+  Future restPassword(String email){
+
+    return auth.sendPasswordResetEmail(email: email).whenComplete(() {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return customError(
+              text: "تم ارسال رساله ",
+              titleText: " شكرا لك ",
+              onPressed: (){
+
+                Provider.of<LoginProvider>(context).resetEmail.value = null;
+                Provider.of<LoginProvider>(context).resetEmailController.text = null;
+
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+            );
+          });
+     }
+    ).catchError((onError){
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return customError(
+              text: "${onError.code}",
+              titleText: "هنالك خطأ ",
+              onPressed: (){
+                Provider.of<LoginProvider>(context).resetEmail.value = null;
+                Provider.of<LoginProvider>(context).resetEmailController.text = null;
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+            );
+          });
+
+    });
+
+  }
   String _animationType = 'idle';
   bool _obscure = true;
   IconData _icon = Icons.visibility_off;
@@ -100,7 +142,6 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
   @override
   Widget build(BuildContext context) {
     var loginProviderObj = Provider.of<LoginProvider>(context);
-
     return SafeArea(
       child: Scaffold(
         body: GestureDetector(
@@ -259,11 +300,38 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
                           ),
                           onPressed: () {
                             setState(() {
-                              _animationType = "test";
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return ResetPassword(
+                                      onPressed: (){
+                                        if(Provider.of<LoginProvider>(context).resetEmailController.text != null ){
+                                          restPassword(loginProviderObj.resetEmailController.text);
+
+                                        }else{
+                                          showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return customError(
+                                                  text: "تم ارسال رساله ",
+                                                  titleText: " شكرا لك ",
+                                                  onPressed: (){
+
+                                                    Provider.of<LoginProvider>(context).resetEmail.value = null;
+                                                    Provider.of<LoginProvider>(context).resetEmailController.text = null;
+
+                                                    Navigator.pop(context);
+                                                    Navigator.pop(context);
+                                                  },
+                                                );
+                                              });
+
+                                        }
+                                      },
+                                    );
+                                  });
                             });
                           },
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
                         ),
                         Text(
                           'اذا نسيت كلمة المرور',

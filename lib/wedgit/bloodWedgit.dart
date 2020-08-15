@@ -127,7 +127,7 @@ class donationList extends StatelessWidget {
                         "$description",
                         textDirection: TextDirection.rtl,
                         presetFontSizes: [10,8,5,2],
-                        style: TextStyle(fontWeight: FontWeight.bold,color: kSecondColor),
+                        style: TextStyle(fontWeight: FontWeight.bold,color: Colors.grey),
 
                     
                         maxLines: 2,

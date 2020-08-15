@@ -69,46 +69,44 @@ class _MainHomePageState extends State<MainHomePage> {
                           children: <Widget>[
                             SizedBox(width: 10,),
 
-                            Spacer(
-                              flex: 1,
-                            ),
-                            Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: kMainColor,
-                                ),
-                                width:
-                                MediaQuery.of(context).size.width / 1.4,
-                                height: 60,
-                              child: Row(
-                                textDirection: TextDirection.rtl,
-                                children: <Widget>[
-                                  Container(
-
-                                    width:
-                                    MediaQuery.of(context).size.width / 1.4,
-                                    child: AutoSizeText(
-                                      Provider.of<InfoProvider>(context).nameProfile != null ? "${Provider.of<InfoProvider>(context).nameProfile}" : "من فضلك اضغط هنا >>",
-                                      textAlign: TextAlign.right,
-                                      presetFontSizes: [ 20, 13,12,8],
-                                      style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic', fontWeight: FontWeight.bold,
-                                        color: kSecondColor,),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                                ),
-                              SizedBox(width: 10,),
+                           Spacer(),
+//                            Container(
+//                                decoration: BoxDecoration(
+//                                  borderRadius: BorderRadius.circular(20),
+//                                  color: kMainColor,
+//                                ),
+//                                width:
+//                                MediaQuery.of(context).size.width / 1.4,
+//                                height: 60,
+//                              child: Row(
+//                                textDirection: TextDirection.rtl,
+//                                children: <Widget>[
+//                                  Container(
+//
+//                                    width:
+//                                    MediaQuery.of(context).size.width / 1.4,
+//                                    child: AutoSizeText(
+//                                      Provider.of<InfoProvider>(context).nameProfile != null ? "${Provider.of<InfoProvider>(context).nameProfile}" : "من فضلك اضغط هنا >>",
+//                                      textAlign: TextAlign.right,
+//                                      presetFontSizes: [ 20, 13,12,8],
+//                                      style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic', fontWeight: FontWeight.bold,
+//                                        color: kSecondColor,),
+//                                      maxLines: 1,
+//                                      overflow: TextOverflow.ellipsis,
+//                                    ),
+//                                  ),
+//                                ],
+//                              ),
+//                                ),
                             GestureDetector(
                               onTap: () {
                                 Navigator.pushNamed(context,ProfileScreen.id);
                               },
                               child:Container(
+
                                 decoration: BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                  shape: BoxShape.circle
                                 ),
                                 width: 65.0,
                                 height: 65.0,
@@ -120,7 +118,7 @@ class _MainHomePageState extends State<MainHomePage> {
                                       style: TextStyle(color: Colors.white),
                                     ))
                                     : ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(120),
                                   child:CachedNetworkImage(
                                     imageUrl: profileProvider.imageUrlProfile,
 
@@ -139,6 +137,7 @@ class _MainHomePageState extends State<MainHomePage> {
                                 ),
                               ),
                             ),
+                            SizedBox(width: 20,),
 
                           ],
                         ),
@@ -649,25 +648,7 @@ class EventHeader extends StatelessWidget {
       color: Color(0xffe6e6ea),
       child: Column(
         children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(left: 40, bottom: 20, top: 10),
-            child: Row(
-              textDirection: TextDirection.rtl,
-              children: <Widget>[
-                Text(
-                  "تبرع بالمال",
-                  style: HomeHeadreStyle,
-                ),
-                Spacer(
-                  flex: 1,
-                ),
-                Text(
-                  "المزيد",
-                  style: homeLittleHeaderStyle,
-                ),
-              ],
-            ),
-          ),
+
           StreamBuilder<List<EventModel>>(
             stream: _bloc.streamEvent,
             builder: (context, snapshot) {
@@ -675,7 +656,7 @@ class EventHeader extends StatelessWidget {
                 return CarouselSlider.builder(
                     autoPlay: true,
                     autoPlayAnimationDuration: Duration(milliseconds: 800),
-                    height: x ? 320 : 420,
+                    height: x ? 350 : 420,
                     itemCount: snapshot.data.length,
                     scrollPhysics: BouncingScrollPhysics(),
                     itemBuilder: (context, index) {

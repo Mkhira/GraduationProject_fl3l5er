@@ -114,6 +114,7 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.grey[200],
         body:        CustomScrollView(
           slivers: <Widget>[
             SliverPersistentHeader(
@@ -185,7 +186,7 @@ class UserContainer extends StatelessWidget {
       padding: const EdgeInsets.only(left: 15, right: 15),
       child: Material(
         borderRadius: BorderRadius.circular(20),
-        elevation: 3,
+        elevation: 0,
         child: Container(
           width: MediaQuery.of(context).size.width - 40,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),

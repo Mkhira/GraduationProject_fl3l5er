@@ -120,6 +120,7 @@ class _ChatScreenPageState extends State<ChatScreenPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.grey[200],
           floatingActionButton: FloatingActionButton(
             backgroundColor: kSecondColor,
             child: Icon(Icons.search),
@@ -320,6 +321,7 @@ class UserContainer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 15),
       child: GestureDetector(
+
         onTap:   (){
 
           print("${chatModel.roomId}");
@@ -332,10 +334,11 @@ class UserContainer extends StatelessWidget {
         },
         child: Material(
           borderRadius: BorderRadius.circular(20),
-          elevation: 3,
+          elevation: 0,
           child: Container(
             width: MediaQuery.of(context).size.width - 40,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20)),
             height: 100,
             child: Row(
               textDirection: TextDirection.rtl,
@@ -373,6 +376,7 @@ class UserContainer extends StatelessWidget {
 
                 SizedBox(
                   width: 10,
+                  child: Divider(),
                 )
               ],
             ),

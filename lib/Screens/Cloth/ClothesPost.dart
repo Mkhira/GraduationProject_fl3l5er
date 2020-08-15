@@ -48,6 +48,7 @@ class _ClothesPostState extends State<ClothesPost> {
         drawer: MainDrawer(),
         appBar: PreferredSize(
             child: PostsAppBarrHeader(add:  () {
+              Provider.of<AddPostClothProvider>(context).close(context);
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return AddClothPostDataScreen();
               }));
@@ -82,7 +83,7 @@ class _ClothesPostState extends State<ClothesPost> {
             },),
 
             preferredSize: Size.fromHeight(80)),
-        backgroundColor: kMainColor,
+        backgroundColor: Color(0xffeeeeee),
         body: CustomScrollView(
           slivers: <Widget>[
             SliverPersistentHeader(
@@ -96,14 +97,14 @@ class _ClothesPostState extends State<ClothesPost> {
             SliverList(
               delegate: SliverChildListDelegate(
                 <Widget>[
-                  SizedBox(
-                    height: 15,
-                  ),
+                 Divider(
+                   color: kSecondColor,
+                 ),
                   Row(
                     textDirection: TextDirection.rtl,
                     children: <Widget>[
                       SizedBox(width: 15,),
-                      Text("الملابس",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold),),
+                      Text("الملابس",style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',fontSize: 20,fontWeight: FontWeight.bold,color: kSecondColor),),
                     ],
                   ),
 
@@ -251,7 +252,7 @@ class ContentWidget extends StatelessWidget {
           );
         }));
       },
-      child: PostsMaterial(type: "الملبس  ",
+      child: PostsMaterial(type: "الملابس" ,
         state: clothModel.state,
         owner: clothModel.owner,
         imageUrl: clothModel.imageUrl,

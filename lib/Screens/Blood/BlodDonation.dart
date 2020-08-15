@@ -6,6 +6,7 @@ import 'package:company_task/Screens/Profile/profile_screen.dart';
 import 'package:company_task/Utli/Common.dart';
 import 'package:company_task/models/BloodNeedyModel.dart';
 import 'package:company_task/models/User.dart';
+import 'package:company_task/provider/AddingBloodPostProvider.dart';
 import 'package:company_task/provider/info_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +44,7 @@ class _BloodDonationState extends State<BloodDonation> {
           floatingActionButton: FloatingActionButton(
             backgroundColor: kSecondColor,
             onPressed: (){
+              Provider.of<BloodPostProvider>(context).close(context);
               Navigator.push(context, MaterialPageRoute(builder: (context)=>AddBloodPostScreen()));
             },
             child: Icon(Icons.add),
@@ -56,7 +58,7 @@ class _BloodDonationState extends State<BloodDonation> {
             pinned: true,
             floating: true,
             delegate: TopClothesPostHeader(
-                maxxExtent: 300,
+                maxxExtent: 210,
                 minnExtent: 100,
                 stream: _bloc.streamClothFinish),
           ),
@@ -126,103 +128,107 @@ class TopClothesPostHeader implements SliverPersistentHeaderDelegate {
     var profileProvider = Provider.of<InfoProvider>(context);
 
     // TODO: implement build
-    return    Column(
-      children: <Widget>[
-        Container(
-          width: MediaQuery.of(context).size.width,
+    return    Container(
 
-          decoration: BoxDecoration(
-              color: Color(0xffe6e6ea),
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20))),
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: <Widget>[
-                  Spacer(
-                    flex: 5,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: kMainColor,
+      child: Column(
+        children: <Widget>[
+          Container(
+            width: MediaQuery.of(context).size.width,
+
+            decoration: BoxDecoration(
+                color: Color(0xffe6e6ea),
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20))),
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: <Widget>[
+                    Spacer(
+                      flex: 5,
                     ),
-                    width:
-                    MediaQuery.of(context).size.width / 1.5,
-                    height: 60,
-                    child: Row(
-                      textDirection: TextDirection.rtl,
-                      children: <Widget>[
-                        Text(Provider.of<InfoProvider>(context).nameProfile != null ? "${Provider.of<InfoProvider>(context).nameProfile}" : "من فضلك اضغط هنا >>",style: TextStyle(
-                            fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
-                            fontWeight: FontWeight.bold,
-                            color: kSecondColor,
-                            fontSize: 20
-                        ),)
-                      ],
-                    ),
-                  ),
-                  Spacer(
-                    flex: 1,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context,ProfileScreen.id);
-                    },
-                    child:Container(
+                    Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        borderRadius: BorderRadius.circular(20),
+                        color: kMainColor,
                       ),
-                      width: 65.0,
-                      height: 65.0,
-                      child:  profileProvider.imageUrlProfile ==
-                          null
-                          ? Center(
-                          child: Text(
-                            'Click',
-                            style: TextStyle(color: Colors.white),
-                          ))
-                          : ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child:CachedNetworkImage(
-                          imageUrl: profileProvider.imageUrlProfile,
-                          height: 98,
-                          width: 200,
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) =>
-                              CircularProgressIndicator(),
-                          errorWidget:
-                              (context, url, error) =>
-                              Icon(Icons.error),
-                          placeholderFadeInDuration:
-                          Duration(days: 30),
-                          useOldImageOnUrlChange: true,
-                          filterQuality:
-                          FilterQuality.low,
+                      width:
+                      MediaQuery.of(context).size.width / 1.5,
+                      height: 60,
+                      child: Row(
+                        textDirection: TextDirection.rtl,
+                        children: <Widget>[
+                          Text(Provider.of<InfoProvider>(context).nameProfile != null ? "${Provider.of<InfoProvider>(context).nameProfile}" : "من فضلك اضغط هنا >>",style: TextStyle(
+                              fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',
+                              fontWeight: FontWeight.bold,
+                              color: kSecondColor,
+                              fontSize: 20
+                          ),)
+                        ],
+                      ),
+                    ),
+                    Spacer(
+                      flex: 1,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+
+                        Navigator.pushNamed(context,ProfileScreen.id);
+                      },
+                      child:Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle
+                        ),
+                        width: 65.0,
+                        height: 65.0,
+                        child:  profileProvider.imageUrlProfile ==
+                            null
+                            ? Center(
+                            child: Text(
+                              'Click',
+                              style: TextStyle(color: Colors.white),
+                            ))
+                            : ClipRRect(
+                          borderRadius: BorderRadius.circular(120),
+                          child:CachedNetworkImage(
+                            imageUrl: profileProvider.imageUrlProfile,
+                            height: 98,
+                            width: 200,
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) =>
+                                CircularProgressIndicator(),
+                            errorWidget:
+                                (context, url, error) =>
+                                Icon(Icons.error),
+                            placeholderFadeInDuration:
+                            Duration(days: 30),
+                            useOldImageOnUrlChange: true,
+                            filterQuality:
+                            FilterQuality.low,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Spacer(
-                    flex: 1,
-                  ),
-                ],
+                    Spacer(
+                      flex: 1,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
 
 
-        Container(
-          padding: EdgeInsets.all(15),
-           color: kMainColor,
-          width: MediaQuery.of(context).size.width,
-          child: Text("الهروب من الموت قد يتطلب كيس دم واحد ، أنقذ حياة مريض واليوم أنت المتبرع وغدًا قد تكون من يحتاج إلى التبرع ، بادر بإنقاذ مريض",textDirection: TextDirection.rtl,style: TextStyle(fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',color: Colors.black),),
-        ),
+          Container(
+            padding: EdgeInsets.all(15),
+             color: kMainColor,
+            width: MediaQuery.of(context).size.width,
+            child: Text("الهروب من الموت قد يتطلب كيس دم واحد ، أنقذ حياة مريض واليوم أنت المتبرع وغدًا قد تكون من يحتاج إلى التبرع ، بادر بإنقاذ مريض",textDirection: TextDirection.rtl,style: TextStyle(fontWeight: FontWeight.bold,fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic',color: Colors.black),),
+          ),
 
-      ],
+        ],
+      ),
     );
   }
 

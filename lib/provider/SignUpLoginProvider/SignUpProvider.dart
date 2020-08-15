@@ -45,6 +45,7 @@ class SignUpProvider extends ChangeNotifier {
       _email.stream.transform(validator.validateEmail);
   Function(String) get emailChange => _email.sink.add;
 
+
   final _password = BehaviorSubject<String>();
   Stream<String> get passwordStream =>
       _password.stream.transform(validator.validatePassword);

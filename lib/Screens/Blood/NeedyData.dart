@@ -108,14 +108,16 @@ class _BloodNeedyDataState extends State<BloodNeedyData> {
         child: SingleChildScrollView(
 
           child: Container(
-            color: Color(0xffFFC200),
+            color: kSecondColor,
             height: 850,
             child: Stack(
               children: <Widget>[
                 Positioned(
                   top: 5,
                   left: 15,
-                  child: IconButton(icon: Icon(Icons.arrow_back,color: Colors.white,size: 40,), onPressed: null),
+                  child: IconButton(icon: Icon(Icons.arrow_back,color: Colors.white,size: 40,), onPressed: (){
+                    Navigator.pop(context);
+                  }),
                 ),
                 Positioned(
                   top: 40,
