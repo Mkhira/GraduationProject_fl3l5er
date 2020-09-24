@@ -206,7 +206,7 @@ class AddPostMedicineProvider extends ChangeNotifier{
 
       }).then(close(context)).whenComplete( (){
         pr.hide();
-        Navigator.pop(context);
+
         done();
 
       });

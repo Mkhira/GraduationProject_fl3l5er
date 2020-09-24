@@ -50,7 +50,7 @@ class SignUpProvider extends ChangeNotifier {
   Stream<String> get passwordStream =>
       _password.stream.transform(validator.validatePassword);
   Function(String) get passwordChange => _password.sink.add;
-  File imageFile;
+  File imagefile;
 
 
   final phone = BehaviorSubject<String>();
@@ -69,15 +69,15 @@ class SignUpProvider extends ChangeNotifier {
   Future<void> openGallary(BuildContext context) async {
     var picture = await ImagePicker.pickImage(source: ImageSource.gallery);
 
-    imageFile = picture;
-    print(imageFile);
+    imagefile = picture;
+    print(imagefile);
     print(picture);
     notifyListeners();
   }
   Future<void> openCamera(BuildContext context) async {
     var picture = await ImagePicker.pickImage(source: ImageSource.camera);
-    imageFile = picture;
-    print(imageFile.toString());
+    imagefile = picture;
+    print(imagefile.toString());
     notifyListeners();
   }
   onChoseImage(context) {
@@ -112,17 +112,17 @@ class SignUpProvider extends ChangeNotifier {
 
 
     uploodImage(BuildContext context)async{
-      if (imageFile != null) {
+      if (imagefile != null) {
         StorageReference _storageReference = FirebaseStorage.instance
             .ref()
-            .child("Profile/${p.basename(imageFile.path)}");
+            .child("Profile/${p.basename(imagefile.path)}");
         StorageUploadTask storageUploadTask =
-        _storageReference.putFile(imageFile);
+        _storageReference.putFile(imagefile);
         StorageTaskSnapshot snapshot = await storageUploadTask.onComplete;
 
         urx = await snapshot.ref.getDownloadURL();
 
-      } else if (imageFile == null) {
+      } else if (imagefile == null) {
         print(urx);
         showDialog(
             context: context,

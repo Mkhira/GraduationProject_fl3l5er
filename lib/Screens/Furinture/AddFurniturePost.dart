@@ -291,6 +291,7 @@ class _AddFurniturePostScreenState extends State<AddFurniturePostScreen> {
                                   width: MediaQuery.of(context).size.width,
                                   child: Form(
                                     key: _form,
+                                    autovalidate: true,
                                     child: Row(
                                       children: <Widget>[
                                         SizedBox(

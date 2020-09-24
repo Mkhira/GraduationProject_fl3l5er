@@ -160,7 +160,7 @@ class Bloc extends Object with Validator {
   eventRepostry _repostry = eventRepostry();
 
   final _evntList = PublishSubject<List<EventModel>>();
-  Observable<List<EventModel>> get streamEvent => _evntList.stream;
+  Stream get streamEvent => _evntList.stream;
 
   fetchEvent() async {
     List<EventModel> _eventmodel = await _repostry.getevent();
@@ -170,7 +170,7 @@ class Bloc extends Object with Validator {
   TopDonatorsRepostry _topdonatorsrepostry = TopDonatorsRepostry();
 
   final _topList = PublishSubject<List<TopDonatorsModel>>();
-  Observable<List<TopDonatorsModel>> get streamtopdonators => _topList.stream;
+  Stream get streamtopdonators => _topList.stream;
 
   fetchTopDonators() async {
     List<TopDonatorsModel> _topmodel =
@@ -181,7 +181,7 @@ class Bloc extends Object with Validator {
   charityRepostry _charityrepostry = charityRepostry();
 
   final _chairtyList = PublishSubject<List<charityModel>>();
-  Observable<List<charityModel>> get streamCharity => _chairtyList.stream;
+  Stream get streamCharity => _chairtyList.stream;
 
   fetchcharity() async {
     List<charityModel> _charitymodel = await _charityrepostry.getcharity();
@@ -226,7 +226,7 @@ class Bloc extends Object with Validator {
   }
 
   final _medicineListSearch = PublishSubject<List<MedicineModel>>();
-  Observable<List<MedicineModel>> get streamMedicinesearch =>
+  Stream get streamMedicinesearch =>
       _medicineListSearch.stream;
   MedicineRepostrySearch _medicineRepostrySearch = MedicineRepostrySearch();
 
@@ -240,7 +240,7 @@ class Bloc extends Object with Validator {
   MedicineRepostry _medicineRepostry = MedicineRepostry();
 
   final _medicineList = PublishSubject<List<MedicineModel>>();
-  Observable<List<MedicineModel>> get streamMedicine => _medicineList.stream;
+  Stream get streamMedicine => _medicineList.stream;
 
   fetchMedicine() async {
     List<MedicineModel> _medicineModel = await _medicineRepostry.getMedicine();
@@ -250,7 +250,7 @@ class Bloc extends Object with Validator {
   MedicineRepostryFinish _medivcineRepostryFinish = MedicineRepostryFinish();
 
   final _MedicineListFinish = PublishSubject<List<MedicineModel>>();
-  Observable<List<MedicineModel>> get streamMedicineFinish =>
+  Stream get streamMedicineFinish =>
       _MedicineListFinish.stream;
 
   fetchMedicineFinish() async {
@@ -263,7 +263,7 @@ class Bloc extends Object with Validator {
       MedicineRepostoryProfile();
 
   final _MedicineListProfile = PublishSubject<List<MedicineModel>>();
-  Observable<List<MedicineModel>> get streamMedicineProfile =>
+  Stream get streamMedicineProfile =>
       _MedicineListProfile.stream;
 
   Future fetchMedicineProfileData(BuildContext context) async {
@@ -274,7 +274,7 @@ class Bloc extends Object with Validator {
 
   /////// Cloth ///
   final _clothListSearch = PublishSubject<List<ClothModel>>();
-  Observable<List<ClothModel>> get streamClothsearch => _clothListSearch.stream;
+  Stream get streamClothsearch => _clothListSearch.stream;
   ClothRepostrySearch _clothRepostrySearch = ClothRepostrySearch();
 
   ClothSearch() async {
@@ -287,7 +287,7 @@ class Bloc extends Object with Validator {
   ClothRepostry _clothRepostry = ClothRepostry();
 
   final _clothList = PublishSubject<List<ClothModel>>();
-  Observable<List<ClothModel>> get streamCloth => _clothList.stream;
+  Stream get streamCloth => _clothList.stream;
 
   fetchCloth() async {
     List<ClothModel> _clothModel = await _clothRepostry.getCloth();
@@ -297,7 +297,7 @@ class Bloc extends Object with Validator {
   ClothRepostryFinish _clothRepostryFinish = ClothRepostryFinish();
 
   final _clothListFinish = PublishSubject<List<ClothModel>>();
-  Observable<List<ClothModel>> get streamClothFinish => _clothListFinish.stream;
+  Stream get streamClothFinish => _clothListFinish.stream;
 
   fetchClothFinish() async {
     List<ClothModel> _clothModelfinish = await _clothRepostryFinish.getCloth();
@@ -307,7 +307,7 @@ class Bloc extends Object with Validator {
   ClothRepostoryProfile _clothRepostryProfile = ClothRepostoryProfile();
 
   final _clothListProfile = PublishSubject<List<ClothModel>>();
-  Observable<List<ClothModel>> get streamClothProfile =>
+  Stream get streamClothProfile =>
       _clothListProfile.stream;
 
   Future fetchClothProfileData(BuildContext context) async {
@@ -318,7 +318,7 @@ class Bloc extends Object with Validator {
   ////// Cloth Finish////
 
   final _furnitureListSearch = PublishSubject<List<FurnitureModel>>();
-  Observable<List<FurnitureModel>> get streamFurnituresearch =>
+  Stream get streamFurnituresearch =>
       _furnitureListSearch.stream;
   FurnitureRepostrySearch _furnitureRepostrySearch = FurnitureRepostrySearch();
 
@@ -332,7 +332,7 @@ class Bloc extends Object with Validator {
   FurnitureRepostry _furnitureRepostry = FurnitureRepostry();
 
   final _furnitureList = PublishSubject<List<FurnitureModel>>();
-  Observable<List<FurnitureModel>> get streamFurniture => _furnitureList.stream;
+  Stream get streamFurniture => _furnitureList.stream;
   fetchFurniture() async {
     List<FurnitureModel> _furnitureModel =
         await _furnitureRepostry.getFurniture();
@@ -342,7 +342,7 @@ class Bloc extends Object with Validator {
   FurnitureRepostryFinish _furnitureRepostryFinish = FurnitureRepostryFinish();
 
   final _furnitureListFinish = PublishSubject<List<FurnitureModel>>();
-  Observable<List<FurnitureModel>> get streamFurnitureFinish =>
+  Stream get streamFurnitureFinish =>
       _furnitureListFinish.stream;
 
   fetchFurnitureFinish() async {
@@ -355,7 +355,7 @@ class Bloc extends Object with Validator {
       FurnitureRepostoryProfile();
 
   final _furnitureListProfile = PublishSubject<List<FurnitureModel>>();
-  Observable<List<FurnitureModel>> get streamFurnitureProfile =>
+  Stream get streamFurnitureProfile =>
       _furnitureListProfile.stream;
 
   Future fetchFurnitureProfileData(BuildContext context) async {
@@ -368,7 +368,7 @@ class Bloc extends Object with Validator {
 
   BloodRepostry _bloodRepostry = BloodRepostry();
   final _bloodNeedyList = PublishSubject<List<BloodNeedyModel>>();
-  Observable<List<BloodNeedyModel>> get streamNeedy => _bloodNeedyList.stream;
+  Stream get streamNeedy => _bloodNeedyList.stream;
 
   fetchBloodNeedy() async {
     List<BloodNeedyModel> _bloodModel = await _bloodRepostry.getNeedy();
@@ -379,7 +379,7 @@ class Bloc extends Object with Validator {
 
 
 
-  Future<List> getNewsOnSearchBar(BuildContext context) async {
+  Future<List> GetUserData(BuildContext context) async {
     var prov = Provider.of<InfoProvider>(context);
     final String _collection = 'Users';
     final Firestore _fireStore = Firestore.instance;
@@ -453,6 +453,7 @@ class Bloc extends Object with Validator {
         await SharedPreferences.getInstance();
     sharedPreferencesGetUserName.setString(Common.name, prov.newsListUser[7]);
 
+
     SharedPreferences sharedPreferencesGetUserPassword =
         await SharedPreferences.getInstance();
     sharedPreferencesGetUserPassword.setString(
@@ -506,7 +507,7 @@ class Bloc extends Object with Validator {
   UserRopestryLogin _userRopestryLogin= UserRopestryLogin();
 
   final _userRopestrylist = PublishSubject<List<User>>();
-  Observable<List<User>> get streamUSerProfile =>
+  Stream get streamUSerProfile =>
       _userRopestrylist.stream;
 
   fetchUSerProfile(BuildContext context ,String userId) async {
@@ -525,7 +526,7 @@ class Bloc extends Object with Validator {
   chatRommRepostry _chatRomRepostry= chatRommRepostry();
 
   final _chatRomRepostryList = PublishSubject<List<ChatModel>>();
-  Observable<List<ChatModel>> get streamChatRoom =>
+  Stream get streamChatRoom =>
       _chatRomRepostryList.stream;
 
   fetchChatRoom(BuildContext context) async {

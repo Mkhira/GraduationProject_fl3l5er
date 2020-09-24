@@ -19,7 +19,8 @@ import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as p;
-
+import '../Block/Block.dart';
+import '../Screens/Cloth/ClothesPost.dart';
 class AddPostClothProvider extends ChangeNotifier{
 
   bool value = false;
@@ -53,6 +54,7 @@ class AddPostClothProvider extends ChangeNotifier{
     notifyListeners();
   }
 
+  Bloc _bloc = Bloc();
 
   final clothName = BehaviorSubject<String>();
 
@@ -204,7 +206,11 @@ class AddPostClothProvider extends ChangeNotifier{
 
           }).then(done()).whenComplete((){
             pr.hide();
+            _bloc.fetchCloth();
+            _bloc.fetchClothFinish();
+
             Navigator.pop(context);
+
           });
       print(ref.documentID);}
      else if((locationList[0] == null || locationList[1] == null) && imageFileCloth != null && urx != null){

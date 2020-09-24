@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Bloc _bloc;
 
   open(){
-             bloc.getNewsOnSearchBar(context);
+             bloc.GetUserData(context);
       Provider.of<InfoProvider>(context).fetch();
     Navigator.pushReplacement(context,
         MaterialPageRoute(
@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     Bloc();
     _bloc = Bloc();
-    _bloc.getNewsOnSearchBar(context);
+    _bloc.GetUserData(context);
     _bloc.fetchChatRoom(context);
 
     super.initState();

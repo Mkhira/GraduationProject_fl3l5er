@@ -214,6 +214,7 @@ TextEditingController dayController = TextEditingController();
           }).whenComplete((){
             pr.hide();
             Navigator.pop(context);
+
             locationList.clear();
 
           });

@@ -172,13 +172,13 @@ class _StepperScreenState extends State<StepperScreen> {
               child:     ClipRRect(
                 borderRadius:
                 BorderRadius.all(Radius.circular(120)),
-                child: signUpProviderObj.imageFile == null
+                child: signUpProviderObj.imagefile == null
                     ? Container(
                   height: 0,
                   width: 0,
                 )
                     : Image.file(
-                  signUpProviderObj.imageFile,
+                  signUpProviderObj.imagefile,
                   height: 120,
                   width: 120,
                 ),

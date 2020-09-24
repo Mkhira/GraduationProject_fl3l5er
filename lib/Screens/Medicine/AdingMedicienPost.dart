@@ -124,7 +124,7 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
                                          onPressed: () {
                                            provider.onChoseImage(context);
                                          }),
-                                   )
+                                   ),
                                  ],
                                )),
 
@@ -337,7 +337,7 @@ class _AddMedicinePostDataScreenState extends State<AddMedicinePostDataScreen> {
                             width: MediaQuery.of(context).size.width,
                             child: Form(
                               key: _form,
-                              autovalidate: false,
+                              autovalidate: true,
                               child: Row(
                                 children: <Widget>[
                                   SizedBox(

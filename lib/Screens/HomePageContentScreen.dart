@@ -67,37 +67,38 @@ class _MainHomePageState extends State<MainHomePage> {
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           children: <Widget>[
-                            SizedBox(width: 10,),
+                            SizedBox(width: 0,),
 
                            Spacer(),
-//                            Container(
-//                                decoration: BoxDecoration(
-//                                  borderRadius: BorderRadius.circular(20),
-//                                  color: kMainColor,
-//                                ),
-//                                width:
-//                                MediaQuery.of(context).size.width / 1.4,
-//                                height: 60,
-//                              child: Row(
-//                                textDirection: TextDirection.rtl,
-//                                children: <Widget>[
-//                                  Container(
-//
-//                                    width:
-//                                    MediaQuery.of(context).size.width / 1.4,
-//                                    child: AutoSizeText(
-//                                      Provider.of<InfoProvider>(context).nameProfile != null ? "${Provider.of<InfoProvider>(context).nameProfile}" : "من فضلك اضغط هنا >>",
-//                                      textAlign: TextAlign.right,
-//                                      presetFontSizes: [ 20, 13,12,8],
-//                                      style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic', fontWeight: FontWeight.bold,
-//                                        color: kSecondColor,),
-//                                      maxLines: 1,
-//                                      overflow: TextOverflow.ellipsis,
-//                                    ),
-//                                  ),
-//                                ],
-//                              ),
-//                                ),
+                            Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: kMainColor,
+                                ),
+                                width:
+                                MediaQuery.of(context).size.width / 1.4,
+                                height: 60,
+                              child: Row(
+                                textDirection: TextDirection.rtl,
+                                children: <Widget>[
+                                  Container(
+
+                                    width:
+                                    MediaQuery.of(context).size.width / 1.4,
+                                    child: AutoSizeText(
+                                      Provider.of<InfoProvider>(context).nameProfile != null ? "${Provider.of<InfoProvider>(context).nameProfile}" : "من فضلك اضغط هنا >>",
+                                      textAlign: TextAlign.right,
+                                      presetFontSizes: [ 20, 13,12,8],
+                                      style: TextStyle(fontFamily: ArabicFonts.Amiri,package: 'google_fonts_arabic', fontWeight: FontWeight.bold,
+                                        color: Colors.black,),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                                ),
+                            SizedBox(width: 15,),
                             GestureDetector(
                               onTap: () {
                                 Navigator.pushNamed(context,ProfileScreen.id);

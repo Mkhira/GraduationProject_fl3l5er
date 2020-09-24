@@ -17,28 +17,9 @@ class ConversationScreen extends StatefulWidget {
   @override
   _ConversationScreenState createState() => _ConversationScreenState();
 }
+
 class _ConversationScreenState extends State<ConversationScreen> {
   TextEditingController messageController = TextEditingController();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   DataBaseMethods dataBaseMethods = DataBaseMethods();
 
@@ -54,20 +35,6 @@ class _ConversationScreenState extends State<ConversationScreen> {
     }
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   Stream chatMessageStream;
   @override
   void initState() {
@@ -79,6 +46,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
     });
     super.initState();
   }
+
   Widget chatMessageList() {
     return StreamBuilder(
       stream: chatMessageStream,
@@ -101,6 +69,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
       },
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -214,7 +183,11 @@ class _ConversationScreenState extends State<ConversationScreen> {
                 ),
               ),
             ],
-          )),);}}
+          )),
+    );
+  }
+}
+
 class MessageTail extends StatelessWidget {
   MessageTail({this.message, this.isMyName});
 
